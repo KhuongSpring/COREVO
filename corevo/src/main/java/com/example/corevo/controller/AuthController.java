@@ -4,9 +4,11 @@ import com.example.corevo.base.RestApiV1;
 import com.example.corevo.base.VsResponseUtil;
 import com.example.corevo.constant.SuccessMessage;
 import com.example.corevo.constant.UrlConstant;
+import com.example.corevo.domain.dto.request.auth.ForgotPasswordRequestDto;
 import com.example.corevo.domain.dto.request.auth.LoginRequestDto;
 import com.example.corevo.domain.dto.request.auth.RegisterRequestDto;
-import com.example.corevo.domain.dto.request.auth.otp.VerifyOtpRequest;
+import com.example.corevo.domain.dto.request.auth.ResetPasswordRequestDto;
+import com.example.corevo.domain.dto.request.auth.otp.VerifyOtpRequestDto;
 import com.example.corevo.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -36,8 +38,24 @@ public class AuthController {
     }
 
     @PostMapping(UrlConstant.Auth.VERIFY_OTP)
-    public ResponseEntity<?> verify(@Valid @RequestBody VerifyOtpRequest request){
-        return VsResponseUtil.success(authService.verifyOtp(request));
+    public ResponseEntity<?> verify(@Valid @RequestBody VerifyOtpRequestDto request){
+        return VsResponseUtil.success(authService.verifyOtpToRegister(request));
     }
 
+    @PostMapping(UrlConstant.Auth.FORGOT_PASSWORD)
+    public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequestDto request){
+        authService.forgotPassword(request);
+        return VsResponseUtil.success(SuccessMessage.Auth.SUCCESS_SEND_OTP);
+    }
+
+    @PostMapping(UrlConstant.Auth.VERIFY_OTP_TO_RESET_PASSWORD)
+    public ResponseEntity<?> verifyToResetPassword(@Valid @RequestBody VerifyOtpRequestDto request){
+        return VsResponseUtil.success(authService.verifyOtpToResetPassword(request));
+    }
+
+
+    @PostMapping(UrlConstant.Auth.RESET_PASSWORD)
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequestDto request){
+        return VsResponseUtil.success(authService.resetPassword(request));
+    }
 }

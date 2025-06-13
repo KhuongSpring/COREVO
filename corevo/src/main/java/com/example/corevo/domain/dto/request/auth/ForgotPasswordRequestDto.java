@@ -1,4 +1,4 @@
-package com.example.corevo.domain.dto.request.auth.otp;
+package com.example.corevo.domain.dto.request.auth;
 
 import com.example.corevo.constant.ErrorMessage;
 import jakarta.validation.constraints.NotBlank;
@@ -10,11 +10,8 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class VerifyOtpRequest {
+public class ForgotPasswordRequestDto {
 
-    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
+    @NotBlank(message = ErrorMessage.INVALID_SOME_THING_FIELD_IS_REQUIRED)
     String email;
-
-    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    String otp;
 }
