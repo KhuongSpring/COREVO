@@ -3,6 +3,7 @@ package com.example.corevo.config;
 import com.example.corevo.security.JwtAuthenticationFilter;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -17,21 +18,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SecurityConfig {
-    String[] PUBLIC_END_POINT = {
-            "/api/v1/auth/**"
-    };
+    @Value("${security.public-endpoints}")
+    String[] PUBLIC_END_POINT;
 
-    String[] USER_END_POINT = {
-            "/user/**"
-    };
+    @Value("${security.user-endpoints}")
+    String[] USER_END_POINT;
 
-    String[] ADMIN_END_POINT = {
-            "/user/**"
-    };
+    @Value("${security.admin-endpoints}")
+    String[] ADMIN_END_POINT;
 
-    JwtAuthenticationFilter jwtAuthenticationFilter;
+    final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;

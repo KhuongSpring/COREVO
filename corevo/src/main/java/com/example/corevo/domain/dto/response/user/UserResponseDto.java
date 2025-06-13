@@ -18,8 +18,6 @@ public class UserResponseDto {
 
     String username;
 
-    String password;
-
     String email;
 
     String firstName;

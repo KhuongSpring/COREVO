@@ -1,4 +1,4 @@
-package com.example.corevo.domain.dto.request;
+package com.example.corevo.domain.dto.request.auth;
 
 import com.example.corevo.constant.ErrorMessage;
 import jakarta.validation.constraints.Email;
@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserCreateRequestDto {
+public class RegisterRequestDto {
     @NotNull(message = ErrorMessage.INVALID_SOME_THING_FIELD_IS_REQUIRED)
     String username;
 

@@ -1,5 +1,7 @@
 package com.example.corevo.service.impl;
 
+import com.example.corevo.constant.RoleConstant;
+import com.example.corevo.exception.InternalServerException;
 import com.example.corevo.service.JwtService;
 import com.example.corevo.service.UserService;
 import com.nimbusds.jose.JOSEException;
@@ -50,7 +52,7 @@ public class JwtServiceImpl implements JwtService {
                     .subject(username)
                     .issueTime(new Date())
                     .expirationTime(new Date(System.currentTimeMillis() + EXPIRATION))
-                    .claim("authorities", List.of("ROLE_USER"))
+                    .claim("authorities", List.of(RoleConstant.USER))
                     .build();
 
             SignedJWT signedJWT = new SignedJWT(
@@ -63,7 +65,7 @@ public class JwtServiceImpl implements JwtService {
             return signedJWT.serialize();
 
         } catch (JOSEException e) {
-            throw new RuntimeException("Error while signing JWT", e);
+            throw new InternalServerException("Error while signing JWT");
         }
     }
 

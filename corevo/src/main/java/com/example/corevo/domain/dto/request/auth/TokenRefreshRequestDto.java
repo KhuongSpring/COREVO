@@ -1,16 +1,14 @@
-package com.example.corevo.domain.dto.request;
+package com.example.corevo.domain.dto.request.auth;
 
 import com.example.corevo.constant.ErrorMessage;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TokenRefreshRequestDto {
 
