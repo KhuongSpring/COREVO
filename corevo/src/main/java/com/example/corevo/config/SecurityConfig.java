@@ -1,5 +1,7 @@
 package com.example.corevo.config;
 
+import com.example.corevo.constant.RoleConstant;
+import com.example.corevo.domain.entity.Role;
 import com.example.corevo.security.JwtAuthenticationFilter;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -44,8 +46,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(request ->
                 request
                         .requestMatchers(PUBLIC_END_POINT).permitAll()
-                        .requestMatchers(USER_END_POINT).permitAll()
-                        .requestMatchers(ADMIN_END_POINT).permitAll()
+                        .requestMatchers(USER_END_POINT).hasAuthority(RoleConstant.USER)
+                        .requestMatchers(ADMIN_END_POINT).hasAuthority(RoleConstant.ADMIN)
                         .anyRequest().authenticated()
         );
 
