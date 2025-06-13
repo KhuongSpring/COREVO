@@ -23,5 +23,17 @@ public class ErrorMessage {
         public static final String ERR_ACCOUNT_LOCKED = "exception.auth.account.locked";
         public static final String INVALID_REFRESH_TOKEN = "exception.auth.invalid.refresh.token";
         public static final String EXPIRED_REFRESH_TOKEN = "exception.auth.expired.refresh.token";
+        public static final String ERR_LOGIN_FAIL = "exception.auth.login.fail";
+        public static final String ERR_OTP_EXPIRED_OR_NOT_FOUND = "exception.auth.OTP.expired.or.not.found";
+        public static final String ERR_OTP_INVALID = "exception.auth.OTP.invalid";
+    }
+
+    public static class User {
+        public static final String ERR_USER_NOT_EXISTED = "exception.user.user.not.existed";
+        public static final String ERR_USERNAME_EXISTED = "exception.user.username.existed";
+        public static final String ERR_EMAIL_EXISTED = "exception.user.email.existed";
+        public static final String ERR_EMAIL_NOT_EXISTED = "exception.user.email.not.existed";
+        public static final String ERR_RE_ENTER_PASSWORD_NOT_MATCH = "exception.user.re-enter.password.not.match";
+        public static final String ERR_DUPLICATE_OLD_PASSWORD = "exception.user.duplicate_old_password";
     }
 }

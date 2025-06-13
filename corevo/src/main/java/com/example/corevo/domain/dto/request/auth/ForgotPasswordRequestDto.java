@@ -1,0 +1,17 @@
+package com.example.corevo.domain.dto.request.auth;
+
+import com.example.corevo.constant.ErrorMessage;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class ForgotPasswordRequestDto {
+
+    @NotBlank(message = ErrorMessage.INVALID_SOME_THING_FIELD_IS_REQUIRED)
+    String email;
+}

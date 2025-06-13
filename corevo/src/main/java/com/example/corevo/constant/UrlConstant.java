@@ -5,6 +5,11 @@ public class UrlConstant {
         private static final String PRE_FIX = "/auth";
 
         public static final String LOGIN = PRE_FIX + "/login";
+        public static final String REGISTER = PRE_FIX + "/register";
+        public static final String VERIFY_OTP = PRE_FIX + "/verify-otp";
+        public static final String FORGOT_PASSWORD = PRE_FIX + "/forgot-password";
+        public static final String VERIFY_OTP_TO_RESET_PASSWORD = PRE_FIX + "/verify-otp-to-reset-password";
+        public static final String RESET_PASSWORD = PRE_FIX + "/reset-password";
         public static final String LOGOUT = PRE_FIX + "/logout";
 
         private Auth() {
