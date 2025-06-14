@@ -6,6 +6,7 @@ import com.example.corevo.domain.entity.Gender;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserHealthRequestDto {
 
+
+    @Schema(description = "Tên đăng nhập", example = "john_doe")
+    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
+    String username;
+  
     @Schema(description = "Giới tính", example = "Nam")
     @NotNull(message = ErrorMessage.UserHealth.ERR_GENDER_REQUIRED)
     Gender gender;

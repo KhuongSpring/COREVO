@@ -29,4 +29,13 @@ public class UrlConstant {
         private User() {
         }
     }
+
+    public static class UserHealth{
+        private static final String PRE_FIX = "/user-health";
+        public static final String FILL_HEALTH_INFORMATION = PRE_FIX + "/health-information";
+        private UserHealth() {
+
+        }
+    }
+
 }
