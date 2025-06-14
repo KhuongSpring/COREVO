@@ -5,6 +5,7 @@ import com.example.corevo.domain.entity.ActivityLevel;
 import com.example.corevo.domain.entity.Gender;
 
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,12 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserHealthRequestDto {
+
+    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
+    String username;
+
+    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
+    String phone;
 
     @NotNull(message = ErrorMessage.UserHealth.ERR_GENDER_REQUIRED)
     Gender gender;
