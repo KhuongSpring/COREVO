@@ -53,7 +53,7 @@ public class AuthServiceImpl implements AuthService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         boolean auth = passwordEncoder.matches(request.getPassword(), user.getPassword());
 
-        if (!auth) throw new VsException(ErrorMessage.Auth.ERR_INCORRECT_PASSWORD);
+        if (!auth) throw new VsException(ErrorMessage.Auth.ERR_LOGIN_FAIL);
 
         var token = jwtService.generateToken(request.getEmailOrUsername());
         return LoginResponseDto.builder()

@@ -23,6 +23,9 @@ public class UrlConstant {
         public static final String GET_USER = PRE_FIX + "/{userId}";
         public static final String GET_CURRENT_USER = PRE_FIX + "/current";
 
+        public static final String FILL_PERSONAL_INFORMATION = PRE_FIX + "/personal-information";
+        public static final String UPLOAD_AVATAR = PRE_FIX + "/upload-avatar";
+
         private User() {
         }
     }
