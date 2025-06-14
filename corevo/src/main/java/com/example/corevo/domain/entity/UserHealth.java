@@ -3,7 +3,6 @@ package com.example.corevo.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "user_health")
@@ -22,8 +21,9 @@ public class UserHealth {
     @JoinColumn(name = "id")
     User user;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    String gender;
+    Gender gender;
 
     @Column(nullable = false)
     int height;
@@ -34,8 +34,9 @@ public class UserHealth {
     @Column(nullable = false)
     int age;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    double activityFactor;
+    ActivityLevel activityLevel;
 
     double basalMetabolicRate;
 

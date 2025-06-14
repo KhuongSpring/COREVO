@@ -36,4 +36,13 @@ public class ErrorMessage {
         public static final String ERR_RE_ENTER_PASSWORD_NOT_MATCH = "exception.user.re-enter.password.not.match";
         public static final String ERR_DUPLICATE_OLD_PASSWORD = "exception.user.duplicate_old_password";
     }
+
+    public static class UserHealth {
+        public static final String ERR_GENDER_REQUIRED = "exception.user-health.gender.required";
+        public static final String ERR_ACTIVITY_LEVEL_REQUIRED = "exception.user-health.activity-level.required";
+        public static final String ERR_HEIGHT_MIN_VALUE = "exception.user-health.height.min-value";
+        public static final String ERR_WEIGHT_MIN_VALUE = "exception.user-health.weight.min-value";
+        public static final String ERR_AGE_MIN_VALUE = "exception.user-health.age.min-value";
+        
+    }
 }

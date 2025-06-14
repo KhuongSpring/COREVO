@@ -1,0 +1,35 @@
+package com.example.corevo.domain.dto.response.user;
+
+import com.example.corevo.domain.entity.ActivityLevel;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class UserHealthResponseDto {
+
+    String id;
+
+    String userId;
+
+    String gender;
+
+    int height;
+
+    int weight;
+
+    int age;
+
+    ActivityLevel activityLevel; 
+
+    double basalMetabolicRate;
+
+    int maximumHeartRate;
+
+    double TDEE;
+
+}
