@@ -1,5 +1,6 @@
 package com.example.corevo.domain.dto.response.user;
 
+import com.example.corevo.domain.dto.response.user.health.UserHealthResponseDto;
 import com.example.corevo.domain.entity.Address;
 import com.example.corevo.domain.entity.Role;
 import com.example.corevo.domain.entity.UserHealth;
@@ -38,5 +39,5 @@ public class UserResponseDto {
 
     Address address;
 
-    UserHealth userHealth;
+    UserHealthResponseDto userHealth;
 }

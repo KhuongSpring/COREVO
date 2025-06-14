@@ -31,19 +31,18 @@ public class UserHealthServiceImpl implements UserHealthService {
 
     @Override
     public UserResponseDto healthInformation(UserHealthRequestDto request) {
-        if (!userRepository.existsUserByUsername(request.getUsername()))
+        if (!userRepository.existsUserByUsername(request.getUsername())) {
             throw new VsException(ErrorMessage.User.ERR_USER_NOT_EXISTED);
+        }
 
         User user = userRepository.findByUsername(request.getUsername());
 
-        UserHealth userHealth = userHealthRepository
-                .findByUserUsername(request.getUsername())
-                .orElseGet(() -> {
-                    UserHealth newHealth = new UserHealth();
-                    newHealth.setId(user.getId());
-                    newHealth.setUser(user);
-                    return newHealth;
-                });
+        UserHealth userHealth = user.getUserHealth();
+        if (userHealth == null) {
+            userHealth = new UserHealth();
+            userHealth.setUser(user);
+            user.setUserHealth(userHealth);
+        }
 
         userHealth.setGender(request.getGender());
         userHealth.setHeight(request.getHeight());
@@ -55,8 +54,9 @@ public class UserHealthServiceImpl implements UserHealthService {
         userHealth.setTDEE(healthCalculationService.calculateTDEE(request));
         userHealth.setMaximumHeartRate(healthCalculationService.calculateMaximumHeartRate(request));
 
-        userHealthRepository.save(userHealth);
+        userRepository.save(user);
 
         return modelMapper.map(user, UserResponseDto.class);
     }
+
 }

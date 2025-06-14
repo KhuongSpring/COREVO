@@ -9,6 +9,8 @@ import com.example.corevo.domain.dto.request.user.health.UserHealthRequestDto;
 import com.example.corevo.domain.dto.response.user.health.UserHealthResponseDto;
 import com.example.corevo.service.UserHealthService;
 import com.example.corevo.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,11 @@ public class UserHealthController {
 
     UserHealthService userHealthService;
 
+    @Operation(
+            summary = "Điền thông tin sức khỏe cá nhân",
+            description = "Dùng để người dùng điền thông tin sức khỏe cá nhân",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
     @PostMapping(UrlConstant.UserHealth.FILL_HEALTH_INFORMATION)
     public ResponseEntity<?> fillHealthInformation(@Valid @RequestBody UserHealthRequestDto request) {
         return VsResponseUtil.success(userHealthService.healthInformation(request));
