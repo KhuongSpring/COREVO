@@ -1,4 +1,4 @@
-package com.example.corevo.domain.dto.response.user;
+package com.example.corevo.domain.dto.response.user.health;
 
 import com.example.corevo.domain.entity.ActivityLevel;
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.example.corevo.domain.dto.request;
+package com.example.corevo.domain.dto.request.user.health;
 
 import com.example.corevo.constant.ErrorMessage;
 import com.example.corevo.domain.entity.ActivityLevel;
