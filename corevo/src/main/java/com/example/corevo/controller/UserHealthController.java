@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserHealthController {
 
-    private final UserHealthService userHealthService;
+    UserHealthService userHealthService;
 
-    @PostMapping(UrlConstant.UserHealth.FILL_HEALTH_ÌNORMATION)
+    @PostMapping(UrlConstant.UserHealth.FILL_HEALTH_INFORMATION)
     public ResponseEntity<?> fillHealthInformation(@Valid @RequestBody UserHealthRequestDto request) {
         return VsResponseUtil.success(userHealthService.healthInformation(request));
     }

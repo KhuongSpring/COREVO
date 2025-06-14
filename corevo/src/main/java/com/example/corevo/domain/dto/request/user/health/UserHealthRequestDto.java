@@ -23,9 +23,6 @@ public class UserHealthRequestDto {
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     String username;
 
-    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    String phone;
-
     @NotNull(message = ErrorMessage.UserHealth.ERR_GENDER_REQUIRED)
     Gender gender;
 

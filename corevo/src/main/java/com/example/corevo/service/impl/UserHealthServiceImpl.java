@@ -34,9 +34,6 @@ public class UserHealthServiceImpl implements UserHealthService {
         if (!userRepository.existsUserByUsername(request.getUsername()))
             throw new VsException(ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
-        if (userRepository.existsUsersByPhone(request.getPhone()))
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
-
         User user = userRepository.findByUsername(request.getUsername());
 
         UserHealth userHealth = userHealthRepository
