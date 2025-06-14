@@ -7,6 +7,8 @@ import com.example.corevo.base.VsResponseUtil;
 import com.example.corevo.constant.UrlConstant;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
 import com.example.corevo.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -30,11 +32,21 @@ public class UserController {
     UserService userService;
     Cloudinary cloudinary;
 
+    @Operation(
+            summary = "Điền thông tin cá nhân",
+            description = "Dùng để người dùng điền thông tin cá nhân",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
     @PostMapping(UrlConstant.User.FILL_PERSONAL_INFORMATION)
     public ResponseEntity<?> fillPersonalInformation(@Valid @RequestBody PersonalInformationRequestDto request) {
         return VsResponseUtil.success(userService.personalInformation(request));
     }
 
+    @Operation(
+            summary = "Tải lên ảnh đại diện",
+            description = "Dùng để người dùng tải lên ảnh đại diện",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
     @PostMapping(UrlConstant.User.UPLOAD_AVATAR)
     public ResponseEntity<?> uploadAvatar(
             @RequestParam("file") MultipartFile file,

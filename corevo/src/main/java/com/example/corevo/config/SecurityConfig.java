@@ -31,6 +31,9 @@ public class SecurityConfig {
     @Value("${security.admin-endpoints}")
     String[] ADMIN_END_POINT;
 
+    @Value("${security.swagger-endpoints}")
+    String[] OPEN_API;
+
     final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
@@ -48,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers(PUBLIC_END_POINT).permitAll()
                         .requestMatchers(USER_END_POINT).hasAuthority(RoleConstant.USER)
                         .requestMatchers(ADMIN_END_POINT).hasAuthority(RoleConstant.ADMIN)
+                        .requestMatchers(OPEN_API).permitAll()
                         .anyRequest().authenticated()
         );
 
