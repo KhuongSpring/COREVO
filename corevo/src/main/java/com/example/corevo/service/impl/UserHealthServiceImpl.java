@@ -40,7 +40,7 @@ public class UserHealthServiceImpl implements UserHealthService {
                 .findByUserUsername(request.getUsername())
                 .orElseGet(() -> {
                     UserHealth newHealth = new UserHealth();
-                    newHealth.setId(user.getId());  // vì dùng @MapsId
+                    newHealth.setId(user.getId());
                     newHealth.setUser(user);
                     return newHealth;
                 });
