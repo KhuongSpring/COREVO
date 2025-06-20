@@ -15,7 +15,7 @@ public class LoginRequestDto {
 
     @Schema(description = "Tên đăng nhập", example = "khuong123")
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    String emailOrUsername;
+    String username;
 
     @Schema(description = "Mật khẩu", example = "Khuong123@")
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
