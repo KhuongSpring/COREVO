@@ -28,9 +28,8 @@ public interface TrainingPlanRepository extends JpaRepository<TrainingPlan, Long
             @Param("type") String type,
             @Param("duration") String duration,
             @Param("frequency") String frequency,
-            @Param("levelIds") List<Long> levelIds, // vẫn giữ 1 level
+            @Param("levelIds") List<Long> levelIds,
             @Param("locationIds") List<Long> locationIds,
             @Param("equipmentIds") List<Long> equipmentIds
     );
-
 }

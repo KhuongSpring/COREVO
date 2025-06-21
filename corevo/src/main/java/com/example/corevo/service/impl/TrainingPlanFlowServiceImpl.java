@@ -35,16 +35,17 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
             selectedValues.put(currentStep, selectedValue);
         }
 
-        String nextStep = switch (currentStep){
-            case "goals" -> nextStep = "level";
-            case "level" -> nextStep = "duration";
-            case "duration" -> nextStep = "type";
-            case "type" -> nextStep = "frequency";
-            case "frequency" -> nextStep = "location";
-            case "location" -> nextStep = "equipment";
+        String nextStep = switch (currentStep) {
+            case "goals" -> "level";
+            case "level" -> "duration";
+            case "duration" -> "type";
+            case "type" -> "frequency";
+            case "frequency" -> "location";
+            case "location" -> "equipment";
             case "equipment" -> null;
             default -> null;
         };
+
 
         List<TrainingPlan> matchingPlans = trainingPlanRepository.searchPlans(
                 getFirst(selectedValues.get("goals")),
@@ -139,8 +140,19 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
     }
 
     private List<Long> parseIds(List<String> list) {
-        if (list == null) return List.of();
-        return list.stream().map(Long::valueOf).collect(Collectors.toList());
+        if (list == null || list.isEmpty()) return List.of();
+        return list.stream()
+                .filter(Objects::nonNull)
+                .map(s -> {
+                    try {
+                        return Long.valueOf(s);
+                    } catch (NumberFormatException e) {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .toList();
     }
+
 
 }
