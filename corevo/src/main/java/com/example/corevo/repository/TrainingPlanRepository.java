@@ -19,17 +19,18 @@ public interface TrainingPlanRepository extends JpaRepository<TrainingPlan, Long
       AND (:type IS NULL OR tp.type = :type)
       AND (:duration IS NULL OR tp.duration = :duration)
       AND (:frequency IS NULL OR tp.frequency = :frequency)
-      AND (:levelId IS NULL OR tpl.level_id = :levelId)
-      AND (:locationId IS NULL OR tplc.location_id = :locationId)
-      AND (:equipmentId IS NULL OR tpe.equipment_id = :equipmentId)
+      AND (:levelIds IS NULL OR tpl.level_id IN (:levelIds))
+      AND (:locationIds IS NULL OR tplc.location_id IN (:locationIds))
+      AND (:equipmentIds IS NULL OR tpe.equipment_id IN (:equipmentIds))
 """, nativeQuery = true)
     List<TrainingPlan> searchPlans(
             @Param("goals") String goals,
             @Param("type") String type,
             @Param("duration") String duration,
             @Param("frequency") String frequency,
-            @Param("levelId") Long levelId,
-            @Param("locationId") Long locationId,
-            @Param("equipmentId") Long equipmentId
+            @Param("levelIds") List<Long> levelIds, // vẫn giữ 1 level
+            @Param("locationIds") List<Long> locationIds,
+            @Param("equipmentIds") List<Long> equipmentIds
     );
+
 }

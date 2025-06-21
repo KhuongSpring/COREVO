@@ -26,7 +26,11 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
     TrainingPlanRepository trainingPlanRepository;
 
     @Override
-    public TrainingPlanFlowResponseDto processStep(String currentStep, String selectedValue, Map<String, String> selectedValues) {
+    public TrainingPlanFlowResponseDto processStep(
+            String currentStep,
+            List<String> selectedValue,
+            Map<String, List<String>> selectedValues)
+    {
         if (selectedValue != null && currentStep != null) {
             selectedValues.put(currentStep, selectedValue);
         }
@@ -43,25 +47,36 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
         };
 
         List<TrainingPlan> matchingPlans = trainingPlanRepository.searchPlans(
-                selectedValues.get("goals"),
-                selectedValues.get("type"),
-                selectedValues.get("duration"),
-                selectedValues.get("frequency"),
-                convertLevelToId(selectedValues.get("level")),
-                convertLocationToId(selectedValues.get("location")),
-                convertEquipmentToId(selectedValues.get("equipment"))
+                getFirst(selectedValues.get("goals")),
+                getFirst(selectedValues.get("type")),
+                getFirst(selectedValues.get("duration")),
+                getFirst(selectedValues.get("frequency")),
+                parseIds(selectedValues.get("level")),
+                parseIds(selectedValues.get("location")),
+                parseIds(selectedValues.get("equipment"))
         );
 
         if (nextStep == null){
             List<TrainingPlanResponseDto> responseDtos = matchingPlans.stream()
                     .map(this::mapToDto)
                     .toList();
-            return new TrainingPlanFlowResponseDto(responseDtos.get(0));
+            return new TrainingPlanFlowResponseDto(
+                    null,
+                    true,
+                    selectedValues,
+                    responseDtos,
+                    null
+            );
         }
 
         List<Object> options = extractOptionsForStep(matchingPlans, nextStep);
 
-        return new TrainingPlanFlowResponseDto(nextStep, options);
+        return new TrainingPlanFlowResponseDto(
+                nextStep,
+                false,
+                selectedValues,
+                null,
+                options);
     }
 
     private List<Object> extractOptionsForStep(List<TrainingPlan> plans, String step) {
@@ -79,41 +94,6 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
                 .filter(Objects::nonNull)
                 .distinct()
                 .toList();
-    }
-
-    public Long convertLevelToId(String level) {
-        if (level == null) return null;
-        switch (level.toUpperCase()) {
-            case "BEGINNER": return 1L;
-            case "INTERMEDIATE": return 2L;
-            case "ADVANCED": return 3L;
-            default: throw new IllegalArgumentException("Unknown level: " + level);
-        }
-    }
-
-    public Long convertLocationToId(String location) {
-        if (location == null) return null;
-        switch (location.toUpperCase()) {
-            case "HOME": return 1L;
-            case "GYM": return 2L;
-            case "OUTSIDE": return 3L;
-            case "ANYWHERE": return 4L;
-            default: throw new IllegalArgumentException("Unknown level: " + location);
-        }
-    }
-
-    public Long convertEquipmentToId(String equipment) {
-        if (equipment == null) return null;
-        switch (equipment.toUpperCase()) {
-            case "NONE": return 1L;
-            case "YOGA MAT": return 2L;
-            case "TREADMILL": return 3L;
-            case "RESISTANCE BAND": return 4L;
-            case "GYM EQUIPMENT": return 5L;
-            case "PULL UP BAR": return 6L;
-            case "PARALLEL BARS": return 7L;
-            default: throw new IllegalArgumentException("Unknown level: " + equipment);
-        }
     }
 
     private TrainingPlanResponseDto mapToDto(TrainingPlan plan) {
@@ -154,5 +134,13 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
         return dto;
     }
 
+    private String getFirst(List<String> list) {
+        return (list != null && !list.isEmpty()) ? list.get(0) : null;
+    }
+
+    private List<Long> parseIds(List<String> list) {
+        if (list == null) return List.of();
+        return list.stream().map(Long::valueOf).collect(Collectors.toList());
+    }
 
 }

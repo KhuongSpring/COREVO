@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,15 +14,19 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TrainingPlanFlowResponseDto {
     String nextStep;
-    List<Object> option;
-    TrainingPlanResponseDto trainingPlanResponseDto;
+    boolean isFinalStep;
+    Map<String, List<String>> selectedValues;
+    List<TrainingPlanResponseDto> trainingPlans;
+    List<Object> options;
 
-    public TrainingPlanFlowResponseDto(String nextStep, List<Object> option) {
+    public TrainingPlanFlowResponseDto(String nextStep, List<Object> options) {
         this.nextStep = nextStep;
-        this.option = option;
+        this.options = options;
+        this.isFinalStep = false;
     }
 
-    public TrainingPlanFlowResponseDto(TrainingPlanResponseDto trainingPlanResponseDto) {
-        this.trainingPlanResponseDto = trainingPlanResponseDto;
+    public TrainingPlanFlowResponseDto(TrainingPlanResponseDto dto) {
+        this.trainingPlans = List.of(dto);
+        this.isFinalStep = true;
     }
 }
