@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto personalInformation(PersonalInformationRequestDto request) {
         if (!userRepository.existsUserByUsername(request.getUsername()))
-            throw new VsException(ErrorMessage.User.ERR_USER_NOT_EXISTED);
+            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         if (userRepository.existsUsersByPhone(request.getPhone()))
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto uploadAvatar(String id, String url) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new VsException(ErrorMessage.User.ERR_USER_NOT_EXISTED));
+                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         user.setLinkAvatar(url);
         userRepository.save(user);

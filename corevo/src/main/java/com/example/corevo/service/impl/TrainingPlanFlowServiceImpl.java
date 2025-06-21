@@ -1,18 +1,22 @@
 package com.example.corevo.service.impl;
 
+import com.example.corevo.constant.ErrorMessage;
 import com.example.corevo.domain.dto.response.TrainingPlanFlowResponseDto;
 import com.example.corevo.domain.dto.response.TrainingPlanResponseDto;
 import com.example.corevo.domain.entity.training.Equipment;
 import com.example.corevo.domain.entity.training.Level;
 import com.example.corevo.domain.entity.training.Location;
 import com.example.corevo.domain.entity.training.TrainingPlan;
+import com.example.corevo.exception.VsException;
 import com.example.corevo.repository.TrainingPlanRepository;
 import com.example.corevo.service.TrainingPlanFlowService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -29,8 +33,7 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
     public TrainingPlanFlowResponseDto processStep(
             String currentStep,
             List<String> selectedValue,
-            Map<String, List<String>> selectedValues)
-    {
+            Map<String, List<String>> selectedValues) {
         if (selectedValue != null && currentStep != null) {
             selectedValues.put(currentStep, selectedValue);
         }
@@ -46,18 +49,23 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
             default -> null;
         };
 
+        List<TrainingPlan> matchingPlans = new ArrayList<>();
 
-        List<TrainingPlan> matchingPlans = trainingPlanRepository.searchPlans(
-                getFirst(selectedValues.get("goals")),
-                getFirst(selectedValues.get("type")),
-                getFirst(selectedValues.get("duration")),
-                getFirst(selectedValues.get("frequency")),
-                parseIds(selectedValues.get("level")),
-                parseIds(selectedValues.get("location")),
-                parseIds(selectedValues.get("equipment"))
-        );
+        try {
+            matchingPlans = trainingPlanRepository.searchPlans(
+                    getFirst(selectedValues.get("goals")),
+                    getFirst(selectedValues.get("type")),
+                    getFirst(selectedValues.get("duration")),
+                    getFirst(selectedValues.get("frequency")),
+                    parseIds(selectedValues.get("level")),
+                    parseIds(selectedValues.get("location")),
+                    parseIds(selectedValues.get("equipment"))
+            );
+        } catch (Exception e){
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.TrainingPlanFlow.ERR_SOMETHING_WRONG);
+        }
 
-        if (nextStep == null){
+        if (nextStep == null) {
             List<TrainingPlanResponseDto> responseDtos = matchingPlans.stream()
                     .map(this::mapToDto)
                     .toList();

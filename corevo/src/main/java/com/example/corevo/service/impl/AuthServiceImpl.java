@@ -47,13 +47,13 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponseDto authentication(LoginRequestDto request) {
         if (!userRepository.existsUserByUsername((request.getUsername())))
-            throw new VsException(ErrorMessage.Auth.ERR_INCORRECT_USERNAME);
+            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_INCORRECT_USERNAME);
 
         User user = userRepository.findByUsername(request.getUsername());
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         boolean auth = passwordEncoder.matches(request.getPassword(), user.getPassword());
 
-        if (!auth) throw new VsException(ErrorMessage.Auth.ERR_LOGIN_FAIL);
+        if (!auth) throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_LOGIN_FAIL);
 
         var token = jwtService.generateToken(request.getUsername());
         return LoginResponseDto.builder()
@@ -86,9 +86,9 @@ public class AuthServiceImpl implements AuthService {
         if (pending == null)
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
         if (pending.isExpired())
-            throw new VsException(ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
         if (!pending.getOtp().equals(request.getOtp()))
-            throw new VsException(ErrorMessage.Auth.ERR_OTP_INVALID);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
 
         RegisterRequestDto req = pending.getRequest();
         User user = modelMapper.map(req, User.class);
@@ -124,9 +124,9 @@ public class AuthServiceImpl implements AuthService {
         if (pending == null)
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
         if (pending.isExpired())
-            throw new VsException(ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
         if (!pending.getOtp().equals(request.getOtp()))
-            throw new VsException(ErrorMessage.Auth.ERR_OTP_INVALID);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
 
         return pendingResetPasswordMap.containsKey(request.getEmail())
                 && pendingResetPasswordMap.get(request.getEmail()).getOtp().equals(request.getOtp());
@@ -138,7 +138,7 @@ public class AuthServiceImpl implements AuthService {
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
 
         if (!request.getNewPassword().equals(request.getReEnterPassword()))
-            throw new VsException(ErrorMessage.User.ERR_RE_ENTER_PASSWORD_NOT_MATCH);
+            throw new VsException(HttpStatus.UNPROCESSABLE_ENTITY, ErrorMessage.User.ERR_RE_ENTER_PASSWORD_NOT_MATCH);
 
         User user = userRepository.findByEmail(request.getEmail());
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);

@@ -46,4 +46,8 @@ public class ErrorMessage {
         public static final String ERR_AGE_MIN_VALUE = "exception.user-health.age.min-value";
         
     }
+
+    public static class TrainingPlanFlow {
+        public static final String ERR_SOMETHING_WRONG = "exception.training-plan.something.wrong";
+    }
 }
