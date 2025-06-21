@@ -38,4 +38,12 @@ public class UrlConstant {
         }
     }
 
+    public static class TrainingPlan{
+        private static final String PRE_FIX = "/training-plan";
+        public static final String FLOW_STEP = PRE_FIX + "/step";
+        private TrainingPlan() {
+
+        }
+    }
+
 }
