@@ -10,6 +10,9 @@ public class CommonConstant {
     public static final Long ZERO_VALUE = 0L;
     public static final Long ONE_VALUE = 1L;
 
+    public static final boolean TRUE = true;
+    public static final boolean FALSE = false;
+
     public static final String EMPTY_STRING = "";
     public static final String BEARER_TOKEN = "Bearer";
 

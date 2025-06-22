@@ -97,6 +97,7 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(Role.USER);
         user.setCreatedAt(LocalDate.now());
+        user.setIsLocked(false);
         userRepository.save(user);
         pendingRegisterMap.remove(request.getEmail());
 

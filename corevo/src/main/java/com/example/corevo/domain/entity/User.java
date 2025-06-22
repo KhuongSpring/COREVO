@@ -52,6 +52,8 @@ public class User {
     @Column(nullable = false)
     LocalDate createdAt;
 
+     Boolean isLocked;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     Role role;

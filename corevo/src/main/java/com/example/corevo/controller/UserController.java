@@ -5,19 +5,22 @@ import com.cloudinary.utils.ObjectUtils;
 import com.example.corevo.base.RestApiV1;
 import com.example.corevo.base.VsResponseUtil;
 import com.example.corevo.constant.UrlConstant;
+import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
+import com.example.corevo.domain.dto.request.admin.CreateUserRequestDto;
+import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
 import com.example.corevo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -54,6 +57,101 @@ public class UserController {
         Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
         String imageUrl = (String) result.get("secure_url");
         return VsResponseUtil.success(userService.uploadAvatar(id, imageUrl));
+    }
+    
+                                                    
+    //                                  //
+    //          Methods for ADMIN       //
+    //                                  //
+
+    @Tag(name = "user-controller-admin")
+    @Operation(
+                summary = "Lấy thông tin của toàn bộ user",
+                description = "Dùng để admin lấy thông tin toàn bộ user",
+                security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(UrlConstant.Admin.GET_USERS)
+    public ResponseEntity<?> getAllUsers(
+        @RequestParam(name = "page num", defaultValue = "0") int pageNum,
+        @RequestParam(name = "page size", defaultValue = "0") int pageSize
+    ) {
+        PaginationRequestDto request = new PaginationRequestDto(pageNum, pageSize);
+        return VsResponseUtil.success(userService.getAllUsers(request));
+    }
+
+    @Tag(name = "user-controller-admin")
+    @Operation(
+            summary = "Lấy thông tin user theo ID",
+            description = "Dùng để admin lấy thông tin chi tiết của một user",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(UrlConstant.Admin.GET_USER)
+    public ResponseEntity<?> getUserById(@PathVariable String userId) {
+        return VsResponseUtil.success(userService.getUserById(userId));
+    }
+
+    @Tag(name = "user-controller-admin")
+    @Operation(
+            summary = "Tạo user mới",
+            description = "Dùng để admin tạo user mới trong hệ thống",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping(UrlConstant.Admin.CREATE_USER)
+    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequestDto request) {
+        return VsResponseUtil.success(userService.createUser(request));
+    }
+
+    @Tag(name = "user-controller-admin")
+    @Operation(
+            summary = "Cập nhật thông tin user",
+            description = "Dùng để admin cập nhật thông tin của một user", 
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping(UrlConstant.Admin.UPDATE_USER)
+    public ResponseEntity<?> updateUser(
+            @PathVariable String userId,
+            @Valid @RequestBody UpdateUserRequestDto request) {
+        return VsResponseUtil.success(userService.updateUser(userId, request));
+    }
+
+    @Tag(name = "user-controller-admin")
+    @Operation(
+            summary = "Khóa tài khoản user",
+            description = "Dùng để admin khóa tài khoản user (user không thể đăng nhập)",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping(UrlConstant.Admin.LOCK_USER)
+    public ResponseEntity<?> lockUser(@PathVariable String userId) {
+        return VsResponseUtil.success(userService.lockUser(userId));
+    }
+
+    @Tag(name = "user-controller-admin")
+    @Operation(
+            summary = "Mở khóa tài khoản user",
+            description = "Dùng để admin mở khóa tài khoản user",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping(UrlConstant.Admin.UNLOCK_USER)
+    public ResponseEntity<?> unlockUser(@PathVariable String userId) {
+        return VsResponseUtil.success(userService.unlockUser(userId));
+    }
+
+    @Tag(name = "user-controller-admin")
+    @Operation(
+            summary = "Xóa user vĩnh viễn",
+            description = "Dùng để admin xóa user khỏi hệ thống (không thể khôi phục)",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping(UrlConstant.Admin.DELETE_USER)
+    public ResponseEntity<?> deleteUserPermanently(@PathVariable String userId) {
+        return VsResponseUtil.success(userService.deleteUserPermanently(userId));
     }
 
 }

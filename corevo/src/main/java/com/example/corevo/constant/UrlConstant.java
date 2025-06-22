@@ -30,6 +30,22 @@ public class UrlConstant {
         }
     }
 
+    public static class Admin {
+        private static final String PRE_FIX = "/admin";
+
+        public static final String GET_USERS = PRE_FIX + "/users";
+        public static final String GET_USER = PRE_FIX + "/users/{userId}";
+        public static final String CREATE_USER = PRE_FIX + "/users";
+        public static final String UPDATE_USER = PRE_FIX + "/users/{userId}";
+        public static final String DELETE_USER = PRE_FIX + "/users/{userId}";
+
+        public static final String LOCK_USER = PRE_FIX + "/users/{userId}/lock";
+        public static final String UNLOCK_USER = PRE_FIX + "/users/{userId}/unlock";
+
+        private Admin() {
+        }
+    }
+
     public static class UserHealth{
         private static final String PRE_FIX = "/user-health";
         public static final String FILL_HEALTH_INFORMATION = PRE_FIX + "/health-information";
