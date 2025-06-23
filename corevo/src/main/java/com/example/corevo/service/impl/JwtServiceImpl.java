@@ -31,7 +31,7 @@ import java.util.function.Function;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class JwtServiceImpl implements JwtService {
 
-    UserService userService;
+    // UserService userService;
 
     @NonFinal
     @Value("${jwt.secret}")
@@ -41,9 +41,9 @@ public class JwtServiceImpl implements JwtService {
     @Value("${jwt.access.expiration_time}")
     long EXPIRATION;
 
-    public JwtServiceImpl(UserService userService) {
-        this.userService = userService;
-    }
+    // public JwtServiceImpl(UserService userService) {
+    //     this.userService = userService;
+    // }
 
     @Override
     public String generateToken(String username) {

@@ -5,6 +5,7 @@ import com.example.corevo.domain.dto.request.user.health.UserHealthRequestDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 import com.example.corevo.domain.entity.User;
 import com.example.corevo.domain.entity.UserHealth;
+import com.example.corevo.domain.mapper.UserMapper;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.repository.UserHealthRepository;
 import com.example.corevo.repository.UserRepository;
@@ -14,7 +15,6 @@ import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 public class UserHealthServiceImpl implements UserHealthService {
 
     UserRepository userRepository;
-    ModelMapper modelMapper;
+    UserMapper userMapper;
     HealthCalculationService healthCalculationService;
     UserHealthRepository userHealthRepository;
 
@@ -53,10 +53,9 @@ public class UserHealthServiceImpl implements UserHealthService {
         userHealth.setBasalMetabolicRate(healthCalculationService.calculateBMR(request));
         userHealth.setTDEE(healthCalculationService.calculateTDEE(request));
         userHealth.setMaximumHeartRate(healthCalculationService.calculateMaximumHeartRate(request));
-
         userRepository.save(user);
 
-        return modelMapper.map(user, UserResponseDto.class);
+        return userMapper.toUserResponseDto(user);
     }
 
 }
