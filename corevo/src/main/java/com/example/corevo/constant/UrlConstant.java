@@ -35,12 +35,12 @@ public class UrlConstant {
 
         public static final String GET_USERS = PRE_FIX + "/users";
         public static final String GET_USER = PRE_FIX + "/users/{userId}";
-        public static final String CREATE_USER = PRE_FIX + "/users";
-        public static final String UPDATE_USER = PRE_FIX + "/users/{userId}";
-        public static final String DELETE_USER = PRE_FIX + "/users/{userId}";
+        public static final String CREATE_USER = PRE_FIX + "/create-user";
+        public static final String UPDATE_USER = PRE_FIX + "/update-user/{userId}";
+        public static final String DELETE_USER = PRE_FIX + "/delete-user/{userId}";
 
-        public static final String LOCK_USER = PRE_FIX + "/users/{userId}/lock";
-        public static final String UNLOCK_USER = PRE_FIX + "/users/{userId}/unlock";
+        public static final String LOCK_USER = PRE_FIX + "/lock-user/{userId}";
+        public static final String UNLOCK_USER = PRE_FIX + "/unlock-user/{userId}";
 
         private Admin() {
         }

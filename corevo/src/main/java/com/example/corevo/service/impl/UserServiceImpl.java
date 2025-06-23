@@ -126,6 +126,9 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsUserByUsername(request.getUsername())) {
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_USERNAME_EXISTED);
         }
+        if (userRepository.existsUsersByPhone(request.getPhone())) {
+            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
+        }
         User user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setCreatedAt(LocalDate.now());

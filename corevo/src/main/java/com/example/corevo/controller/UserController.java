@@ -70,7 +70,6 @@ public class UserController {
                 description = "Dùng để admin lấy thông tin toàn bộ user",
                 security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(UrlConstant.Admin.GET_USERS)
     public ResponseEntity<?> getAllUsers(
         @RequestParam(name = "page num", defaultValue = "0") int pageNum,
@@ -86,7 +85,6 @@ public class UserController {
             description = "Dùng để admin lấy thông tin chi tiết của một user",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(UrlConstant.Admin.GET_USER)
     public ResponseEntity<?> getUserById(@PathVariable String userId) {
         return VsResponseUtil.success(userService.getUserById(userId));
@@ -98,7 +96,6 @@ public class UserController {
             description = "Dùng để admin tạo user mới trong hệ thống",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(UrlConstant.Admin.CREATE_USER)
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequestDto request) {
         return VsResponseUtil.success(userService.createUser(request));
@@ -110,7 +107,6 @@ public class UserController {
             description = "Dùng để admin cập nhật thông tin của một user", 
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(UrlConstant.Admin.UPDATE_USER)
     public ResponseEntity<?> updateUser(
             @PathVariable String userId,
@@ -124,7 +120,6 @@ public class UserController {
             description = "Dùng để admin khóa tài khoản user (user không thể đăng nhập)",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(UrlConstant.Admin.LOCK_USER)
     public ResponseEntity<?> lockUser(@PathVariable String userId) {
         return VsResponseUtil.success(userService.lockUser(userId));
@@ -136,7 +131,6 @@ public class UserController {
             description = "Dùng để admin mở khóa tài khoản user",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(UrlConstant.Admin.UNLOCK_USER)
     public ResponseEntity<?> unlockUser(@PathVariable String userId) {
         return VsResponseUtil.success(userService.unlockUser(userId));
@@ -148,7 +142,6 @@ public class UserController {
             description = "Dùng để admin xóa user khỏi hệ thống (không thể khôi phục)",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(UrlConstant.Admin.DELETE_USER)
     public ResponseEntity<?> deleteUserPermanently(@PathVariable String userId) {
         return VsResponseUtil.success(userService.deleteUserPermanently(userId));
