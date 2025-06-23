@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,7 +41,6 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     AddressRepository addressRepository;
-    ModelMapper modelMapper;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
@@ -63,7 +61,6 @@ public class UserServiceImpl implements UserService {
                     newAddress.setDistrict(request.getAddress().getDistrict());
                     return addressRepository.save(newAddress);
                 });
-
         user.setPhone(request.getPhone());
         user.setBirth(request.getBirth());
         user.setNationality(request.getNationality());
@@ -71,7 +68,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
 
-        return modelMapper.map(user, UserResponseDto.class);
+        return userMapper.toUserResponseDto(user);
 
     }
 
@@ -79,11 +76,10 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto uploadAvatar(String id, String url) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED));
-
         user.setLinkAvatar(url);
         userRepository.save(user);
 
-        return modelMapper.map(user, UserResponseDto.class);
+        return userMapper.toUserResponseDto(user);
     }
 
     @Override
@@ -103,11 +99,10 @@ public class UserServiceImpl implements UserService {
                 request.getPageNum() + 1,
                 request.getPageSize(),
                 null,
-                null
-        );
+                null);
 
         return new PaginationResponseDto<>(pagingMeta, userResponseDtos);
-        
+
     }
 
     @Override

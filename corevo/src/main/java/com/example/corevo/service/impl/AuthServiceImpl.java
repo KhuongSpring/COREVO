@@ -12,6 +12,7 @@ import com.example.corevo.domain.dto.response.auth.LoginResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 import com.example.corevo.domain.entity.Role;
 import com.example.corevo.domain.entity.User;
+import com.example.corevo.domain.mapper.AuthMapper;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.repository.UserRepository;
 import com.example.corevo.service.AuthService;
@@ -20,13 +21,11 @@ import com.example.corevo.service.JwtService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Random;
@@ -38,7 +37,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AuthServiceImpl implements AuthService {
     UserRepository userRepository;
     JwtService jwtService;
-    ModelMapper modelMapper;
+    AuthMapper authMapper;
     EmailService emailService;
 
     Map<String, PendingRegistrationRequestDto> pendingRegisterMap = new ConcurrentHashMap<>();
@@ -53,7 +52,8 @@ public class AuthServiceImpl implements AuthService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         boolean auth = passwordEncoder.matches(request.getPassword(), user.getPassword());
 
-        if (!auth) throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_LOGIN_FAIL);
+        if (!auth)
+            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_LOGIN_FAIL);
 
         var token = jwtService.generateToken(request.getUsername());
         return LoginResponseDto.builder()
@@ -81,7 +81,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserResponseDto verifyOtpToRegister(VerifyOtpRequestDto request){
+    public UserResponseDto verifyOtpToRegister(VerifyOtpRequestDto request) {
         PendingRegistrationRequestDto pending = pendingRegisterMap.get(request.getEmail());
         if (pending == null)
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
@@ -89,19 +89,17 @@ public class AuthServiceImpl implements AuthService {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
         if (!pending.getOtp().equals(request.getOtp()))
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
-
         RegisterRequestDto req = pending.getRequest();
-        User user = modelMapper.map(req, User.class);
+        User user = authMapper.toUser(req);
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(Role.USER);
-        user.setCreatedAt(LocalDate.now());
         user.setIsLocked(false);
         userRepository.save(user);
         pendingRegisterMap.remove(request.getEmail());
 
-        return modelMapper.map(user, UserResponseDto.class);
+        return authMapper.toUserResponseDto(user);
     }
 
     @Override
@@ -148,11 +146,10 @@ public class AuthServiceImpl implements AuthService {
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_DUPLICATE_OLD_PASSWORD);
 
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
-
         userRepository.save(user);
 
         pendingResetPasswordMap.remove(request.getEmail());
-        return modelMapper.map(user, UserResponseDto.class);
+        return authMapper.toUserResponseDto(user);
     }
 
     @Override
