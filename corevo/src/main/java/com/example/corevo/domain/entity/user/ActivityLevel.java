@@ -1,4 +1,4 @@
-package com.example.corevo.domain.entity;
+package com.example.corevo.domain.entity.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

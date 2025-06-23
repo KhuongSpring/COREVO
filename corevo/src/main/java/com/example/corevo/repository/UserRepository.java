@@ -1,9 +1,6 @@
 package com.example.corevo.repository;
 
-import com.example.corevo.domain.entity.User;
-import com.example.corevo.domain.entity.UserHealth;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import com.example.corevo.domain.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

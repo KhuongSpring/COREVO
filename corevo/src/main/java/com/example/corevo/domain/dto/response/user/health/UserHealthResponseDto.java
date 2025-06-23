@@ -1,6 +1,6 @@
 package com.example.corevo.domain.dto.response.user.health;
 
-import com.example.corevo.domain.entity.ActivityLevel;
+import com.example.corevo.domain.entity.user.ActivityLevel;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

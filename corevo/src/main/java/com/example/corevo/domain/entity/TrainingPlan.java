@@ -1,5 +1,8 @@
-package com.example.corevo.domain.entity.training;
+package com.example.corevo.domain.entity;
 
+import com.example.corevo.domain.entity.training.Equipment;
+import com.example.corevo.domain.entity.training.Level;
+import com.example.corevo.domain.entity.training.Location;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

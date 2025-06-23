@@ -1,0 +1,15 @@
+[
+  { "targetMuscleName": "Chest (Ngực)" },
+  { "targetMuscleName": "Back (Lưng)" },
+  { "targetMuscleName": "Shoulders (Vai)" },
+  { "targetMuscleName": "Biceps (Tay trước)" },
+  { "targetMuscleName": "Triceps (Tay sau)" },
+  { "targetMuscleName": "Forearms (Cẳng tay)" },
+  { "targetMuscleName": "Abs (Cơ bụng)" },
+  { "targetMuscleName": "Obliques (Cơ liên sườn)" },
+  { "targetMuscleName": "Lower Back (Lưng dưới)" },
+  { "targetMuscleName": "Glutes (Mông)" },
+  { "targetMuscleName": "Quads (Đùi trước)" },
+  { "targetMuscleName": "Hamstrings (Đùi sau)" },
+  { "targetMuscleName": "Calves (Bắp chân)" }
+]

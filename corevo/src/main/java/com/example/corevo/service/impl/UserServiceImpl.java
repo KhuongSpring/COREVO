@@ -11,8 +11,8 @@ import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
-import com.example.corevo.domain.entity.Address;
-import com.example.corevo.domain.entity.User;
+import com.example.corevo.domain.entity.user.Address;
+import com.example.corevo.domain.entity.user.User;
 import com.example.corevo.domain.mapper.UserMapper;
 import com.example.corevo.exception.InvalidException;
 import com.example.corevo.exception.VsException;
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
 
-        return userMapper.toUserResponseDto(user);
+        return userMapper.userToUserResponseDto(user);
 
     }
 
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
         user.setLinkAvatar(url);
         userRepository.save(user);
 
-        return userMapper.toUserResponseDto(user);
+        return userMapper.userToUserResponseDto(user);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
 
         List<UserResponseDto> userResponseDtos = userPage.getContent()
                 .stream()
-                .map(userMapper::toUserResponseDto)
+                .map(userMapper::userToUserResponseDto)
                 .collect(Collectors.toList());
 
         PagingMeta pagingMeta = new PagingMeta(
@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto getUserById(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED));
-        return userMapper.toUserResponseDto(user);
+        return userMapper.userToUserResponseDto(user);
     }
 
     @Override
@@ -124,11 +124,11 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsUsersByPhone(request.getPhone())) {
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
         }
-        User user = userMapper.toUser(request);
+        User user = userMapper.createUserRequestDtoToUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setCreatedAt(LocalDate.now());
         user.setIsLocked(CommonConstant.FALSE);
-        return userMapper.toUserResponseDto(userRepository.save(user));
+        return userMapper.userToUserResponseDto(userRepository.save(user));
     }
 
     @Override
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED));
         userMapper.updateUserFromDto(request, user);
         User updatedUser = userRepository.save(user);
-        return userMapper.toUserResponseDto(updatedUser);
+        return userMapper.userToUserResponseDto(updatedUser);
     }
 
     @Override
