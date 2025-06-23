@@ -1,9 +1,7 @@
 package com.example.corevo.repository;
 
+import com.example.corevo.domain.entity.Address;
 import com.example.corevo.domain.entity.User;
-import com.example.corevo.domain.entity.UserHealth;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -22,5 +20,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     User findByEmail(String email);
 
     boolean existsUsersByPhone(String phone);
+
+    boolean existsByAddress(Address address);
 
 }

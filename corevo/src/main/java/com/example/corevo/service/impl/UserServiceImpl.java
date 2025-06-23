@@ -13,10 +13,12 @@ import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 import com.example.corevo.domain.entity.Address;
 import com.example.corevo.domain.entity.User;
+import com.example.corevo.domain.entity.UserHealth;
 import com.example.corevo.domain.mapper.UserMapper;
 import com.example.corevo.exception.InvalidException;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.repository.AddressRepository;
+import com.example.corevo.repository.UserHealthRepository;
 import com.example.corevo.repository.UserRepository;
 import com.example.corevo.service.UserService;
 import lombok.AccessLevel;
@@ -34,6 +36,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -142,10 +145,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public CommonResponseDto deleteUserPermanently(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED));
+        Address userAddress = user.getAddress();
         userRepository.delete(user);
+        if (userAddress != null && !userRepository.existsByAddress(userAddress)) {
+            addressRepository.delete(userAddress);
+        }
         return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.DELETE_SUCCESS);
     }
 

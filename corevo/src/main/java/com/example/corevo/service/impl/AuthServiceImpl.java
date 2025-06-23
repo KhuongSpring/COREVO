@@ -26,6 +26,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Random;
@@ -96,6 +97,7 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(Role.USER);
         user.setIsLocked(false);
+        user.setCreatedAt(LocalDate.now());
         userRepository.save(user);
         pendingRegisterMap.remove(request.getEmail());
 
