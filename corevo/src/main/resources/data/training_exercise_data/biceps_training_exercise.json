@@ -1,0 +1,290 @@
+[
+  {
+    "name": "Cable Curls",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cable Curl sử dụng máy cáp để tạo lực kéo ổn định trong suốt quá trình tập, giúp duy trì sức căng liên tục trên cơ bắp. Bài tập này cho phép người tập kiểm soát tốt tốc độ và phạm vi chuyển động, đồng thời hạn chế gian lận bằng đà. Rất hiệu quả để hoàn thiện cơ tay trước sau các bài compound nặng như Chin-up hoặc Row."
+  },
+  {
+    "name": "Barbell or EZ-Bar Curls",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "6,12",
+    "duration": "45,60",
+    "goalIds": [2, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Barbell hoặc EZ-Bar Curl là bài tập cơ bản và hiệu quả nhất cho nhóm cơ tay trước. Người tập đứng thẳng, cầm thanh đòn bằng hai tay, lòng bàn tay hướng vào trong, sau đó co khuỷu tay để kéo tạ lên ngang vai. Bài tập này giúp tăng kích thước và sức mạnh bắp tay một cách toàn diện, đồng thời dễ dàng kiểm soát mức tạ và kỹ thuật. EZ-Bar giúp giảm áp lực lên cổ tay, phù hợp cho người gặp vấn đề khớp hoặc mới bắt đầu."
+  },
+  {
+    "name": "Incline Dumbbell Curls",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "45,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Incline Dumbbell Curl là bài tập biceps ở mức độ cao nhờ tư thế ngồi nghiêng trên ghế khoảng 45 độ. Khi cánh tay rũ hoàn toàn xuống dưới, bắp tay buộc phải hoạt động nhiều hơn để nâng tạ. Điều này kéo giãn toàn bộ chiều dài biceps, giúp kích thích tối đa sợi cơ. Đây là một lựa chọn tuyệt vời để tạo hình bắp tay dài và rõ nét."
+  },
+  {
+    "name": "Chin-Ups",
+    "levelIds": [2, 3],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [4, 9],
+    "secondaryTargetMuscleIds": [2, 3, 6],
+    "equipmentIds": [5, 6],
+    "locationIds": [1, 2, 3],
+    "sets": "3,5",
+    "reps": "6,12",
+    "duration": "20,40",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Chin-Up là bài tập bodyweight compound giúp phát triển biceps và lưng cùng lúc. Khi tay cầm thanh xà với lòng bàn tay hướng vào, biceps chịu phần lớn lực nâng cơ thể lên. Bài tập này không chỉ tăng cơ mà còn cải thiện sức mạnh chức năng và khả năng kiểm soát trọng lượng cơ thể. Thực hiện đúng kỹ thuật giúp kích hoạt biceps hiệu quả không thua kém bất kỳ bài tập tạ nào."
+  },
+  {
+    "name": "Reverse Bicep Curls",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Reverse Curl là biến thể trong đó lòng bàn tay úp xuống khi cầm tạ. Tư thế này chuyển trọng tâm khỏi biceps thông thường sang cơ brachialis (nằm dưới biceps) và cẳng tay – giúp cánh tay trông dày và khỏe hơn. Đây là bài rất hiệu quả để khắc phục sự mất cân đối giữa các vùng tay trước, đồng thời tăng độ chắc chắn cho khớp cổ tay."
+  },
+  {
+    "name": "Hammer Curls",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Hammer Curl là biến thể trong đó tay giữ tạ theo chiều dọc như \"búa đóng đinh\", giúp kích hoạt cơ brachialis và brachioradialis mạnh mẽ bên cạnh biceps. Bài tập này lý tưởng để tăng bề dày toàn bộ bắp tay và phần trên cẳng tay. Nó còn giảm áp lực lên cổ tay hơn so với bài curl truyền thống, rất phù hợp cho cả người mới lẫn nâng cao."
+  },
+  {
+    "name": "Preacher Curls",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Preacher Curl sử dụng ghế chuyên dụng để cố định phần tay trên, buộc người tập phải dùng cơ bắp thực sự thay vì quán tính để nâng tạ. Điều này giúp cô lập biceps rất hiệu quả, tăng khả năng cảm nhận cơ và kiểm soát từng rep. Đây là bài tập lý tưởng cho những ai muốn phát triển bắp tay với hình dạng rõ nét và đều đặn."
+  },
+  {
+    "name": "Concentration Curls",
+    "levelIds": [1, 2],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "8,12",
+    "duration": "20,40",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Concentration Curl là bài tập biceps ở mức độ cao nhất, giúp tập trung lực tối đa vào từng bên tay. Người tập ngồi, chống khuỷu tay vào đùi để giữ cố định, sau đó nâng tạ theo chuyển động chậm rãi. Bài này lý tưởng để \"nắn hình\" bắp tay, khắc phục mất cân đối hai bên và tạo đỉnh (peak) cho cơ biceps."
+  },
+  {
+    "name": "Drag Curls",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Drag Curl là biến thể độc đáo trong đó người tập \"kéo\" thanh tạ sát thân người thay vì nâng ra phía trước. Điều này giúp cô lập biceps ở góc độ mới, giảm áp lực lên vai và khớp. Drag Curl đặc biệt hữu ích khi bạn đã quen với các bài curl truyền thống và muốn tăng cường kích thích nhóm cơ tay trước mà không cần nâng tạ nặng."
+  },
+  {
+    "name": "Lying Dumbbell Curl",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Lying Dumbbell Curl là bài tập biceps được thực hiện khi nằm ngửa trên ghế phẳng hoặc sàn nhà, giúp loại bỏ hoàn toàn sự hỗ trợ từ thân người. Tư thế nằm buộc biceps phải hoạt động độc lập và liên tục trong suốt quá trình co duỗi. Bài này rất hiệu quả để cô lập cơ tay trước, tăng cảm nhận cơ (mind-muscle connection) và hạn chế gian lận bằng đà. Đồng thời, nó tạo góc độ kéo khác biệt giúp kích thích sợi cơ mới mà các bài đứng thông thường khó đạt được."
+  },
+  {
+    "name": "Banded Bicep Curl",
+    "levelIds": [1],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [4],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Banded Bicep Curl sử dụng dây kháng lực thay cho tạ, mang lại lực căng tăng dần theo độ giãn của dây. Bài tập này rất tiện lợi để tập ở bất cứ đâu và giúp cải thiện độ bền, sức mạnh cơ tay trước. Kháng lực không đều của dây khiến biceps phải điều chỉnh lực liên tục, từ đó tăng hiệu quả rèn luyện cơ sâu và kiểm soát chuyển động. Đây là lựa chọn tuyệt vời cho những người không có dụng cụ gym hoặc muốn thay đổi cảm giác tập truyền thống."
+  },
+  {
+    "name": "Zottman Curls",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4, 6],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "45,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Zottman Curl là bài tập kết hợp giữa động tác Dumbbell Curl (lòng bàn tay ngửa lên khi nâng tạ) và Reverse Curl (lòng bàn tay úp khi hạ xuống). Điều này cho phép bạn rèn luyện toàn diện cả cơ biceps lẫn brachialis và cẳng tay trong một chuyển động duy nhất. Bài tập yêu cầu kỹ thuật cao để kiểm soát tốc độ và xoay cổ tay đúng thời điểm, rất phù hợp cho người đã có kinh nghiệm. Zottman Curl giúp phát triển bắp tay toàn diện về cả hình thể và sức mạnh chức năng."
+  },
+  {
+    "name": "Cable Overhead Curl",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6, 3],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [2, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cable Overhead Curl là bài tập tay trước sử dụng máy kéo cáp với tay kéo từ vị trí trên đầu (ngang vai). Động tác này giữ căng liên tục lên cơ biceps suốt chuyển động, giúp phát triển phần giữa và đầu ngoài của cơ tay trước. Bài tập hiệu quả để tăng độ đầy và sắc nét cho bắp tay, đồng thời cải thiện sức bền cơ khi thực hiện với số reps cao."
+  },
+  {
+    "name": "Kettlebell Alternating Hang Clean",
+    "levelIds": [2, 3],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [2, 10],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "6,10",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Kettlebell Alternating Hang Clean là bài tập toàn thân với tạ ấm, trong đó người tập nâng tạ từ tư thế treo (hang) lên vị trí rack xen kẽ hai tay. Động tác này kích hoạt mạnh cơ lưng, mông, tay trước, vai và core, giúp cải thiện sức mạnh, tốc độ và khả năng phối hợp vận động. Đây là bài compound hiệu quả cho cả tăng cơ và giảm mỡ."
+  },
+  {
+    "name": "Power Clean",
+    "levelIds": [3],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [2, 4, 10],
+    "secondaryTargetMuscleIds": [3, 12, 7],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "3,6",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Power Clean là bài tập nâng tạ Olympic toàn thân, trong đó người tập nâng tạ từ sàn lên vị trí rack trên vai bằng một chuyển động bùng nổ. Bài tập này kích hoạt đồng thời cơ lưng, mông, vai, tay và core – giúp phát triển sức mạnh, tốc độ, và khả năng phối hợp thần kinh cơ. Power Clean là lựa chọn lý tưởng cho các vận động viên hoặc người tập nâng cao muốn xây dựng sức mạnh bùng nổ và thể lực toàn diện."
+  },
+  {
+    "name": "Snatch Pull",
+    "levelIds": [3],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [2, 4, 10],
+    "secondaryTargetMuscleIds": [3, 12, 7],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "3,6",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Snatch Pull là bài tập rèn kỹ thuật và sức mạnh cho phần kéo của động tác cử tạ snatch. Người tập bắt đầu như deadlift với tư thế rộng, sau đó kéo thanh tạ lên cao bằng chuyển động bùng nổ, nhấn mạnh vào việc mở hông và nhún vai. Bài tập này giúp xây dựng sức mạnh vùng posterior chain (lưng, mông, đùi sau) và cải thiện khả năng tạo lực cho các bài Olympic lifting."
+  }
+]

@@ -1,0 +1,272 @@
+[
+  {
+    "name": "Diamond Push-Ups",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [1, 4],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "12,20",
+    "duration": "30,45",
+    "goalIds": [2, 3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Diamond Push-Up là bài tập thể hình trọng lượng cơ thể, trong đó hai bàn tay đặt sát nhau tạo hình kim cương ngay dưới ngực. Tư thế này buộc cơ tay sau (triceps) hoạt động mạnh mẽ hơn so với chống đẩy thông thường. Đây là bài tập tuyệt vời cho người mới, có thể thực hiện ở bất kỳ đâu mà không cần dụng cụ. Ngoài triceps, Diamond Push-Up còn kích hoạt ngực giữa và cơ core, giúp phát triển toàn diện phần thân trên và tăng cường sức bền cơ bắp."
+  },
+  {
+    "name": "Bench Dips",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [2, 3],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bench Dip là bài tập đơn giản nhưng hiệu quả, tận dụng một chiếc ghế hoặc băng ghế để tập trung vào nhóm cơ tay sau. Người tập chống hai tay lên ghế phía sau, hạ thấp thân người rồi đẩy lên bằng lực của triceps. Bài tập này giúp phát triển sức mạnh cánh tay và vai sau, đồng thời cải thiện khả năng kiểm soát trọng lượng cơ thể. Rất phù hợp cho người mới hoặc những ai muốn tăng độ săn chắc vùng tay mà không cần tạ."
+  },
+  {
+    "name": "Floor Presses",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5, 1],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "45,60",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Floor Press là biến thể của bài Bench Press nhưng được thực hiện trên sàn nhà thay vì ghế. Khi cánh tay chạm sàn ở điểm cuối mỗi rep, triceps buộc phải làm việc nhiều hơn để hoàn thành chuyển động. Bài tập này giúp tăng sức mạnh tay sau, hạn chế phạm vi chuyển động để giảm áp lực lên vai. Rất lý tưởng cho người muốn rèn luyện triceps an toàn và hiệu quả."
+  },
+  {
+    "name": "Close-Grip Bench Press",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5, 1],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "4,5",
+    "reps": "6,10",
+    "duration": "45,60",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Close-Grip Bench Press là biến thể với tay cầm hẹp hơn bài bench thông thường, giúp chuyển phần lớn tải trọng từ ngực sang tay sau. Khi đẩy tạ lên, triceps hoạt động ở biên độ cao, giúp tăng cường cả kích thước lẫn sức mạnh. Đây là bài compound tuyệt vời cho những ai muốn xây dựng phần thân trên đầy đặn và lực đẩy mạnh mẽ. Đồng thời, nó cũng hỗ trợ cải thiện kỹ thuật cho các bài push nặng như overhead press."
+  },
+  {
+    "name": "Pushdowns (Cable)",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cable Pushdown là bài tập triceps cực kỳ hiệu quả, sử dụng máy kéo cáp để tạo ra lực căng liên tục. Người tập đứng thẳng, kéo tay cầm xuống đến khi tay duỗi thẳng hoàn toàn, giữ ổn định phần cánh tay trên. Nhờ lực cản từ máy cáp, triceps được kích thích đều đặn suốt chuyển động. Bài này rất phù hợp để kết thúc buổi tập tay với độ \"cháy\" tối đa, giúp tăng cảm nhận cơ và hình thể rõ nét hơn."
+  },
+  {
+    "name": "Reverse Grip Pushdowns",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [6, 4],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Reverse Grip Pushdown là biến thể độc đáo trong đó người tập nắm tay cầm ngửa (supinated grip), buộc triceps phải kích hoạt ở góc độ mới, đặc biệt là đầu trong (medial head). Điều này giúp phát triển cân đối các phần cơ tay sau, tăng độ dày và sự đầy đặn. Bài tập này cũng giảm áp lực lên khuỷu tay và cổ tay, rất phù hợp khi cần đa dạng hóa bài tập trong chương trình tăng cơ."
+  },
+  {
+    "name": "Skullcrushers",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "45,60",
+    "goalIds": [3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Skullcrusher là bài tập kinh điển cho triceps, được thực hiện bằng cách nằm ngửa trên ghế phẳng và hạ thanh tạ từ trên cao xuống gần trán, sau đó đẩy ngược trở lại. Bài tập này tác động sâu vào cả ba phần của triceps, đặc biệt là đầu dài. Cần kiểm soát kỹ thuật và chuyển động để tránh chấn thương khuỷu tay. Khi thực hiện đúng, Skullcrusher là công cụ cực kỳ mạnh mẽ để xây dựng khối cơ tay sau ấn tượng."
+  },
+  {
+    "name": "Overhead Triceps Extensions",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3",
+    "reps": "10,12",
+    "duration": "45,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Overhead Triceps Extension là bài tập tay sau với tư thế đưa tạ qua đầu và duỗi thẳng cánh tay. Việc kéo giãn triceps ở vị trí giơ cao giúp kích thích tối đa đầu dài – phần lớn nhất của nhóm cơ này. Có thể tập bằng tạ đơn, đôi hoặc dây kháng lực. Bài tập này nên có mặt trong mọi giáo án tập tay sau vì giúp kéo dài và định hình cơ rất hiệu quả."
+  },
+  {
+    "name": "Tricep Dips",
+    "levelIds": [2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [5, 1],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [7],
+    "locationIds": [2, 3],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 1],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tricep Dip là bài bodyweight nâng cao, thực hiện trên xà song song. Người tập dùng lực tay để nâng và hạ cơ thể, với phần khuỷu tay cong vào trong để tập trung vào triceps thay vì ngực. Đây là bài compound mạnh mẽ, đòi hỏi sức mạnh thân trên tốt, đồng thời giúp tăng kích thước và độ dày tay sau nhanh chóng. Rất lý tưởng để đưa vào giữa hoặc cuối buổi tập với số reps vừa phải."
+  },
+  {
+    "name": "Single-Arm Kickbacks",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Single-Arm Kickback là bài tập cô lập triceps rất hiệu quả, trong đó người tập cúi người, giữ khuỷu tay cố định và duỗi thẳng cẳng tay về phía sau. Với tay đơn, người tập có thể cảm nhận từng chuyển động sâu ở cơ tay sau. Bài tập này đặc biệt tốt để hoàn thiện hình dáng và \"điêu khắc\" vùng triceps, nhất là phần đầu ngoài. Thực hiện với tốc độ chậm và kiểm soát tốt để tăng hiệu quả tối đa."
+  },
+  {
+    "name": "Dumbbell Tate Press",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3, 4],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Dumbbell Tate Press là bài tập cô lập triceps, trong đó người tập nằm trên ghế phẳng và đẩy hai quả tạ từ vị trí ngang ngực hướng lên trên với khuỷu tay hướng ra ngoài. Bài này tập trung nhiều vào đầu ngoài của cơ tay sau, giúp phát triển độ dày và hình dạng cánh tay."
+  },
+  {
+    "name": "Cable Rear Drive",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3, 6],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cable Rear Drive là bài tập kéo cáp đẩy tay ra sau cơ thể, giúp cô lập và siết cơ triceps – đặc biệt phần đầu dài. Bài này yêu cầu giữ ổn định phần thân trên, tăng cường cảm nhận cơ và rất hiệu quả trong các giai đoạn hoàn thiện."
+  },
+  {
+    "name": "Triceps Press",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3, 4],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Triceps Press là bài tập đẩy tay sau với tạ đơn hoặc đòn, thường được thực hiện ở tư thế nằm ngửa. Chuyển động chủ yếu ở khớp khuỷu tay, giúp phát triển đồng đều ba phần của cơ triceps và hỗ trợ các bài đẩy khác như bench press."
+  },
+  {
+    "name": "Body Up",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [7, 3, 4],
+    "equipmentIds": [1],
+    "locationIds": [1, 3, 4],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Body Up là bài tập bodyweight kết hợp plank và push-up, trong đó người tập chuyển đổi liên tục từ plank cẳng tay sang chống đẩy bằng tay. Bài này tập trung vào cơ tay sau, vai và core, tăng sức bền và khả năng kiểm soát thân người hiệu quả."
+  },
+  {
+    "name": "Handstand Push-Up",
+    "levelIds": [3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3, 4, 7],
+    "equipmentIds": [1],
+    "locationIds": [1, 3],
+    "sets": "3,4",
+    "reps": "3,8",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Handstand Push-Up là bài tập nâng cao, trong đó người tập chống tay ngược và thực hiện động tác chống đẩy bằng lực tay và vai. Bài này kích hoạt mạnh cơ vai và cơ tay trước, đồng thời đòi hỏi khả năng giữ thăng bằng và kiểm soát core cao. Phù hợp cho người đã có nền tảng sức mạnh và kiểm soát thân thể tốt."
+  }
+]
