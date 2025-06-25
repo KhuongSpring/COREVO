@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto personalInformation(PersonalInformationRequestDto request) {
         if (!userRepository.existsUserByUsername(request.getUsername()))
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         if (userRepository.existsUsersByPhone(request.getPhone()))
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto uploadAvatar(String id, String url) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED));
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
         user.setLinkAvatar(url);
         userRepository.save(user);
 
@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto getUserById(String userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED));
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
         return userMapper.toUserResponseDto(user);
     }
 
@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto updateUser(String userId, UpdateUserRequestDto request) {
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED));
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
         userMapper.updateUserFromDto(request, user);
         User updatedUser = userRepository.save(user);
         return userMapper.toUserResponseDto(updatedUser);
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public CommonResponseDto deleteUserPermanently(String userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED));
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
         Address userAddress = user.getAddress();
         userRepository.delete(user);
         if (userAddress != null && !userRepository.existsByAddress(userAddress)) {
@@ -175,7 +175,7 @@ public class UserServiceImpl implements UserService {
 
     private void checkLockUser(Optional<User> user, String userId) {
         if (user.isEmpty()) {
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
         } else {
             if (user.get().getIsLocked()) {
                 throw new InvalidException((ErrorMessage.User.ERR_USER_IS_LOCKED));
@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
 
     private void checkUnlockUser(Optional<User> user, String userId) {
         if (user.isEmpty()) {
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
         } else {
             if (!user.get().getIsLocked()) {
                 throw new InvalidException((ErrorMessage.User.ERR_USER_IS_NOT_LOCKED));

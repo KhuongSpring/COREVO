@@ -85,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
     public UserResponseDto verifyOtpToRegister(VerifyOtpRequestDto request) {
         PendingRegistrationRequestDto pending = pendingRegisterMap.get(request.getEmail());
         if (pending == null)
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
         if (pending.isExpired())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
         if (!pending.getOtp().equals(request.getOtp()))
@@ -107,7 +107,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void forgotPassword(ForgotPasswordRequestDto request) {
         if (!userRepository.existsUserByEmail(request.getEmail()))
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
 
         String otp = generateOtp();
         PendingResetPasswordRequestDto pending = new PendingResetPasswordRequestDto();
@@ -123,7 +123,7 @@ public class AuthServiceImpl implements AuthService {
     public boolean verifyOtpToResetPassword(VerifyOtpRequestDto request) {
         PendingResetPasswordRequestDto pending = pendingResetPasswordMap.get(request.getEmail());
         if (pending == null)
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
         if (pending.isExpired())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
         if (!pending.getOtp().equals(request.getOtp()))
@@ -136,7 +136,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserResponseDto resetPassword(ResetPasswordRequestDto request) {
         if (!userRepository.existsUserByEmail(request.getEmail()))
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
 
         if (!request.getNewPassword().equals(request.getReEnterPassword()))
             throw new VsException(HttpStatus.UNPROCESSABLE_ENTITY, ErrorMessage.User.ERR_RE_ENTER_PASSWORD_NOT_MATCH);
