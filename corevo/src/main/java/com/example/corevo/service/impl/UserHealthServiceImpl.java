@@ -32,7 +32,7 @@ public class UserHealthServiceImpl implements UserHealthService {
     @Override
     public UserResponseDto healthInformation(UserHealthRequestDto request) {
         if (!userRepository.existsUserByUsername(request.getUsername())) {
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
         }
 
         User user = userRepository.findByUsername(request.getUsername());
