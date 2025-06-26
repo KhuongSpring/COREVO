@@ -32,4 +32,6 @@ public interface TrainingPlanRepository extends JpaRepository<TrainingPlan, Long
             @Param("locationIds") List<Long> locationIds,
             @Param("equipmentIds") List<Long> equipmentIds
     );
+
+    boolean existsByNameAndType(String name, String type);
 }

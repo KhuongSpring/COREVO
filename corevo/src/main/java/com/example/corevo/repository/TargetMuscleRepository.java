@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TargetMuscleRepository extends JpaRepository<TargetMuscle, Long> {
+    boolean existsByTargetMuscleName(String targetMuscleName);
 }

@@ -8,7 +8,7 @@
     "equipmentIds": [1],
     "locationIds": [4],
     "sets": "2,4",
-    "reps": "",
+    "reps": "0,0",
     "duration": "30,60",
     "goalIds": [5, 7],
     "media": {
@@ -26,7 +26,7 @@
     "equipmentIds": [1],
     "locationIds": [4],
     "sets": "2,4",
-    "reps": "",
+    "reps": "0,0",
     "duration": "30,60",
     "goalIds": [5, 7],
     "media": {

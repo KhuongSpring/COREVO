@@ -1,6 +1,5 @@
-package com.example.corevo.domain.dto.response;
+package com.example.corevo.domain.dto.response.training;
 
-import com.example.corevo.domain.dto.request.TrainingPlanFlowRequestDto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

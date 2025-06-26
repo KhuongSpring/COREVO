@@ -1,8 +1,14 @@
 package com.example.corevo.utils;
 
-import com.example.corevo.domain.dto.response.TrainingPlanResponseDto;
+import com.example.corevo.domain.dto.helper_dto.RawTrainingExerciseDto;
+import com.example.corevo.domain.dto.response.training.TrainingExerciseResponseDto;
+import com.example.corevo.domain.dto.response.training.TrainingPlanResponseDto;
+import com.example.corevo.domain.entity.TrainingExercise;
 import com.example.corevo.domain.entity.training.*;
 import com.example.corevo.domain.entity.TrainingPlan;
+import com.example.corevo.domain.mapper.TrainingExerciseMapper;
+import com.example.corevo.domain.mapper.TrainingPlanMapper;
+import com.example.corevo.helper.TrainingExerciseConverter;
 import com.example.corevo.repository.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +22,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -25,6 +33,8 @@ import java.util.List;
 public class AppDataSeeder implements ApplicationRunner {
 
     ObjectMapper objectMapper;
+    TrainingPlanMapper trainingPlanMapper;
+    TrainingExerciseMapper trainingExerciseMapper;
 
     LevelRepository levelRepository;
     LocationRepository locationRepository;
@@ -33,101 +43,248 @@ public class AppDataSeeder implements ApplicationRunner {
     TypeRepository typeRepository;
     GoalRepository goalRepository;
     TrainingPlanRepository trainingPlanRepository;
+    TrainingExerciseRepository trainingExerciseRepository;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
+        seedEquipments();
+        seedGoal();
         seedLevels();
         seedLocations();
-        seedEquipments();
         seedTargetMuscle();
         seedType();
-        seedGoal();
+
         seedTrainingPlans();
+        seedTrainingExercise();
     }
 
-    void seedLevels() throws IOException {
-        if (levelRepository.count() == 0) {
-            log.info("Seeding levels from JSON...");
-            try (InputStream is = getClass().getResourceAsStream("/data/level.json")) {
-                List<Level> levels = objectMapper.readValue(is, new TypeReference<>() {});
-                levelRepository.saveAll(levels);
+    void seedEquipments() {
+        try (InputStream is = getClass().getResourceAsStream("/data/equipment.json")) {
+            log.info("Start seeding equipment from JSON...");
+            List<Equipment> equipmentsFromDB = equipmentRepository.findAll();
+            List<Equipment> equipmentsFromJson = objectMapper.readValue(is, new TypeReference<>() {
+            });
+            if (equipmentsFromDB.isEmpty()) {
+                equipmentRepository.saveAll(equipmentsFromJson);
+            } else {
+                if (equipmentsFromJson.size() > equipmentsFromDB.size()) {
+                    for (Equipment x : equipmentsFromJson) {
+                        if (!equipmentRepository.existsByEquipmentName(x.getEquipmentName())) {
+                            equipmentRepository.save(x);
+                        }
+                    }
+                }
             }
+            log.info("Seeding equipment from JSON completed!");
+        } catch (IOException e) {
+            log.warn("Seeding equipment from JSON fail");
         }
     }
 
-    void seedLocations() throws IOException {
-        if (locationRepository.count() == 0) {
-            log.info("Seeding locations from JSON...");
-            try (InputStream is = getClass().getResourceAsStream("/data/location.json")) {
-                List<Location> locations = objectMapper.readValue(is, new TypeReference<>() {});
-                locationRepository.saveAll(locations);
+    void seedGoal() {
+        try (InputStream is = getClass().getResourceAsStream("/data/goal.json")) {
+            log.info("Start seeding goal from JSON...");
+            List<Goal> goalsFromDB = goalRepository.findAll();
+            List<Goal> goalsFromJson = objectMapper.readValue(is, new TypeReference<>() {
+            });
+            if (goalsFromDB.isEmpty()) {
+                goalRepository.saveAll(goalsFromJson);
+            } else {
+                if (goalsFromJson.size() > goalsFromDB.size()) {
+                    for (Goal x : goalsFromJson) {
+                        if (!goalRepository.existsByGoalName(x.getGoalName())) {
+                            goalRepository.save(x);
+                        }
+                    }
+                }
             }
+            log.info("Seeding goal from JSON completed!");
+        } catch (IOException e) {
+            log.warn("Seeding goal from JSON fail");
         }
     }
 
-    void seedEquipments() throws IOException {
-        if (equipmentRepository.count() == 0) {
-            log.info("Seeding equipment from JSON...");
-            try (InputStream is = getClass().getResourceAsStream("/data/equipment.json")) {
-                List<Equipment> equipments = objectMapper.readValue(is, new TypeReference<>() {});
-                equipmentRepository.saveAll(equipments);
+    void seedLevels() {
+        try (InputStream is = getClass().getResourceAsStream("/data/level.json")) {
+            log.info("Start seeding level from JSON...");
+            List<Level> levelsFromDB = levelRepository.findAll();
+            List<Level> levelsFromJSON = objectMapper.readValue(is, new TypeReference<>() {
+            });
+            if (levelsFromDB.isEmpty()) {
+                levelRepository.saveAll(levelsFromJSON);
+            } else {
+                if (levelsFromJSON.size() > levelsFromDB.size()) {
+                    for (Level x : levelsFromJSON) {
+                        if (!levelRepository.existsByLevelName(x.getLevelName())) {
+                            levelRepository.save(x);
+                        }
+                    }
+                }
             }
+            log.info("Seeding level from JSON completed!");
+        } catch (IOException e) {
+            log.warn("Seeding levels from JSON fail");
         }
     }
 
-    void seedTargetMuscle() throws IOException {
-        if (targetMuscleRepository.count() == 0){
-            log.info("Seeding target muscle from JSON...");
-            try(InputStream is = getClass().getResourceAsStream("/data/targetMuscle.json")){
-                List<TargetMuscle> targetMuscles = objectMapper.readValue(is, new TypeReference<>() {});
-                targetMuscleRepository.saveAll(targetMuscles);
+    void seedLocations() {
+        try (InputStream is = getClass().getResourceAsStream("/data/location.json")) {
+            log.info("Start seeding location from JSON...");
+            List<Location> locationsFromDB = locationRepository.findAll();
+            List<Location> locationsFromJson = objectMapper.readValue(is, new TypeReference<>() {
+            });
+            if (locationsFromDB.isEmpty()) {
+                locationRepository.saveAll(locationsFromJson);
+            } else {
+                if (locationsFromJson.size() > locationsFromDB.size()) {
+                    for (Location x : locationsFromJson) {
+                        if (!locationRepository.existsByLocationName(x.getLocationName())) {
+                            locationRepository.save(x);
+                        }
+                    }
+                }
             }
+            log.info("Seeding location from JSON completed!");
+        } catch (IOException e) {
+            log.warn("Seeding location from JSON fail");
         }
     }
 
-    void seedType() throws IOException {
-        if (typeRepository.count() == 0){
-            log.info("Seeding type from JSON...");
-            try(InputStream is = getClass().getResourceAsStream("/data/type.json")){
-                List<Type> types = objectMapper.readValue(is, new TypeReference<>() {});
-                typeRepository.saveAll(types);
+    void seedTargetMuscle() {
+        try (InputStream is = getClass().getResourceAsStream("/data/targetMuscle.json")) {
+            log.info("Start seeding target muscle from JSON...");
+            List<TargetMuscle> targetMusclesFromDB = targetMuscleRepository.findAll();
+            List<TargetMuscle> targetMusclesFromJson = objectMapper.readValue(is, new TypeReference<>() {
+            });
+            if (targetMusclesFromDB.isEmpty()) {
+                targetMuscleRepository.saveAll(targetMusclesFromJson);
+            } else {
+                if (targetMusclesFromJson.size() > targetMusclesFromDB.size()) {
+                    for (TargetMuscle x : targetMusclesFromJson) {
+                        if (!targetMuscleRepository.existsByTargetMuscleName(x.getTargetMuscleName())) {
+                            targetMuscleRepository.save(x);
+                        }
+                    }
+                }
             }
+            log.info("Seeding target muscle from JSON completed!");
+        } catch (IOException e) {
+            log.warn("Seeding target muscle from JSON fail");
         }
     }
 
-    void seedGoal() throws IOException {
-        if (goalRepository.count() == 0){
-            log.info("Seeding goal from JSON...");
-            try(InputStream is = getClass().getResourceAsStream("/data/goal.json")){
-                List<Goal> goals = objectMapper.readValue(is, new TypeReference<>() {});
-                goalRepository.saveAll(goals);
+    void seedType() {
+        try (InputStream is = getClass().getResourceAsStream("/data/type.json")) {
+            log.info("Start seeding type from JSON...");
+            List<Type> typesFromDB = typeRepository.findAll();
+            List<Type> typesFromJson = objectMapper.readValue(is, new TypeReference<>() {
+            });
+            if (typesFromDB.isEmpty()) {
+                typeRepository.saveAll(typesFromJson);
+            } else {
+                if (typesFromJson.size() > typesFromDB.size()) {
+                    for (Type x : typesFromJson) {
+                        if (!typeRepository.existsByTypeName(x.getTypeName())) {
+                            typeRepository.save(x);
+                        }
+                    }
+                }
             }
+            log.info("Seeding type from JSON completed!");
+        } catch (IOException e) {
+            log.warn("Seeding type from JSON fail");
         }
     }
 
-    void seedTrainingPlans() throws IOException {
-        if (trainingPlanRepository.count() == 0) {
-            log.info("Seeding training plans...");
-            try (InputStream is = getClass().getResourceAsStream("/data/training_plan.json")) {
-                List<TrainingPlanResponseDto> dtos = objectMapper.readValue(is, new TypeReference<>() {
-                });
-                for (TrainingPlanResponseDto dto : dtos) {
-                    TrainingPlan plan = TrainingPlan.builder()
-                            .name(dto.getName())
-                            .description(dto.getDescription())
-                            .aim(dto.getAim())
-                            .goals(dto.getGoals())
-                            .type(dto.getType())
-                            .duration(dto.getDuration())
-                            .frequency(dto.getFrequency())
-                            .levels(levelRepository.findAllById(dto.getLevelIds()))
-                            .locations(locationRepository.findAllById(dto.getLocationIds()))
-                            .equipments(equipmentRepository.findAllById(dto.getEquipmentIds()))
-                            .build();
 
-                    trainingPlanRepository.save(plan);
+
+    void seedTrainingPlans() {
+        try (InputStream is = getClass().getResourceAsStream("/data/training_plan.json")) {
+            log.info("Start seeding training plan from JSON...");
+            List<TrainingPlan> trainingPlansFromDB = trainingPlanRepository.findAll();
+            List<TrainingPlanResponseDto> trainingPlansFromJson = objectMapper.readValue(is, new TypeReference<>() {
+            });
+            if (trainingPlansFromDB.isEmpty()) {
+                List<TrainingPlan> trainingPlans = trainingPlanMapper.
+                        listTrainingPlanResponseDtoToListTrainingPlan(trainingPlansFromJson);
+                trainingPlanRepository.saveAll(trainingPlans);
+            } else {
+                if (trainingPlansFromJson.size() > trainingPlansFromDB.size()) {
+                    for (TrainingPlanResponseDto x : trainingPlansFromJson){
+                        if (!trainingPlanRepository.existsByNameAndType(x.getName(), x.getType())){
+                            trainingPlanRepository.save(
+                                    trainingPlanMapper.trainingPlanResponseDtoToTrainingPlan(x)
+                            );
+                        }
+                    }
+                }
+            }
+            log.info("Seeding training plan from JSON completed!");
+        } catch (IOException e) {
+            log.warn("Seeding training plan from JSON fail");
+        }
+    }
+
+    void seedTrainingExercise() {
+        List<String> jsonFiles = List.of(
+                "/data/training_exercise_data/abs_training_exercise.json",
+                "/data/training_exercise_data/back_training_exercise.json",
+                "/data/training_exercise_data/biceps_training_exercise.json",
+                "/data/training_exercise_data/chest_training_exercise.json",
+                "/data/training_exercise_data/glute_training_exercise.json",
+                "/data/training_exercise_data/hamstring_training_exercise.json",
+                "/data/training_exercise_data/quads_training_exercise.json",
+                "/data/training_exercise_data/shoulders_training_exercise.json",
+                "/data/training_exercise_data/triceps_training_exercise.json"
+        );
+
+        log.info("Start seeding training exercise from JSON...");
+
+        List<TrainingExercise> trainingExercisesFromDB = trainingExerciseRepository.findAll();
+
+        if (trainingExercisesFromDB.isEmpty()){
+            for (String file : jsonFiles){
+                List<TrainingExerciseResponseDto> trainingExercisesFromJSON = loadTrainingExerciseDataFromJSON(file);
+                trainingExerciseRepository.saveAll(
+                        trainingExerciseMapper.
+                                ListTrainingExerciseResponseDtoToListTrainingExercise(trainingExercisesFromJSON));
+                log.info("Seeding training exercise from {} completed!", file);
+            }
+        } else {
+            List<TrainingExerciseResponseDto> trainingExercisesFromJSON = new ArrayList<>();
+            for (String file : jsonFiles){
+                trainingExercisesFromJSON.addAll(loadTrainingExerciseDataFromJSON(file));
+            }
+
+
+            if (trainingExercisesFromJSON.size() > trainingExercisesFromDB.size()){
+                for (TrainingExerciseResponseDto x : trainingExercisesFromJSON){
+                    if (!trainingExerciseRepository.existsByNameAndTypesAndPrimaryMuscles(
+                            x.getName(),
+                            typeRepository.findAllById(x.getTypeIds()),
+                            targetMuscleRepository.findAllById(x.getPrimaryMuscleIds())
+                    )) {
+                        trainingExerciseRepository.save(
+                                trainingExerciseMapper.trainingExerciseResponseDtoToTrainingExercise(x));
+                    }
                 }
             }
         }
+
+        log.info("Seeding training exercise from JSON completed!");
+
+    }
+
+    List<TrainingExerciseResponseDto> loadTrainingExerciseDataFromJSON (String path) {
+        try (InputStream is = getClass().getResourceAsStream(path)) {
+            List<RawTrainingExerciseDto> rawList = objectMapper.readValue(is, new TypeReference<>() {});
+
+            return rawList.stream()
+                    .map(TrainingExerciseConverter::convert)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            log.warn("Load training exercise data from {} fail", path);
+        }
+        return List.of();
     }
 }
