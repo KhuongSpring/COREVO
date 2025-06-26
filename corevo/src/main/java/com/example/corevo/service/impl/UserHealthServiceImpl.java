@@ -3,8 +3,8 @@ package com.example.corevo.service.impl;
 import com.example.corevo.constant.ErrorMessage;
 import com.example.corevo.domain.dto.request.user.health.UserHealthRequestDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
-import com.example.corevo.domain.entity.User;
-import com.example.corevo.domain.entity.UserHealth;
+import com.example.corevo.domain.entity.user.User;
+import com.example.corevo.domain.entity.user.UserHealth;
 import com.example.corevo.domain.mapper.UserMapper;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.repository.UserHealthRepository;
@@ -55,7 +55,7 @@ public class UserHealthServiceImpl implements UserHealthService {
         userHealth.setMaximumHeartRate(healthCalculationService.calculateMaximumHeartRate(request));
         userRepository.save(user);
 
-        return userMapper.toUserResponseDto(user);
+        return userMapper.userToUserResponseDto(user);
     }
 
 }

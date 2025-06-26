@@ -2,7 +2,7 @@ package com.example.corevo.domain.dto.request.admin;
 
 import java.time.LocalDate;
 
-import com.example.corevo.domain.entity.Role;
+import com.example.corevo.domain.entity.user.Role;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;

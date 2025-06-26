@@ -1,7 +1,7 @@
 package com.example.corevo.security;
 
 import com.example.corevo.constant.ErrorMessage;
-import com.example.corevo.domain.entity.User;
+import com.example.corevo.domain.entity.user.User;
 import com.example.corevo.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,0 +1,255 @@
+[
+  {
+    "name": "Straight Leg Deadlifts",
+    "levelIds": [2],
+    "Ids": [1],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [2,12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "8,12",
+    "reps": "3,4",
+    "duration": "30,45",
+    "goalIds": [1, 2, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Giúp kéo căng và phát triển tối đa cơ mông, hỗ trợ tăng sức mạnh và cải thiện độ linh hoạt thân dưới."
+  },
+  {
+    "name": "Single-leg Deadlift",
+    "levelIds": [2],
+    "Ids": [1],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [2,12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "8,10",
+    "reps": "3,4",
+    "duration": "30,45",
+    "goalIds": [1, 2, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tăng cường sự cân bằng và kiểm soát cơ mông sau từng bên, đồng thời cải thiện khả năng ổn định toàn thân."
+  },
+  {
+    "name": "Romanian Deadlift",
+    "levelIds": [2],
+    "Ids": [1],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [2,12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "8,10",
+    "reps": "3,4",
+    "duration": "30,45",
+    "goalIds": [1, 2, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Phát triển toàn diện cơ mông và lưng dưới, là bài tập nền tảng trong các chương trình tăng sức mạnh và cơ bắp phần sau cơ thể."
+  },
+  {
+    "name": "Supine bridges",
+    "levelIds": [1],
+    "Ids": [1, 2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [9, 12],
+    "equipmentIds": [1, 2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "12,20",
+    "duration": "30, 60",
+    "goalIds": [3, 4, 7, 8],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Supine bridges là bài tập cơ bản giúp kích hoạt cơ mông, gân kheo và lưng dưới."
+  },
+  {
+    "name": "Walking band abduction",
+    "levelIds": [1],
+    "Ids": [1, 2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [8, 11],
+    "equipmentIds": [2, 4],
+    "locationIds": [1, 2, 4],
+    "sets": "3,4",
+    "reps": "12,20",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Walking band abduction là bài tập kích hoạt mông ngoài hiệu quả bằng dây kháng lực."
+  },
+  {
+    "name": "Fire hydrants",
+    "levelIds": [1],
+    "Ids": [1, 2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [2, 8],
+    "equipmentIds": [1, 2],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "20,30",
+    "goalIds": [3, 4, 5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Fire hydrants là bài tập bodyweight tác động vào mông và cơ liên sườn."
+  },
+  {
+    "name": "Clamshells",
+    "levelIds": [1],
+    "Ids": [1, 2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [8],
+    "equipmentIds": [1, 2],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "12,20",
+    "duration": "30,45",
+    "goalIds": [3, 4, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Clamshells là bài tập giúp tăng sự ổn định hông và kích hoạt cơ mông ngoài."
+  },
+  {
+    "name": "Reverse dumbbell lunges",
+    "levelIds": [2],
+    "Ids": [1, 2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [11, 12],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Reverse dumbbell lunges là bài tập giúp phát triển cơ mông và cải thiện thăng bằng."
+  },
+  {
+    "name": "Sumo Squat",
+    "levelIds": [2],
+    "Ids": [1, 2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [11, 12],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Sumo Squat là bài squat rộng giúp tác động nhiều vào mông và đùi trong."
+
+  },
+  {
+    "name": "Sumo Leg Press",
+    "levelIds": [2],
+    "Ids": [1],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [11, 12],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "4,5",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Sumo Leg Press là bài đẩy chân biến thể giúp phát triển mông và đùi mạnh mẽ."
+  },
+  {
+    "name": "Bulgarian Split Squat",
+    "levelIds": [3],
+    "Ids": [1, 2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [11, 12],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "8,10",
+    "duration": "30,45",
+    "goalIds": [3,5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bulgarian Split Squat là bài squat một chân cô lập và kích hoạt cơ mông hiệu quả."
+  },
+  {
+    "name": "Glute Kickback",
+    "levelIds": [2],
+    "Ids": [1],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [2, 12],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "20,30",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Glute Kickback là bài tập isolate giúp siết cơ mông, dễ thực hiện tại nhà hoặc gym."
+  },
+  {
+    "name": "Barbell Hip Thrust",
+    "levelIds": [3],
+    "Ids": [1],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [2, 12],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "4,5",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Barbell Hip Thrust là bài compound mạnh giúp tăng sức mạnh và kích thước cơ mông."
+  },
+  {
+    "name": "Hip Extension",
+    "levelIds": [2],
+    "Ids": [1],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [12],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "20,30",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Hip Extension là bài tập cô lập mông thực hiện với máy hoặc dây cáp."
+  }
+]

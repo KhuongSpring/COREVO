@@ -1,4 +1,4 @@
-package com.example.corevo.domain.entity;
+package com.example.corevo.domain.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -52,7 +52,7 @@ public class User {
     @Column(nullable = false)
     LocalDate createdAt;
 
-     Boolean isLocked;
+    Boolean isLocked;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

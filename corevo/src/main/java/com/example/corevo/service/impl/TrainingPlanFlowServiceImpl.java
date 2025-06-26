@@ -1,12 +1,12 @@
 package com.example.corevo.service.impl;
 
 import com.example.corevo.constant.ErrorMessage;
-import com.example.corevo.domain.dto.response.TrainingPlanFlowResponseDto;
-import com.example.corevo.domain.dto.response.TrainingPlanResponseDto;
+import com.example.corevo.domain.dto.response.training.TrainingPlanFlowResponseDto;
+import com.example.corevo.domain.dto.response.training.TrainingPlanResponseDto;
 import com.example.corevo.domain.entity.training.Equipment;
 import com.example.corevo.domain.entity.training.Level;
 import com.example.corevo.domain.entity.training.Location;
-import com.example.corevo.domain.entity.training.TrainingPlan;
+import com.example.corevo.domain.entity.TrainingPlan;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.repository.TrainingPlanRepository;
 import com.example.corevo.service.TrainingPlanFlowService;

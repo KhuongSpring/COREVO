@@ -1,0 +1,884 @@
+[
+  {
+    "name": "Plank",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9, 10],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "2,4",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập isometric giúp xây dựng sức bền cơ bụng, cải thiện kiểm soát thân người và ổn định cột sống. Đây là nền tảng cho mọi bài tập core, giúp cải thiện sức bền, giữ thăng bằng và hỗ trợ tư thế hàng ngày."
+  },
+  {
+    "name": "Side Plank",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "2,4",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể plank nhấn mạnh vào cơ liên sườn và core bên. Tăng khả năng kiểm soát hông, ổn định cột sống, và cải thiện cân bằng giữa hai bên thân."
+  },
+  {
+    "name": "Arms-High Partial Situp",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [1],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tăng thử thách lên phần bụng trên bằng cách đặt tay lên cao, giảm trợ lực từ hông. Giúp cải thiện khả năng siết bụng và hình thành vùng core gọn gàng."
+  },
+  {
+    "name": "Cross Body Crunch",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8, 9],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "12,20",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Kết hợp chuyển động xoay người để tác động cả bụng trên và cơ liên sườn. Hiệu quả trong việc cải thiện hình dạng vùng bụng và tăng sức mạnh xoay thân."
+  },
+  {
+    "name": "Cable Tuck Reverse Crunch",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8, 9],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài cô lập bụng dưới sử dụng lực cản từ cáp, giúp duy trì căng cơ liên tục. Rất tốt để phát triển vùng bụng thấp và cải thiện kiểm soát phần hông."
+  },
+  {
+    "name": "Flutter Kick",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "15,25",
+    "duration": "30,60",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài bụng dưới tăng nhịp tim, giúp đốt mỡ và kích hoạt cơ sâu. Hữu ích trong các chương trình giảm mỡ bụng, tăng sức bền vùng core."
+  },
+  {
+    "name": "Boat Stretch",
+    "levelIds": [1, 2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8, 9],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "8,12",
+    "duration": "30,60",
+    "goalIds": [4, 5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể giãn cơ chủ động giúp kéo dài vùng bụng và đùi, cải thiện linh hoạt và cân bằng. Phù hợp để phục hồi hoặc làm mát sau buổi tập core."
+  },
+  {
+    "name": "Lying Leg Raise",
+    "levelIds": [1, 2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [5, 6],
+    "equipmentIds": [1],
+    "locationIds": [1, 2, 3],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tác động mạnh đến cơ bụng dưới và hông. Hữu ích trong việc tăng khả năng kiểm soát phần thân dưới, hỗ trợ các bài nâng cao như Dragon Flag."
+  },
+  {
+    "name": "Frog Sit-up",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8, 9, 10],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "12,20",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập bụng dưới cải tiến giúp giảm hoạt động từ hông, tăng áp lực vào vùng core. Phù hợp để tăng chiều sâu và sức mạnh cơ bụng."
+  },
+  {
+    "name": "Spell Caster",
+    "levelIds": [1, 2],
+    "typeIds": [2, 4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8, 9],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "15,20",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5, 6],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Kết hợp giữa kiểm soát core và chuyển động xoay người. Giúp cải thiện sức mạnh xoắn và tăng cường ổn định hông – lưng dưới."
+  },
+  {
+    "name": "Medicine Ball Russian Twist",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8],
+    "equipmentIds": [5],
+    "locationIds": [2, 1],
+    "sets": "3,4",
+    "reps": "12,20",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tăng áp lực lên obliques và core bằng trọng lượng bổ sung. Hiệu quả để rèn sức mạnh xoay thân và hình thành eo săn chắc."
+  },
+  {
+    "name": "Captain's Chair Straight Leg Raise",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8, 9],
+    "equipmentIds": [5, 7],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tập trung tối đa vào cơ bụng dưới với cường độ cao. Rất hiệu quả để xây dựng chiều sâu cơ bụng và cải thiện sức bền vùng trung tâm."
+  },
+  {
+    "name": "Pelvic Tilt",
+    "levelIds": [1],
+    "typeIds": [3, 4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9, 10],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập an toàn và nhẹ nhàng giúp kích hoạt bụng dưới và lưng dưới. Phù hợp cho người mới hoặc phục hồi sau chấn thương vùng cột sống."
+  },
+  {
+    "name": "Crunch With Medicine Ball",
+    "levelIds": [1, 2],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể crunch tăng tải lên cơ bụng trên, giúp tăng khối lượng và độ nét. Thích hợp để phát triển vùng bụng trên trong giáo án hypertrophy."
+  },
+  {
+    "name": "Straight Leg Sit-up",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "12,20",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài toàn thân nhấn mạnh vào bụng dưới và core trung tâm. Giúp cải thiện sức bền vùng bụng và kiểm soát chuyển động thân người."
+  },
+  {
+    "name": "Assisted Sit-up",
+    "levelIds": [1],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9, 11],
+    "equipmentIds": [1, 4],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể với trợ lực giúp người mới kích hoạt đúng nhóm cơ bụng. Hữu ích để tập kỹ thuật siết cơ và kiểm soát chuyển động."
+  },
+  {
+    "name": "Ab Roller Crunch",
+    "levelIds": [1, 2],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9, 8],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Kích hoạt sâu toàn bộ vùng bụng thông qua chuyển động có độ kéo giãn cao. Rất hiệu quả để xây dựng chiều dài và chiều sâu cơ core."
+  },
+  {
+    "name": "Barbell Rollout",
+    "levelIds": [2, 3],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8, 9, 10],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài compound cho core sử dụng barbell, tạo lực kéo giãn toàn diện vùng bụng và lưng dưới. Đòi hỏi kỹ thuật và kiểm soát thân người cao."
+  },
+  {
+    "name": "Superman Push-Up",
+    "levelIds": [3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7, 1],
+    "secondaryTargetMuscleIds": [2, 3, 10],
+    "equipmentIds": [1],
+    "locationIds": [1, 3, 4],
+    "sets": "3,4",
+    "reps": "4,12",
+    "duration": "30,60",
+    "goalIds": [2, 3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể push-up cường độ cao giúp kích hoạt toàn bộ cơ thân người – đặc biệt là bụng trên, core và vai. Tăng khả năng kiểm soát và độ nổ."
+  },
+  {
+    "name": "Jackknife",
+    "levelIds": [2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8, 9, 10],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài gập bụng toàn thân tác động đồng thời bụng trên – dưới và hông. Hiệu quả để xây dựng vùng core chắc khỏe, cải thiện dáng bụng gọn."
+  },
+  {
+    "name": "Banded Reverse Crunch",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [2, 8, 9],
+    "equipmentIds": [4],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Sử dụng dây kháng lực để tăng áp lực vào bụng dưới, giúp siết cơ hiệu quả hơn ở giai đoạn cuối chuyển động. Phù hợp để hoàn thiện giáo án bụng."
+  },
+  {
+    "name": "Negative Dragon Flag",
+    "levelIds": [3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [2, 8, 9],
+    "equipmentIds": [1],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "5,8",
+    "duration": "30,60",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài nâng cao rèn core và lưng dưới với lực căng tối đa. Hiệu quả để xây dựng sức mạnh thân người cho các bài bodyweight nâng cao."
+  },
+  {
+    "name": "Swiss Ball Plate Crunch",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài crunch với bóng và tạ đĩa, tăng độ kéo giãn cơ bụng và tải lên vùng core. Giúp tăng độ nét và khả năng co siết khi gập người."
+  },
+  {
+    "name": "Otis Up",
+    "levelIds": [2, 3],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9, 8, 3],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài compound nhấn mạnh vào cơ bụng trên và khả năng kiểm soát core qua chuyển động toàn thân. Thích hợp để tăng sức mạnh thân trước."
+  },
+  {
+    "name": "Shoulder Tap",
+    "levelIds": [2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [3, 4, 5, 8],
+    "equipmentIds": [1],
+    "locationIds": [1, 3, 4],
+    "sets": "3,4",
+    "reps": "10,20",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài isometric tăng kiểm soát core và cân bằng tay – vai khi chống đẩy. Rất tốt trong các bài tập chức năng hoặc circuit giảm mỡ."
+  },
+  {
+    "name": "Dead Bug",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Dead Bug là bài tập calisthenic giúp rèn luyện cơ bụng sâu và ổn định vùng core, đặc biệt hiệu quả trong việc cải thiện kiểm soát chuyển động và sự phối hợp giữa tay – chân. Bài này rất phù hợp cho người mới bắt đầu, giúp tăng cường sức bền và hỗ trợ giảm đau lưng dưới thông qua việc củng cố cơ trung tâm."
+  },
+  {
+    "name": "Cable Kneeling Crunch",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cable Kneeling Crunch sử dụng máy kéo cáp để cô lập cơ bụng hiệu quả, giúp tăng độ dày và sức mạnh vùng core. Tư thế quỳ gối và chuyển động gập người đảm bảo lực tập trung tối đa vào cơ bụng mà không ảnh hưởng đến lưng dưới."
+  },
+  {
+    "name": "Barbell Press Sit Up",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [3, 4],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Barbell Press Sit Up kết hợp chuyển động gập bụng với đẩy tạ giúp tăng sức mạnh đồng thời cho core và vai. Bài này đòi hỏi sự kiểm soát tốt và phù hợp với người có kinh nghiệm tập luyện để nâng cao độ khó và hiệu quả tập luyện."
+  },
+  {
+    "name": "Crunch Hold",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "15,20",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Crunch Hold là bài tập giữ tư thế gập bụng giúp kích hoạt sâu cơ bụng trên. Duy trì tư thế cố định tăng sức bền cơ và cảm nhận cơ rõ rệt. Bài này phù hợp khi muốn siết cơ và cải thiện kiểm soát core."
+  },
+  {
+    "name": "Dumbbell V Up",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Dumbbell V Up là bài gập bụng nâng cao sử dụng tạ đơn, giúp tác động đồng thời lên bụng trên, bụng dưới và cơ hông. Phạm vi chuyển động rộng và thêm tạ giúp bài tập hiệu quả hơn trong việc xây dựng cơ bụng săn chắc."
+  },
+  {
+    "name": "Reverse Crunch Kick",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Reverse Crunch Kick là bài tập bụng dưới cải tiến với động tác đá chân giúp tăng độ căng cơ trong từng rep. Bài này phù hợp để đốt mỡ, tăng sức bền và siết cơ bụng dưới rõ nét hơn."
+  },
+  {
+    "name": "Body Saw Plank",
+    "levelIds": [2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [3, 8],
+    "equipmentIds": [2],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,60",
+    "goalIds": [1, 4, 5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Body Saw Plank là biến thể plank động giúp tăng cường độ khó bằng chuyển động tới – lui. Kích hoạt mạnh mẽ vùng core và vai, đồng thời rèn sự ổn định cơ trung tâm và sức bền toàn thân."
+  },
+  {
+    "name": "Seated Flutter Kick",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "15,20",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Seated Flutter Kick là bài tập bụng dưới đơn giản nhưng hiệu quả cao, nhắm vào vùng cơ chéo và hông dưới. Tốc độ nhanh giúp tăng nhịp tim và đốt mỡ đồng thời rèn luyện sức bền cơ bụng."
+  },
+  {
+    "name": "Dumbbell Rollout",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Dumbbell Rollout là bài tập mở rộng cơ bụng bằng chuyển động kéo tạ về trước. Giúp kích hoạt sâu cơ core, vai và lưng dưới, tăng khả năng kiểm soát cơ thể và cải thiện độ dẻo dai."
+  },
+  {
+    "name": "Chin to Chest Stretch",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "2,3",
+    "reps": "15,20",
+    "duration": "30,45",
+    "goalIds": [7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Chin to Chest Stretch là bài giãn cơ nhẹ nhàng giúp giảm căng cứng vùng cổ và bụng trên. Rất phù hợp cho phần khởi động hoặc phục hồi sau buổi tập bụng cường độ cao."
+  },
+  {
+    "name": "Groin Crunch",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [10],
+    "equipmentIds": [1],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Groin Crunch nhắm vào cơ bụng dưới và cơ háng, giúp tăng sức mạnh phần trung tâm cơ thể. Bài tập đơn giản nhưng hiệu quả trong việc cải thiện kiểm soát thân dưới và giảm đau lưng."
+  },
+  {
+    "name": "Dumbbell Overhead Sit Up",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [3, 4],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Dumbbell Overhead Sit Up tăng độ khó cho sit-up truyền thống bằng cách giữ tạ qua đầu. Giúp tăng sức mạnh cơ bụng và cải thiện sự ổn định vai, thích hợp cho người tập nâng cao."
+  },
+  {
+    "name": "V-sit on Floor",
+    "levelIds": [2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "V-sit on Floor rèn luyện core toàn diện thông qua tư thế giữ cơ thể thành hình chữ V. Tăng sức bền và kiểm soát cơ bụng, cải thiện sự ổn định và thăng bằng."
+  },
+  {
+    "name": "Full Planche Push-up",
+    "levelIds": [3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [3, 5],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 5, 6],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Full Planche Push-up là bài calisthenic nâng cao yêu cầu sức mạnh vượt trội của core, tay và vai. Phát triển toàn diện sức mạnh thân trên và kiểm soát trọng tâm."
+  },
+  {
+    "name": "L-sit",
+    "levelIds": [2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9, 10],
+    "equipmentIds": [7],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "L-sit là bài bodyweight giữ tư thế với hai chân duỗi thẳng trước mặt, yêu cầu cơ core và cơ đùi hoạt động liên tục. Giúp tăng sức mạnh và cải thiện khả năng kiểm soát cơ thể."
+  },
+  {
+    "name": "Jackknife Sit Up",
+    "levelIds": [2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Jackknife Sit Up tập trung vào sự phối hợp giữa bụng trên và bụng dưới qua động tác gập thân và chân cùng lúc. Tăng cường sức mạnh vùng core và đốt mỡ hiệu quả."
+  },
+  {
+    "name": "Frog Planche",
+    "levelIds": [3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [3, 10],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Frog Planche là tư thế giữ toàn thân bằng hai tay với gối gập sát vào ngực. Tập trung phát triển cơ bụng, vai và sức mạnh kiểm soát trọng lượng cơ thể cao."
+  },
+  {
+    "name": "Cable Standing Crunch",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cable Standing Crunch giúp phát triển cơ bụng với tư thế đứng và máy kéo cáp. Phù hợp cho người muốn thay đổi góc độ tập hoặc tránh áp lực lên lưng dưới."
+  },
+  {
+    "name": "Roman Chair Sit Up",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Roman Chair Sit Up là bài gập bụng sâu với hỗ trợ từ máy, tăng cường độ khó và kiểm soát chuyển động. Giúp phát triển bụng dưới và cơ core hiệu quả hơn sit-up thông thường."
+  },
+  {
+    "name": "Cocoons",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cocoons là bài gập bụng động, kết hợp co thân trên và chân cùng lúc như \"bọc kén\". Rèn luyện bụng giữa và dưới hiệu quả, giúp cải thiện sức mạnh cơ core."
+  },
+  {
+    "name": "Crunch Single Leg Lift",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Crunch Single Leg Lift tăng độ căng cho cơ bụng bằng cách gập thân và nâng một chân, giúp cải thiện cơ bụng dưới và khả năng ổn định vùng hông."
+  },
+  {
+    "name": "Bodyweight Windmill",
+    "levelIds": [2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bodyweight Windmill giúp cải thiện độ linh hoạt và sức mạnh vùng cơ liên sườn và bụng xiên. Bài này có lợi cho chuyển động xoay và thể lực tổng thể."
+  },
+  {
+    "name": "Glute Bridge March",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [10],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Glute Bridge March kết hợp siết cơ mông và cơ bụng, hỗ trợ tăng sức mạnh vùng hông và ổn định vùng lưng dưới. Phù hợp với cả phục hồi và tăng sức mạnh core."
+  },
+  {
+    "name": "Cat Cow Stretch",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8, 9],
+    "equipmentIds": [2],
+    "locationIds": [1, 4],
+    "sets": "2,3",
+    "reps": "15,20",
+    "duration": "30,45",
+    "goalIds": [7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cat Cow Stretch là bài yoga nhẹ nhàng giúp giãn cơ bụng, cột sống và cải thiện lưu thông khí huyết. Rất tốt cho việc thư giãn sau buổi tập hoặc khởi động cơ bản."
+  }
+]

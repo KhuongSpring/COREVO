@@ -35,12 +35,12 @@ public class TrainingPlanFlowRequestDto {
             example = """
         {
           "goals": ["Gain weight"],
-          "level": ["1"],
+          "level": ["BEGINNER"],
           "duration": ["30 phút"],
           "type": ["Gym"],
           "frequency": ["4 - 5 buối / tuần"],
-          "location": ["1", "2"],
-          "equipment": ["2", "4"]
+          "location": ["HOME", "GYM"],
+          "equipment": ["Gym equipment"]
         }
     """
     )

@@ -3,7 +3,7 @@ package com.example.corevo.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.example.corevo.domain.dto.request.user.health.UserHealthRequestDto;
-import com.example.corevo.domain.entity.Gender;
+import com.example.corevo.domain.entity.user.Gender;
 import com.example.corevo.service.HealthCalculationService;
 
 import lombok.AccessLevel;

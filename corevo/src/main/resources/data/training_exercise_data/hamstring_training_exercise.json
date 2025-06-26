@@ -1,0 +1,362 @@
+[
+  {
+    "name": "Squats",
+    "levelIds": [1],
+    "typeIds": [1, 2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập toàn thân giúp tăng cơ đùi sau, mông và cải thiện sức bền"
+  },
+  {
+    "name": "Seated Leg Extension",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [11],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tập trung vào cơ tứ đầu đùi, hỗ trợ gián tiếp cho ổn định đầu gối và khớp hông."
+  },
+  {
+    "name": "Leg Curls",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [13],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cô lập nhóm cơ đùi sau, hiệu quả trong các chương trình tăng cơ hoặc phục hồi."
+  },
+  {
+    "name": "Hip Thrusts",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 9],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "4,5",
+    "reps": "8,12",
+    "duration": "30,60",
+    "goalIds": [2, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tăng cường mông và đùi sau, phù hợp với các mục tiêu tăng cơ và sức mạnh."
+  },
+  {
+    "name": "Split Squats with Dumbbells",
+    "levelIds": [2],
+    "typeIds": [1, 2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 11, 13],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Kết hợp sức mạnh, thăng bằng và cơ đùi sau. Thường dùng trong giáo án lower body."
+  },
+  {
+    "name": "Calf Raises",
+    "levelIds": [1],
+    "typeIds": [1, 2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [1],
+    "locationIds": [1, 2, 4],
+    "sets": "3,5",
+    "reps": "12,20",
+    "duration": "30,60",
+    "goalIds": [3, 4, 8],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Phát triển bắp chân, hỗ trợ tư thế đứng và cải thiện hình thể tổng thể."
+  },
+  {
+    "name": "Adduction Machine",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cô lập cơ khép đùi, dùng nhiều trong phục hồi và cải thiện ổn định vùng chậu."
+  },
+  {
+    "name": "Nordic Curl",
+    "levelIds": [3],
+    "typeIds": [1, 2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 9],
+    "equipmentIds": [1],
+    "locationIds": [1, 2],
+    "sets": "2,4",
+    "reps": "6,8",
+    "duration": "20,30",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập sức mạnh nâng cao cho hamstrings, yêu cầu kiểm soát tốt và core khỏe."
+  },
+  {
+    "name": "Stiff-Leg Deadlift",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 9],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "2,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tăng sức mạnh đùi sau và mông, hỗ trợ chuyển động hip hinge. Thường dùng với tạ đòn."
+  },
+  {
+    "name": "Good Mornings",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 9, 7],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,10",
+    "duration": "30,45",
+    "goalIds": [3, 5, 6],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Phát triển đùi sau và lưng dưới. Đặc điểm kỹ thuật cao, cần kiểm soát động tác chặt."
+  },
+  {
+    "name": "Glute Ham Raise (GHR)",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 9],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,10",
+    "duration": "20,30",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tăng sức mạnh đùi sau với độ cô lập cao. Phổ biến trong giáo án thể thao chuyên sâu."
+  },
+  {
+    "name": "Cable Pull-Throughs",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 9],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài kéo kháng lực nhẹ phù hợp với cả người mới và người tập lâu năm. Tác động vào mông – đùi sau."
+  },
+  {
+    "name": "Kettlebell Swings",
+    "levelIds": [2],
+    "typeIds": [1, 2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 9, 7],
+    "equipmentIds": [5],
+    "locationIds": [1, 2, 3],
+    "sets": "3,5",
+    "reps": "15,20",
+    "duration": "30,60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Kết hợp giữa cardio và power, giúp cải thiện tim mạch và tăng sức mạnh vùng posterior chain."
+  },
+  {
+    "name": "Lying Leg Curl (Machine)",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [13],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cô lập đùi sau bằng máy. Thường dùng để tăng cơ mông và đùi sau."
+  },
+  {
+    "name": "Standing Leg Curl (Machine)",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [13],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tập một chân, cải thiện độ cân bằng và kích thích đùi sau rõ rệt."
+  },
+  {
+    "name": "Hamstring Walkouts",
+    "levelIds": [2],
+    "typeIds": [1, 2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [5, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài bodyweight cải thiện kiểm soát core và kích hoạt mạnh nhóm đùi sau."
+  },
+  {
+    "name": "Stability Ball Leg Curl",
+    "levelIds": [2],
+    "typeIds": [1, 2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 7],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tăng độ linh hoạt và kiểm soát vùng mông – đùi sau bằng bóng thăng bằng."
+  },
+  {
+    "name": "Banded Good Mornings",
+    "levelIds": [3],
+    "typeIds": [1, 2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 9],
+    "equipmentIds": [4],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Kích hoạt mạnh cơ đùi sau với chuyển động trượt. Phù hợp tập tại nhà."
+  },
+  {
+    "name": "Seated Hamstring Curls",
+    "levelIds": [2],
+    "typeIds": [1, 2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [13],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Kết hợp nâng hông và kéo chân giúp tăng cơ đùi sau, hỗ trợ phục hồi và kích hoạt."
+  },
+  {
+    "name": "Lying Hamstring Curls",
+    "levelIds": [1],
+    "typeIds": [1, 2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [13],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "15,20",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập đơn giản với dây kháng lực giúp cô lập nhóm cơ đùi sau hiệu quả tại nhà."
+  }
+]

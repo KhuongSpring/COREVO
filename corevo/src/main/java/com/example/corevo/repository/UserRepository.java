@@ -1,7 +1,7 @@
 package com.example.corevo.repository;
 
-import com.example.corevo.domain.entity.Address;
-import com.example.corevo.domain.entity.User;
+import com.example.corevo.domain.entity.user.User;
+import com.example.corevo.domain.entity.user.Address;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

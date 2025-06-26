@@ -1,7 +1,6 @@
 package com.example.corevo.config;
 
 import com.example.corevo.constant.RoleConstant;
-import com.example.corevo.domain.entity.Role;
 import com.example.corevo.security.JwtAuthenticationFilter;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -61,7 +60,7 @@ public class SecurityConfig {
 
         return http.build();
     }
-    
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

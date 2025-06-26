@@ -1,0 +1,686 @@
+[
+  {
+    "name": "Dumbbell Seated Shoulder Press",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "4,5",
+    "reps": "6,10",
+    "duration": "30,45",
+    "goalIds": [2, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài đẩy vai cổ điển giúp phát triển toàn diện vùng vai, đặc biệt là vai giữa và vai trước. Với tư thế ngồi, phần lưng dưới được cố định, giảm thiểu chấn thương và tập trung lực vào cơ vai. Thường được sử dụng trong các chương trình tăng cơ vai và cải thiện khả năng đẩy ngang."
+  },
+  {
+    "name": "Dumbbell Bent-Over Rear Delt Fly",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cô lập cơ vai sau – nhóm cơ thường bị bỏ quên nhưng rất quan trọng cho sự cân bằng và ổn định vai. Bài này giúp cải thiện tư thế, hỗ trợ cho các bài compound và làm đầy đặn phần vai sau trong cấu trúc hình thể chữ V."
+  },
+  {
+    "name": "Dumbbell Arnold Press",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [1, 5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "4,5",
+    "reps": "6,10",
+    "duration": "30,45",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể toàn diện hơn so với shoulder press, kích hoạt cả ba phần đầu của cơ vai trong một chuyển động liên tục. Giúp phát triển sức mạnh đa chiều và cải thiện khả năng kiểm soát tạ."
+  },
+  {
+    "name": "Dumbbell Front Raise",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [1],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Nhấn mạnh vào cơ vai trước – rất cần thiết cho các bài đẩy như bench press, push-up. Đồng thời, tạo hiệu ứng dày phần trước của vai, cải thiện tư thế và sức mạnh thẩm mỹ."
+  },
+  {
+    "name": "Dumbbell Reverse Fly",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tập trung vào vai sau và một phần lưng trên. Rất hiệu quả cho những người cần khắc phục tư thế gù vai và tăng sự ổn định khớp vai trong các chuyển động kéo."
+  },
+  {
+    "name": "Cable Face Pull",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Một trong những bài hiệu quả nhất để phát triển cơ xoay vai và vai sau. Tăng cường sự ổn định khớp, cải thiện tư thế và phòng ngừa đau vai trong tập nặng."
+  },
+  {
+    "name": "Rear Delt Fly Machine",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Phiên bản máy giúp cô lập vai sau với sự hỗ trợ về quỹ đạo chuyển động. Phù hợp cho cả người mới lẫn người muốn duy trì độ ổn định và kiểm soát khi tập nặng."
+  },
+  {
+    "name": "Dumbbell Single-Arm Overhead Press",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5, 7],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể đơn tay giúp cải thiện sự mất cân bằng giữa hai bên cơ thể, đồng thời tăng cường khả năng kiểm soát core và ổn định vai."
+  },
+  {
+    "name": "Alternating Dumbbell Press",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Luân phiên đẩy từng tay giúp phát triển đều cả hai bên vai, đồng thời giảm áp lực lên cột sống so với việc đẩy hai tay cùng lúc."
+  },
+  {
+    "name": "Squat To Overhead Press",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5, 7, 10, 11],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "4,5",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Kết hợp lower body và upper body giúp đốt nhiều năng lượng, cải thiện thể lực toàn thân và tăng hormone tăng trưởng tự nhiên."
+  },
+  {
+    "name": "Dumbbell Seated Lateral Raise",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài isolation tối ưu cho vai giữa – phần giúp mở rộng bề ngang vai. Tư thế ngồi giảm thiểu trợ lực từ lưng và tập trung hoàn toàn vào cơ mục tiêu."
+  },
+  {
+    "name": "Cable Lateral Raise",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cải tiến từ dumbbell lateral raise với lực căng liên tục từ cáp. Rất hiệu quả trong giai đoạn cuối buổi tập để “pump” vai giữa."
+  },
+  {
+    "name": "Behind The Neck Press",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2, 5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "4,5",
+    "reps": "6,10",
+    "duration": "30,45",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài nâng cao đòi hỏi độ linh hoạt khớp vai. Kích hoạt mạnh vai giữa và vai sau, thường dùng cho người đã có kinh nghiệm để tăng sức mạnh vùng vai."
+  },
+  {
+    "name": "Dumbbell Upright Row",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [4, 6],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tập trung vào cầu vai và vai giữa, giúp tăng độ dày và chiều cao vùng vai-trên. Có thể hỗ trợ cho các chuyển động kéo và đẩy nặng."
+  },
+  {
+    "name": "Lateral Raise Machine",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Máy tập hỗ trợ chuyển động chính xác và cô lập vai giữa. Phù hợp cho việc tập khối lượng lớn mà vẫn duy trì form chuẩn."
+  },
+  {
+    "name": "Dumbbell Bent-Over Face Pull",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Một biến thể kết hợp giữa reverse fly và face pull. Cực kỳ tốt cho vùng vai sau và cải thiện tư thế người ngồi nhiều."
+  },
+  {
+    "name": "Cable Crossover Reverse Fly",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cô lập vai sau trên hệ cáp – tăng cường kiểm soát chuyển động và độ căng cơ. Thường dùng ở cuối buổi tập vai."
+  },
+  {
+    "name": "Standing Cable Rear Delt Fly",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Nhắm vào cơ vai sau và cải thiện sự ổn định trong chuyển động kéo ngang."
+  },
+  {
+    "name": "Smith Machine Standing Overhead Press",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "4,5",
+    "reps": "6,10",
+    "duration": "30,45",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cung cấp sự hỗ trợ về ổn định, phù hợp để tập nặng với rủi ro chấn thương thấp hơn."
+  },
+  {
+    "name": "Cable Standing Y Raise",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể đặc biệt giúp kích hoạt vai sau và phần trên của lưng, phù hợp cho giai đoạn phục hồi."
+  },
+  {
+    "name": "Weight Plate Front Raise",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập đơn giản nhưng hiệu quả cho phần vai trước, thích hợp cho mọi trình độ."
+  },
+  {
+    "name": "Barbell Front Raise",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [1],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "40,60",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Giúp xây dựng sức mạnh cho vai trước và hỗ trợ các chuyển động đẩy nặng."
+  },
+  {
+    "name": "Machine Overhead Press",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Dễ sử dụng và an toàn, giúp người mới xây dựng cơ vai với kỹ thuật đúng đắn."
+  },
+  {
+    "name": "Cable Shoulder Internal Rotation",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "2,3",
+    "reps": "12,20",
+    "duration": "45,60",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tập trung vào cơ xoay vai trong, hỗ trợ phục hồi và tăng cường độ ổn định khớp."
+  },
+  {
+    "name": "Resistance Band Pull Apart",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [4],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "15,20",
+    "duration": "45,60",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập phục hồi nhẹ nhàng, tăng cường cơ lưng trên và ổn định vai."
+  },
+  {
+    "name": "Dumbbell Standing Shoulder Press",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5, 7],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài đẩy vai cơ bản, giúp xây dựng sức mạnh và kích thước cơ vai hiệu quả."
+  },
+  {
+    "name": "Resistance Band Face Pull",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [4],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "15,20",
+    "duration": "45,60",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Thích hợp cho giai đoạn khởi động hoặc phục hồi, giúp điều chỉnh tư thế và củng cố cơ xoay vai."
+  },
+  {
+    "name": "Seated Barbell Shoulder Press",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "4,5",
+    "reps": "6,10",
+    "duration": "30,45",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cho phép tập nặng với độ ổn định cao, phát triển toàn bộ cơ vai."
+  },
+  {
+    "name": "Barbell Upright Row",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [4],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cải thiện sức mạnh vai và cầu vai, giúp tăng sức mạnh kéo và độ dày vùng vai-trên."
+  },
+  {
+    "name": "Barbell Push Press",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5, 7, 10, 11],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "4,5",
+    "reps": "6,8",
+    "duration": "30,45",
+    "goalIds": [2, 3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Kết hợp giữa kỹ thuật đẩy và lực từ chân, tối ưu cho xây dựng sức mạnh và sự bùng nổ."
+  },
+  {
+    "name": "Dumbbell Scapular External Rotation",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "2,3",
+    "reps": "12,20",
+    "duration": "45,60",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài kiểm soát chuyển động, cải thiện chức năng khớp vai và phòng ngừa chấn thương."
+  },
+  {
+    "name": "Smith Machine Seated Overhead Press",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Hỗ trợ tập trung lực đẩy lên vai với độ an toàn cao, đặc biệt với người mới hoặc khi tập nặng."
+  },
+  {
+    "name": "Dumbbell Rear Lateral Raise With Head Support",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cô lập vai sau tốt hơn bằng cách loại bỏ độ trợ lực từ phần lưng."
+  },
+  {
+    "name": "Lying Dumbbell One-Arm Rear Lateral Raise",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Tập trung sâu vào cơ vai sau một cách kiểm soát, cải thiện kết nối cơ thần kinh."
+  },
+  {
+    "name": "Cable Shoulder Press",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể mới lạ giúp tạo áp lực liên tục, tăng kích hoạt cơ vai trong suốt bài tập."
+  },
+  {
+    "name": "Smith Machine Upright Row",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [4],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cho phép tập trung vào chuyển động vai với độ an toàn cao hơn thanh tạ tự do."
+  },
+  {
+    "name": "Side Lying Dumbbell Rear Delt Raise",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "40,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài isolation mạnh cho vai sau với chuyển động ngắn nhưng hiệu quả."
+  },
+  {
+    "name": "Standing Kettlebell Single-Arm Press",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [5, 7],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Kích hoạt cả vai và core, giúp cải thiện sự cân bằng, kiểm soát và sức mạnh ổn định."
+  }
+]

@@ -10,8 +10,8 @@ import com.example.corevo.domain.dto.request.auth.otp.PendingResetPasswordReques
 import com.example.corevo.domain.dto.request.auth.otp.VerifyOtpRequestDto;
 import com.example.corevo.domain.dto.response.auth.LoginResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
-import com.example.corevo.domain.entity.Role;
-import com.example.corevo.domain.entity.User;
+import com.example.corevo.domain.entity.user.Role;
+import com.example.corevo.domain.entity.user.User;
 import com.example.corevo.domain.mapper.AuthMapper;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.repository.UserRepository;
@@ -91,17 +91,18 @@ public class AuthServiceImpl implements AuthService {
         if (!pending.getOtp().equals(request.getOtp()))
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
         RegisterRequestDto req = pending.getRequest();
-        User user = authMapper.toUser(req);
+        User user = authMapper.registerRequestDtoToUser(req);
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(Role.USER);
+        user.setCreatedAt(LocalDate.now());
         user.setIsLocked(false);
         user.setCreatedAt(LocalDate.now());
         userRepository.save(user);
         pendingRegisterMap.remove(request.getEmail());
 
-        return authMapper.toUserResponseDto(user);
+        return authMapper.userToUserResponseDto(user);
     }
 
     @Override
@@ -151,7 +152,7 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
 
         pendingResetPasswordMap.remove(request.getEmail());
-        return authMapper.toUserResponseDto(user);
+        return authMapper.userToUserResponseDto(user);
     }
 
     @Override

@@ -1,0 +1,326 @@
+[
+  {
+    "name": "Barbell Bench Press",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "6,12",
+    "duration": "45,60",
+    "goalIds": [2, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Barbell Bench Press là một trong những bài tập ngực hiệu quả nhất, được sử dụng phổ biến trong chương trình rèn luyện cơ bắp. Người tập nằm trên ghế phẳng, hạ thanh tạ xuống ngực rồi đẩy lên trở lại. Bài tập này không chỉ kích hoạt nhóm cơ ngực lớn mà còn hoạt động nhiều cơ hỗ trợ như tay sau và vai."
+  },
+  {
+    "name": "Dumbbell Bench Press",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "45,60",
+    "goalIds": [2, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Dumbbell Bench Press là biến thể của Barbell Bench Press, nhưng sử dụng hai quả tạ tay. Ưu điểm là giúp cải thiện sự cân bằng cơ bắp giữa hai bên cơ thể, kích hoạt nhiều sợi cơ hơn nhờ phạm vi chuyển động rộng hơn. Bài tập này cũng hỗ trợ cho các bài đẩy như Barbell Bench Press và Push-up."
+  },
+  {
+    "name": "Cable Crossover",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 4],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Cable Crossover là bài tập cô lập cơ ngực hiệu quả, sử dụng máy ròng rọc để tạo lực kéo liên tục trong suốt chuyển động. Bài này giúp tập trung vào phần trong ngực và làm đầy phần ngực giữa, thường được dùng để hoàn thiện nhóm cơ sau các bài đẩy nặng như Bench Press."
+  },
+  {
+    "name": "Incline Dumbbell Press",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "45,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Incline Dumbbell Press là biến thể của Dumbbell Bench Press, nhưng sử dụng ghế nghiêng khoảng 30–45 độ để nhắm mục tiêu chính vào phần ngực trên. Bài tập này rất hiệu quả trong việc tạo đường nét phần ngực trên, tránh tình trạng ngực bị \"xệ\" hoặc mất cân đối."
+  },
+  {
+    "name": "Incline Dumbbell Flye",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 4],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Incline Dumbbell Flye là bài tập giúp cô lập phần ngực trên bằng cách mở rộng cánh tay theo hình vòng cung. Với tư thế nằm nghiêng khoảng 30–45 độ, bài tập này giúp làm dày và sắc nét phần ngực phía trên, đặc biệt hiệu quả khi thực hiện sau các bài compound như Incline Dumbbell Press."
+  },
+  {
+    "name": "Pushup",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "10,30",
+    "duration": "20,60",
+    "goalIds": [1, 3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Push-up là bài tập toàn diện sử dụng trọng lượng cơ thể để phát triển cơ ngực, tay sau, vai trước và core. Đây là bài tập nền tảng có thể thực hiện ở bất kỳ đâu và được điều chỉnh dễ dàng để tăng hoặc giảm độ khó. Ngoài ra, Push-up cũng rèn luyện sức bền cơ bắp, thể lực tổng thể, và hỗ trợ giảm mỡ toàn thân khi kết hợp cùng chế độ ăn phù hợp."
+  },
+  {
+    "name": "Close-Grip Pushup",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "8,20",
+    "duration": "20,30",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Close-Grip Push-up là một biến thể của động tác chống đẩy tiêu chuẩn, trong đó hai tay được đặt gần nhau dưới ngực. Tư thế này giúp chuyển trọng tâm từ cơ ngực sang tay sau, làm cho đây là một bài bodyweight isolation hiệu quả cho triceps. Bài tập còn hỗ trợ cải thiện độ dày vùng ngực trong, tạo hình khối rõ ràng."
+  },
+  {
+    "name": "Plyo Push-up",
+    "levelIds": [3],
+    "typeIds": [2, 4],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "6,12",
+    "duration": "15,30",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Plyo Push-up (Plyometric Push-up) là bài chống đẩy tăng cường tốc độ và sức mạnh, trong đó người tập đẩy thân lên đủ mạnh để tay rời khỏi mặt đất – có thể vỗ tay hoặc chỉ cần bật nhẹ. Bài tập này rất hiệu quả cho việc cải thiện cơ bắp nổ lực, độ nhanh và cải thiện phản xạ. Ngoài ra, nó cũng đốt mỡ mạnh nhờ cường độ cao."
+  },
+  {
+    "name": "Wide-Grip Push-up",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "10,20",
+    "duration": "20,45",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Wide-Grip Push-up là một biến thể của bài chống đẩy truyền thống với vị trí tay đặt rộng hơn vai. Tư thế này làm tăng áp lực lên ngực ngoài, giúp phần ngực phát triển đều và rộng hơn. Ngoài ra, bài tập này còn giảm áp lực lên triceps, giúp bạn tập trung phát triển ngực hiệu quả hơn."
+  },
+  {
+    "name": "Band-Resisted Pushup w/ Feet Elevated",
+    "levelIds": [2, 3],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5, 7],
+    "equipmentIds": [2, 4],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "6,12",
+    "duration": "15,30",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập này không dành cho người mới bắt đầu, nhưng cực kỳ hiệu quả cho những ai muốn tăng cơ, phá vỡ điểm trì trệ hoặc rèn sức mạnh thực chiến."
+  },
+  {
+    "name": "Pec Deck ",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 4],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,15",
+    "duration": "20,40",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Pec Deck là một bài machine isolation tập trung gần như hoàn toàn vào cơ ngực. Người tập ngồi vào máy, hai cánh tay được đặt lên pad hoặc tay cầm và ép lại như động tác \"ôm cây\" – giúp kéo giãn và siết chặt cơ ngực ở điểm gần nhau nhất."
+  },
+  {
+    "name": "Wide-Grip Dips",
+    "levelIds": [2, 3],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5],
+    "equipmentIds": [5, 7],
+    "locationIds": [2, 3],
+    "sets": "3,5",
+    "reps": "6,15",
+    "duration": "15,30",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Wide-Grip Dips là biến thể nâng cao của bài Dips cổ điển, nơi tay được đặt rộng hơn vai, người nghiêng về phía trước để tối đa hóa lực lên ngực dưới thay vì triceps. Đây là một bài tập compound cực kỳ hiệu quả, giúp phát triển sức mạnh thân trên và thể hình cân đối."
+  },
+  {
+    "name": "Low-Cable Crossover",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 4],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "20,40",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Low-Cable Crossover là bài tập kéo cáp chéo với tay bắt đầu từ vị trí thấp và kéo lên phía trước ngực hoặc cao hơn. Tư thế này nhấn mạnh vào phần ngực trên – vùng thường khó phát triển nhưng lại tạo dáng ngực đầy đặn."
+  },
+  {
+    "name": "One-Arm Flye Pushup",
+    "levelIds": [3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "6,12",
+    "duration": "15,30",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "One-Arm Flye Push-up là bài tập chống đẩy kết hợp động tác flye (mở rộng tay ngang) bằng một bên tay, trong khi tay còn lại giữ nguyên. Khi thực hiện đúng, bài này giúp kéo giãn và siết cơ ngực cực mạnh, đồng thời tạo áp lực lớn lên vùng core và vai để duy trì thăng bằng."
+  },
+  {
+    "name": "Chest Press Machine",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8, 15",
+    "duration": "20,40",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Chest Press Machine là bài tập đẩy ngực với máy, mô phỏng chuyển động của Barbell Bench Press nhưng dễ kiểm soát hơn, đặc biệt hữu ích cho người mới hoặc đang phục hồi chấn thương."
+  },
+  {
+    "name": "Banded Chest Flye",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 4],
+    "equipmentIds": [2, 4],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "10,20",
+    "duration": "20,40",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Banded Chest Flye là bài tập ngực cô lập sử dụng dây kháng lực. Tay bắt đầu mở rộng ngang vai và kéo lại trước ngực theo chuyển động hình vòng cung, tương tự cable flye. Nhờ vào lực kéo liên tục của dây, bài tập này tạo áp lực đều trong cả chuyển động đi và về – giúp kích hoạt cơ ngực hiệu quả mà không cần tạ hay máy móc."
+  },
+  {
+    "name": "Spiderman Pushup",
+    "levelIds": [2, 3],
+    "typeIds": [2, 4],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5, 7, 8],
+    "equipmentIds": [1, 2],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "6,12",
+    "duration": "20,45",
+    "goalIds": [1, 3, 5, 6],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Spiderman Pushup là bài chống đẩy kết hợp nâng gối về phía khuỷu tay cùng bên khi hạ người. Động tác mô phỏng chuyển động “leo tường” của Spiderman, kích hoạt mạnh vùng bụng xiên (obliques), core, và hông ngoài các cơ ngực – vai – tay quen thuộc."
+  },
+  {
+    "name": "Plank to Pushup",
+    "levelIds": [1, 2],
+    "typeIds": [2, 4],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 5, 7],
+    "equipmentIds": [1, 2],
+    "locationIds": [4],
+    "sets": "2,4",
+    "reps": "8,15",
+    "duration": "30,60",
+    "goalIds": [5, 6, 7],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Plank to Pushup là bài tập chuyển đổi liên tục từ tư thế plank cẳng tay sang push-up rồi quay lại, nhằm tăng cường cơ core, vai, tay sau và ngực. Bài này buộc bạn giữ thân người ổn định, tránh xoay hông quá mức – rất tốt để rèn core control và sức bền cơ thể."
+  }
+]
