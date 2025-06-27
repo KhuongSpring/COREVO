@@ -1,6 +1,6 @@
 package com.example.corevo.service;
 
-import com.example.corevo.domain.dto.response.training.TrainingPlanFlowResponseDto;
+import com.example.corevo.domain.dto.response.training_plan.TrainingPlanFlowResponseDto;
 
 import java.util.List;
 import java.util.Map;
