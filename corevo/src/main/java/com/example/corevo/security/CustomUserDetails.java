@@ -1,6 +1,6 @@
 package com.example.corevo.security;
 
-import com.example.corevo.domain.entity.User;
+import com.example.corevo.domain.entity.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

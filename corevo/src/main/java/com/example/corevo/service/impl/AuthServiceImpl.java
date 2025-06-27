@@ -11,8 +11,8 @@ import com.example.corevo.domain.dto.request.auth.otp.VerifyOtpRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.auth.LoginResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
-import com.example.corevo.domain.entity.Role;
-import com.example.corevo.domain.entity.User;
+import com.example.corevo.domain.entity.user.Role;
+import com.example.corevo.domain.entity.user.User;
 import com.example.corevo.domain.mapper.AuthMapper;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.repository.UserRepository;
@@ -27,6 +27,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Random;
@@ -86,28 +87,30 @@ public class AuthServiceImpl implements AuthService {
     public UserResponseDto verifyOtpToRegister(VerifyOtpRequestDto request) {
         PendingRegistrationRequestDto pending = pendingRegisterMap.get(request.getEmail());
         if (pending == null)
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
         if (pending.isExpired())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
         if (!pending.getOtp().equals(request.getOtp()))
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
         RegisterRequestDto req = pending.getRequest();
-        User user = authMapper.toUser(req);
+        User user = authMapper.registerRequestDtoToUser(req);
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(Role.USER);
+        user.setCreatedAt(LocalDate.now());
         user.setIsLocked(false);
+        user.setCreatedAt(LocalDate.now());
         userRepository.save(user);
         pendingRegisterMap.remove(request.getEmail());
 
-        return authMapper.toUserResponseDto(user);
+        return authMapper.userToUserResponseDto(user);
     }
 
     @Override
     public void forgotPassword(ForgotPasswordRequestDto request) {
         if (!userRepository.existsUserByEmail(request.getEmail()))
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
 
         String otp = generateOtp();
         PendingResetPasswordRequestDto pending = new PendingResetPasswordRequestDto();
@@ -123,7 +126,7 @@ public class AuthServiceImpl implements AuthService {
     public boolean verifyOtpToResetPassword(VerifyOtpRequestDto request) {
         PendingResetPasswordRequestDto pending = pendingResetPasswordMap.get(request.getEmail());
         if (pending == null)
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
         if (pending.isExpired())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
         if (!pending.getOtp().equals(request.getOtp()))
@@ -136,7 +139,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserResponseDto resetPassword(ResetPasswordRequestDto request) {
         if (!userRepository.existsUserByEmail(request.getEmail()))
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
 
         if (!request.getNewPassword().equals(request.getReEnterPassword()))
             throw new VsException(HttpStatus.UNPROCESSABLE_ENTITY, ErrorMessage.User.ERR_RE_ENTER_PASSWORD_NOT_MATCH);
@@ -151,7 +154,7 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
 
         pendingResetPasswordMap.remove(request.getEmail());
-        return authMapper.toUserResponseDto(user);
+        return authMapper.userToUserResponseDto(user);
     }
 
     @Override

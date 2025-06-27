@@ -1,8 +1,8 @@
 package com.example.corevo.domain.dto.request.user.health;
 
 import com.example.corevo.constant.ErrorMessage;
-import com.example.corevo.domain.entity.ActivityLevel;
-import com.example.corevo.domain.entity.Gender;
+import com.example.corevo.domain.entity.user.ActivityLevel;
+import com.example.corevo.domain.entity.user.Gender;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;

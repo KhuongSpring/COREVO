@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import com.example.corevo.domain.entity.User;
-import com.example.corevo.domain.entity.Role;
+import com.example.corevo.domain.entity.user.User;
+import com.example.corevo.domain.entity.user.Role;
 
 import com.example.corevo.config.UserInfoProperties;
 import com.example.corevo.repository.UserRepository;

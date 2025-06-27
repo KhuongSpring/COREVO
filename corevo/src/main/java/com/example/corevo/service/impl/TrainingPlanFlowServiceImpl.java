@@ -1,13 +1,14 @@
 package com.example.corevo.service.impl;
 
 import com.example.corevo.constant.ErrorMessage;
-import com.example.corevo.domain.dto.response.TrainingPlanFlowResponseDto;
-import com.example.corevo.domain.dto.response.TrainingPlanResponseDto;
+import com.example.corevo.domain.dto.response.training_plan.TrainingPlanFlowResponseDto;
+import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
 import com.example.corevo.domain.entity.training.Equipment;
 import com.example.corevo.domain.entity.training.Level;
 import com.example.corevo.domain.entity.training.Location;
-import com.example.corevo.domain.entity.training.TrainingPlan;
+import com.example.corevo.domain.entity.TrainingPlan;
 import com.example.corevo.exception.VsException;
+import com.example.corevo.helper.StringToTrainingIDHelper;
 import com.example.corevo.repository.TrainingPlanRepository;
 import com.example.corevo.service.TrainingPlanFlowService;
 import lombok.AccessLevel;
@@ -16,7 +17,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -38,18 +38,25 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
             selectedValues.put(currentStep, selectedValue);
         }
 
-        String nextStep = switch (currentStep) {
+        String nextStep = switch (Objects.requireNonNullElse(currentStep, "")) {
             case "goals" -> "level";
             case "level" -> "duration";
             case "duration" -> "type";
             case "type" -> "frequency";
             case "frequency" -> "location";
             case "location" -> "equipment";
-            case "equipment" -> null;
             default -> null;
         };
 
-        List<TrainingPlan> matchingPlans = new ArrayList<>();
+        List<Long> levelIds = parseIds("level", selectedValues.get("level"));
+        List<Long> locationIds = parseIds("location", selectedValues.get("location"));
+        List<Long> equipmentIds = parseIds("equipment", selectedValues.get("equipment"));
+
+        boolean hasLevelFilter = levelIds != null && !levelIds.isEmpty();
+        boolean hasLocationFilter = locationIds != null && !locationIds.isEmpty();
+        boolean hasEquipmentFilter = equipmentIds != null && !equipmentIds.isEmpty();
+
+        List<TrainingPlan> matchingPlans;
 
         try {
             matchingPlans = trainingPlanRepository.searchPlans(
@@ -57,11 +64,14 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
                     getFirst(selectedValues.get("type")),
                     getFirst(selectedValues.get("duration")),
                     getFirst(selectedValues.get("frequency")),
-                    parseIds(selectedValues.get("level")),
-                    parseIds(selectedValues.get("location")),
-                    parseIds(selectedValues.get("equipment"))
+                    hasLevelFilter,
+                    hasLocationFilter,
+                    hasEquipmentFilter,
+                    levelIds,
+                    locationIds,
+                    equipmentIds
             );
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.TrainingPlanFlow.ERR_SOMETHING_WRONG);
         }
 
@@ -144,22 +154,17 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
     }
 
     private String getFirst(List<String> list) {
-        return (list != null && !list.isEmpty()) ? list.get(0) : null;
+        return (list != null && !list.isEmpty()) ? list.getFirst() : null;
     }
 
-    private List<Long> parseIds(List<String> list) {
-        if (list == null || list.isEmpty()) return List.of();
-        return list.stream()
-                .filter(Objects::nonNull)
-                .map(s -> {
-                    try {
-                        return Long.valueOf(s);
-                    } catch (NumberFormatException e) {
-                        return null;
-                    }
-                })
-                .filter(Objects::nonNull)
-                .toList();
+    private List<Long> parseIds(String key, List<String> list) {
+        List<Long> ids = switch (key) {
+            case "level" -> StringToTrainingIDHelper.Level.toIds(list);
+            case "location" -> StringToTrainingIDHelper.Location.toIds(list);
+            case "equipment" -> StringToTrainingIDHelper.Equipment.toIds(list);
+            default -> List.of();
+        };
+        return (ids == null || ids.isEmpty()) ? null : ids;
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.corevo.domain.entity;
+package com.example.corevo.domain.entity.user;
 
 import com.example.corevo.constant.CommonConstant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
