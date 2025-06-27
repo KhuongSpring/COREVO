@@ -6,6 +6,7 @@ import com.example.corevo.constant.SuccessMessage;
 import com.example.corevo.constant.UrlConstant;
 import com.example.corevo.domain.dto.request.auth.ForgotPasswordRequestDto;
 import com.example.corevo.domain.dto.request.auth.LoginRequestDto;
+import com.example.corevo.domain.dto.request.auth.RecoveryRequestDto;
 import com.example.corevo.domain.dto.request.auth.RegisterRequestDto;
 import com.example.corevo.domain.dto.request.auth.ResetPasswordRequestDto;
 import com.example.corevo.domain.dto.request.auth.otp.VerifyOtpRequestDto;
@@ -81,5 +82,23 @@ public class AuthController {
     @PostMapping(UrlConstant.Auth.RESET_PASSWORD)
     public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequestDto request){
         return VsResponseUtil.success(authService.resetPassword(request));
+    }
+
+    @Operation(
+            summary = "Gửi email khôi phục tài khoản",
+            description = "Dùng để gửi OTP khôi phục tài khoản đã bị xóa"
+    )
+    @PostMapping(UrlConstant.Auth.SEND_ACCOUNT_RECOVERY_OTP)
+    public ResponseEntity<?> sendAccountRecoveryOtp(@Valid @RequestBody RecoveryRequestDto request) {
+        return VsResponseUtil.success(authService.sendEmailRecoveryOtp(request));
+    }
+
+    @Operation(
+            summary = "Xác thực OTP và khôi phục tài khoản",
+            description = "Dùng để xác thực OTP và khôi phục tài khoản đã bị xóa"
+    )
+    @PostMapping(UrlConstant.Auth.VERIFY_OTP_TO_RECOVERY)
+    public ResponseEntity<?> verifyOtpToRecovery(@Valid @RequestBody VerifyOtpRequestDto request) {
+        return VsResponseUtil.success(authService.verifyOtpToRecovery(request));
     }
 }

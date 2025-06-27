@@ -1,5 +1,6 @@
 package com.example.corevo.domain.entity;
 
+import com.example.corevo.constant.CommonConstant;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user")
@@ -52,7 +54,11 @@ public class User {
     @Column(nullable = false)
     LocalDate createdAt;
 
-     Boolean isLocked;
+    Boolean isLocked;
+
+    LocalDateTime deletedAt;
+
+    Boolean isDeleted = CommonConstant.FALSE;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

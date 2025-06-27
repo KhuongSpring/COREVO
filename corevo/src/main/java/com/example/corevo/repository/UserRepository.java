@@ -5,8 +5,12 @@ import com.example.corevo.domain.entity.UserHealth;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -22,5 +26,11 @@ public interface UserRepository extends JpaRepository<User, String> {
     User findByEmail(String email);
 
     boolean existsUsersByPhone(String phone);
+
+    @Query("SELECT u FROM User u WHERE u.email = :email AND u.isDeleted = true")
+    Optional<User> findDeletedUserByEmail(@Param("email") String email);
+
+    @Query("SELECT u FROM User u WHERE u.isDeleted = true AND u.deletedAt < :expiredDate")
+    List<User> findExpiredDeletedUsers(@Param("expiredDate") LocalDateTime expiredDate);
 
 }

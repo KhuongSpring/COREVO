@@ -38,6 +38,9 @@ public class ErrorMessage {
         public static final String ERR_PHONE_EXISTED = "exception.user.phone.existed";
         public static final String ERR_USER_IS_LOCKED = "exception.user.is.locked";
         public static final String ERR_USER_IS_NOT_LOCKED = "exception.user.is.not.locked";
+        public static final String ERR_ACCOUNT_ALREADY_DELETED = "exception.user.account.already.deleted";
+        public static final String ERR_ACCOUNT_RECOVERY_EXPIRED = "exception.user.account.recovery.period.has.expired";
+        public static final String ERR_ACCOUNT_NOT_DELETED = "exception.user.account.is.not.in.deleted.state";
     }
 
     public static class UserHealth {
