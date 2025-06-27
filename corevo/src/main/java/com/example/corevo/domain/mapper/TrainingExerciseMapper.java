@@ -1,6 +1,6 @@
 package com.example.corevo.domain.mapper;
 
-import com.example.corevo.domain.dto.response.training.TrainingExerciseResponseDto;
+import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
 import com.example.corevo.domain.entity.TrainingExercise;
 import com.example.corevo.helper.IdToEntityHelper;
 import org.mapstruct.Mapper;

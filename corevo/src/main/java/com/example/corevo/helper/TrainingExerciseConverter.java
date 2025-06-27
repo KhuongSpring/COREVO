@@ -1,7 +1,7 @@
 package com.example.corevo.helper;
 
 import com.example.corevo.domain.dto.helper_dto.RawTrainingExerciseDto;
-import com.example.corevo.domain.dto.response.training.TrainingExerciseResponseDto;
+import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
 
 import java.util.Optional;
 

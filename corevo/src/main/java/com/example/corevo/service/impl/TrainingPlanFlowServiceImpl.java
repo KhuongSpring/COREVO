@@ -1,8 +1,8 @@
 package com.example.corevo.service.impl;
 
 import com.example.corevo.constant.ErrorMessage;
-import com.example.corevo.domain.dto.response.training.TrainingPlanFlowResponseDto;
-import com.example.corevo.domain.dto.response.training.TrainingPlanResponseDto;
+import com.example.corevo.domain.dto.response.training_plan.TrainingPlanFlowResponseDto;
+import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
 import com.example.corevo.domain.entity.training.Equipment;
 import com.example.corevo.domain.entity.training.Level;
 import com.example.corevo.domain.entity.training.Location;
@@ -59,9 +59,6 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
         List<TrainingPlan> matchingPlans;
 
         try {
-            System.out.println(parseIds("level", selectedValues.get("level")));
-            System.out.println(parseIds("location", selectedValues.get("location")));
-            System.out.println(parseIds("equipment", selectedValues.get("equipment")));
             matchingPlans = trainingPlanRepository.searchPlans(
                     getFirst(selectedValues.get("goals")),
                     getFirst(selectedValues.get("type")),

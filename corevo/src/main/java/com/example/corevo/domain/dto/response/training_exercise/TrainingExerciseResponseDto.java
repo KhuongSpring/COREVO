@@ -1,4 +1,4 @@
-package com.example.corevo.domain.dto.response.training;
+package com.example.corevo.domain.dto.response.training_exercise;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

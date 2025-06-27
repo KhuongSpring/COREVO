@@ -1,4 +1,4 @@
-package com.example.corevo.domain.dto.request;
+package com.example.corevo.domain.dto.request.training;
 
 import com.example.corevo.constant.ErrorMessage;
 import io.swagger.v3.oas.annotations.media.Schema;

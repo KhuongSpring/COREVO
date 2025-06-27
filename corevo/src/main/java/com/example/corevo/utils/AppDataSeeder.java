@@ -1,8 +1,8 @@
 package com.example.corevo.utils;
 
 import com.example.corevo.domain.dto.helper_dto.RawTrainingExerciseDto;
-import com.example.corevo.domain.dto.response.training.TrainingExerciseResponseDto;
-import com.example.corevo.domain.dto.response.training.TrainingPlanResponseDto;
+import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
+import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
 import com.example.corevo.domain.entity.TrainingExercise;
 import com.example.corevo.domain.entity.training.*;
 import com.example.corevo.domain.entity.TrainingPlan;
