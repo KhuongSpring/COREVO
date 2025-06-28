@@ -1,5 +1,8 @@
 package com.example.corevo.utils;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import com.example.corevo.constant.ErrorMessage;
 import com.example.corevo.domain.dto.helper_dto.RawTrainingExerciseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
@@ -8,6 +11,7 @@ import com.example.corevo.domain.entity.training.*;
 import com.example.corevo.domain.entity.TrainingPlan;
 import com.example.corevo.domain.mapper.TrainingExerciseMapper;
 import com.example.corevo.domain.mapper.TrainingPlanMapper;
+import com.example.corevo.exception.VsException;
 import com.example.corevo.helper.TrainingExerciseConverter;
 import com.example.corevo.repository.*;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -18,12 +22,17 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -33,6 +42,7 @@ import java.util.stream.Collectors;
 public class AppDataSeeder implements ApplicationRunner {
 
     ObjectMapper objectMapper;
+    Cloudinary cloudinary;
     TrainingPlanMapper trainingPlanMapper;
     TrainingExerciseMapper trainingExerciseMapper;
 
@@ -245,6 +255,9 @@ public class AppDataSeeder implements ApplicationRunner {
         if (trainingExercisesFromDB.isEmpty()){
             for (String file : jsonFiles){
                 List<TrainingExerciseResponseDto> trainingExercisesFromJSON = loadTrainingExerciseDataFromJSON(file);
+                for (TrainingExerciseResponseDto x : trainingExercisesFromJSON){
+                    x.setImageURL(uploadImageIfNotExists(x.getImageURL(), cloudinary));
+                }
                 trainingExerciseRepository.saveAll(
                         trainingExerciseMapper.
                                 ListTrainingExerciseResponseDtoToListTrainingExercise(trainingExercisesFromJSON));
@@ -259,11 +272,12 @@ public class AppDataSeeder implements ApplicationRunner {
 
             if (trainingExercisesFromJSON.size() > trainingExercisesFromDB.size()){
                 for (TrainingExerciseResponseDto x : trainingExercisesFromJSON){
-                    if (!trainingExerciseRepository.existsByNameAndTypesAndPrimaryMuscles(
+                    if (!trainingExerciseRepository.existsByNameAndTypes_IdInAndPrimaryMuscles_IdIn(
                             x.getName(),
-                            typeRepository.findAllById(x.getTypeIds()),
-                            targetMuscleRepository.findAllById(x.getPrimaryMuscleIds())
+                            x.getTypeIds(),
+                            x.getPrimaryMuscleIds()
                     )) {
+                        x.setImageURL(uploadImageIfNotExists(x.getImageURL(), cloudinary));
                         trainingExerciseRepository.save(
                                 trainingExerciseMapper.trainingExerciseResponseDtoToTrainingExercise(x));
                     }
@@ -287,4 +301,57 @@ public class AppDataSeeder implements ApplicationRunner {
         }
         return List.of();
     }
+
+    private boolean imageExists(Cloudinary cloudinary, String publicId) {
+        try {
+            cloudinary.uploader().explicit(publicId, ObjectUtils.asMap(
+                    "type", "upload",
+                    "resource_type", "image"
+            ));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private String uploadImageIfNotExists(String filePath, Cloudinary cloudinary) {
+        String filename = Paths.get(filePath).getFileName().toString();
+        String nameWithoutExt = filename.replaceAll("\\.[^.]*$", "");
+        String folder = Paths.get(filePath).getParent().toString().replace("\\", "/").replace("images/", "");
+        String publicId = "init/" + folder + "/" + nameWithoutExt;
+
+
+        if (imageExists(cloudinary, publicId)) {
+            return null;
+        }
+
+        try {
+            return uploadImageFromResources(cloudinary, filePath, publicId);
+        } catch (Exception e) {
+            throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
+        }
+    }
+
+    public String uploadImageFromResources(Cloudinary cloudinary, String pathInResources, String publicId) {
+        try {
+            ClassPathResource resource = new ClassPathResource(pathInResources);
+            try (InputStream inputStream = resource.getInputStream()) {
+                byte[] imageBytes = inputStream.readAllBytes();
+
+                Map result = cloudinary.uploader().upload(
+                        imageBytes,
+                        ObjectUtils.asMap(
+                                "resource_type", "image",
+                                "public_id", publicId
+                        )
+                );
+
+                return (String) result.get("secure_url");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
+        }
+    }
+
 }

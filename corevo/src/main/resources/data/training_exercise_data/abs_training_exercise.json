@@ -12,7 +12,7 @@
     "duration": "30,60",
     "goalIds": [5, 7],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/abs/abs_plank.gif",
       "video": null
     },
     "description": "Bài tập isometric giúp xây dựng sức bền cơ bụng, cải thiện kiểm soát thân người và ổn định cột sống. Đây là nền tảng cho mọi bài tập core, giúp cải thiện sức bền, giữ thăng bằng và hỗ trợ tư thế hàng ngày."
@@ -30,7 +30,7 @@
     "duration": "30,60",
     "goalIds": [5, 7],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/abs/abs_side-plank.jpg",
       "video": null
     },
     "description": "Biến thể plank nhấn mạnh vào cơ liên sườn và core bên. Tăng khả năng kiểm soát hông, ổn định cột sống, và cải thiện cân bằng giữa hai bên thân."
@@ -48,7 +48,7 @@
     "duration": "30,45",
     "goalIds": [3],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/abs/arms-high-partial-situp.jpg",
       "video": null
     },
     "description": "Tăng thử thách lên phần bụng trên bằng cách đặt tay lên cao, giảm trợ lực từ hông. Giúp cải thiện khả năng siết bụng và hình thành vùng core gọn gàng."

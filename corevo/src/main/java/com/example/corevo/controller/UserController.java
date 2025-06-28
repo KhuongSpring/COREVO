@@ -4,11 +4,13 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.corevo.base.RestApiV1;
 import com.example.corevo.base.VsResponseUtil;
+import com.example.corevo.constant.ErrorMessage;
 import com.example.corevo.constant.UrlConstant;
 import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.request.admin.CreateUserRequestDto;
 import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
+import com.example.corevo.exception.VsException;
 import com.example.corevo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -17,6 +19,7 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -54,9 +57,13 @@ public class UserController {
     public ResponseEntity<?> uploadAvatar(
             @RequestParam("file") MultipartFile file,
             @RequestParam(name = "id") String id) throws IOException {
-        Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
-        String imageUrl = (String) result.get("secure_url");
-        return VsResponseUtil.success(userService.uploadAvatar(id, imageUrl));
+        try {
+            Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+            String imageUrl = (String) result.get("secure_url");
+            return VsResponseUtil.success(userService.uploadAvatar(id, imageUrl));
+        } catch (Exception e){
+            throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
+        }
     }
     
                                                     
