@@ -88,7 +88,7 @@ public class AuthController {
             summary = "Gửi email khôi phục tài khoản",
             description = "Dùng để gửi email khôi phục tài khoản đã bị xóa"
     )
-    @PostMapping(UrlConstant.Auth.SEND_ACCOUNT_RECOVERY_OTP)
+    @PostMapping(UrlConstant.Auth.ACCOUNT_RECOVERY)
     public ResponseEntity<?> sendAccountRecoveryOtp(@Valid @RequestBody RecoveryRequestDto request) {
         return VsResponseUtil.success(authService.sendEmailRecoveryOtp(request));
     }

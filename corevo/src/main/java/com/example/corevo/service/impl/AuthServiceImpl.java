@@ -184,7 +184,7 @@ public class AuthServiceImpl implements AuthService {
     public CommonResponseDto verifyOtpToRecovery(VerifyOtpRequestDto request) {
         PendingRecoveryRequestDto pending = pendingRecoveryMap.get(request.getEmail());
         if (pending == null)
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
         if (pending.isExpired())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
         if (!pending.getOtp().equals(request.getOtp()))

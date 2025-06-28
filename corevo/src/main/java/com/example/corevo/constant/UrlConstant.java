@@ -10,7 +10,7 @@ public class UrlConstant {
         public static final String FORGOT_PASSWORD = PRE_FIX + "/forgot-password";
         public static final String VERIFY_OTP_TO_RESET_PASSWORD = PRE_FIX + "/verify-otp-to-reset-password";
         public static final String RESET_PASSWORD = PRE_FIX + "/reset-password";
-        public static final String SEND_ACCOUNT_RECOVERY_OTP = PRE_FIX + "/send-account-recovery-otp";
+        public static final String ACCOUNT_RECOVERY = PRE_FIX + "/account-recovery";
         public static final String VERIFY_OTP_TO_RECOVERY = PRE_FIX + "/verify-otp-to-recovery";
         public static final String LOGOUT = PRE_FIX + "/logout";
 
