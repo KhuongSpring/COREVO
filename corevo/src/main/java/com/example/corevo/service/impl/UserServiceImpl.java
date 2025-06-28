@@ -25,6 +25,7 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,6 +34,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -143,26 +145,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public CommonResponseDto deleteUserPermanently(String userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
-        String addressId = null;
-        if (user.getAddress() != null) {
-            addressId = user.getAddress().getId();
-        }
-        userRepository.delete(user);
-        if (addressId != null) {
-            long userCountWithAddress = userRepository.countByAddressId(addressId);
-            
-            if (userCountWithAddress == 0) {
-                addressRepository.deleteById(addressId);
-            }
-        }
-        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.DELETE_SUCCESS);
-    }
-
-    @Override
     public CommonResponseDto lockUser(String userId) {
         Optional<User> user = userRepository.findById(userId);
         checkLockUser(user, userId);
@@ -178,6 +160,46 @@ public class UserServiceImpl implements UserService {
         user.get().setIsLocked(CommonConstant.FALSE);
         userRepository.save(user.get());
         return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.UNLOCKED_SUCCESS);
+    }
+
+    @Override
+    @Transactional
+    public CommonResponseDto deleteUserAccount(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
+        String addressId = null;
+        if (user.getAddress() != null) {
+            addressId = user.getAddress().getId();
+        }
+        userRepository.delete(user);
+        if (addressId != null) {
+            long userCountWithAddress = userRepository.countByAddressId(addressId);
+
+            if (userCountWithAddress == 0) {
+                addressRepository.deleteById(addressId);
+            }
+        }
+        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.DELETE_SUCCESS);
+    }
+
+    @Override
+    @Transactional
+    public CommonResponseDto deleteMyAccount(Authentication authentication) {
+
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+        }
+        if (Boolean.TRUE.equals(user.getIsDeleted())) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_ALREADY_DELETED);
+        }
+
+        user.setIsDeleted(CommonConstant.TRUE);
+        user.setDeletedAt(LocalDateTime.now());
+        userRepository.save(user);
+
+        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.SOFT_DELETE_SUCCESS);
     }
 
     private void checkLockUser(Optional<User> user, String userId) {

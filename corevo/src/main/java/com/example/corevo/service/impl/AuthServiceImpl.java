@@ -52,6 +52,12 @@ public class AuthServiceImpl implements AuthService {
             throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_INCORRECT_USERNAME);
 
         User user = userRepository.findByUsername(request.getUsername());
+
+        if ((user.getIsDeleted() != null && user.getIsDeleted())
+            || (user.getIsLocked() != null && user.getIsLocked()))
+            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.User.ERR_ACCOUNT_ALREADY_DELETED);
+        
+
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         boolean auth = passwordEncoder.matches(request.getPassword(), user.getPassword());
 
@@ -181,7 +187,20 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public CommonResponseDto verifyOtpToRecovery(VerifyOtpRequestDto request) {
+    public boolean verifyOtpToRecovery(VerifyOtpRequestDto request) {
+        PendingRecoveryRequestDto pending = pendingRecoveryMap.get(request.getEmail());
+        if (pending == null)
+            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+        if (pending.isExpired())
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
+        if (!pending.getOtp().equals(request.getOtp()))
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
+
+        return true;
+    }
+
+    @Override
+    public CommonResponseDto recoverAccount(VerifyOtpRequestDto request) {
         PendingRecoveryRequestDto pending = pendingRecoveryMap.get(request.getEmail());
         if (pending == null)
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
@@ -192,6 +211,11 @@ public class AuthServiceImpl implements AuthService {
 
         User deletedUser = userRepository.findDeletedUserByEmail(request.getEmail())
                 .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_ACCOUNT_NOT_DELETED));
+
+        LocalDateTime expiredDate = deletedUser.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
+        if (LocalDateTime.now().isAfter(expiredDate)) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_RECOVERY_EXPIRED);
+        }
 
         deletedUser.setIsDeleted(CommonConstant.FALSE);
         deletedUser.setDeletedAt(null);

@@ -41,8 +41,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if (jwtService.isTokenValid(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
+                if (userDetails instanceof CustomUserDetails) {
+                    CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+                    if (customUserDetails.getUser().getIsDeleted() != null &&
+                            customUserDetails.getUser().getIsDeleted()) {
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); //  401 Unauthorized
+                        response.setContentType("application/json");
+                        response.getWriter().write(
+                                "{\"error\":\"Account has been deleted\",\"message\":\"Your account has been deleted. Please contact support to recover.\"}");
+                        return;
+                    }
+                }
+
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
+                        null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }

@@ -12,6 +12,7 @@ public class UrlConstant {
         public static final String RESET_PASSWORD = PRE_FIX + "/reset-password";
         public static final String SEND_ACCOUNT_RECOVERY_OTP = PRE_FIX + "/send-account-recovery-otp";
         public static final String VERIFY_OTP_TO_RECOVERY = PRE_FIX + "/verify-otp-to-recovery";
+        public static final String RECOVER_ACCOUNT = PRE_FIX + "/recover-account";
         public static final String LOGOUT = PRE_FIX + "/logout";
 
         private Auth() {
@@ -27,6 +28,7 @@ public class UrlConstant {
 
         public static final String FILL_PERSONAL_INFORMATION = PRE_FIX + "/personal-information";
         public static final String UPLOAD_AVATAR = PRE_FIX + "/upload-avatar";
+        public static final String DELETE_MY_ACCOUNT = PRE_FIX + "/delete-my-account";
 
         private User() {
         }

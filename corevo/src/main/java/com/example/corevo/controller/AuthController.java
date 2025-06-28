@@ -94,11 +94,20 @@ public class AuthController {
     }
 
     @Operation(
-            summary = "Xác thực OTP và khôi phục tài khoản",
-            description = "Dùng để xác thực OTP và khôi phục tài khoản đã bị xóa"
+            summary = "Xác thực OTP để khôi phục tài khoản",
+            description = "Dùng để xác thực OTP để khôi phục tài khoản đã bị xóa"
     )
     @PostMapping(UrlConstant.Auth.VERIFY_OTP_TO_RECOVERY)
     public ResponseEntity<?> verifyOtpToRecovery(@Valid @RequestBody VerifyOtpRequestDto request) {
         return VsResponseUtil.success(authService.verifyOtpToRecovery(request));
+    }
+
+    @Operation(
+            summary = "Khôi phục tài khoản", 
+            description = "Dùng để khôi phục tài khoản đã bị xóa sau khi xác thực OTP thành công"
+    )
+    @PostMapping(UrlConstant.Auth.RECOVER_ACCOUNT)
+    public ResponseEntity<?> recoverAccount(@Valid @RequestBody VerifyOtpRequestDto request) {
+        return VsResponseUtil.success(authService.recoverAccount(request));
     }
 }

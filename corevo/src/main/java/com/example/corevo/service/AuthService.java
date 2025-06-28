@@ -15,7 +15,8 @@ public interface AuthService {
     UserResponseDto resetPassword(ResetPasswordRequestDto request);
 
     CommonResponseDto sendEmailRecoveryOtp(RecoveryRequestDto request);
-    CommonResponseDto verifyOtpToRecovery(VerifyOtpRequestDto request);
+    boolean verifyOtpToRecovery(VerifyOtpRequestDto request);
+    CommonResponseDto recoverAccount(VerifyOtpRequestDto request);
 
     String generateOtp();
 }
