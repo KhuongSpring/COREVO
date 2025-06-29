@@ -6,6 +6,7 @@ import com.example.corevo.domain.dto.request.admin.CreateUserRequestDto;
 import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
+import com.example.corevo.domain.dto.response.user.AccountDeletionResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 import org.springframework.security.core.Authentication;
 
@@ -32,5 +33,5 @@ public interface UserService {
 
     // USER
 
-    CommonResponseDto deleteMyAccount(Authentication authentication);
+    AccountDeletionResponseDto deleteMyAccount(Authentication authentication);
 }

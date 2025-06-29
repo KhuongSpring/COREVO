@@ -53,10 +53,7 @@ public class AuthServiceImpl implements AuthService {
 
         User user = userRepository.findByUsername(request.getUsername());
 
-        if ((user.getIsDeleted() != null && user.getIsDeleted())
-            || (user.getIsLocked() != null && user.getIsLocked()))
-            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.User.ERR_ACCOUNT_ALREADY_DELETED);
-        
+        validateAccountStatus(user);
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         boolean auth = passwordEncoder.matches(request.getPassword(), user.getPassword());
@@ -69,6 +66,19 @@ public class AuthServiceImpl implements AuthService {
                 .accessToken(token)
                 .id(user.getId())
                 .build();
+    }
+
+    private void validateAccountStatus(User user) {
+        if (Boolean.TRUE.equals(user.getIsDeleted())) {
+            LocalDateTime expiredDate = user.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
+            if (LocalDateTime.now().isBefore(expiredDate)) {
+                throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.User.ERR_ACCOUNT_DELETED_RECOVERABLE);
+            }
+        }
+        
+        if (Boolean.TRUE.equals(user.getIsLocked())) {
+            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.User.ERR_USER_IS_LOCKED);
+        }
     }
 
     @Override

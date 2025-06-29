@@ -10,6 +10,7 @@ import com.example.corevo.domain.dto.request.admin.CreateUserRequestDto;
 import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
+import com.example.corevo.domain.dto.response.user.AccountDeletionResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 import com.example.corevo.domain.entity.user.Address;
 import com.example.corevo.domain.entity.user.User;
@@ -30,6 +31,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -184,7 +187,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public CommonResponseDto deleteMyAccount(Authentication authentication) {
+    public AccountDeletionResponseDto deleteMyAccount(Authentication authentication) {
 
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
@@ -195,11 +198,19 @@ public class UserServiceImpl implements UserService {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_ALREADY_DELETED);
         }
 
+        Integer gracePeriodDays = CommonConstant.ACCOUNT_RECOVERY_DAYS;
+
         user.setIsDeleted(CommonConstant.TRUE);
         user.setDeletedAt(LocalDateTime.now());
         userRepository.save(user);
 
-        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.SOFT_DELETE_SUCCESS);
+        return new AccountDeletionResponseDto(
+                CommonConstant.TRUE,
+                SuccessMessage.User.SOFT_DELETE_SUCCESS,
+                user.getEmail(),
+                gracePeriodDays,
+                "corevo@gmail.com"
+        );
     }
 
     private void checkLockUser(Optional<User> user, String userId) {
