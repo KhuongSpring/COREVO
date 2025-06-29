@@ -151,7 +151,6 @@ public class UserController {
     // Methods for USER //
     //                  //
 
-    @Tag(name = "user-controller-user")
     @Operation(
             summary = "Xóa tài khoản", 
             description = "Dùng để người dùng xóa tài khoản của mình (soft delete, có thể khôi phục trong 30 ngày)", 

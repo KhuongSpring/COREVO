@@ -119,13 +119,13 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto createUser(CreateUserRequestDto request) {
 
         if (userRepository.existsUserByEmail(request.getEmail())) {
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_EXISTED);
         }
         if (userRepository.existsUserByUsername(request.getUsername())) {
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_USERNAME_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USERNAME_EXISTED);
         }
         if (userRepository.existsUsersByPhone(request.getPhone())) {
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_PHONE_EXISTED);
         }
         User user = userMapper.createUserRequestDtoToUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -214,7 +214,7 @@ public class UserServiceImpl implements UserService {
 
     private void checkUnlockUser(Optional<User> user, String userId) {
         if (user.isEmpty()) {
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
         } else {
             if (!user.get().getIsLocked()) {
                 throw new InvalidException((ErrorMessage.User.ERR_USER_IS_NOT_LOCKED));

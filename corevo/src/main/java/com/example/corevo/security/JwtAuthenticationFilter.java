@@ -1,5 +1,6 @@
 package com.example.corevo.security;
 
+import com.example.corevo.helper.JwtAuthenticationHelper;
 import com.example.corevo.service.impl.JwtServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,6 +25,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     JwtServiceImpl jwtService;
     UserDetailsServiceImpl userDetailsService;
+    JwtAuthenticationHelper jwtAuthenticationHelper;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -44,12 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 if (userDetails instanceof CustomUserDetails) {
                     CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
-                    if (customUserDetails.getUser().getIsDeleted() != null &&
-                            customUserDetails.getUser().getIsDeleted()) {
-                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); //  401 Unauthorized
-                        response.setContentType("application/json");
-                        response.getWriter().write(
-                                "{\"error\":\"Account has been deleted\",\"message\":\"Your account has been deleted. Please contact support to recover.\"}");
+                    if (jwtAuthenticationHelper.handleSoftDeletedUser(userDetails, response)) {
                         return;
                     }
                 }
