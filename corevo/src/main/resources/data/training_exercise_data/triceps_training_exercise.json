@@ -1,344 +1,344 @@
 [
   {
-    "name": "Barbell or EZ-Bar Curls",
+    "name": "Diamond Push-Ups",
     "levelIds": [1, 2],
-    "typeIds": [1],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [6],
-    "equipmentIds": [5],
-    "locationIds": [1, 2],
-    "sets": "3,5",
-    "reps": "6,12",
-    "duration": "45,60",
-    "goalIds": [2, 3, 4],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Bài tập cơ bản và hiệu quả nhất để phát triển biceps toàn diện. Sử dụng thanh đòn hoặc EZ-Bar giúp tăng kích thước và sức mạnh bắp tay, đồng thời EZ-Bar giảm áp lực lên cổ tay – phù hợp với người mới hoặc gặp vấn đề về khớp."
-  },
-  {
-    "name": "Incline Dumbbell Curls",
-    "levelIds": [2],
-    "typeIds": [1],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [6],
-    "equipmentIds": [5],
-    "locationIds": [1, 2],
-    "sets": "3,4",
-    "reps": "8,12",
-    "duration": "45,60",
-    "goalIds": [3, 4],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Tối ưu kích hoạt biceps nhờ tư thế kéo giãn hoàn toàn ở đáy chuyển động. Bài tập lý tưởng để tạo hình bắp tay dài, rõ nét, đồng thời tăng độ căng cơ sâu hơn so với các bài đứng truyền thống."
-  },
-  {
-    "name": "Cable Curls",
-    "levelIds": [1, 2],
-    "typeIds": [1],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [6],
-    "equipmentIds": [5],
-    "locationIds": [1],
-    "sets": "3,4",
-    "reps": "10,15",
-    "duration": "30,45",
-    "goalIds": [3, 4],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Giữ sức căng liên tục trên biceps trong suốt chuyển động nhờ lực kéo từ máy cáp. Hạn chế sử dụng đà và tối ưu hóa khả năng kiểm soát – phù hợp để hoàn thiện cơ tay trước trong cuối buổi tập."
-  },
-  {
-    "name": "Chin-Ups",
-    "levelIds": [2, 3],
-    "typeIds": [1, 4],
-    "primaryTargetMuscleIds": [4, 9],
-    "secondaryTargetMuscleIds": [2, 3, 6],
-    "equipmentIds": [5, 6],
-    "locationIds": [1, 2, 3],
-    "sets": "3,5",
-    "reps": "6,12",
-    "duration": "20,40",
-    "goalIds": [1, 3, 5],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Bài bodyweight compound tác động mạnh vào biceps và lưng. Khi cầm xà lòng bàn tay hướng vào, biceps đảm nhận phần lớn tải – giúp tăng cơ tay trước và cải thiện sức mạnh thân trên một cách tự nhiên."
-  },
-  {
-    "name": "Reverse Bicep Curls",
-    "levelIds": [1, 2],
-    "typeIds": [1],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [6],
-    "equipmentIds": [5],
-    "locationIds": [1, 2],
-    "sets": "3,4",
-    "reps": "8,12",
-    "duration": "30,45",
-    "goalIds": [3, 4],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Biến thể với lòng bàn tay úp xuống giúp kích hoạt cơ brachialis và cẳng tay nhiều hơn biceps. Giúp bắp tay trông dày và khỏe, đồng thời cải thiện độ ổn định cổ tay – phù hợp khi muốn tăng chiều sâu cơ tay."
-  },
-  {
-    "name": "Hammer Curls",
-    "levelIds": [1, 2],
-    "typeIds": [1],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [],
-    "equipmentIds": [5],
-    "locationIds": [1, 2],
-    "sets": "3,4",
-    "reps": "10,15",
-    "duration": "30,60",
-    "goalIds": [3, 4],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Tư thế cầm tạ dọc \"kiểu búa\" giúp tác động mạnh lên brachialis và brachioradialis bên cạnh biceps. Tăng bề dày toàn bộ cánh tay và giảm áp lực lên cổ tay – phù hợp với người tập ở mọi trình độ."
-  },
-  {
-    "name": "Preacher Curls",
-    "levelIds": [1, 2],
-    "typeIds": [1],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [6],
-    "equipmentIds": [5],
-    "locationIds": [1],
-    "sets": "3,4",
-    "reps": "8,12",
-    "duration": "30,45",
-    "goalIds": [3, 4],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Tập trung vào biceps bằng cách loại bỏ hoàn toàn đà và độ lắc. Ghế tì tay cố định giúp kiểm soát chuyển động, tăng độ cô lập và giúp phát triển hình dạng bắp tay một cách rõ rệt."
-  },
-  {
-    "name": "Concentration Curls",
-    "levelIds": [1, 2],
-    "typeIds": [1, 4],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [],
-    "equipmentIds": [5],
-    "locationIds": [1, 2],
-    "sets": "3,5",
-    "reps": "8,12",
-    "duration": "20,40",
-    "goalIds": [3, 4],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Nằm ngửa trên ghế hoặc sàn để loại bỏ hoàn toàn đà và cô lập biceps tối đa. Tăng cường khả năng kiểm soát, phù hợp để xây dựng khối lượng cơ tay trong giai đoạn tăng cơ."
-  },
-  {
-    "name": "Drag Curls",
-    "levelIds": [1],
-    "typeIds": [1],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [6],
-    "equipmentIds": [5],
-    "locationIds": [1, 2],
-    "sets": "3,5",
-    "reps": "8,12",
-    "duration": "30,45",
-    "goalIds": [3, 4],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Thay vì nâng tạ lên phía trước, tạ được kéo sát thân người nhằm duy trì sự kích hoạt sâu ở biceps. Giúp giảm thiểu tác động vai và tăng khả năng cảm nhận cơ trong suốt chuyển động."
-  },
-  {
-    "name": "Lying Dumbbell Curl",
-    "levelIds": [1],
-    "typeIds": [1],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [6],
-    "equipmentIds": [5],
-    "locationIds": [1, 2],
-    "sets": "3,4",
-    "reps": "8,12",
-    "duration": "30,45",
-    "goalIds": [3, 4],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Nằm ngửa trên ghế hoặc sàn để loại bỏ hoàn toàn đà và cô lập biceps tối đa. Tăng cường khả năng kiểm soát, phù hợp để xây dựng khối lượng cơ tay trong giai đoạn tăng cơ."
-  },
-  {
-    "name": "Banded Bicep Curl",
-    "levelIds": [1],
     "typeIds": [4],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [6],
-    "equipmentIds": [4],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [1, 4],
+    "equipmentIds": [1],
+    "locationIds": [1, 4],
+    "sets": "3,4",
+    "reps": "12,20",
+    "duration": "30,45",
+    "goalIds": [2, 3, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài bodyweight cô lập tay sau hiệu quả, kích hoạt mạnh đầu giữa của triceps. Ngoài ra còn hỗ trợ ngực trong và core. Rất phù hợp để tập ở bất kỳ đâu, đặc biệt tốt cho người mới hoặc làm nóng trước bài tập nặng."
+  },
+  {
+    "name": "Bench Dips",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [2, 3],
+    "equipmentIds": [1],
     "locationIds": [4],
     "sets": "3,4",
-    "reps": "8,12",
+    "reps": "10,15",
     "duration": "30,45",
     "goalIds": [3, 4],
     "media": {
       "image": "images/test.jpg",
       "video": null
     },
-    "description": "Sử dụng dây kháng lực để duy trì sức căng liên tục – đặc biệt ở cuối chuyển động. Hữu ích cho việc rèn kỹ thuật, tăng cảm nhận cơ và tập tại nhà hoặc khi phục hồi chấn thương."
+    "description": "Bài cơ bản giúp phát triển sức mạnh tay sau và cải thiện khả năng kiểm soát trọng lượng cơ thể. Thích hợp cho người mới hoặc làm bài phục hồi, tăng độ săn chắc và hình dạng triceps."
   },
   {
-    "name": "Zottman Curls",
-    "levelIds": [3],
+    "name": "Floor Presses",
+    "levelIds": [1, 2],
     "typeIds": [1],
-    "primaryTargetMuscleIds": [4, 6],
-    "secondaryTargetMuscleIds": [],
+    "primaryTargetMuscleIds": [5, 1],
+    "secondaryTargetMuscleIds": [3],
     "equipmentIds": [5],
     "locationIds": [1, 2],
     "sets": "3,4",
     "reps": "8,12",
+    "duration": "45,60",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể giới hạn phạm vi chuyển động của bài bench press, làm triceps chịu tải nhiều hơn trong pha khóa. Giúp tăng lực đẩy và xây dựng sức mạnh khớp khuỷu hiệu quả, đặc biệt hữu ích trong các giáo án tăng sức mạnh."
+  },
+  {
+    "name": "Close-Grip Bench Press",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5, 1],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "4,5",
+    "reps": "6,10",
+    "duration": "45,60",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể với tay cầm hẹp, chuyển phần lớn lực đẩy từ ngực sang tay sau. Bài compound giúp phát triển toàn diện sức mạnh triceps, hỗ trợ các bài overhead press và bench press nặng."
+  },
+  {
+    "name": "Pushdowns (Cable)",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài cô lập triceps kinh điển sử dụng lực kháng liên tục từ máy cáp. Hiệu quả cao để \"đốt cháy\" cơ ở cuối buổi tập, tăng cảm nhận và hình dáng vùng tay sau, đặc biệt là đầu ngoài."
+  },
+  {
+    "name": "Reverse Grip Pushdowns",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [6, 4],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể của cable pushdown với tư thế ngửa tay, nhấn mạnh vào đầu trong của triceps. Giúp phát triển đều ba phần của cơ tay sau và giảm áp lực lên cổ tay – phù hợp để đa dạng hóa chương trình tập luyện."
+  },
+  {
+    "name": "Skullcrushers",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "45,60",
+    "goalIds": [3],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập compound cô lập, kích hoạt sâu cả ba đầu của cơ triceps. Rất hiệu quả trong việc xây dựng khối cơ lớn và tăng cường lực đẩy. Cần kiểm soát kỹ thuật tốt để đảm bảo an toàn cho khuỷu tay."
+  },
+  {
+    "name": "Overhead Triceps Extensions",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3",
+    "reps": "10,12",
     "duration": "45,60",
     "goalIds": [3, 4],
     "media": {
       "image": "images/test.jpg",
       "video": null
     },
-    "description": "Tối ưu kích hoạt biceps nhờ tư thế kéo giãn hoàn toàn ở đáy chuyển động. Bài tập lý tưởng để tạo hình bắp tay dài, rõ nét, đồng thời tăng độ căng cơ sâu hơn so với các bài đứng truyền thống."
+    "description": "Kéo giãn tối đa đầu dài của triceps trong tư thế duỗi tay qua đầu. Hữu ích để cải thiện chiều dài và hình dạng cơ tay sau. Có thể dùng với tạ đơn, đôi, dây kháng lực, hoặc cáp tùy mục tiêu."
   },
   {
-    "name": "Cable Overhead Curl",
+    "name": "Tricep Dips",
+    "levelIds": [2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [5, 1],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [7],
+    "locationIds": [2, 3],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [3, 1],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài compound nâng cao sử dụng xà song song để phát triển sức mạnh triceps và thân trên. Rất tốt để tăng khối lượng và độ dày vùng tay sau. Yêu cầu thể lực tốt và kỹ thuật kiểm soát thân người."
+  },
+  {
+    "name": "Single-Arm Kickbacks",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài cô lập giúp điêu khắc phần tay sau với mức tạ nhẹ và kiểm soát cao. Đặc biệt phù hợp để định hình đầu ngoài triceps, tăng độ nét và cảm nhận cơ. Thích hợp vào cuối buổi tập."
+  },
+  {
+    "name": "Dumbbell Tate Press",
     "levelIds": [2],
     "typeIds": [1],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [6, 3],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3, 4],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Biến thể ép ngang bằng tạ đơn, nhấn mạnh phần đầu ngoài của triceps. Giúp tăng độ dày cơ và cải thiện lực đẩy ngang. Phù hợp để đa dạng hoá bài tập và tăng hiệu quả kích thích cơ bắp."
+  },
+  {
+    "name": "Cable Rear Drive",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3, 6],
     "equipmentIds": [5],
     "locationIds": [2],
     "sets": "3,4",
     "reps": "10,15",
     "duration": "30,45",
-    "goalIds": [2, 3, 4],
+    "goalIds": [3, 4],
     "media": {
       "image": "images/test.jpg",
       "video": null
     },
-    "description": "Giữ sức căng liên tục trên biceps trong suốt chuyển động nhờ lực kéo từ máy cáp. Hạn chế sử dụng đà và tối ưu hóa khả năng kiểm soát – phù hợp để hoàn thiện cơ tay trước trong cuối buổi tập."
+    "description": "Bài tập sử dụng máy cáp, giúp kích hoạt mạnh đầu dài triceps với lực kháng ổn định. Hiệu quả để kiểm soát kỹ thuật và phát triển toàn diện triceps trong môi trường tập luyện có kiểm soát."
   },
   {
-    "name": "Kettlebell Alternating Hang Clean",
-    "levelIds": [2, 3],
-    "typeIds": [1, 4],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [2, 10],
+    "name": "Triceps Press",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3, 4],
     "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài compound cô lập mạnh, tập trung toàn lực vào cơ tay sau. Hữu ích trong việc tăng sức mạnh lực đẩy và cải thiện hình thể cánh tay. Dễ dàng điều chỉnh mức tạ, phù hợp cho mọi cấp độ."
+  },
+  {
+    "name": "Body Up",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [7, 3, 4],
+    "equipmentIds": [1],
+    "locationIds": [1, 3, 4],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài bodyweight giúp phát triển tay sau, vai và core thông qua chuyển động toàn thân. Rất phù hợp trong các chương trình rèn luyện thể lực chức năng hoặc tập luyện tại nhà không cần thiết bị."
+  },
+  {
+    "name": "Handstand Push-Up",
+    "levelIds": [3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3, 4, 7],
+    "equipmentIds": [1],
+    "locationIds": [1, 3],
+    "sets": "3,4",
+    "reps": "3,8",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập nâng cao kích hoạt tay sau, vai và core đồng thời. Giúp tăng sức mạnh đẩy theo phương thẳng đứng và cải thiện khả năng kiểm soát cơ thể. Cần có nền tảng thể lực và khả năng thăng bằng tốt."
+  },
+  {
+    "name": "Elbow Dips",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [1],
     "locationIds": [1, 2],
     "sets": "3,4",
-    "reps": "6,10",
-    "duration": "30,45",
-    "goalIds": [1, 3, 4, 5],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Bài compound bùng nổ giúp phát triển biceps, vai và phần thân dưới. Tăng cường khả năng phối hợp và tốc độ – thường dùng trong giáo án cross-training hoặc rèn sức mạnh thể thao."
-  },
-  {
-    "name": "Power Clean",
-    "levelIds": [3],
-    "typeIds": [1, 4],
-    "primaryTargetMuscleIds": [2, 4, 10],
-    "secondaryTargetMuscleIds": [3, 12, 7],
-    "equipmentIds": [5],
-    "locationIds": [2],
-    "sets": "3,4",
-    "reps": "3,6",
-    "duration": "30,45",
-    "goalIds": [3, 4, 5],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Bài Olympic lifting giúp tăng sức mạnh toàn thân và tốc độ bùng nổ. Biceps hoạt động hỗ trợ trong quá trình kéo và xoay tạ – phù hợp cho vận động viên và người tập nâng cao."
-  },
-  {
-    "name": "Snatch Pull",
-    "levelIds": [3],
-    "typeIds": [1, 4],
-    "primaryTargetMuscleIds": [2, 4, 10],
-    "secondaryTargetMuscleIds": [3, 12, 7],
-    "equipmentIds": [5],
-    "locationIds": [2],
-    "sets": "3,4",
-    "reps": "3,6",
-    "duration": "30,45",
-    "goalIds": [3, 4, 5],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Được dùng để tăng lực kéo giai đoạn đầu trong động tác Snatch. Biceps tham gia hỗ trợ khi kéo thanh tạ lên cao – giúp cải thiện kỹ thuật Olympic lifting và phát triển sức mạnh lưng – tay phối hợp."
-  },
-  {
-    "name": "Smith Machine Bicep Curl",
-    "levelIds": [1, 2],
-    "typeIds": [1],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [6],
-    "equipmentIds": [5],
-    "locationIds": [2],
-    "sets": "3,4",
     "reps": "8,12",
+    "duration": "30,60",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/test.jpg",
+      "video": null
+    },
+    "description": "Bài tập bodyweight biến thể từ tricep dips, trong đó người tập đặt trọng tâm vào khuỷu tay và vùng tay sau. Giúp xây dựng sức mạnh cơ triceps mà không cần thiết bị phức tạp. Phù hợp với các chương trình tập ở nhà hoặc calisthenic."
+  },
+  {
+    "name": "Cable High Pulley Overhead Tricep Extension",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [3],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,12",
     "duration": "30,60",
     "goalIds": [3, 4],
     "media": {
       "image": "images/test.jpg",
       "video": null
     },
-    "description": "Bài tập sử dụng máy Smith để cố định quỹ đạo, cho phép tập trung toàn bộ lực vào cơ tay trước. Phù hợp để tăng kích thước và cải thiện hình dạng biceps một cách an toàn, ổn định."
+    "description": "Sử dụng máy kéo cáp cao và tư thế tay qua đầu để tối đa hóa kích hoạt đầu dài của triceps. Tạo sức căng liên tục trong suốt chuyển động, hỗ trợ phát triển độ dài và độ sắc nét cơ tay sau. Phù hợp để kết thúc buổi tập với cường độ cao."
   },
   {
-    "name": "Lever Bicep Curl",
+    "name": "Band Assisted Dip",
     "levelIds": [1, 2],
-    "typeIds": [1],
-    "primaryTargetMuscleIds": [4],
-    "secondaryTargetMuscleIds": [6],
-    "equipmentIds": [5],
-    "locationIds": [2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [1, 3],
+    "equipmentIds": [4],
+    "locationIds": [1, 2],
     "sets": "3,4",
     "reps": "8,12",
     "duration": "30,60",
-    "goalIds": [3, 4],
+    "goalIds": [3, 5],
     "media": {
       "image": "images/test.jpg",
       "video": null
     },
-    "description": "Bài tập cô lập cơ tay trước bằng máy đòn bẩy, giúp duy trì sức căng ổn định trong suốt chuyển động. Phù hợp để tối ưu hóa khối lượng cơ bắp và kiểm soát kỹ thuật."
+    "description": "Bài dip có hỗ trợ dây kháng lực nhằm giảm tải trọng lên tay sau, vai và vai sau – cho phép người mới tập thực hiện động tác đúng kỹ thuật. Rất hiệu quả để làm cầu nối từ bài dips cơ bản sang phiên bản bodyweight hoặc nâng cao."
   },
   {
-    "name": "Kettlebell Sumo High Pull",
+    "name": "Weighted Tricep Dips",
     "levelIds": [2, 3],
     "typeIds": [1],
-    "primaryTargetMuscleIds": [4, 3],
-    "secondaryTargetMuscleIds": [10, 11],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [1, 3],
     "equipmentIds": [5],
     "locationIds": [2],
-    "sets": "3,4",
-    "reps": "8,12",
+    "sets": "3,5",
+    "reps": "6,10",
     "duration": "30,60",
-    "goalIds": [3, 5, 6],
+    "goalIds": [3],
     "media": {
       "image": "images/test.jpg",
       "video": null
     },
-    "description": "Bài compound sử dụng động lực toàn thân để kích hoạt vai, biceps và chân. Tăng cường khả năng phối hợp, độ bùng nổ và chuyển hóa năng lượng."
+    "description": "Phiên bản nâng cao của tricep dips, thêm trọng lượng để tăng áp lực lên nhóm cơ tay sau. Giúp tăng khối lượng cơ và sức mạnh vùng triceps, đặc biệt phù hợp trong giai đoạn hypertrophy (tăng cơ) và nâng cao hiệu suất bài push."
   }
 ]
