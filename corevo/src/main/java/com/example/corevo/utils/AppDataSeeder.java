@@ -207,7 +207,6 @@ public class AppDataSeeder implements ApplicationRunner {
     }
 
 
-
     void seedTrainingPlans() {
         try (InputStream is = getClass().getResourceAsStream("/data/training_plan.json")) {
             log.info("Start seeding training plan from JSON...");
@@ -220,8 +219,8 @@ public class AppDataSeeder implements ApplicationRunner {
                 trainingPlanRepository.saveAll(trainingPlans);
             } else {
                 if (trainingPlansFromJson.size() > trainingPlansFromDB.size()) {
-                    for (TrainingPlanResponseDto x : trainingPlansFromJson){
-                        if (!trainingPlanRepository.existsByNameAndType(x.getName(), x.getType())){
+                    for (TrainingPlanResponseDto x : trainingPlansFromJson) {
+                        if (!trainingPlanRepository.existsByNameAndType(x.getName(), x.getType())) {
                             trainingPlanRepository.save(
                                     trainingPlanMapper.trainingPlanResponseDtoToTrainingPlan(x)
                             );
@@ -239,23 +238,23 @@ public class AppDataSeeder implements ApplicationRunner {
         List<String> jsonFiles = List.of(
                 "/data/training_exercise_data/abs_training_exercise.json",
                 "/data/training_exercise_data/back_training_exercise.json",
-                "/data/training_exercise_data/biceps_training_exercise.json",
-                "/data/training_exercise_data/chest_training_exercise.json",
-                "/data/training_exercise_data/glute_training_exercise.json",
-                "/data/training_exercise_data/hamstring_training_exercise.json",
-                "/data/training_exercise_data/quads_training_exercise.json",
-                "/data/training_exercise_data/shoulders_training_exercise.json",
-                "/data/training_exercise_data/triceps_training_exercise.json"
+                "/data/training_exercise_data/biceps_training_exercise.json"
+//                "/data/training_exercise_data/chest_training_exercise.json",
+//                "/data/training_exercise_data/glute_training_exercise.json",
+//                "/data/training_exercise_data/hamstring_training_exercise.json",
+//                "/data/training_exercise_data/quads_training_exercise.json",
+//                "/data/training_exercise_data/shoulders_training_exercise.json",
+//                "/data/training_exercise_data/triceps_training_exercise.json"
         );
 
         log.info("Start seeding training exercise from JSON...");
 
         List<TrainingExercise> trainingExercisesFromDB = trainingExerciseRepository.findAll();
 
-        if (trainingExercisesFromDB.isEmpty()){
-            for (String file : jsonFiles){
+        if (trainingExercisesFromDB.isEmpty()) {
+            for (String file : jsonFiles) {
                 List<TrainingExerciseResponseDto> trainingExercisesFromJSON = loadTrainingExerciseDataFromJSON(file);
-                for (TrainingExerciseResponseDto x : trainingExercisesFromJSON){
+                for (TrainingExerciseResponseDto x : trainingExercisesFromJSON) {
                     x.setImageURL(uploadImageIfNotExists(x.getImageURL(), cloudinary));
                 }
                 trainingExerciseRepository.saveAll(
@@ -265,13 +264,13 @@ public class AppDataSeeder implements ApplicationRunner {
             }
         } else {
             List<TrainingExerciseResponseDto> trainingExercisesFromJSON = new ArrayList<>();
-            for (String file : jsonFiles){
+            for (String file : jsonFiles) {
                 trainingExercisesFromJSON.addAll(loadTrainingExerciseDataFromJSON(file));
             }
 
 
-            if (trainingExercisesFromJSON.size() > trainingExercisesFromDB.size()){
-                for (TrainingExerciseResponseDto x : trainingExercisesFromJSON){
+            if (trainingExercisesFromJSON.size() > trainingExercisesFromDB.size()) {
+                for (TrainingExerciseResponseDto x : trainingExercisesFromJSON) {
                     if (!trainingExerciseRepository.existsByNameAndTypes_IdInAndPrimaryMuscles_IdIn(
                             x.getName(),
                             x.getTypeIds(),
@@ -289,9 +288,10 @@ public class AppDataSeeder implements ApplicationRunner {
 
     }
 
-    List<TrainingExerciseResponseDto> loadTrainingExerciseDataFromJSON (String path) {
+    List<TrainingExerciseResponseDto> loadTrainingExerciseDataFromJSON(String path) {
         try (InputStream is = getClass().getResourceAsStream(path)) {
-            List<RawTrainingExerciseDto> rawList = objectMapper.readValue(is, new TypeReference<>() {});
+            List<RawTrainingExerciseDto> rawList = objectMapper.readValue(is, new TypeReference<>() {
+            });
 
             return rawList.stream()
                     .map(TrainingExerciseConverter::convert)
@@ -320,14 +320,18 @@ public class AppDataSeeder implements ApplicationRunner {
         String folder = Paths.get(filePath).getParent().toString().replace("\\", "/").replace("images/", "");
         String publicId = "init/" + folder + "/" + nameWithoutExt;
 
-
-        if (imageExists(cloudinary, publicId)) {
-            return null;
-        }
-
         try {
+            if (imageExists(cloudinary, publicId)) {
+                return cloudinary.url()
+                        .resourceType("image")
+                        .publicId(publicId)
+                        .secure(true)
+                        .generate();
+            }
+
             return uploadImageFromResources(cloudinary, filePath, publicId);
         } catch (Exception e) {
+            System.out.println(filename);
             throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
         }
     }
