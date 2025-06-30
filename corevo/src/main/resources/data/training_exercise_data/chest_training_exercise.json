@@ -322,5 +322,131 @@
       "video": null
     },
     "description": "Plank to Pushup là bài tập chuyển đổi liên tục từ tư thế plank cẳng tay sang push-up rồi quay lại, nhằm tăng cường cơ core, vai, tay sau và ngực. Bài này buộc bạn giữ thân người ổn định, tránh xoay hông quá mức – rất tốt để rèn core control và sức bền cơ thể."
+  },
+  {
+    "name": "Archer Push-up",
+    "levelIds": [2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [4, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "20,30",
+    "goalIds": [1, 3,4],
+    "media": {
+      "image": "images/chest/chest_archer-push-up.jpg",
+      "video": null
+    },
+    "description": "Bài hít đất nâng cao giúp phát triển ngực, tay sau và core, cải thiện sự kiểm soát và sức mạnh cơ thể từng bên."
+  },
+  {
+    "name": "Barbell Decline Pullover",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [2, 9],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "10,12",
+    "duration": "20,30",
+    "goalIds": [2, 3, 4],
+    "media": {
+      "image": "images/chest/chest_barbell-decline-pullover.jpg",
+      "video": null
+    },
+    "description": "Bài kéo ngực với tạ đòn trên ghế dốc giúp mở rộng lồng ngực, tăng cơ ngực dưới và lưng."
+  },
+  {
+    "name": "Chest Dip",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [4, 5],
+    "equipmentIds": [6],
+    "locationIds": [2, 3],
+    "sets": "3,5",
+    "reps": "8,12",
+    "duration": "20,30",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/chest/chest_chest-dip.jpg",
+      "video": null
+    },
+    "description": "Bài tập trọng lượng cơ thể chuyên sâu cho ngực và tay sau, giúp phát triển ngực dưới và cải thiện sức mạnh đẩy."
+  },
+  {
+    "name": "Dumbbell Press Squat",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [11, 3],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "30,45",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/chest/chest_dumbbell-press-squat.jpg",
+      "video": null
+    },
+    "description": "Bài kết hợp ép ngực và squat giúp kích hoạt toàn thân, tập trung vào ngực, chân và vai."
+  },
+  {
+    "name": "Kneeling Shoulder Tap",
+    "levelIds": [1],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "2,4",
+    "reps": "12,20",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/chest/chest_kneeling-shoulder-tap.jpg",
+      "video": null
+    },
+    "description": "Bài tập giữ thân người kết hợp chạm vai giúp siết chặt core, cải thiện ổn định vai và tăng sức bền."
+  },
+  {
+    "name": "Weighted Svend Press",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 4],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "20,30",
+    "goalIds": [2, 3],
+    "media": {
+      "image": "images/chest/chest_weighted-svend-press.jpg",
+      "video": null
+    },
+    "description": "Bài ép ngực với đĩa tạ giúp tăng áp lực lên cơ ngực giữa, nâng cao sự siết cơ và khả năng kiểm soát."
+  },
+  {
+    "name": "Plank Walk-up",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [1],
+    "secondaryTargetMuscleIds": [3, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5, 6],
+    "media": {
+      "image": "images/chest/chest_plank-walk-up.jpg",
+      "video": null
+    },
+    "description": "Bài chuyển động giữa tư thế plank giúp kích hoạt ngực, vai, core và cải thiện sức bền tim mạch."
   }
 ]
