@@ -120,7 +120,7 @@
     "duration": "45,60",
     "goalIds": [3, 5],
     "media": {
-      "image": "images/back/back_chinup.gif",
+      "image": "images/back/back_chin-up.jpg",
       "video": null
     },
     "description": "Kích hoạt cơ lưng và tay trước toàn diện với hướng tay ngửa. Bài tập calisthenic kinh điển giúp tăng cường sức kéo thân trên, rất hữu ích trong thể thao đối kháng và phát triển hình thể tự nhiên."
@@ -342,24 +342,6 @@
     "description": "Bài kiểm soát core với chuyển động xoay, nhắm vào cơ liên sườn, bụng xiên và vai. Giúp cải thiện độ linh hoạt, sức bền thân người và giảm nguy cơ lệch cột sống khi vận động."
   },
   {
-    "name": "Suspension Trainer Chinup",
-    "levelIds": [3],
-    "typeIds": [1, 4],
-    "primaryTargetMuscleIds": [2, 4],
-    "secondaryTargetMuscleIds": [3],
-    "equipmentIds": [5],
-    "locationIds": [2],
-    "sets": "3,4",
-    "reps": "6,10",
-    "duration": "45,60",
-    "goalIds": [3, 5],
-    "media": {
-      "image": "images/back/back_suspension-trainer-chinup.jpg",
-      "video": null
-    },
-    "description": "Biến thể dùng dây treo của chinup giúp tăng thử thách thăng bằng, đồng thời duy trì kích hoạt cơ xô, tay trước và core. Phù hợp để luyện tập ngoài trời hoặc tại nhà có dây treo."
-  },
-  {
     "name": "Squat",
     "levelIds": [1, 2, 3],
     "typeIds": [1, 4],
@@ -444,7 +426,7 @@
     "duration": "40,50",
     "goalIds": [3],
     "media": {
-      "image": "images/back/back_dumbbell-row.gif",
+      "image": "images/back/back_dumbbell-row.jpg",
       "video": null
     },
     "description": "Bài tập đơn giản, cô lập lưng giữa và tay trước hiệu quả. Giúp cân bằng lực từng bên cơ thể và tăng cường chiều dày vùng lưng trung tâm."

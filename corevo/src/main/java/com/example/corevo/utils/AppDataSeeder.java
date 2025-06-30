@@ -238,13 +238,13 @@ public class AppDataSeeder implements ApplicationRunner {
         List<String> jsonFiles = List.of(
                 "/data/training_exercise_data/abs_training_exercise.json",
                 "/data/training_exercise_data/back_training_exercise.json",
-                "/data/training_exercise_data/biceps_training_exercise.json"
-//                "/data/training_exercise_data/chest_training_exercise.json",
-//                "/data/training_exercise_data/glute_training_exercise.json",
-//                "/data/training_exercise_data/hamstring_training_exercise.json",
-//                "/data/training_exercise_data/quads_training_exercise.json",
-//                "/data/training_exercise_data/shoulders_training_exercise.json",
-//                "/data/training_exercise_data/triceps_training_exercise.json"
+                "/data/training_exercise_data/biceps_training_exercise.json",
+                "/data/training_exercise_data/chest_training_exercise.json",
+                "/data/training_exercise_data/glute_training_exercise.json",
+                "/data/training_exercise_data/hamstring_training_exercise.json",
+                "/data/training_exercise_data/quads_training_exercise.json",
+                "/data/training_exercise_data/shoulders_training_exercise.json",
+                "/data/training_exercise_data/triceps_training_exercise.json"
         );
 
         log.info("Start seeding training exercise from JSON...");
