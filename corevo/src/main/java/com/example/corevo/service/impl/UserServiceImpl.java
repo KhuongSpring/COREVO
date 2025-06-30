@@ -205,7 +205,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         return new AccountDeletionResponseDto(
-                CommonConstant.TRUE,
+                HttpStatus.OK,
                 SuccessMessage.User.SOFT_DELETE_SUCCESS,
                 user.getEmail(),
                 gracePeriodDays,

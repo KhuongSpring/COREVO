@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 @Setter
 @Getter
-@Builder
 public class CommonResponseDto {
 
     private HttpStatus status;
