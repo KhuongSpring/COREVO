@@ -9,5 +9,7 @@ public class SuccessMessage {
         public static final String DELETE_SUCCESS = "Delete user successfully";
         public static final String LOCKED_SUCCESS = "Locked user successfully";
         public static final String UNLOCKED_SUCCESS = "Unlocked user successfully";
+        public static final String SOFT_DELETE_SUCCESS = "User account has been deleted successfully. You have 30 days to recover it.";
+        public static final String RECOVERY_SUCCESS = "User account has been recovered successfully";
     }
 }
