@@ -1,17 +1,16 @@
 package com.example.corevo.domain.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.http.HttpStatus;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 public class CommonResponseDto {
 
-    private Boolean status;
+    private HttpStatus status;
 
     private String message;
 

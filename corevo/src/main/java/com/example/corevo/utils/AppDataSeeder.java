@@ -8,7 +8,6 @@ import com.example.corevo.domain.dto.response.training_exercise.TrainingExercise
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
 import com.example.corevo.domain.entity.TrainingExercise;
 import com.example.corevo.domain.entity.training.*;
-import com.example.corevo.domain.entity.TrainingPlan;
 import com.example.corevo.domain.mapper.TrainingExerciseMapper;
 import com.example.corevo.domain.mapper.TrainingPlanMapper;
 import com.example.corevo.exception.VsException;

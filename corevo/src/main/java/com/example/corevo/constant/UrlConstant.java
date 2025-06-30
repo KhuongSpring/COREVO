@@ -10,6 +10,9 @@ public class UrlConstant {
         public static final String FORGOT_PASSWORD = PRE_FIX + "/forgot-password";
         public static final String VERIFY_OTP_TO_RESET_PASSWORD = PRE_FIX + "/verify-otp-to-reset-password";
         public static final String RESET_PASSWORD = PRE_FIX + "/reset-password";
+        public static final String ACCOUNT_RECOVERY = PRE_FIX + "/account-recovery";
+        public static final String VERIFY_OTP_TO_RECOVERY = PRE_FIX + "/verify-otp-to-recovery";
+        public static final String RECOVER_ACCOUNT = PRE_FIX + "/recover-account";
         public static final String LOGOUT = PRE_FIX + "/logout";
 
         private Auth() {
@@ -25,6 +28,7 @@ public class UrlConstant {
 
         public static final String FILL_PERSONAL_INFORMATION = PRE_FIX + "/personal-information";
         public static final String UPLOAD_AVATAR = PRE_FIX + "/upload-avatar";
+        public static final String DELETE_MY_ACCOUNT = PRE_FIX + "/delete-my-account";
 
         private User() {
         }
@@ -46,17 +50,19 @@ public class UrlConstant {
         }
     }
 
-    public static class UserHealth{
+    public static class UserHealth {
         private static final String PRE_FIX = "/user-health";
         public static final String FILL_HEALTH_INFORMATION = PRE_FIX + "/health-information";
+
         private UserHealth() {
 
         }
     }
 
-    public static class TrainingPlan{
+    public static class TrainingPlan {
         private static final String PRE_FIX = "/training-plan";
         public static final String FLOW_STEP = PRE_FIX + "/step";
+
         private TrainingPlan() {
 
         }

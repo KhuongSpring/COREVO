@@ -1,4 +1,4 @@
-package com.example.corevo.domain.entity;
+package com.example.corevo.domain.entity.training;
 
 import com.example.corevo.domain.entity.training.Equipment;
 import com.example.corevo.domain.entity.training.Level;

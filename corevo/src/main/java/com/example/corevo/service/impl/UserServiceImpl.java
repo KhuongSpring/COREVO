@@ -10,6 +10,7 @@ import com.example.corevo.domain.dto.request.admin.CreateUserRequestDto;
 import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
+import com.example.corevo.domain.dto.response.user.AccountDeletionResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 import com.example.corevo.domain.entity.user.Address;
 import com.example.corevo.domain.entity.user.User;
@@ -25,14 +26,18 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -117,13 +122,13 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto createUser(CreateUserRequestDto request) {
 
         if (userRepository.existsUserByEmail(request.getEmail())) {
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_EXISTED);
         }
         if (userRepository.existsUserByUsername(request.getUsername())) {
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_USERNAME_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USERNAME_EXISTED);
         }
         if (userRepository.existsUsersByPhone(request.getPhone())) {
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_PHONE_EXISTED);
         }
         User user = userMapper.createUserRequestDtoToUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -143,25 +148,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public CommonResponseDto deleteUserPermanently(String userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
-        Address userAddress = user.getAddress();
-        userRepository.delete(user);
-        if (userAddress != null && !userRepository.existsByAddress(userAddress)) {
-            addressRepository.delete(userAddress);
-        }
-        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.DELETE_SUCCESS);
-    }
-
-    @Override
     public CommonResponseDto lockUser(String userId) {
         Optional<User> user = userRepository.findById(userId);
         checkLockUser(user, userId);
         user.get().setIsLocked(CommonConstant.TRUE);
         userRepository.save(user.get());
-        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.LOCKED_SUCCESS);
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.LOCKED_SUCCESS);
     }
 
     @Override
@@ -170,7 +162,55 @@ public class UserServiceImpl implements UserService {
         checkUnlockUser(user, userId);
         user.get().setIsLocked(CommonConstant.FALSE);
         userRepository.save(user.get());
-        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.UNLOCKED_SUCCESS);
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.UNLOCKED_SUCCESS);
+    }
+
+    @Override
+    @Transactional
+    public CommonResponseDto deleteUserAccount(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
+        String addressId = null;
+        if (user.getAddress() != null) {
+            addressId = user.getAddress().getId();
+        }
+        userRepository.delete(user);
+        if (addressId != null) {
+            long userCountWithAddress = userRepository.countByAddressId(addressId);
+
+            if (userCountWithAddress == 0) {
+                addressRepository.deleteById(addressId);
+            }
+        }
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.DELETE_SUCCESS);
+    }
+
+    @Override
+    @Transactional
+    public AccountDeletionResponseDto deleteMyAccount(Authentication authentication) {
+
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+        }
+        if (Boolean.TRUE.equals(user.getIsDeleted())) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_ALREADY_DELETED);
+        }
+
+        Integer gracePeriodDays = CommonConstant.ACCOUNT_RECOVERY_DAYS;
+
+        user.setIsDeleted(CommonConstant.TRUE);
+        user.setDeletedAt(LocalDate.now());
+        userRepository.save(user);
+
+        return new AccountDeletionResponseDto(
+                CommonConstant.TRUE,
+                SuccessMessage.User.SOFT_DELETE_SUCCESS,
+                user.getEmail(),
+                gracePeriodDays,
+                "corevo@gmail.com"
+        );
     }
 
     private void checkLockUser(Optional<User> user, String userId) {
@@ -185,7 +225,7 @@ public class UserServiceImpl implements UserService {
 
     private void checkUnlockUser(Optional<User> user, String userId) {
         if (user.isEmpty()) {
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
         } else {
             if (!user.get().getIsLocked()) {
                 throw new InvalidException((ErrorMessage.User.ERR_USER_IS_NOT_LOCKED));

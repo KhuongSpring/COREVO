@@ -6,7 +6,7 @@ import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponse
 import com.example.corevo.domain.entity.training.Equipment;
 import com.example.corevo.domain.entity.training.Level;
 import com.example.corevo.domain.entity.training.Location;
-import com.example.corevo.domain.entity.TrainingPlan;
+import com.example.corevo.domain.entity.training.TrainingPlan;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.helper.StringToTrainingIDHelper;
 import com.example.corevo.repository.TrainingPlanRepository;

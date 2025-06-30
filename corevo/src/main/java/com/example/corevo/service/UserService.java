@@ -6,12 +6,16 @@ import com.example.corevo.domain.dto.request.admin.CreateUserRequestDto;
 import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
+import com.example.corevo.domain.dto.response.user.AccountDeletionResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
+import org.springframework.security.core.Authentication;
 
 public interface UserService {
     UserResponseDto personalInformation(PersonalInformationRequestDto request);
 
     UserResponseDto uploadAvatar(String id, String url);
+
+    AccountDeletionResponseDto deleteMyAccount(Authentication authentication);
 
     // UserResponseDto getCurrentUser();
 
@@ -27,5 +31,6 @@ public interface UserService {
 
     CommonResponseDto unlockUser(String userId);
 
-    CommonResponseDto deleteUserPermanently(String userId);
+    CommonResponseDto deleteUserAccount(String userId);
+
 }
