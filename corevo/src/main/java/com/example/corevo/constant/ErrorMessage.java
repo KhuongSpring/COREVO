@@ -26,6 +26,7 @@ public class ErrorMessage {
         public static final String ERR_LOGIN_FAIL = "exception.auth.login.fail";
         public static final String ERR_OTP_EXPIRED_OR_NOT_FOUND = "exception.auth.OTP.expired.or.not.found";
         public static final String ERR_OTP_INVALID = "exception.auth.OTP.invalid";
+
     }
 
     public static class User {
@@ -41,7 +42,7 @@ public class ErrorMessage {
         public static final String ERR_ACCOUNT_ALREADY_DELETED = "exception.user.account.already.deleted";
         public static final String ERR_ACCOUNT_RECOVERY_EXPIRED = "exception.user.account.recovery.period.has.expired";
         public static final String ERR_ACCOUNT_NOT_DELETED = "exception.user.account.is.not.in.deleted.state";
-        public static final Object ERR_ACCOUNT_DELETED_RECOVERABLE = "exception.user.account.has.been.deleted.make.recover.it.by.using.the.account.recovery.feature";
+        public static final String ERR_ACCOUNT_DELETED_RECOVERABLE = "exception.user.account.has.been.deleted.make.recover.it.by.using.the.account.recovery.feature";
     }
 
     public static class UserHealth {

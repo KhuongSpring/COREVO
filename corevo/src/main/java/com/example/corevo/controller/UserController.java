@@ -58,7 +58,16 @@ public class UserController {
         String imageUrl = (String) result.get("secure_url");
         return VsResponseUtil.success(userService.uploadAvatar(id, imageUrl));
     }
-    
+
+    @Operation(
+            summary = "Xóa tài khoản",
+            description = "Dùng để người dùng xóa tài khoản của mình (soft delete, có thể khôi phục trong 30 ngày)",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @DeleteMapping(UrlConstant.User.DELETE_MY_ACCOUNT)
+    public ResponseEntity<?> deleteMyAccount(Authentication authentication) {
+        return VsResponseUtil.success(userService.deleteMyAccount(authentication));
+    }
                                                     
     //                                  //
     //          Methods for ADMIN       //
@@ -145,20 +154,6 @@ public class UserController {
     @DeleteMapping(UrlConstant.Admin.DELETE_USER)
     public ResponseEntity<?> deleteUserPermanently(@PathVariable String userId) {
         return VsResponseUtil.success(userService.deleteUserAccount(userId));
-    }
-
-    //                  //
-    // Methods for USER //
-    //                  //
-
-    @Operation(
-            summary = "Xóa tài khoản", 
-            description = "Dùng để người dùng xóa tài khoản của mình (soft delete, có thể khôi phục trong 30 ngày)", 
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
-    @DeleteMapping(UrlConstant.User.DELETE_MY_ACCOUNT)
-    public ResponseEntity<?> deleteMyAccount(Authentication authentication) {
-        return VsResponseUtil.success(userService.deleteMyAccount(authentication));
     }
 
 }

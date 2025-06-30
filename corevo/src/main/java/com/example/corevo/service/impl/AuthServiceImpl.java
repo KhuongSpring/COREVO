@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -53,7 +54,39 @@ public class AuthServiceImpl implements AuthService {
 
         User user = userRepository.findByUsername(request.getUsername());
 
-        validateAccountStatus(user);
+
+
+        if (Boolean.TRUE.equals(user.getIsDeleted())) {
+            LocalDate expiredDate = user.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
+            if (LocalDate.now().isBefore(expiredDate)) {
+                long daysSinceDeleted = ChronoUnit.DAYS.between(user.getDeletedAt(), LocalDate.now());
+                return new LoginResponseDto(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.Auth.ERR_LOGIN_FAIL,
+                        null,
+                        CommonConstant.TRUE,
+                        CommonConstant.TRUE,
+                        daysSinceDeleted
+                );
+            }
+            else {
+                return new LoginResponseDto(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.Auth.ERR_LOGIN_FAIL,
+                        null,
+                        CommonConstant.TRUE,
+                        CommonConstant.FALSE,
+                        0
+                );
+            }
+        }
+
+        if(Boolean.TRUE.equals(user.getIsLocked())){
+            return LoginResponseDto.builder()
+                    .messageResponse(ErrorMessage.Auth.ERR_ACCOUNT_LOCKED)
+                    .accessToken(null)
+                    .build();
+        }
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         boolean auth = passwordEncoder.matches(request.getPassword(), user.getPassword());
@@ -66,19 +99,6 @@ public class AuthServiceImpl implements AuthService {
                 .accessToken(token)
                 .id(user.getId())
                 .build();
-    }
-
-    private void validateAccountStatus(User user) {
-        if (Boolean.TRUE.equals(user.getIsDeleted())) {
-            LocalDateTime expiredDate = user.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
-            if (LocalDateTime.now().isBefore(expiredDate)) {
-                throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.User.ERR_ACCOUNT_DELETED_RECOVERABLE);
-            }
-        }
-        
-        if (Boolean.TRUE.equals(user.getIsLocked())) {
-            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.User.ERR_USER_IS_LOCKED);
-        }
     }
 
     @Override
@@ -176,10 +196,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public CommonResponseDto sendEmailRecoveryOtp(RecoveryRequestDto request) {
         User deletedUser = userRepository.findDeletedUserByEmail(request.getEmail())
-                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_ACCOUNT_NOT_DELETED));
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_NOT_DELETED));
 
-        LocalDateTime expiredDate = deletedUser.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
-        if (LocalDateTime.now().isAfter(expiredDate)) {
+        LocalDate expiredDate = deletedUser.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
+        if (LocalDate.now().isAfter(expiredDate)) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_RECOVERY_EXPIRED);
         }
 
@@ -193,7 +213,7 @@ public class AuthServiceImpl implements AuthService {
 
         emailService.sendOtpEmail(request.getEmail(), otp);
 
-        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.Auth.SUCCESS_SEND_OTP);
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.Auth.SUCCESS_SEND_OTP);
     }
 
     @Override
@@ -211,19 +231,15 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public CommonResponseDto recoverAccount(VerifyOtpRequestDto request) {
-        PendingRecoveryRequestDto pending = pendingRecoveryMap.get(request.getEmail());
-        if (pending == null)
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
-        if (pending.isExpired())
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
-        if (!pending.getOtp().equals(request.getOtp()))
+        if(!verifyOtpToRecovery(request)){
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
+        }
 
         User deletedUser = userRepository.findDeletedUserByEmail(request.getEmail())
-                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_ACCOUNT_NOT_DELETED));
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_NOT_DELETED));
 
-        LocalDateTime expiredDate = deletedUser.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
-        if (LocalDateTime.now().isAfter(expiredDate)) {
+        LocalDate expiredDate = deletedUser.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
+        if (LocalDate.now().isAfter(expiredDate)) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_RECOVERY_EXPIRED);
         }
 
@@ -233,7 +249,7 @@ public class AuthServiceImpl implements AuthService {
 
         pendingRecoveryMap.remove(request.getEmail());
 
-        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.RECOVERY_SUCCESS);
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.RECOVERY_SUCCESS);
     }
 
     @Override

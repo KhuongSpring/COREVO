@@ -153,7 +153,7 @@ public class UserServiceImpl implements UserService {
         checkLockUser(user, userId);
         user.get().setIsLocked(CommonConstant.TRUE);
         userRepository.save(user.get());
-        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.LOCKED_SUCCESS);
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.LOCKED_SUCCESS);
     }
 
     @Override
@@ -162,7 +162,7 @@ public class UserServiceImpl implements UserService {
         checkUnlockUser(user, userId);
         user.get().setIsLocked(CommonConstant.FALSE);
         userRepository.save(user.get());
-        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.UNLOCKED_SUCCESS);
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.UNLOCKED_SUCCESS);
     }
 
     @Override
@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService {
                 addressRepository.deleteById(addressId);
             }
         }
-        return new CommonResponseDto(CommonConstant.TRUE, SuccessMessage.User.DELETE_SUCCESS);
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.DELETE_SUCCESS);
     }
 
     @Override
@@ -192,7 +192,7 @@ public class UserServiceImpl implements UserService {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
         }
         if (Boolean.TRUE.equals(user.getIsDeleted())) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_ALREADY_DELETED);
@@ -201,7 +201,7 @@ public class UserServiceImpl implements UserService {
         Integer gracePeriodDays = CommonConstant.ACCOUNT_RECOVERY_DAYS;
 
         user.setIsDeleted(CommonConstant.TRUE);
-        user.setDeletedAt(LocalDateTime.now());
+        user.setDeletedAt(LocalDate.now());
         userRepository.save(user);
 
         return new AccountDeletionResponseDto(

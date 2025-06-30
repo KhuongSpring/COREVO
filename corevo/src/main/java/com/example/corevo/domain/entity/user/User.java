@@ -56,7 +56,7 @@ public class User {
 
     Boolean isLocked;
 
-    LocalDateTime deletedAt;
+    LocalDate deletedAt;
 
     Boolean isDeleted = CommonConstant.FALSE;
 

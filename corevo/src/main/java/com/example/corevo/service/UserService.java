@@ -15,6 +15,8 @@ public interface UserService {
 
     UserResponseDto uploadAvatar(String id, String url);
 
+    AccountDeletionResponseDto deleteMyAccount(Authentication authentication);
+
     // UserResponseDto getCurrentUser();
 
     PaginationResponseDto<UserResponseDto> getAllUsers(PaginationRequestDto request);
@@ -31,7 +33,4 @@ public interface UserService {
 
     CommonResponseDto deleteUserAccount(String userId);
 
-    // USER
-
-    AccountDeletionResponseDto deleteMyAccount(Authentication authentication);
 }
