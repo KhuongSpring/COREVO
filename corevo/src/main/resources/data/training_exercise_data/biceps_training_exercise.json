@@ -376,5 +376,203 @@
       "video": null
     },
     "description": "Bài tập đơn giản nhưng hiệu quả cho biceps, giúp tập trung vào từng bên cơ tay để tăng kích thước cân đối và kiểm soát chuyển động tốt hơn."
+  },
+  {
+    "name": "Dumbbell Standing Biceps Curl",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/bicep/bicep_dumbbell-standing-biceps-curl.jpg",
+      "video": null
+    },
+    "description": "Tăng khối lượng biceps tối ưu thông qua chuyển động gập tập trung, giúp cải thiện độ săn chắc và định hình cánh tay. Phù hợp cho mọi đối tượng muốn phát triển cơ tay rõ nét."
+  },
+  {
+    "name": "Dumbbell Incline Hammer Curl",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "45,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/bicep/bicep_dumbbell-incline-hammer-curl.jpg",
+      "video": null
+    },
+    "description": "Nhấn mạnh phát triển phần ngoài biceps và brachialis với góc nghiêng đặc trưng, tạo điều kiện căng tối đa trong suốt chuyển động."
+  },
+  {
+    "name": "Dumbbell Close Grip Curl",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/bicep/bicep_dumbbell-close-grip-curl.jpg",
+      "video": null
+    },
+    "description": "Tập trung kích hoạt đầu trong của biceps bằng cách giữ khoảng cách tay hẹp. Phù hợp để tăng mật độ cơ, cải thiện độ đầy và tăng sự cân đối cho bắp tay."
+  },
+  {
+    "name": "Dumbbell Zottman Preacher Curl",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "45,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/bicep/bicep_dumbbell-zottman-preacher-curl.jpg",
+      "video": null
+    },
+    "description": "Sự kết hợp giữa gập ngửa và sấp giúp kích hoạt toàn diện biceps và cẳng tay. Lý tưởng để tăng khả năng kiểm soát, độ bám và hình dạng cánh tay khỏe mạnh, thẩm mỹ."
+  },
+  {
+    "name": "Dumbbell Seated Inner Biceps Curl",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "45,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/bicep/bicep_dumbbell-seated-inner-biceps-curl.jpg",
+      "video": null
+    },
+    "description": "Cô lập phần đầu trong biceps ở tư thế ngồi, giúp duy trì căng thẳng cơ liên tục và kiểm soát chuyển động chính xác. Phù hợp để tăng khối lượng định hình và cải thiện độ đối xứng tay."
+  },
+  {
+    "name": "Cable One Arm Curl",
+    "levelIds": [1, 2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/bicep/bicep_cable-one-arm-curl.jpg",
+      "video": null
+    },
+    "description": "Tạo ra kháng lực liên tục qua hệ thống cáp, tối ưu hóa sự cô lập và cân bằng giữa hai tay. Phù hợp để tăng sức mạnh đơn bên và cải thiện sự kiểm soát cơ bắp trong các bài tập tay trước."
+  },
+  {
+    "name": "Cable Pulldown Bicep Curl",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/bicep/bicep_cable-pulldown-bicep-curl.jpg",
+      "video": null
+    },
+    "description": "Tác động biceps từ hướng kéo xuống, kích thích khác biệt so với curl truyền thống. Phù hợp để phát triển độ dẻo dai, kiểm soát và cải thiện sức bám cho vận động thể thao."
+  },
+  {
+    "name": "Barbell Snatch",
+    "levelIds": [3],
+    "typeIds": [1, 4],
+    "primaryTargetMuscleIds": [2, 4, 10],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "3,6",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/bicep/bicep_barbell-snatch.jpg",
+      "video": null
+    },
+    "description": "Bài nâng tạ toàn thân theo phong cách Olympic, trong đó biceps hỗ trợ trong giai đoạn kéo mạnh. Lý tưởng để cải thiện kỹ năng vận động nhanh, phát triển sức mạnh toàn diện và phản xạ."
+  },
+  {
+    "name": "Kettlebell Biceps Curl",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/bicep/bicep_kettlebell-biceps-curl.jpg",
+      "video": null
+    },
+    "description": "Tạ ấm tạo ra kháng lực không ổn định, tăng thách thức cho biceps và cẳng tay trong quá trình kiểm soát. Lý tưởng cho người muốn cải thiện sức mạnh cơ tay trong môi trường tập đa chiều."
+  },
+  {
+    "name": "Kettlebell One Arm Clean and Jerk",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "6,8",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/bicep/bicep_kettlebell-one-arm-clean-and-jerk.jpg",
+      "video": null
+    },
+    "description": "Bài tập kết hợp sức mạnh và tính thể thao với tác động đến nhiều nhóm cơ, trong đó biceps hỗ trợ trong giai đoạn kéo. Phù hợp cho mục tiêu tăng sức nổ, độ linh hoạt và thể lực tổng thể."
+  },
+  {
+    "name": "Dumbbell Standing Single Spider Curl",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [6],
+    "equipmentIds": [5],
+    "locationIds": [1],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/bicep/bicep_dumbbell-standing-single-spider-curl.jpg",
+      "video": null
+    },
+    "description": "Cô lập biceps hoàn toàn ở tư thế cúi về phía trước, tăng căng thẳng cơ trong toàn bộ chuyển động. Thích hợp để xây dựng khối cơ tập trung và cải thiện chi tiết bắp tay rõ nét."
   }
 ]

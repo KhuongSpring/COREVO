@@ -340,5 +340,275 @@
       "video": null
     },
     "description": "Phiên bản nâng cao của tricep dips, thêm trọng lượng để tăng áp lực lên nhóm cơ tay sau. Giúp tăng khối lượng cơ và sức mạnh vùng triceps, đặc biệt phù hợp trong giai đoạn hypertrophy (tăng cơ) và nâng cao hiệu suất bài push."
+  },
+  {
+    "name": "Band Kickback",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [4],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/triceps/triceps_band-kickback.jpg",
+      "video": null
+    },
+    "description": "Bài tập cô lập triceps với lực cản đàn hồi nhẹ, phù hợp cho người mới hoặc khởi động. Tăng kiểm soát chuyển động và giúp cải thiện độ nét vùng tay sau."
+  },
+  {
+    "name": "Band Overhead Triceps Extension",
+    "levelIds": [1],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [4],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/triceps/triceps_band-overhead-triceps-extension.jpg",
+      "video": null
+    },
+    "description": "Bài tập kéo dãn cơ tay sau với dây đàn hồi, tác động vào đầu dài triceps. Hiệu quả cho mục tiêu tăng sức bền cơ và hỗ trợ phục hồi."
+  },
+  {
+    "name": "Barbell Lying Extension",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,10",
+    "duration": "30,60",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/triceps/triceps_barbell-lying-extension.jpg",
+      "video": null
+    },
+    "description": "Tập trung vào triceps bằng động tác đẩy thẳng từ tư thế nằm. Cải thiện sức mạnh và độ dày cơ tay sau, đặc biệt hiệu quả trong giáo án tăng cơ."
+  },
+  {
+    "name": "Barbell Seated Overhead Triceps Extension",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,10",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_barbell-seated-overhead-triceps-extension.jpg",
+      "video": null
+    },
+    "description": "Tác động mạnh lên đầu dài triceps ở tư thế ngồi, giúp cô lập và phát triển cơ tay sau toàn diện. Phù hợp cho bài tập tăng khối và độ bền."
+  },
+  {
+    "name": "Barbell Standing Overhead Triceps Extension",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [1, 2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,10",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_barbell-standing-overhead-triceps-extension.jpg",
+      "video": null
+    },
+    "description": "Bài tập đẩy cao bằng thanh tạ từ tư thế đứng, kích hoạt toàn bộ nhóm cơ tay sau. Tốt cho phát triển cơ đối xứng và kiểm soát trọng lượng."
+  },
+  {
+    "name": "Cable Incline Triceps Extension",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_cable-incline-triceps-extension.jpg",
+      "video": null
+    },
+    "description": "Tạo lực căng liên tục lên triceps trong suốt chuyển động. Tư thế nghiêng giúp tối ưu hóa sự kéo căng và kích thích phát triển cơ bền vững."
+  },
+  {
+    "name": "Cable Kneeling Triceps Extension",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2, 5],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "45,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_cable-kneeling-triceps-extension.jpg",
+      "video": null
+    },
+    "description": "Tư thế quỳ giúp ổn định cơ thể và tập trung hoàn toàn vào triceps. Lý tưởng để tăng hiệu quả cô lập và kiểm soát lực đẩy ra sau đầu."
+  },
+  {
+    "name": "Cable Lying Triceps Extension",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2, 5],
+    "sets": "3,4",
+    "reps": "10,15",
+    "duration": "45,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_cable-lying-triceps-extension.jpg",
+      "video": null
+    },
+    "description": "Kết hợp tư thế nằm và dây cáp để giữ lực căng ổn định, tối ưu hóa kích thích cơ tay sau trong toàn bộ phạm vi chuyển động."
+  },
+  {
+    "name": "Cable Rope High Pulley Overhead Tricep Extension",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2, 5],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "45,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_cable-rope-high-pulley-overhead-tricep-extension.jpg",
+      "video": null
+    },
+    "description": "Sử dụng dây rope kéo cao để mở rộng cơ tay sau. Tăng tính linh hoạt và kích thích sâu vào đầu dài của triceps."
+  },
+  {
+    "name": "Cable Standing High Cross Triceps Extension",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2, 5],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_cable-standing-high-cross-triceps-extension.jpg",
+      "video": null
+    },
+    "description": "Tư thế đứng bắt chéo tay giúp mở rộng biên độ chuyển động, tác động sâu vào cơ tay sau và cải thiện độ săn chắc."
+  },
+  {
+    "name": "Dumbbell Incline Triceps Extension",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2, 5],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_dumbbell-incline-triceps-extension.jpg",
+      "video": null
+    },
+    "description": "Cô lập triceps trên ghế nghiêng giúp kéo dài đầu dài cơ tay sau, thích hợp để tăng độ dày và cải thiện độ linh hoạt vùng khuỷu tay."
+  },
+  {
+    "name": "Dumbbell Lying Triceps Extension",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2, 5],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_dumbbell-lying-triceps-extension.jpg",
+      "video": null
+    },
+    "description": "Tác động tập trung lên triceps bằng tư thế nằm ngửa. Phù hợp để tăng khối cơ và kiểm soát lực đẩy sau."
+  },
+  {
+    "name": "Dumbbell Seated Triceps Extension",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2, 5],
+    "sets": "3,4",
+    "reps": "6,10",
+    "duration": "30,45",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_dumbbell-seated-triceps-extension.jpg",
+      "video": null
+    },
+    "description": "Tư thế ngồi giúp ổn định cơ thể khi đẩy tạ sau đầu. Tăng độ căng cơ và kiểm soát lực đẩy lên vùng tay sau."
+  },
+  {
+    "name": "Dumbbell Standing Kickback",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [4, 5],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_dumbbell-standing-kickback.jpg",
+      "video": null
+    },
+    "description": "Bài tập đơn giản nhưng hiệu quả để cô lập triceps, tăng độ nét và cải thiện khả năng kiểm soát cánh tay sau."
+  },
+  {
+    "name": "Kettlebell Overhead Triceps Extension",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [5],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [5],
+    "locationIds": [2, 5],
+    "sets": "3,4",
+    "reps": "8,12",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/triceps/triceps_kettlebell-overhead-triceps-extension.jpg",
+      "video": null
+    },
+    "description": "Tăng thách thức cho tay sau với trọng lượng lệch tâm từ kettlebell, phù hợp để cải thiện sức mạnh ổn định và phát triển cơ sâu."
   }
 ]
