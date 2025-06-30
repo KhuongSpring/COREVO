@@ -256,9 +256,9 @@ public class AppDataSeeder implements ApplicationRunner {
                 for (TrainingExerciseResponseDto x : trainingExercisesFromJSON) {
                     x.setImageURL(uploadImageIfNotExists(x.getImageURL(), cloudinary));
                 }
-                trainingExerciseRepository.saveAll(
-                        trainingExerciseMapper.
-                                ListTrainingExerciseResponseDtoToListTrainingExercise(trainingExercisesFromJSON));
+//                trainingExerciseRepository.saveAll(
+//                        trainingExerciseMapper.
+//                                ListTrainingExerciseResponseDtoToListTrainingExercise(trainingExercisesFromJSON));
                 log.info("Seeding training exercise from {} completed!", file);
             }
         } else {
