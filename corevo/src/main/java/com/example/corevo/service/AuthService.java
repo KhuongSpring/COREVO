@@ -1,10 +1,8 @@
 package com.example.corevo.service;
 
-import com.example.corevo.domain.dto.request.auth.ForgotPasswordRequestDto;
-import com.example.corevo.domain.dto.request.auth.LoginRequestDto;
-import com.example.corevo.domain.dto.request.auth.RegisterRequestDto;
-import com.example.corevo.domain.dto.request.auth.ResetPasswordRequestDto;
+import com.example.corevo.domain.dto.request.auth.*;
 import com.example.corevo.domain.dto.request.auth.otp.VerifyOtpRequestDto;
+import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.auth.LoginResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 
@@ -15,6 +13,10 @@ public interface AuthService {
     void forgotPassword(ForgotPasswordRequestDto request);
     boolean verifyOtpToResetPassword(VerifyOtpRequestDto request);
     UserResponseDto resetPassword(ResetPasswordRequestDto request);
+
+    CommonResponseDto sendEmailRecoveryOtp(RecoveryRequestDto request);
+    boolean verifyOtpToRecovery(VerifyOtpRequestDto request);
+    CommonResponseDto recoverAccount(VerifyOtpRequestDto request);
 
     String generateOtp();
 }
