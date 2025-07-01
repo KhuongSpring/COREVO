@@ -5,6 +5,7 @@ public class ErrorMessage {
     public static final String UNAUTHORIZED = "exception.unauthorized";
     public static final String FORBIDDEN = "exception.forbidden";
     public static final String FORBIDDEN_UPDATE_DELETE = "exception.forbidden.update-delete";
+    public static final String ERR_UPLOAD_IMAGE_FAIL = "exception.upload.image.fail";
 
     //error validation dto
     public static final String INVALID_SOME_THING_FIELD = "invalid.general";

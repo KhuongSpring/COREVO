@@ -12,7 +12,7 @@
     "duration": "30,45",
     "goalIds": [1, 2, 5],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_straight-leg-deadlifts.jpg",
       "video": null
     },
     "description": "Giúp kéo căng và phát triển tối đa cơ mông, hỗ trợ tăng sức mạnh và cải thiện độ linh hoạt thân dưới."
@@ -30,7 +30,7 @@
     "duration": "30,45",
     "goalIds": [1, 2, 5],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_single-leg-deadlift.jpg",
       "video": null
     },
     "description": "Tăng cường sự cân bằng và kiểm soát cơ mông sau từng bên, đồng thời cải thiện khả năng ổn định toàn thân."
@@ -48,7 +48,7 @@
     "duration": "30,45",
     "goalIds": [1, 2, 5],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_romanian-deadlift.jpg",
       "video": null
     },
     "description": "Phát triển toàn diện cơ mông và lưng dưới, là bài tập nền tảng trong các chương trình tăng sức mạnh và cơ bắp phần sau cơ thể."
@@ -66,7 +66,7 @@
     "duration": "30, 60",
     "goalIds": [3, 4, 7, 8],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_supine-bridges.gif",
       "video": null
     },
     "description": "Supine bridges là bài tập cơ bản giúp kích hoạt cơ mông, gân kheo và lưng dưới."
@@ -84,46 +84,10 @@
     "duration": "30,45",
     "goalIds": [3, 4, 5, 7],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_walking-band-abduction.gif",
       "video": null
     },
     "description": "Walking band abduction là bài tập kích hoạt mông ngoài hiệu quả bằng dây kháng lực."
-  },
-  {
-    "name": "Fire hydrants",
-    "levelIds": [1],
-    "Ids": [1, 2],
-    "primaryTargetMuscleIds": [10],
-    "secondaryTargetMuscleIds": [2, 8],
-    "equipmentIds": [1, 2],
-    "locationIds": [4],
-    "sets": "3,4",
-    "reps": "12,15",
-    "duration": "20,30",
-    "goalIds": [3, 4, 5, 7],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Fire hydrants là bài tập bodyweight tác động vào mông và cơ liên sườn."
-  },
-  {
-    "name": "Clamshells",
-    "levelIds": [1],
-    "Ids": [1, 2],
-    "primaryTargetMuscleIds": [10],
-    "secondaryTargetMuscleIds": [8],
-    "equipmentIds": [1, 2],
-    "locationIds": [4],
-    "sets": "3,4",
-    "reps": "12,20",
-    "duration": "30,45",
-    "goalIds": [3, 4, 7],
-    "media": {
-      "image": "images/test.jpg",
-      "video": null
-    },
-    "description": "Clamshells là bài tập giúp tăng sự ổn định hông và kích hoạt cơ mông ngoài."
   },
   {
     "name": "Reverse dumbbell lunges",
@@ -138,7 +102,7 @@
     "duration": "30,45",
     "goalIds": [1, 3, 5],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_reverse-dumbbell-lunges.jpg",
       "video": null
     },
     "description": "Reverse dumbbell lunges là bài tập giúp phát triển cơ mông và cải thiện thăng bằng."
@@ -156,7 +120,7 @@
     "duration": "30,45",
     "goalIds": [1, 3, 5],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_sumo-squat.jpg",
       "video": null
     },
     "description": "Sumo Squat là bài squat rộng giúp tác động nhiều vào mông và đùi trong."
@@ -175,7 +139,7 @@
     "duration": "30,45",
     "goalIds": [3, 4],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_sumo-leg-press.jpg",
       "video": null
     },
     "description": "Sumo Leg Press là bài đẩy chân biến thể giúp phát triển mông và đùi mạnh mẽ."
@@ -193,7 +157,7 @@
     "duration": "30,45",
     "goalIds": [3,5],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_bulgarian-split-squat.jpg",
       "video": null
     },
     "description": "Bulgarian Split Squat là bài squat một chân cô lập và kích hoạt cơ mông hiệu quả."
@@ -211,7 +175,7 @@
     "duration": "20,30",
     "goalIds": [3, 4, 5],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_kickback.jpg",
       "video": null
     },
     "description": "Glute Kickback là bài tập isolate giúp siết cơ mông, dễ thực hiện tại nhà hoặc gym."
@@ -229,7 +193,7 @@
     "duration": "30,45",
     "goalIds": [2, 3],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_barbell-hip-thrust.jpg",
       "video": null
     },
     "description": "Barbell Hip Thrust là bài compound mạnh giúp tăng sức mạnh và kích thước cơ mông."
@@ -247,9 +211,207 @@
     "duration": "20,30",
     "goalIds": [3, 4],
     "media": {
-      "image": "images/test.jpg",
+      "image": "images/glustes/glustes_hip-extension.jpg",
       "video": null
     },
     "description": "Hip Extension là bài tập cô lập mông thực hiện với máy hoặc dây cáp."
+  },
+  {
+    "name": "Band Stiff Leg Deadlift",
+    "levelIds": [2],
+    "Ids": [1, 4],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [13,9],
+    "equipmentIds": [4],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "20,30",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/glustes/glustes_band-stiff-leg-deadlift.jpg",
+      "video": null
+    },
+    "description": "Bài tập giúp kích hoạt cơ mông và đùi sau, tăng độ dẻo và kiểm soát hông hiệu quả khi dùng dây kháng lực."
+  },
+  {
+    "name": "Band Step Up",
+    "levelIds": [2],
+    "Ids": [1, 4],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [11, 12],
+    "equipmentIds": [4],
+    "locationIds": [1, 2],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/glustes/glustes_band-step-up.jpg",
+      "video": null
+    },
+    "description": "Tăng sức mạnh cơ mông và cải thiện khả năng giữ thăng bằng, phù hợp với người tập tại nhà."
+  },
+  {
+    "name": "Band Squat",
+    "levelIds": [1],
+    "Ids": [1, 4],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [11, 12],
+    "equipmentIds": [4],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [1, 3, 4],
+    "media": {
+      "image": "images/glustes/glustes_band-squat.jpg",
+      "video": null
+    },
+    "description": "Bài squat cơ bản sử dụng dây kháng lực để tăng cường kích hoạt cơ mông và đùi."
+  },
+  {
+    "name": "Cobra Push Up",
+    "levelIds": [1],
+    "Ids": [1, 4],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [6, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "2,4",
+    "reps": "10,15",
+    "duration": "20,30",
+    "goalIds": [6, 7],
+    "media": {
+      "image": "images/glustes/glustes_cobra-push-up.jpg",
+      "video": null
+    },
+    "description": "Bài tập giúp kéo giãn thân trước, hỗ trợ lưu thông máu và giải tỏa căng thẳng cho cột sống."
+  },
+  {
+    "name": "Frogger",
+    "levelIds": [2],
+    "Ids": [1, 4],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [7, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "15,20",
+    "duration": "30,60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/glustes/glustes_frogger.jpg",
+      "video": null
+    },
+    "description": "Động tác bật nhảy giúp đốt mỡ, tăng nhịp tim và kích hoạt mông, bụng, đùi một cách toàn diện."
+  },
+  {
+    "name": "Glute March",
+    "levelIds": [1],
+    "Ids": [1, 4],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [7, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "12,20",
+    "duration": "30,45",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/glustes/glustes_glute-march.jpg",
+      "video": null
+    },
+    "description": "Tập trung siết cơ mông và core, bài tập phù hợp để làm nóng hoặc kết thúc buổi tập lower body."
+  },
+  {
+    "name": "Flutter Kicks",
+    "levelIds": [1],
+    "Ids": [1, 4],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [7, 8],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "15,25",
+    "duration": "30,60",
+    "goalIds": [1, 6],
+    "media": {
+      "image": "images/glustes/glustes_flutter-kicks.jpg",
+      "video": null
+    },
+    "description": "Nhắm vào bụng dưới và mông, giúp cải thiện sức bền cơ core và đốt mỡ hiệu quả."
+  },
+  {
+    "name": "Cable Deadlift",
+    "levelIds": [3],
+    "Ids": [1],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [13, 9],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "10,12",
+    "duration": "20,30",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/glustes/glustes_cable-deadlift.jpg",
+      "video": null
+    },
+    "description": "Bài tập tại phòng gym sử dụng máy kéo cáp để phát triển cơ mông và đùi sau với độ an toàn cao."
+  },
+  {
+    "name": "Twist Squat",
+    "levelIds": [2],
+    "Ids": [1, 4],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [8, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "12,15",
+    "duration": "30,45",
+    "goalIds": [1, 5],
+    "media": {
+      "image": "images/glustes/glustes_twist-squat.jpg",
+      "video": null
+    },
+    "description": "Kết hợp giữa squat và xoay người giúp tập toàn thân, tăng sức bền và linh hoạt cho phần dưới cơ thể."
+  },
+  {
+    "name": "Weighted Squat",
+    "levelIds": [3],
+    "Ids": [1],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [11, 13],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "4,5",
+    "reps": "8,12",
+    "duration": "20,30",
+    "goalIds": [2, 3, 4],
+    "media": {
+      "image": "images/glustes/glustes_weighted-squat.jpg",
+      "video": null
+    },
+    "description": "Bài squat dùng tạ giúp phát triển cơ đùi và mông, hỗ trợ xây dựng vóc dáng săn chắc và khỏe mạnh."
+  },
+  {
+    "name": "Runners Stretch",
+    "levelIds": [1],
+    "Ids": [1, 3, 4],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [12, 13],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "2, 3",
+    "reps": "10,15",
+    "duration": "20,30",
+    "goalIds": [4, 5, 7, 8],
+    "media": {
+      "image": "images/glustes/glustes_runners-stretch.jpg",
+      "video": null
+    },
+    "description": "Runner's Stretch giúp kéo giãn cơ mông, cơ đùi sau và bắp chân, thường được dùng sau khi chạy bộ hoặc tập lower body để thư giãn và hồi phục cơ bắp"
   }
 ]
