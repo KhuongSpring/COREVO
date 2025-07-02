@@ -4,6 +4,7 @@ public class ErrorMessage {
     public static final String ERR_EXCEPTION_GENERAL = "exception.general";
     public static final String UNAUTHORIZED = "exception.unauthorized";
     public static final String FORBIDDEN = "exception.forbidden";
+    public static final String BAD_REQUEST = "exception.bad.request";
     public static final String FORBIDDEN_UPDATE_DELETE = "exception.forbidden.update-delete";
     public static final String ERR_UPLOAD_IMAGE_FAIL = "exception.upload.image.fail";
 
@@ -43,7 +44,6 @@ public class ErrorMessage {
         public static final String ERR_ACCOUNT_ALREADY_DELETED = "exception.user.account.already.deleted";
         public static final String ERR_ACCOUNT_RECOVERY_EXPIRED = "exception.user.account.recovery.period.has.expired";
         public static final String ERR_ACCOUNT_NOT_DELETED = "exception.user.account.is.not.in.deleted.state";
-        public static final String ERR_ACCOUNT_DELETED_RECOVERABLE = "exception.user.account.has.been.deleted.make.recover.it.by.using.the.account.recovery.feature";
     }
 
     public static class UserHealth {
@@ -52,10 +52,14 @@ public class ErrorMessage {
         public static final String ERR_HEIGHT_MIN_VALUE = "exception.user-health.height.min-value";
         public static final String ERR_WEIGHT_MIN_VALUE = "exception.user-health.weight.min-value";
         public static final String ERR_AGE_MIN_VALUE = "exception.user-health.age.min-value";
-        
+
     }
 
     public static class TrainingPlanFlow {
         public static final String ERR_SOMETHING_WRONG = "exception.training-plan.something.wrong";
+    }
+
+    public static class Training {
+        public static final String ERR_EXERCISE_NOT_EXISTS = "exception.exercise.not.exists";
     }
 }

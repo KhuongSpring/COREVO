@@ -1,8 +1,5 @@
 package com.example.corevo.domain.entity.training;
 
-import com.example.corevo.domain.entity.training.Equipment;
-import com.example.corevo.domain.entity.training.Level;
-import com.example.corevo.domain.entity.training.Location;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -18,6 +15,7 @@ import java.util.List;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TrainingPlan {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -64,4 +62,5 @@ public class TrainingPlan {
             inverseJoinColumns = @JoinColumn(name = "equipment_id")
     )
     List<Equipment> equipments;
+
 }

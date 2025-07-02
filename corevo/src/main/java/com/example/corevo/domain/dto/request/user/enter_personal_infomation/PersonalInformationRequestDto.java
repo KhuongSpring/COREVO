@@ -17,15 +17,15 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PersonalInformationRequestDto {
 
-    @Schema(description = "Tên tài khoản", example = "khuong123")
+    @Schema(description = "Tên tài khoản", example = "user123")
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     String username;
 
-    @Schema(description = "Số điện thoại", example = "0383329533")
+    @Schema(description = "Số điện thoại", example = "0123456789")
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     String phone;
 
-    @Schema(description = "Ngày tháng năm sinh", example = "2005-04-17")
+    @Schema(description = "Ngày tháng năm sinh", example = "2000-01-01")
     @NotNull(message = ErrorMessage.NOT_BLANK_FIELD)
     LocalDate birth;
 

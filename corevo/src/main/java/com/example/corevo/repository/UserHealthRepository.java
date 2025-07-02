@@ -8,5 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface UserHealthRepository extends JpaRepository<UserHealth, String> {
-    Optional<UserHealth> findByUserUsername(String username);
 }

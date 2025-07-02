@@ -10,12 +10,10 @@ import java.util.List;
 @Setter
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Builder
-public class TrainingExerciseSearchResultResponseDto<T> {
-    List<T> keyList;
-    List<TrainingExerciseLevelResponseDto> results;
+public class TrainingExerciseLevelPreviewResponseDto {
 
-    public TrainingExerciseSearchResultResponseDto(List<T> keyList) {
-        this.keyList = keyList;
-    }
+    String levelName;
+
+    List<TrainingExercisePreviewResponseDto> exercises;
+
 }

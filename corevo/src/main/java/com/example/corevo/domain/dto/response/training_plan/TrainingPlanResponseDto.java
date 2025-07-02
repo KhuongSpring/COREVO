@@ -11,15 +11,25 @@ import java.util.List;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TrainingPlanResponseDto {
+
     String name;
+
     String description;
+
     String aim;
+
     String goals;
+
     String type;
+
     String duration;
+
     String frequency;
 
     List<Long> levelIds;
+
     List<Long> locationIds;
+
     List<Long> equipmentIds;
+
 }

@@ -33,7 +33,8 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
     public TrainingPlanFlowResponseDto processStep(
             String currentStep,
             List<String> selectedValue,
-            Map<String, List<String>> selectedValues) {
+            Map<String, List<String>> selectedValues
+    ) {
         if (selectedValue != null && currentStep != null) {
             selectedValues.put(currentStep, selectedValue);
         }
@@ -79,6 +80,7 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
             List<TrainingPlanResponseDto> responseDtos = matchingPlans.stream()
                     .map(this::mapToDto)
                     .toList();
+
             return new TrainingPlanFlowResponseDto(
                     null,
                     true,
@@ -116,6 +118,7 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
     }
 
     private TrainingPlanResponseDto mapToDto(TrainingPlan plan) {
+
         TrainingPlanResponseDto dto = new TrainingPlanResponseDto();
 
         dto.setName(plan.getName());
@@ -166,6 +169,5 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
         };
         return (ids == null || ids.isEmpty()) ? null : ids;
     }
-
 
 }

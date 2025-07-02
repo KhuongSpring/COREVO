@@ -1,11 +1,9 @@
 package com.example.corevo.service.impl;
 
 import org.springframework.stereotype.Service;
-
 import com.example.corevo.domain.dto.request.user.health.UserHealthRequestDto;
 import com.example.corevo.domain.entity.user.Gender;
 import com.example.corevo.service.HealthCalculationService;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -14,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class HealthCalculationServiceImpl implements HealthCalculationService {
-    
+
     /**
      * Tính BMR (Basal Metabolic Rate) theo công thức Mifflin-St Jeor
      * Nguồn công thức: https://www.sciencedirect.com/science/article/abs/pii/S0002916523166986?via%3Dihub
@@ -23,13 +21,13 @@ public class HealthCalculationServiceImpl implements HealthCalculationService {
      */
     @Override
     public double calculateBMR(UserHealthRequestDto request) {
-        
+
         if (request.getGender() == Gender.MALE) {
-            return (10 * request.getWeight()) + 
-                   (6.25 * request.getHeight()) - (5 * request.getAge()) + 5;
+            return (10 * request.getWeight()) +
+                    (6.25 * request.getHeight()) - (5 * request.getAge()) + 5;
         } else {
-            return (10 * request.getWeight()) + 
-                   (6.25 * request.getHeight()) - (5 * request.getAge()) - 161;
+            return (10 * request.getWeight()) +
+                    (6.25 * request.getHeight()) - (5 * request.getAge()) - 161;
         }
     }
 
@@ -49,9 +47,9 @@ public class HealthCalculationServiceImpl implements HealthCalculationService {
      */
     @Override
     public double calculateTDEE(UserHealthRequestDto request) {
-        
+
         double bmr = calculateBMR(request);
         return bmr * request.getActivityLevel().getMultiplier();
     }
-    
+
 }

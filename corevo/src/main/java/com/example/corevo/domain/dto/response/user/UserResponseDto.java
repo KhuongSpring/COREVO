@@ -39,4 +39,5 @@ public class UserResponseDto {
     Address address;
 
     UserHealthResponseDto userHealth;
+
 }

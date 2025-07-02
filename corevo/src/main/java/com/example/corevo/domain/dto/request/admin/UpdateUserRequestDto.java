@@ -3,7 +3,6 @@ package com.example.corevo.domain.dto.request.admin;
 import java.time.LocalDate;
 
 import com.example.corevo.domain.entity.user.Role;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,13 +24,13 @@ public class UpdateUserRequestDto {
     @Schema(description = "Email người dùng", example = "user@gmail.com")
     String email;
 
-    @Schema(description = "Họ/Tên đệm", example = "Phạm Minh")
+    @Schema(description = "Họ/Tên đệm", example = "Phạm Văn")
     String firstName;
 
-    @Schema(description = "Tên", example = "Khương")
+    @Schema(description = "Tên", example = "A")
     String lastName;
 
-    @Schema(description = "Ngày sinh", example = "2000-01-15")
+    @Schema(description = "Ngày sinh", example = "2000-01-01")
     LocalDate birth;
 
     @Schema(description = "Số điện thoại", example = "0123456789")

@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GoalRepository extends JpaRepository<Goal, Long> {
+
     boolean existsByGoalName(String goalName);
+
 }

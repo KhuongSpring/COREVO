@@ -1,7 +1,7 @@
 package com.example.corevo.domain.mapper;
 
-import com.example.corevo.domain.dto.response.training.TargetMuscleResponseDto;
-import com.example.corevo.domain.entity.training.TargetMuscle;
+import com.example.corevo.domain.dto.response.training.GoalResponseDto;
+import com.example.corevo.domain.entity.training.Goal;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
@@ -12,8 +12,8 @@ import java.util.List;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
-public interface TargetMuscleMapper {
+public interface GoalMapper {
 
-    List<TargetMuscleResponseDto> listTargetMuscleToListTargetMuscleResponseDto(List<TargetMuscle> targetMuscles);
+    List<GoalResponseDto> listGoalToListGoalResponseDto(List<Goal> goals);
 
 }

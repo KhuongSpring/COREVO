@@ -33,7 +33,7 @@ public class AuthController {
             description = "Dùng để đăng nhập tài khoản"
     )
     @PostMapping(UrlConstant.Auth.LOGIN)
-    public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto requestDto){
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto requestDto) {
         return VsResponseUtil.success(authService.authentication(requestDto));
     }
 
@@ -42,7 +42,7 @@ public class AuthController {
             description = "Dùng để đăng kí tài khoản"
     )
     @PostMapping(UrlConstant.Auth.REGISTER)
-    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDto requestDto){
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDto requestDto) {
         authService.register(requestDto);
         return VsResponseUtil.success(SuccessMessage.Auth.SUCCESS_SEND_OTP);
     }
@@ -52,7 +52,7 @@ public class AuthController {
             description = "Dùng để xác thực OTP sau khi yêu cầu đăng kí tài khoản"
     )
     @PostMapping(UrlConstant.Auth.VERIFY_OTP)
-    public ResponseEntity<?> verify(@Valid @RequestBody VerifyOtpRequestDto request){
+    public ResponseEntity<?> verify(@Valid @RequestBody VerifyOtpRequestDto request) {
         return VsResponseUtil.success(authService.verifyOtpToRegister(request));
     }
 
@@ -61,7 +61,7 @@ public class AuthController {
             description = "Dùng để lấy lại mật khẩu"
     )
     @PostMapping(UrlConstant.Auth.FORGOT_PASSWORD)
-    public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequestDto request){
+    public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequestDto request) {
         authService.forgotPassword(request);
         return VsResponseUtil.success(SuccessMessage.Auth.SUCCESS_SEND_OTP);
     }
@@ -71,7 +71,7 @@ public class AuthController {
             description = "Dùng để xác thực OTP sau khi yêu cầu lấy lại mật khẩu"
     )
     @PostMapping(UrlConstant.Auth.VERIFY_OTP_TO_RESET_PASSWORD)
-    public ResponseEntity<?> verifyToResetPassword(@Valid @RequestBody VerifyOtpRequestDto request){
+    public ResponseEntity<?> verifyToResetPassword(@Valid @RequestBody VerifyOtpRequestDto request) {
         return VsResponseUtil.success(authService.verifyOtpToResetPassword(request));
     }
 
@@ -80,7 +80,7 @@ public class AuthController {
             description = "Dùng để đặt lại mật khẩu sau khi đã nhập được OTP"
     )
     @PostMapping(UrlConstant.Auth.RESET_PASSWORD)
-    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequestDto request){
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequestDto request) {
         return VsResponseUtil.success(authService.resetPassword(request));
     }
 
@@ -103,7 +103,7 @@ public class AuthController {
     }
 
     @Operation(
-            summary = "Khôi phục tài khoản", 
+            summary = "Khôi phục tài khoản",
             description = "Dùng để khôi phục tài khoản đã bị xóa sau khi xác thực OTP thành công"
     )
     @PostMapping(UrlConstant.Auth.RECOVER_ACCOUNT)

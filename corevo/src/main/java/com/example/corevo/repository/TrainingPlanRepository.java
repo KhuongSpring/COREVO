@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface TrainingPlanRepository extends JpaRepository<TrainingPlan, Long> {
+
     @Query(value = """
             SELECT DISTINCT tp.* FROM training_plan tp
             LEFT JOIN training_plan_levels     tpl  ON tp.id = tpl.training_plan_id
@@ -35,7 +36,6 @@ public interface TrainingPlanRepository extends JpaRepository<TrainingPlan, Long
             @Param("locationIds")         List<Long> locationIds,
             @Param("equipmentIds")        List<Long> equipmentIds
     );
-
 
     boolean existsByNameAndType(String name, String type);
 }

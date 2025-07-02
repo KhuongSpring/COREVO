@@ -1,14 +1,10 @@
 package com.example.corevo.controller;
 
-
 import com.example.corevo.base.RestApiV1;
 import com.example.corevo.base.VsResponseUtil;
 import com.example.corevo.constant.UrlConstant;
-import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
 import com.example.corevo.domain.dto.request.user.health.UserHealthRequestDto;
-import com.example.corevo.domain.dto.response.user.health.UserHealthResponseDto;
 import com.example.corevo.service.UserHealthService;
-import com.example.corevo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

@@ -7,15 +7,23 @@ import com.example.corevo.domain.dto.response.auth.LoginResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 
 public interface AuthService {
+
     LoginResponseDto authentication(LoginRequestDto request);
+
     void register(RegisterRequestDto request);
+
     UserResponseDto verifyOtpToRegister(VerifyOtpRequestDto request);
+
     void forgotPassword(ForgotPasswordRequestDto request);
+
     boolean verifyOtpToResetPassword(VerifyOtpRequestDto request);
+
     UserResponseDto resetPassword(ResetPasswordRequestDto request);
 
     CommonResponseDto sendEmailRecoveryOtp(RecoveryRequestDto request);
+
     boolean verifyOtpToRecovery(VerifyOtpRequestDto request);
+
     CommonResponseDto recoverAccount(VerifyOtpRequestDto request);
 
     String generateOtp();

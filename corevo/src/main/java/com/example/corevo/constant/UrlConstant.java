@@ -68,4 +68,28 @@ public class UrlConstant {
         }
     }
 
+    public static class Training {
+        private static final String PRE_FIX = "/training";
+
+        public static final String GET_EXERCISE = PRE_FIX + "/exercise/{id}";
+
+        public static final String SEARCH_TRAINING_EXERCISE = PRE_FIX + "/exercise/search";
+
+        public static final String GET_EXERCISE_BY_PRIMARY_MUSCLE = PRE_FIX + "/exercise/target-muscle";
+        public static final String GET_EXERCISE_BY_TYPE = PRE_FIX + "/exercise/type";
+        public static final String GET_EXERCISE_BY_GOAL = PRE_FIX + "/exercise/goal";
+
+        public static final String GET_EQUIPMENT = PRE_FIX + "/equipments";
+        public static final String GET_GOAL = PRE_FIX + "/goals";
+        public static final String GET_LEVEL = PRE_FIX + "/levels";
+        public static final String GET_LOCATION = PRE_FIX + "/locations";
+        public static final String GET_TARGET_MUSCLE = PRE_FIX + "/target-muscles";
+        public static final String GET_TYPE = PRE_FIX + "/types";
+
+        private Training() {
+
+        }
+    }
+
+
 }

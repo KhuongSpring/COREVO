@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RecoveryRequestDto {
-    @Schema(description = "Email người dùng", example = "admin@gmail.com")
+    @Schema(description = "Email người dùng", example = "user@gmail.com")
     @Email
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     String email;

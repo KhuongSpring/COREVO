@@ -7,7 +7,6 @@ import com.example.corevo.domain.entity.user.User;
 import com.example.corevo.domain.entity.user.UserHealth;
 import com.example.corevo.domain.mapper.UserMapper;
 import com.example.corevo.exception.VsException;
-import com.example.corevo.repository.UserHealthRepository;
 import com.example.corevo.repository.UserRepository;
 import com.example.corevo.service.HealthCalculationService;
 import com.example.corevo.service.UserHealthService;
@@ -25,9 +24,10 @@ import org.springframework.stereotype.Service;
 public class UserHealthServiceImpl implements UserHealthService {
 
     UserRepository userRepository;
+
     UserMapper userMapper;
+
     HealthCalculationService healthCalculationService;
-    UserHealthRepository userHealthRepository;
 
     @Override
     public UserResponseDto healthInformation(UserHealthRequestDto request) {

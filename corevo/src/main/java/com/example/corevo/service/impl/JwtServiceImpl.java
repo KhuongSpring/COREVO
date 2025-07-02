@@ -3,7 +3,6 @@ package com.example.corevo.service.impl;
 import com.example.corevo.constant.RoleConstant;
 import com.example.corevo.exception.InternalServerException;
 import com.example.corevo.service.JwtService;
-import com.example.corevo.service.UserService;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
@@ -31,8 +30,6 @@ import java.util.function.Function;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class JwtServiceImpl implements JwtService {
 
-    // UserService userService;
-
     @NonFinal
     @Value("${jwt.secret}")
     String secretKey;
@@ -40,10 +37,6 @@ public class JwtServiceImpl implements JwtService {
     @NonFinal
     @Value("${jwt.access.expiration_time}")
     long EXPIRATION;
-
-    // public JwtServiceImpl(UserService userService) {
-    //     this.userService = userService;
-    // }
 
     @Override
     public String generateToken(String username) {

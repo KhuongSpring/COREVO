@@ -12,11 +12,14 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class EmailServiceImpl implements EmailService {
+
     JavaMailSender mailSender;
 
     @Override
     public void sendOtpEmail(String email, String otp) {
+
         SimpleMailMessage message = new SimpleMailMessage();
+
         message.setTo(email);
         message.setSubject("Xác thực OTP");
         message.setText("Mã OTP của bạn là: " + otp);

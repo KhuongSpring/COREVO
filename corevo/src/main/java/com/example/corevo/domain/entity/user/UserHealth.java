@@ -13,6 +13,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserHealth {
+
     @Id
     String id;
 
@@ -43,4 +44,5 @@ public class UserHealth {
     int maximumHeartRate;
 
     double TDEE;
+
 }
