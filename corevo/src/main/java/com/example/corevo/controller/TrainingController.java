@@ -3,9 +3,11 @@ package com.example.corevo.controller;
 import com.example.corevo.base.RestApiV1;
 import com.example.corevo.base.VsResponseUtil;
 import com.example.corevo.constant.UrlConstant;
+import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
 import com.example.corevo.service.TrainingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -82,7 +84,7 @@ public class TrainingController {
     }
 
     @Operation(
-            summary = "Lấy tất cả bài tập theo nhóm nhóm cơ chính",
+            summary = "Lấy tất cả bài tập theo nhóm cơ chính",
             description = "Dùng để lấy tất cả bài tập theo nhóm cơ chính",
             security = @SecurityRequirement(name = "Bearer Token")
     )
@@ -127,14 +129,14 @@ public class TrainingController {
         return VsResponseUtil.success(trainingService.getTrainingExerciseById(id));
     }
 
-//    @Operation(
-//            summary = "Lấy bài tập",
-//            description = "Dùng để lấy tất cả bài tập theo loại và tìm kiếm bài tập",
-//            security = @SecurityRequirement(name = "Bearer Token")
-//    )
-//    @PostMapping(UrlConstant.Training.SEARCH_TRAINING_EXERCISE)
-//    public ResponseEntity<?> searchExercise(@Valid @RequestBody TrainingExerciseSearchingRequestDto request){
-//        return VsResponseUtil.success(HttpStatus.OK, trainingService.searchHandle(request));
-//    }
+    @Operation(
+            summary = "Tìm kiếm bài tập",
+            description = "Dùng để tìm kiếm tất cả bài tập theo loại và tìm kiếm bài tập",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PostMapping(UrlConstant.Training.SEARCH_TRAINING_EXERCISE)
+    public ResponseEntity<?> searchExercise(@Valid @RequestBody TrainingExerciseSearchingRequestDto request) {
+        return VsResponseUtil.success(trainingService.searchExercise(request));
+    }
 
 }

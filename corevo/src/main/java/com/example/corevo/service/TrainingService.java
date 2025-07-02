@@ -1,7 +1,9 @@
 package com.example.corevo.service;
 
+import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
 import com.example.corevo.domain.dto.response.training.*;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseLevelPreviewResponseDto;
+import com.example.corevo.domain.dto.response.training_exercise.TrainingExercisePreviewResponseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
 
 import java.util.List;
@@ -13,6 +15,8 @@ public interface TrainingService {
     List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByType(String type);
 
     List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByGoal(String goal);
+
+    List<TrainingExercisePreviewResponseDto> searchExercise(TrainingExerciseSearchingRequestDto request);
 
     TrainingExerciseResponseDto getTrainingExerciseById(Long id);
 

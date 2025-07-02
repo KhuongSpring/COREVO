@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.example.corevo.helper.ToCapitalizedString.toCapitalized;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StringToTrainingIDHelper {
 
@@ -120,7 +122,7 @@ public class StringToTrainingIDHelper {
 
         public static Optional<Long> toId(String name) {
             if (name == null) return Optional.empty();
-            return Optional.ofNullable(NAME_TO_ID.get(name));
+            return Optional.ofNullable(NAME_TO_ID.get(toCapitalized(name)));
         }
 
         public static List<Long> toIds(List<String> names) {
@@ -142,7 +144,7 @@ public class StringToTrainingIDHelper {
 
         public static Optional<Long> toId(String name) {
             if (name == null) return Optional.empty();
-            return Optional.ofNullable(NAME_TO_ID.get(name));
+            return Optional.ofNullable(NAME_TO_ID.get(toCapitalized(name)));
         }
 
         public static List<Long> toIds(List<String> names) {

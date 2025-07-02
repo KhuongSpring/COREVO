@@ -13,10 +13,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TrainingExerciseSearchingRequestDto {
 
-    @Schema(description = "Loại tìm kiếm", example = "primaryMuscle")
-    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
+    @Schema(description = "Loại tìm kiếm", example = "targetMuscle")
     String keyType;
 
     @Schema(description = "Câu yêu cầu tìm kiếm", example = "Chest")
+    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     String searchSentence;
 }

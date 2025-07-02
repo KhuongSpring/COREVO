@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.corevo.helper.ToCapitalizedString.toCapitalized;
+
 @Service
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -190,6 +192,53 @@ public class TrainingServiceImpl implements TrainingService {
                                 )
                 )
         ));
+
+        return result;
+    }
+
+    @Override
+    public List<TrainingExercisePreviewResponseDto> searchExercise(TrainingExerciseSearchingRequestDto request) {
+
+        List<TrainingExercisePreviewResponseDto> result = new ArrayList<>();
+
+        switch (request.getKeyType()) {
+
+            case "targetMuscle" -> {
+                List<TrainingExerciseLevelPreviewResponseDto> levelPreview =
+                        getPreviewExerciseByPrimaryMuscle(request.getSearchSentence());
+
+                result.addAll(levelPreview.get(0).getExercises());
+                result.addAll(levelPreview.get(1).getExercises());
+                result.addAll(levelPreview.get(2).getExercises());
+            }
+
+            case "type" -> {
+                List<TrainingExerciseLevelPreviewResponseDto> levelPreview =
+                        getPreviewExerciseByType(request.getSearchSentence());
+
+                result.addAll(levelPreview.get(0).getExercises());
+                result.addAll(levelPreview.get(1).getExercises());
+                result.addAll(levelPreview.get(2).getExercises());
+            }
+
+            case "goal" -> {
+                List<TrainingExerciseLevelPreviewResponseDto> levelPreview =
+                        getPreviewExerciseByGoal(request.getSearchSentence());
+
+                result.addAll(levelPreview.get(0).getExercises());
+                result.addAll(levelPreview.get(1).getExercises());
+                result.addAll(levelPreview.get(2).getExercises());
+            }
+
+            default -> {
+                List<TrainingExercisePreviewResponseDto> resultSearch = trainingExerciseMapper
+                        .listTrainingExerciseToListTrainingExercisePreviewResponseDto(
+                                trainingExerciseRepository.findByNameContainingIgnoreCase(request.getSearchSentence())
+                        );
+
+                result.addAll(resultSearch);
+            }
+        }
 
         return result;
     }

@@ -17,4 +17,6 @@ public interface TrainingExerciseRepository extends JpaRepository<TrainingExerci
     List<TrainingExercise> findByLevels_IdAndTypes_Id(Long levelsId, Optional<Long> typesId);
 
     List<TrainingExercise> findByLevels_IdAndGoals_Id(Long levelsId, Optional<Long> goalsId);
+
+    List<TrainingExercise> findByNameContainingIgnoreCase(String name);
 }
