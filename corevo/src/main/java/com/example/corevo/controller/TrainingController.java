@@ -28,7 +28,7 @@ public class TrainingController {
             description = "Dùng để lấy tất cả dụng cụ luyện tập",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PostMapping(UrlConstant.Training.GET_EQUIPMENT)
+    @GetMapping(UrlConstant.Training.GET_EQUIPMENT)
     public ResponseEntity<?> getEquipments() {
         return VsResponseUtil.success(trainingService.getEquipments());
     }
@@ -38,7 +38,7 @@ public class TrainingController {
             description = "Dùng để lấy tất cả mục tiêu luyện tập",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PostMapping(UrlConstant.Training.GET_GOAL)
+    @GetMapping(UrlConstant.Training.GET_GOAL)
     public ResponseEntity<?> getGoals() {
         return VsResponseUtil.success(trainingService.getGoals());
     }
@@ -48,7 +48,7 @@ public class TrainingController {
             description = "Dùng để lấy tất cả mức độ kinh nghiệm luyện tập",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PostMapping(UrlConstant.Training.GET_LEVEL)
+    @GetMapping(UrlConstant.Training.GET_LEVEL)
     public ResponseEntity<?> getLevels() {
         return VsResponseUtil.success(trainingService.getLevels());
     }
@@ -58,7 +58,7 @@ public class TrainingController {
             description = "Dùng để lấy tất cả địa điểm luyện tập",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PostMapping(UrlConstant.Training.GET_LOCATION)
+    @GetMapping(UrlConstant.Training.GET_LOCATION)
     public ResponseEntity<?> getLocations() {
         return VsResponseUtil.success(trainingService.getLocations());
     }
@@ -68,7 +68,7 @@ public class TrainingController {
             description = "Dùng để lấy tất cả nhóm cơ",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PostMapping(UrlConstant.Training.GET_TARGET_MUSCLE)
+    @GetMapping(UrlConstant.Training.GET_TARGET_MUSCLE)
     public ResponseEntity<?> getTargetMuscles() {
         return VsResponseUtil.success(trainingService.getTargetMuscles());
     }
@@ -78,7 +78,7 @@ public class TrainingController {
             description = "Dùng để lấy tất cả loại hình luyện tập",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PostMapping(UrlConstant.Training.GET_TYPE)
+    @GetMapping(UrlConstant.Training.GET_TYPE)
     public ResponseEntity<?> getTypes() {
         return VsResponseUtil.success(trainingService.getTypes());
     }
@@ -88,7 +88,7 @@ public class TrainingController {
             description = "Dùng để lấy tất cả bài tập theo nhóm cơ chính",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PostMapping(UrlConstant.Training.GET_EXERCISE_BY_PRIMARY_MUSCLE)
+    @GetMapping(UrlConstant.Training.GET_EXERCISE_BY_PRIMARY_MUSCLE)
     public ResponseEntity<?> getExerciseByPrimaryMuscle(
             @RequestParam(name = "primaryMuscle") String primaryMuscle
     ) {
@@ -100,7 +100,7 @@ public class TrainingController {
             description = "Dùng để lấy tất cả bài tập theo loại hình luyện tập",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PostMapping(UrlConstant.Training.GET_EXERCISE_BY_TYPE)
+    @GetMapping(UrlConstant.Training.GET_EXERCISE_BY_TYPE)
     public ResponseEntity<?> getExerciseByType(
             @RequestParam(name = "type") String type
     ) {
@@ -112,7 +112,7 @@ public class TrainingController {
             description = "Dùng để lấy tất cả bài tập theo mục tiêu luyện tập",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PostMapping(UrlConstant.Training.GET_EXERCISE_BY_GOAL)
+    @GetMapping(UrlConstant.Training.GET_EXERCISE_BY_GOAL)
     public ResponseEntity<?> getExerciseByGoal(
             @RequestParam(name = "goal") String goal
     ) {
