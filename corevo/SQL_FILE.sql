@@ -5,6 +5,9 @@ SET SQL_SAFE_UPDATES = 0;
 SELECT * FROM address;
 SELECT * FROM equipment;
 SELECT * FROM goal;
+
+SELECT * FROM invalidated_token;
+
 SELECT * FROM level;
 SELECT * FROM location;
 SELECT * FROM target_muscle;
