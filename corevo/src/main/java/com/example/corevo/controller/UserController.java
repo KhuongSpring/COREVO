@@ -61,8 +61,8 @@ public class UserController {
             Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
             String imageUrl = (String) result.get("secure_url");
             return VsResponseUtil.success(userService.uploadAvatar(id, imageUrl));
-        } catch (Exception e){
-            throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
+        } catch (Exception e) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
         }
     }
 
@@ -75,27 +75,27 @@ public class UserController {
     public ResponseEntity<?> deleteMyAccount(Authentication authentication) {
         return VsResponseUtil.success(userService.deleteMyAccount(authentication));
     }
-                                                    
+
     //                                  //
     //          Methods for ADMIN       //
     //                                  //
 
-    @Tag(name = "user-controller-admin")
+    @Tag(name = "admin-controller")
     @Operation(
-                summary = "Lấy thông tin của toàn bộ user",
-                description = "Dùng để admin lấy thông tin toàn bộ user",
-                security = @SecurityRequirement(name = "Bearer Token")
+            summary = "Lấy thông tin của toàn bộ user",
+            description = "Dùng để admin lấy thông tin toàn bộ user",
+            security = @SecurityRequirement(name = "Bearer Token")
     )
     @GetMapping(UrlConstant.Admin.GET_USERS)
     public ResponseEntity<?> getAllUsers(
-        @RequestParam(name = "page num", defaultValue = "0") int pageNum,
-        @RequestParam(name = "page size", defaultValue = "0") int pageSize
+            @RequestParam(name = "page num", defaultValue = "0") int pageNum,
+            @RequestParam(name = "page size", defaultValue = "0") int pageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(pageNum, pageSize);
         return VsResponseUtil.success(userService.getAllUsers(request));
     }
 
-    @Tag(name = "user-controller-admin")
+    @Tag(name = "admin-controller")
     @Operation(
             summary = "Lấy thông tin user theo ID",
             description = "Dùng để admin lấy thông tin chi tiết của một user",
@@ -106,7 +106,7 @@ public class UserController {
         return VsResponseUtil.success(userService.getUserById(userId));
     }
 
-    @Tag(name = "user-controller-admin")
+    @Tag(name = "admin-controller")
     @Operation(
             summary = "Tạo user mới",
             description = "Dùng để admin tạo user mới trong hệ thống",
@@ -117,10 +117,10 @@ public class UserController {
         return VsResponseUtil.success(userService.createUser(request));
     }
 
-    @Tag(name = "user-controller-admin")
+    @Tag(name = "admin-controller")
     @Operation(
             summary = "Cập nhật thông tin user",
-            description = "Dùng để admin cập nhật thông tin của một user", 
+            description = "Dùng để admin cập nhật thông tin của một user",
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @PutMapping(UrlConstant.Admin.UPDATE_USER)
@@ -130,7 +130,7 @@ public class UserController {
         return VsResponseUtil.success(userService.updateUser(userId, request));
     }
 
-    @Tag(name = "user-controller-admin")
+    @Tag(name = "admin-controller")
     @Operation(
             summary = "Khóa tài khoản user",
             description = "Dùng để admin khóa tài khoản user (user không thể đăng nhập)",
@@ -141,7 +141,7 @@ public class UserController {
         return VsResponseUtil.success(userService.lockUser(userId));
     }
 
-    @Tag(name = "user-controller-admin")
+    @Tag(name = "admin-controller")
     @Operation(
             summary = "Mở khóa tài khoản user",
             description = "Dùng để admin mở khóa tài khoản user",
@@ -152,7 +152,7 @@ public class UserController {
         return VsResponseUtil.success(userService.unlockUser(userId));
     }
 
-    @Tag(name = "user-controller-admin")
+    @Tag(name = "admin-controller")
     @Operation(
             summary = "Xóa user vĩnh viễn",
             description = "Dùng để admin xóa user khỏi hệ thống (không thể khôi phục)",

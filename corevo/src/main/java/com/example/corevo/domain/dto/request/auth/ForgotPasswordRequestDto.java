@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ForgotPasswordRequestDto {
 
-    @Schema(description = "Email người dùng", example = "admin@gmail.com")
+    @Schema(description = "Email người dùng", example = "user@gmail.com")
     @NotBlank(message = ErrorMessage.INVALID_SOME_THING_FIELD_IS_REQUIRED)
     String email;
 }

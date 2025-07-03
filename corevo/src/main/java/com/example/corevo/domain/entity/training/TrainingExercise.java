@@ -1,6 +1,5 @@
-package com.example.corevo.domain.entity;
+package com.example.corevo.domain.entity.training;
 
-import com.example.corevo.domain.entity.training.*;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -16,6 +15,7 @@ import java.util.List;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TrainingExercise {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -22,10 +23,10 @@ import lombok.experimental.FieldDefaults;
 public class UserHealthRequestDto {
 
 
-    @Schema(description = "Tên đăng nhập", example = "khuong123")
+    @Schema(description = "Tên đăng nhập", example = "user123")
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     String username;
-  
+
     @Schema(description = "Giới tính", example = "MALE")
     @NotNull(message = ErrorMessage.UserHealth.ERR_GENDER_REQUIRED)
     Gender gender;

@@ -6,7 +6,7 @@ import com.example.corevo.constant.ErrorMessage;
 import com.example.corevo.domain.dto.helper_dto.RawTrainingExerciseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
-import com.example.corevo.domain.entity.TrainingExercise;
+import com.example.corevo.domain.entity.training.TrainingExercise;
 import com.example.corevo.domain.entity.training.*;
 import com.example.corevo.domain.mapper.TrainingExerciseMapper;
 import com.example.corevo.domain.mapper.TrainingPlanMapper;
@@ -25,7 +25,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -41,38 +40,59 @@ import java.util.stream.Collectors;
 public class AppDataSeeder implements ApplicationRunner {
 
     ObjectMapper objectMapper;
+
     Cloudinary cloudinary;
+
     TrainingPlanMapper trainingPlanMapper;
+
     TrainingExerciseMapper trainingExerciseMapper;
 
+
     LevelRepository levelRepository;
+
     LocationRepository locationRepository;
+
     EquipmentRepository equipmentRepository;
+
     TargetMuscleRepository targetMuscleRepository;
+
     TypeRepository typeRepository;
+
     GoalRepository goalRepository;
+
     TrainingPlanRepository trainingPlanRepository;
+
     TrainingExerciseRepository trainingExerciseRepository;
 
     @Override
     public void run(ApplicationArguments args) {
+
         seedEquipments();
+
         seedGoal();
+
         seedLevels();
+
         seedLocations();
+
         seedTargetMuscle();
+
         seedType();
 
         seedTrainingPlans();
+
         seedTrainingExercise();
     }
 
     void seedEquipments() {
         try (InputStream is = getClass().getResourceAsStream("/data/equipment.json")) {
             log.info("Start seeding equipment from JSON...");
+
             List<Equipment> equipmentsFromDB = equipmentRepository.findAll();
+
             List<Equipment> equipmentsFromJson = objectMapper.readValue(is, new TypeReference<>() {
             });
+
             if (equipmentsFromDB.isEmpty()) {
                 equipmentRepository.saveAll(equipmentsFromJson);
             } else {
@@ -84,7 +104,9 @@ public class AppDataSeeder implements ApplicationRunner {
                     }
                 }
             }
+
             log.info("Seeding equipment from JSON completed!");
+
         } catch (IOException e) {
             log.warn("Seeding equipment from JSON fail");
         }
@@ -93,9 +115,12 @@ public class AppDataSeeder implements ApplicationRunner {
     void seedGoal() {
         try (InputStream is = getClass().getResourceAsStream("/data/goal.json")) {
             log.info("Start seeding goal from JSON...");
+
             List<Goal> goalsFromDB = goalRepository.findAll();
+
             List<Goal> goalsFromJson = objectMapper.readValue(is, new TypeReference<>() {
             });
+
             if (goalsFromDB.isEmpty()) {
                 goalRepository.saveAll(goalsFromJson);
             } else {
@@ -107,7 +132,9 @@ public class AppDataSeeder implements ApplicationRunner {
                     }
                 }
             }
+
             log.info("Seeding goal from JSON completed!");
+
         } catch (IOException e) {
             log.warn("Seeding goal from JSON fail");
         }
@@ -116,9 +143,12 @@ public class AppDataSeeder implements ApplicationRunner {
     void seedLevels() {
         try (InputStream is = getClass().getResourceAsStream("/data/level.json")) {
             log.info("Start seeding level from JSON...");
+
             List<Level> levelsFromDB = levelRepository.findAll();
+
             List<Level> levelsFromJSON = objectMapper.readValue(is, new TypeReference<>() {
             });
+
             if (levelsFromDB.isEmpty()) {
                 levelRepository.saveAll(levelsFromJSON);
             } else {
@@ -130,7 +160,9 @@ public class AppDataSeeder implements ApplicationRunner {
                     }
                 }
             }
+
             log.info("Seeding level from JSON completed!");
+
         } catch (IOException e) {
             log.warn("Seeding levels from JSON fail");
         }
@@ -139,9 +171,12 @@ public class AppDataSeeder implements ApplicationRunner {
     void seedLocations() {
         try (InputStream is = getClass().getResourceAsStream("/data/location.json")) {
             log.info("Start seeding location from JSON...");
+
             List<Location> locationsFromDB = locationRepository.findAll();
+
             List<Location> locationsFromJson = objectMapper.readValue(is, new TypeReference<>() {
             });
+
             if (locationsFromDB.isEmpty()) {
                 locationRepository.saveAll(locationsFromJson);
             } else {
@@ -153,7 +188,9 @@ public class AppDataSeeder implements ApplicationRunner {
                     }
                 }
             }
+
             log.info("Seeding location from JSON completed!");
+
         } catch (IOException e) {
             log.warn("Seeding location from JSON fail");
         }
@@ -162,9 +199,12 @@ public class AppDataSeeder implements ApplicationRunner {
     void seedTargetMuscle() {
         try (InputStream is = getClass().getResourceAsStream("/data/targetMuscle.json")) {
             log.info("Start seeding target muscle from JSON...");
+
             List<TargetMuscle> targetMusclesFromDB = targetMuscleRepository.findAll();
+
             List<TargetMuscle> targetMusclesFromJson = objectMapper.readValue(is, new TypeReference<>() {
             });
+
             if (targetMusclesFromDB.isEmpty()) {
                 targetMuscleRepository.saveAll(targetMusclesFromJson);
             } else {
@@ -176,7 +216,9 @@ public class AppDataSeeder implements ApplicationRunner {
                     }
                 }
             }
+
             log.info("Seeding target muscle from JSON completed!");
+
         } catch (IOException e) {
             log.warn("Seeding target muscle from JSON fail");
         }
@@ -185,9 +227,12 @@ public class AppDataSeeder implements ApplicationRunner {
     void seedType() {
         try (InputStream is = getClass().getResourceAsStream("/data/type.json")) {
             log.info("Start seeding type from JSON...");
+
             List<Type> typesFromDB = typeRepository.findAll();
+
             List<Type> typesFromJson = objectMapper.readValue(is, new TypeReference<>() {
             });
+
             if (typesFromDB.isEmpty()) {
                 typeRepository.saveAll(typesFromJson);
             } else {
@@ -199,19 +244,23 @@ public class AppDataSeeder implements ApplicationRunner {
                     }
                 }
             }
+
             log.info("Seeding type from JSON completed!");
+
         } catch (IOException e) {
             log.warn("Seeding type from JSON fail");
         }
     }
 
-
     void seedTrainingPlans() {
         try (InputStream is = getClass().getResourceAsStream("/data/training_plan.json")) {
             log.info("Start seeding training plan from JSON...");
+
             List<TrainingPlan> trainingPlansFromDB = trainingPlanRepository.findAll();
+
             List<TrainingPlanResponseDto> trainingPlansFromJson = objectMapper.readValue(is, new TypeReference<>() {
             });
+
             if (trainingPlansFromDB.isEmpty()) {
                 List<TrainingPlan> trainingPlans = trainingPlanMapper.
                         listTrainingPlanResponseDtoToListTrainingPlan(trainingPlansFromJson);
@@ -227,7 +276,9 @@ public class AppDataSeeder implements ApplicationRunner {
                     }
                 }
             }
+
             log.info("Seeding training plan from JSON completed!");
+
         } catch (IOException e) {
             log.warn("Seeding training plan from JSON fail");
         }
@@ -258,7 +309,7 @@ public class AppDataSeeder implements ApplicationRunner {
                 }
                 trainingExerciseRepository.saveAll(
                         trainingExerciseMapper.
-                                ListTrainingExerciseResponseDtoToListTrainingExercise(trainingExercisesFromJSON));
+                                listTrainingExerciseResponseDtoToListTrainingExercise(trainingExercisesFromJSON));
                 log.info("Seeding training exercise from {} completed!", file);
             }
         } else {
@@ -298,6 +349,7 @@ public class AppDataSeeder implements ApplicationRunner {
         } catch (IOException e) {
             log.warn("Load training exercise data from {} fail", path);
         }
+
         return List.of();
     }
 

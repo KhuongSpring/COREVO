@@ -13,11 +13,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class LoginRequestDto {
 
-    @Schema(description = "Tên đăng nhập", example = "khuong123")
+    @Schema(description = "Tên đăng nhập", example = "user123")
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     String username;
 
-    @Schema(description = "Mật khẩu", example = "Khuong123@")
+    @Schema(description = "Mật khẩu", example = "User123@")
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     String password;
 

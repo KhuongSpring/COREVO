@@ -5,9 +5,6 @@ import com.example.corevo.domain.dto.response.CommonResponseDto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Collection;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,11 +14,9 @@ import java.util.Collection;
 @Builder
 public class LoginResponseDto extends CommonResponseDto {
 
-    String tokenType = CommonConstant.BEARER_TOKEN;
+    String messageResponse;
 
     String accessToken;
-
-    String refreshToken;
 
     String id;
 
@@ -29,18 +24,11 @@ public class LoginResponseDto extends CommonResponseDto {
 
     Boolean canRecovery;
 
-    String messageResponse;
-
     long dayRecoveryRemaining;
 
-    Collection<? extends GrantedAuthority> authorities;
+    String tokenType = CommonConstant.BEARER_TOKEN;
 
-    public LoginResponseDto(String accessToken, String refreshToken, String id, Collection<? extends GrantedAuthority> authorities) {
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
-        this.id = id;
-        this.authorities = authorities;
-    }
+    String refreshToken;
 
     public LoginResponseDto(HttpStatus status, String message, String accessToken, Boolean isDeleted, Boolean canRecovery, long dayRecoveryRemaining) {
         super(status, message);

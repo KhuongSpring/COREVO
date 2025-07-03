@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -17,10 +16,10 @@ public class PaginationResponseDto<T> {
     PagingMeta meta;
     List<T> items;
 
-    public PaginationResponseDto(PagingMeta meta, List<T> items){
+    public PaginationResponseDto(PagingMeta meta, List<T> items) {
         this.meta = meta;
 
-        if(items == null){
+        if (items == null) {
             this.items = null;
         } else {
             this.items = Collections.unmodifiableList(items);

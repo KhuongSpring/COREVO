@@ -1,6 +1,5 @@
 package com.example.corevo.repository;
 
-import com.example.corevo.domain.entity.user.Address;
 import com.example.corevo.domain.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
+
     Optional<User> findUserDetailByUsername(String username);
 
     User findByUsername(String username);
@@ -24,8 +24,6 @@ public interface UserRepository extends JpaRepository<User, String> {
     User findByEmail(String email);
 
     boolean existsUsersByPhone(String phone);
-
-    boolean existsByAddress(Address address);
 
     @Query("SELECT u FROM User u WHERE u.email = :email AND u.isDeleted = true")
     Optional<User> findDeletedUserByEmail(@Param("email") String email);

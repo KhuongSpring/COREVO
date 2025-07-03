@@ -33,16 +33,16 @@ public class TrainingPlanFlowRequestDto {
     @Schema(
             description = "Lưu trữ toàn bộ các bước và giá trị mà người dùng đã chọn trước đó",
             example = """
-        {
-          "goals": ["Gain weight"],
-          "level": ["BEGINNER"],
-          "duration": ["30 phút"],
-          "type": ["Gym"],
-          "frequency": ["4 - 5 buối / tuần"],
-          "location": ["HOME", "GYM"],
-          "equipment": ["Gym equipment"]
-        }
-    """
+                        {
+                          "goals": ["Gain weight"],
+                          "level": ["BEGINNER"],
+                          "duration": ["30 phút"],
+                          "type": ["Gym"],
+                          "frequency": ["4 - 5 buối / tuần"],
+                          "location": ["HOME", "GYM"],
+                          "equipment": ["Gym equipment"]
+                        }
+                    """
     )
     private Map<String, List<String>> selectedValues;
 

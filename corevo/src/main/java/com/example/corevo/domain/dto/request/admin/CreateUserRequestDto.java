@@ -2,7 +2,6 @@ package com.example.corevo.domain.dto.request.admin;
 
 import com.example.corevo.constant.ErrorMessage;
 import com.example.corevo.domain.entity.user.Role;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -29,23 +28,23 @@ public class CreateUserRequestDto {
     @Email(message = ErrorMessage.INVALID_SOME_THING_FIELD)
     String email;
 
-    @Schema(description = "Mật khẩu", example = "User123@!#")
+    @Schema(description = "Mật khẩu", example = "User123@")
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=\\S+$).{8,}$", message = ErrorMessage.INVALID_FORMAT_PASSWORD)
     String password;
 
-    @Schema(description = "Họ/Tên đệm", example = "Phạm Minh")
+    @Schema(description = "Họ/Tên đệm", example = "Phạm Văn")
     String firstName;
 
-    @Schema(description = "Tên", example = "Khương")
+    @Schema(description = "Tên", example = "A")
     String lastName;
 
-    @Schema(description = "Ngày sinh", example = "2000-01-15")
+    @Schema(description = "Ngày sinh", example = "2000-01-01")
     LocalDate birth;
 
     @Schema(description = "Số điện thoại", example = "0123456789")
     String phone;
-    
+
     @Schema(description = "Quốc tịch", example = "Việt Nam")
     String nationality;
 

@@ -4,7 +4,6 @@ import com.example.corevo.domain.entity.user.ActivityLevel;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -24,7 +23,7 @@ public class UserHealthResponseDto {
 
     int age;
 
-    ActivityLevel activityLevel; 
+    ActivityLevel activityLevel;
 
     double basalMetabolicRate;
 

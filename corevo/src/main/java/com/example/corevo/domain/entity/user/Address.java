@@ -14,6 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Address {
+
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
@@ -25,4 +26,5 @@ public class Address {
 
     @Column(nullable = false)
     String district;
+
 }

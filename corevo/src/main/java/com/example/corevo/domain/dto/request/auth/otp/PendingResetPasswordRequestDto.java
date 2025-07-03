@@ -1,8 +1,6 @@
 package com.example.corevo.domain.dto.request.auth.otp;
 
-
 import com.example.corevo.domain.dto.request.auth.ForgotPasswordRequestDto;
-import com.example.corevo.domain.dto.request.auth.ResetPasswordRequestDto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

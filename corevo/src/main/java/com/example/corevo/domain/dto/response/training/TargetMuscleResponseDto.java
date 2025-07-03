@@ -9,5 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TargetMuscleResponseDto {
-    String muscleName;
+
+    String targetMuscleName;
+
 }

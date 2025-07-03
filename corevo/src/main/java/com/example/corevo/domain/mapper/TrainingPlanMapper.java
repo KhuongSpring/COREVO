@@ -16,8 +16,8 @@ import java.util.List;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
 public interface TrainingPlanMapper {
-    @Mapping(target = "levels",     source = "levelIds")      // map thủ công
-    @Mapping(target = "locations",  source = "locationIds")
+    @Mapping(target = "levels", source = "levelIds")
+    @Mapping(target = "locations", source = "locationIds")
     @Mapping(target = "equipments", source = "equipmentIds")
     TrainingPlan trainingPlanResponseDtoToTrainingPlan(TrainingPlanResponseDto dto);
 

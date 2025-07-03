@@ -9,5 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class LevelResponseDto {
+
     String levelName;
+
 }

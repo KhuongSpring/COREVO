@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.example.corevo.helper.ToCapitalizedString.toCapitalized;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StringToTrainingIDHelper {
+
     public static final class Equipment {
         private static final Map<String, Long> NAME_TO_ID = Map.of(
                 "None", 1L,
@@ -103,36 +106,33 @@ public class StringToTrainingIDHelper {
         }
     }
 
-//    public static final class TargetMuscle {
-//        private static final Map<String, Long> NAME_TO_ID = Map.of(
-//                "Chest", 1L,
-//                "Back", 2L,
-//                "Shoulders", 3L,
-//                "Biceps", 4L,
-//                "Triceps", 5L,
-//                "Forearms", 6L,
-//                "Abs", 7L,
-//                "Obliques", 8L,
-//                "Lower Back", 9L,
-//                "Glutes", 10L,
-//                "Quads", 11L,
-//                "Hamstrings", 12L,
-//                "Calves", 13L
-//                );
-//
-//        public static Optional<Long> toId(String name) {
-//            if (name == null) return Optional.empty();
-//            return Optional.ofNullable(NAME_TO_ID.get(name));
-//        }
-//
-//        public static List<Long> toIds(List<String> names) {
-//            if (names == null || names.isEmpty()) return List.of();
-//            return names.stream()
-//                    .map(TargetMuscle::toId)
-//                    .flatMap(Optional::stream)
-//                    .toList();
-//        }
-//    }
+    public static final class TargetMuscle {
+        private static final Map<String, Long> NAME_TO_ID = Map.of(
+                "Chest", 1L,
+                "Back", 2L,
+                "Shoulders", 3L,
+                "Biceps", 4L,
+                "Triceps", 5L,
+                "Abs", 7L,
+                "Lower Back", 9L,
+                "Glutes", 10L,
+                "Quads", 11L,
+                "Hamstrings", 12L
+        );
+
+        public static Optional<Long> toId(String name) {
+            if (name == null) return Optional.empty();
+            return Optional.ofNullable(NAME_TO_ID.get(toCapitalized(name)));
+        }
+
+        public static List<Long> toIds(List<String> names) {
+            if (names == null || names.isEmpty()) return List.of();
+            return names.stream()
+                    .map(TargetMuscle::toId)
+                    .flatMap(Optional::stream)
+                    .toList();
+        }
+    }
 
     public static final class Type {
         private static final Map<String, Long> NAME_TO_ID = Map.of(
@@ -144,7 +144,7 @@ public class StringToTrainingIDHelper {
 
         public static Optional<Long> toId(String name) {
             if (name == null) return Optional.empty();
-            return Optional.ofNullable(NAME_TO_ID.get(name.toUpperCase()));
+            return Optional.ofNullable(NAME_TO_ID.get(toCapitalized(name)));
         }
 
         public static List<Long> toIds(List<String> names) {

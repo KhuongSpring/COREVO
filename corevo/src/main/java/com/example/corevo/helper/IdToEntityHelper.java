@@ -13,6 +13,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 public class IdToEntityHelper {
+
     EquipmentRepository equipmentRepo;
     GoalRepository goalRepository;
     LevelRepository levelRepo;

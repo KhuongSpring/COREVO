@@ -6,6 +6,7 @@ import com.example.corevo.domain.dto.response.training_exercise.TrainingExercise
 import java.util.Optional;
 
 public class TrainingExerciseConverter {
+
     public static TrainingExerciseResponseDto convert(RawTrainingExerciseDto raw) {
         TrainingExerciseResponseDto dto = new TrainingExerciseResponseDto();
 

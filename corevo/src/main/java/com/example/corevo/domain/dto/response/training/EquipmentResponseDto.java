@@ -8,8 +8,8 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class GoalResponseDto {
+public class EquipmentResponseDto {
 
-    String goalName;
+    String equipmentName;
 
 }

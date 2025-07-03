@@ -11,13 +11,12 @@ import com.example.corevo.domain.dto.response.user.UserResponseDto;
 import org.springframework.security.core.Authentication;
 
 public interface UserService {
+
     UserResponseDto personalInformation(PersonalInformationRequestDto request);
 
     UserResponseDto uploadAvatar(String id, String url);
 
     AccountDeletionResponseDto deleteMyAccount(Authentication authentication);
-
-    // UserResponseDto getCurrentUser();
 
     PaginationResponseDto<UserResponseDto> getAllUsers(PaginationRequestDto request);
 
