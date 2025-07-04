@@ -4,6 +4,7 @@ public class SuccessMessage {
     public static class Auth {
         public static final String SUCCESS_SEND_OTP = "OTP has sent to your email";
         public static final String LOGIN_SUCCESS = "Login successfully";
+        public static final String LOGOUT_SUCCESS = "Logout successfully";
     }
 
     public static class User {

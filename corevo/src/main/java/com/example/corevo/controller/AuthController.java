@@ -4,11 +4,7 @@ import com.example.corevo.base.RestApiV1;
 import com.example.corevo.base.VsResponseUtil;
 import com.example.corevo.constant.SuccessMessage;
 import com.example.corevo.constant.UrlConstant;
-import com.example.corevo.domain.dto.request.auth.ForgotPasswordRequestDto;
-import com.example.corevo.domain.dto.request.auth.LoginRequestDto;
-import com.example.corevo.domain.dto.request.auth.RecoveryRequestDto;
-import com.example.corevo.domain.dto.request.auth.RegisterRequestDto;
-import com.example.corevo.domain.dto.request.auth.ResetPasswordRequestDto;
+import com.example.corevo.domain.dto.request.auth.*;
 import com.example.corevo.domain.dto.request.auth.otp.VerifyOtpRequestDto;
 import com.example.corevo.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,6 +31,15 @@ public class AuthController {
     @PostMapping(UrlConstant.Auth.LOGIN)
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto requestDto) {
         return VsResponseUtil.success(authService.authentication(requestDto));
+    }
+
+    @Operation(
+            summary = "Đăng xuất tài khoản",
+            description = "Dùng để đăng xuất tài khoản"
+    )
+    @PostMapping(UrlConstant.Auth.LOGOUT)
+    public ResponseEntity<?> logout(@Valid @RequestBody LogoutRequestDto request) {
+        return VsResponseUtil.success(authService.logout(request));
     }
 
     @Operation(

@@ -6,11 +6,14 @@ import com.example.corevo.domain.dto.request.auth.otp.*;
 import com.example.corevo.domain.dto.response.*;
 import com.example.corevo.domain.dto.response.auth.*;
 import com.example.corevo.domain.dto.response.user.*;
+import com.example.corevo.domain.entity.InvalidatedToken;
 import com.example.corevo.domain.entity.user.*;
 import com.example.corevo.domain.mapper.AuthMapper;
 import com.example.corevo.exception.VsException;
+import com.example.corevo.repository.InvalidatedTokenRepository;
 import com.example.corevo.repository.UserRepository;
 import com.example.corevo.service.*;
+import com.nimbusds.jwt.SignedJWT;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -29,6 +33,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AuthServiceImpl implements AuthService {
 
     UserRepository userRepository;
+
+    InvalidatedTokenRepository invalidatedTokenRepository;
 
     JwtService jwtService;
 
@@ -88,7 +94,7 @@ public class AuthServiceImpl implements AuthService {
         if (!auth)
             throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_LOGIN_FAIL);
 
-        var token = jwtService.generateToken(request.getUsername());
+        var token = jwtService.generateToken(user);
 
         return LoginResponseDto.builder()
                 .messageResponse(SuccessMessage.Auth.LOGIN_SUCCESS)
@@ -97,6 +103,25 @@ public class AuthServiceImpl implements AuthService {
                 .isDeleted(CommonConstant.FALSE)
                 .tokenType(CommonConstant.BEARER_TOKEN)
                 .build();
+    }
+
+    @Override
+    public CommonResponseDto logout(LogoutRequestDto request) {
+        String JWTID = null;
+        Date expirationTime = null;
+
+        try {
+            SignedJWT signedJWT = SignedJWT.parse(request.getToken());
+
+            JWTID = signedJWT.getJWTClaimsSet().getJWTID();
+            expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+            invalidatedTokenRepository.save(new InvalidatedToken(JWTID, expirationTime));
+
+            return new CommonResponseDto(HttpStatus.OK, SuccessMessage.Auth.LOGOUT_SUCCESS);
+        } catch (ParseException e){
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_GET_TOKEN_CLAIM_SET_FAIL);
+        }
     }
 
     @Override

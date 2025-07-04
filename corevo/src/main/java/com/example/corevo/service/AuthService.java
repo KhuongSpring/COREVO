@@ -10,6 +10,8 @@ public interface AuthService {
 
     LoginResponseDto authentication(LoginRequestDto request);
 
+    CommonResponseDto logout(LogoutRequestDto request);
+
     void register(RegisterRequestDto request);
 
     UserResponseDto verifyOtpToRegister(VerifyOtpRequestDto request);

@@ -28,6 +28,9 @@ public class ErrorMessage {
         public static final String ERR_LOGIN_FAIL = "exception.auth.login.fail";
         public static final String ERR_OTP_EXPIRED_OR_NOT_FOUND = "exception.auth.OTP.expired.or.not.found";
         public static final String ERR_OTP_INVALID = "exception.auth.OTP.invalid";
+        public static final String ERR_GET_TOKEN_CLAIM_SET_FAIL = "exception.auth.get.token.claim.set.fail";
+        public static final String ERR_TOKEN_INVALIDATED = "exception.auth.token.invalidated";
+        public static final String ERR_MALFORMED_TOKEN = "exception.auth.malformed.token";
 
     }
 

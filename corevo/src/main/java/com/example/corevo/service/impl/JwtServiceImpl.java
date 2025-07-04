@@ -1,7 +1,9 @@
 package com.example.corevo.service.impl;
 
 import com.example.corevo.constant.RoleConstant;
+import com.example.corevo.domain.entity.user.User;
 import com.example.corevo.exception.InternalServerException;
+import com.example.corevo.repository.InvalidatedTokenRepository;
 import com.example.corevo.service.JwtService;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
@@ -17,12 +19,14 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -38,14 +42,18 @@ public class JwtServiceImpl implements JwtService {
     @Value("${jwt.access.expiration_time}")
     long EXPIRATION;
 
+    InvalidatedTokenRepository invalidatedTokenRepository;
+
     @Override
-    public String generateToken(String username) {
+    public String generateToken(User user) {
         try {
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-                    .subject(username)
+                    .subject(user.getUsername())
                     .issueTime(new Date())
                     .expirationTime(new Date(System.currentTimeMillis() + EXPIRATION))
+                    .jwtID(UUID.randomUUID().toString())
                     .claim("authorities", List.of(RoleConstant.USER))
+                    .claim("userId", user.getId())
                     .build();
 
             SignedJWT signedJWT = new SignedJWT(
@@ -85,6 +93,12 @@ public class JwtServiceImpl implements JwtService {
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    }
+
+    @Scheduled(cron = "0 0 3 * * *")
+    public void cleanExpiredInvalidatedTokens() {
+        Date now = new Date();
+        invalidatedTokenRepository.deleteByExpiryTimeBefore(now);
     }
 
     private boolean isTokenExpired(String token) {
