@@ -47,15 +47,18 @@ public class ErrorMessage {
         public static final String ERR_ACCOUNT_ALREADY_DELETED = "exception.user.account.already.deleted";
         public static final String ERR_ACCOUNT_RECOVERY_EXPIRED = "exception.user.account.recovery.period.has.expired";
         public static final String ERR_ACCOUNT_NOT_DELETED = "exception.user.account.is.not.in.deleted.state";
+        public static final String ERR_INCORRECT_PASSWORD_CONFIRMATION = "exception.user.incorrect.password.confirmation";
     }
 
     public static class UserHealth {
         public static final String ERR_GENDER_REQUIRED = "exception.user-health.gender.required";
         public static final String ERR_ACTIVITY_LEVEL_REQUIRED = "exception.user-health.activity-level.required";
         public static final String ERR_HEIGHT_MIN_VALUE = "exception.user-health.height.min-value";
+        public static final String ERR_HEIGHT_MAX_VALUE = "exception.user-health.height.max-value";
         public static final String ERR_WEIGHT_MIN_VALUE = "exception.user-health.weight.min-value";
+        public static final String ERR_WEIGHT_MAX_VALUE = "exception.user-health.weight.max-value";
         public static final String ERR_AGE_MIN_VALUE = "exception.user-health.age.min-value";
-
+        public static final String ERR_AGE_MAX_VALUE = "exception.user-health.age.max-value";
     }
 
     public static class TrainingPlanFlow {

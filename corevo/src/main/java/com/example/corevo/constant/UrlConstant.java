@@ -31,6 +31,9 @@ public class UrlConstant {
         public static final String UPLOAD_AVATAR = PRE_FIX + "/upload-avatar";
         public static final String DELETE_MY_ACCOUNT = PRE_FIX + "/delete-my-account";
 
+        public static final String GET_PROFILE = PRE_FIX + "/profile";
+        public static final String UPDATE_PROFILE = PRE_FIX + "/update-profile";
+
         private User() {
         }
     }
