@@ -38,19 +38,15 @@ public class JwtServiceImpl implements JwtService {
     @Value("${jwt.secret}")
     String secretKey;
 
-    @NonFinal
-    @Value("${jwt.access.expiration_time}")
-    long EXPIRATION;
-
     InvalidatedTokenRepository invalidatedTokenRepository;
 
     @Override
-    public String generateToken(User user) {
+    public String generateToken(User user, long expirationTime) {
         try {
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                     .subject(user.getUsername())
                     .issueTime(new Date())
-                    .expirationTime(new Date(System.currentTimeMillis() + EXPIRATION))
+                    .expirationTime(new Date(System.currentTimeMillis() + expirationTime))
                     .jwtID(UUID.randomUUID().toString())
                     .claim("authorities", List.of(RoleConstant.USER))
                     .claim("userId", user.getId())
@@ -92,7 +88,7 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+        return (username.equals(userDetails.getUsername())) && isTokenExpired(token);
     }
 
     @Scheduled(cron = "0 0 3 * * *")
@@ -101,8 +97,9 @@ public class JwtServiceImpl implements JwtService {
         invalidatedTokenRepository.deleteByExpiryTimeBefore(now);
     }
 
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+    @Override
+    public boolean isTokenExpired(String token) {
+        return !extractExpiration(token).before(new Date());
     }
 
     private Claims extractAllClaims(String token) {

@@ -4,6 +4,7 @@ import com.example.corevo.domain.dto.request.auth.*;
 import com.example.corevo.domain.dto.request.auth.otp.VerifyOtpRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.auth.LoginResponseDto;
+import com.example.corevo.domain.dto.response.auth.TokenRefreshResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 
 public interface AuthService {
@@ -11,6 +12,8 @@ public interface AuthService {
     LoginResponseDto authentication(LoginRequestDto request);
 
     CommonResponseDto logout(LogoutRequestDto request);
+
+    TokenRefreshResponseDto refresh(TokenRefreshRequestDto request);
 
     void register(RegisterRequestDto request);
 

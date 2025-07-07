@@ -43,6 +43,15 @@ public class AuthController {
     }
 
     @Operation(
+            summary = "Làm mới token",
+            description = "Dùng để cấp lại token"
+    )
+    @PostMapping(UrlConstant.Auth.REFRESH_TOKEN)
+    public ResponseEntity<?> refresh(@Valid @RequestBody TokenRefreshRequestDto request) {
+        return VsResponseUtil.success(authService.refresh(request));
+    }
+
+    @Operation(
             summary = "Đăng kí tài khoản",
             description = "Dùng để đăng kí tài khoản"
     )

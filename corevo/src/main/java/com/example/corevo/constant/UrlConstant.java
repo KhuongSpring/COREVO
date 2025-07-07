@@ -13,6 +13,7 @@ public class UrlConstant {
         public static final String ACCOUNT_RECOVERY = PRE_FIX + "/account-recovery";
         public static final String VERIFY_OTP_TO_RECOVERY = PRE_FIX + "/verify-otp-to-recovery";
         public static final String RECOVER_ACCOUNT = PRE_FIX + "/recover-account";
+        public static final String REFRESH_TOKEN = PRE_FIX + "/refresh";
         public static final String LOGOUT = PRE_FIX + "/logout";
 
         private Auth() {

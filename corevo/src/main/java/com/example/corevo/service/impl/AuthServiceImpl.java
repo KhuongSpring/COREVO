@@ -12,11 +12,15 @@ import com.example.corevo.domain.mapper.AuthMapper;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.repository.InvalidatedTokenRepository;
 import com.example.corevo.repository.UserRepository;
+import com.example.corevo.security.UserDetailsServiceImpl;
 import com.example.corevo.service.*;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,7 +32,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
-@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthServiceImpl implements AuthService {
 
@@ -36,17 +39,43 @@ public class AuthServiceImpl implements AuthService {
 
     InvalidatedTokenRepository invalidatedTokenRepository;
 
-    JwtService jwtService;
-
     AuthMapper authMapper;
 
+    JwtService jwtService;
+
     EmailService emailService;
+
+    UserDetailsServiceImpl userDetailsService;
 
     Map<String, PendingRegistrationRequestDto> pendingRegisterMap = new ConcurrentHashMap<>();
 
     Map<String, PendingResetPasswordRequestDto> pendingResetPasswordMap = new ConcurrentHashMap<>();
 
     Map<String, PendingRecoveryRequestDto> pendingRecoveryMap = new ConcurrentHashMap<>();
+
+    @NonFinal
+    @Value("${jwt.access.expiration_time}")
+    long ACCESS_TOKEN_EXPIRATION;
+
+    @NonFinal
+    @Value("${jwt.refresh.expiration_time}")
+    long REFRESH_TOKEN_EXPIRATION;
+
+    public AuthServiceImpl(
+            UserRepository userRepository,
+            InvalidatedTokenRepository invalidatedTokenRepository,
+            JwtService jwtService,
+            AuthMapper authMapper,
+            EmailService emailService,
+            UserDetailsServiceImpl userDetailsService
+    ) {
+        this.userRepository = userRepository;
+        this.invalidatedTokenRepository = invalidatedTokenRepository;
+        this.jwtService = jwtService;
+        this.authMapper = authMapper;
+        this.emailService = emailService;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     public LoginResponseDto authentication(LoginRequestDto request) {
@@ -60,30 +89,29 @@ public class AuthServiceImpl implements AuthService {
             LocalDate expiredDate = user.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
             if (LocalDate.now().isBefore(expiredDate)) {
                 long daysSinceDeleted = ChronoUnit.DAYS.between(user.getDeletedAt(), LocalDate.now());
-                return new LoginResponseDto(
-                        HttpStatus.UNAUTHORIZED,
-                        ErrorMessage.Auth.ERR_LOGIN_FAIL,
-                        null,
-                        CommonConstant.TRUE,
-                        CommonConstant.TRUE,
-                        daysSinceDeleted
-                );
+
+                return LoginResponseDto.builder()
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
+                        .isDeleted(CommonConstant.TRUE)
+                        .canRecovery(CommonConstant.TRUE)
+                        .dayRecoveryRemaining(daysSinceDeleted)
+                        .build();
             } else {
-                return new LoginResponseDto(
-                        HttpStatus.UNAUTHORIZED,
-                        ErrorMessage.Auth.ERR_LOGIN_FAIL,
-                        null,
-                        CommonConstant.TRUE,
-                        CommonConstant.FALSE,
-                        0
-                );
+                return LoginResponseDto.builder()
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
+                        .isDeleted(CommonConstant.TRUE)
+                        .canRecovery(CommonConstant.FALSE)
+                        .dayRecoveryRemaining(0)
+                        .build();
             }
         }
 
         if (Boolean.TRUE.equals(user.getIsLocked())) {
             return LoginResponseDto.builder()
-                    .messageResponse(ErrorMessage.Auth.ERR_ACCOUNT_LOCKED)
-                    .accessToken(null)
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .message(ErrorMessage.Auth.ERR_ACCOUNT_LOCKED)
                     .build();
         }
 
@@ -94,11 +122,14 @@ public class AuthServiceImpl implements AuthService {
         if (!auth)
             throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_LOGIN_FAIL);
 
-        var token = jwtService.generateToken(user);
+        var accessToken = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
+        var refreshToken = jwtService.generateToken(user, REFRESH_TOKEN_EXPIRATION);
 
         return LoginResponseDto.builder()
-                .messageResponse(SuccessMessage.Auth.LOGIN_SUCCESS)
-                .accessToken(token)
+                .status(HttpStatus.OK)
+                .message(SuccessMessage.Auth.LOGIN_SUCCESS)
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
                 .id(user.getId())
                 .isDeleted(CommonConstant.FALSE)
                 .tokenType(CommonConstant.BEARER_TOKEN)
@@ -122,6 +153,32 @@ public class AuthServiceImpl implements AuthService {
         } catch (ParseException e){
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_GET_TOKEN_CLAIM_SET_FAIL);
         }
+    }
+
+    @Override
+    public TokenRefreshResponseDto refresh(TokenRefreshRequestDto request) {
+
+        String refreshToken = request.getRefreshToken();
+
+        String username = jwtService.extractUsername(refreshToken);
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+        if (!jwtService.isTokenExpired(refreshToken)) {
+            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.EXPIRED_REFRESH_TOKEN);
+        }
+
+        if (!jwtService.isTokenValid(refreshToken, userDetails)){
+            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.INVALID_REFRESH_TOKEN);
+        }
+
+        User user = userRepository.findByUsername(username);
+
+        return TokenRefreshResponseDto.builder()
+                .tokenType(CommonConstant.BEARER_TOKEN)
+                .accessToken(jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION))
+                .refreshToken(refreshToken)
+                .build();
     }
 
     @Override
