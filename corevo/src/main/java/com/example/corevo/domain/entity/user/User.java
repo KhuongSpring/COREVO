@@ -51,6 +51,8 @@ public class User {
 
     String linkAvatar;
 
+    String provider;
+
     @Column(nullable = false)
     LocalDate createdAt;
 

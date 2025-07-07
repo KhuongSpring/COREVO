@@ -50,6 +50,7 @@ public class JwtServiceImpl implements JwtService {
                     .jwtID(UUID.randomUUID().toString())
                     .claim("authorities", List.of(RoleConstant.USER))
                     .claim("userId", user.getId())
+                    .claim("email", user.getEmail())
                     .build();
 
             SignedJWT signedJWT = new SignedJWT(

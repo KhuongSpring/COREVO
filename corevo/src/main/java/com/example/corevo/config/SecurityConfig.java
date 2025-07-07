@@ -2,6 +2,8 @@ package com.example.corevo.config;
 
 import com.example.corevo.constant.RoleConstant;
 import com.example.corevo.security.JwtAuthenticationFilter;
+import com.example.corevo.service.OAuth2.CustomOAuth2UserService;
+import com.example.corevo.service.OAuth2.OAuth2AuthenticationSuccessHandler;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,8 +39,18 @@ public class SecurityConfig {
 
     final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+    final CustomOAuth2UserService customOAuth2UserService;
+
+    final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+
+    public SecurityConfig(
+            JwtAuthenticationFilter jwtAuthenticationFilter,
+            CustomOAuth2UserService customOAuth2UserService,
+            OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler
+    ) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.customOAuth2UserService = customOAuth2UserService;
+        this.oAuth2AuthenticationSuccessHandler = oAuth2AuthenticationSuccessHandler;
     }
 
     @Bean
@@ -53,6 +65,11 @@ public class SecurityConfig {
                 .requestMatchers(ADMIN_END_POINT).hasAuthority(RoleConstant.ADMIN)
                 .requestMatchers(OPEN_API).permitAll()
                 .anyRequest().authenticated());
+
+        http.oauth2Login(oauth2 -> oauth2
+                .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
+                .successHandler(oAuth2AuthenticationSuccessHandler)
+        );
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
