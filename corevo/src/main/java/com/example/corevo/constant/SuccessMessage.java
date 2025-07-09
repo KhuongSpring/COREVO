@@ -14,4 +14,8 @@ public class SuccessMessage {
         public static final String SOFT_DELETE_SUCCESS = "User account has been deleted successfully. You have 30 days to recover it.";
         public static final String RECOVERY_SUCCESS = "User account has been recovered successfully";
     }
+
+    public static class TrainingPlan {
+        public static final String RESET_TRAINING_PLAN_SUCCESS = "Reset training plan successfully";
+    }
 }

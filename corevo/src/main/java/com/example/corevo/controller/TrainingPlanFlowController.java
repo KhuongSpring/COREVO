@@ -37,4 +37,13 @@ public class TrainingPlanFlowController {
                 request.getSelectedValues()
         ));
     }
+
+    @Operation(summary = "Xóa toàn bộ training plan của người dùng đã chọn",
+            description = "Reset tất cả training plan mà người dùng đã chọn trước đó",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PostMapping(UrlConstant.TrainingPlan.RESET)
+    public ResponseEntity<?> resetTrainingPlan() {
+        return VsResponseUtil.success(trainingPlanFlowService.resetTrainingPlan());
+    }
 }

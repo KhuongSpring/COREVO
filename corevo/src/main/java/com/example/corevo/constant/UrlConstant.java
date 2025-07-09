@@ -66,6 +66,7 @@ public class UrlConstant {
     public static class TrainingPlan {
         private static final String PRE_FIX = "/training-plan";
         public static final String FLOW_STEP = PRE_FIX + "/step";
+        public static final String RESET = PRE_FIX + "/reset";
 
         private TrainingPlan() {
 
@@ -95,5 +96,14 @@ public class UrlConstant {
         }
     }
 
+    public static class Policy {
+        private static final String PRE_FIX = "/policy";
+        
+        public static final String GET_PRIVACY_POLICY = PRE_FIX + "/privacy";
+        public static final String GET_TERMS_OF_SERVICE = PRE_FIX + "/terms";
+        
+        private Policy() {
+        }
+    }
 
 }
