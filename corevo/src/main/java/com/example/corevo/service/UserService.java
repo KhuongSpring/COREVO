@@ -13,11 +13,15 @@ import org.springframework.security.core.Authentication;
 
 public interface UserService {
 
-    UserResponseDto personalInformation(PersonalInformationRequestDto request);
+    UserResponseDto personalInformation(Authentication authentication, PersonalInformationRequestDto request);
 
-    UserResponseDto uploadAvatar(String id, String url);
+    UserResponseDto uploadAvatar(Authentication authentication, String url);
 
     AccountDeletionResponseDto deleteMyAccount(Authentication authentication);
+
+    UserResponseDto getMyProfile(Authentication authentication);
+
+    UserResponseDto updateProfile(ConfirmPasswordRequestDto request, Authentication authentication);
 
     PaginationResponseDto<UserResponseDto> getAllUsers(PaginationRequestDto request);
 
@@ -32,9 +36,5 @@ public interface UserService {
     CommonResponseDto unlockUser(String userId);
 
     CommonResponseDto deleteUserAccount(String userId);
-
-    UserResponseDto getMyProfile(Authentication authentication);
-
-    UserResponseDto updateProfile(ConfirmPasswordRequestDto request, Authentication authentication);
 
 }

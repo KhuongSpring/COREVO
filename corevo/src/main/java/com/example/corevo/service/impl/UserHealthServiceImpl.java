@@ -15,6 +15,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,12 +31,16 @@ public class UserHealthServiceImpl implements UserHealthService {
     HealthCalculationService healthCalculationService;
 
     @Override
-    public UserResponseDto healthInformation(UserHealthRequestDto request) {
-        if (!userRepository.existsUserByUsername(request.getUsername())) {
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+    public UserResponseDto healthInformation(
+            Authentication authentication,
+            UserHealthRequestDto request
+    ) {
+
+        if (!userRepository.existsUserByUsername(authentication.getName())) {
+            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
         }
 
-        User user = userRepository.findByUsername(request.getUsername());
+        User user = userRepository.findByUsername(authentication.getName());
 
         UserHealth userHealth = user.getUserHealth();
         if (userHealth == null) {

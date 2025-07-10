@@ -139,22 +139,22 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
         dto.setLevelIds(
                 plan.getLevels() != null
                         ? plan.getLevels().stream()
-                                .map(Level::getId)
-                                .collect(Collectors.toList())
+                        .map(Level::getId)
+                        .collect(Collectors.toList())
                         : List.of());
 
         dto.setLocationIds(
                 plan.getLocations() != null
                         ? plan.getLocations().stream()
-                                .map(Location::getId)
-                                .collect(Collectors.toList())
+                        .map(Location::getId)
+                        .collect(Collectors.toList())
                         : List.of());
 
         dto.setEquipmentIds(
                 plan.getEquipments() != null
                         ? plan.getEquipments().stream()
-                                .map(Equipment::getId)
-                                .collect(Collectors.toList())
+                        .map(Equipment::getId)
+                        .collect(Collectors.toList())
                         : List.of());
 
         return dto;
@@ -175,10 +175,8 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
     }
 
     @Override
-    public CommonResponseDto resetTrainingPlan() {
+    public CommonResponseDto resetTrainingPlan(Authentication authentication) {
         try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
             if (authentication == null || !authentication.isAuthenticated()) {
                 throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.UNAUTHORIZED);
             }
@@ -191,7 +189,8 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
                 throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
             }
 
-            user.setTrainingPlans(null);
+            user.setTrainingPlans(null); // CHECK
+
             userRepository.save(user);
 
             return new CommonResponseDto(HttpStatus.OK, SuccessMessage.TrainingPlan.RESET_TRAINING_PLAN_SUCCESS);

@@ -12,6 +12,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +31,10 @@ public class UserHealthController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @PostMapping(UrlConstant.UserHealth.FILL_HEALTH_INFORMATION)
-    public ResponseEntity<?> fillHealthInformation(@Valid @RequestBody UserHealthRequestDto request) {
-        return VsResponseUtil.success(userHealthService.healthInformation(request));
+    public ResponseEntity<?> fillHealthInformation(
+            Authentication authentication,
+            @Valid @RequestBody UserHealthRequestDto request
+    ) {
+        return VsResponseUtil.success(userHealthService.healthInformation(authentication, request));
     }
 }

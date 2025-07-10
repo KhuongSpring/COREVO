@@ -17,10 +17,6 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PersonalInformationRequestDto {
 
-    @Schema(description = "Tên tài khoản", example = "user123")
-    @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
-    String username;
-
     @Schema(description = "Số điện thoại", example = "0123456789")
     @NotBlank(message = ErrorMessage.NOT_BLANK_FIELD)
     String phone;

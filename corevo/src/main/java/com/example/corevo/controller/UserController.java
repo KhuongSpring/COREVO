@@ -45,8 +45,11 @@ public class UserController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @PostMapping(UrlConstant.User.FILL_PERSONAL_INFORMATION)
-    public ResponseEntity<?> fillPersonalInformation(@Valid @RequestBody PersonalInformationRequestDto request) {
-        return VsResponseUtil.success(userService.personalInformation(request));
+    public ResponseEntity<?> fillPersonalInformation(
+            Authentication authentication,
+            @Valid @RequestBody PersonalInformationRequestDto request
+    ) {
+        return VsResponseUtil.success(userService.personalInformation(authentication, request));
     }
 
     @Operation(
@@ -57,11 +60,13 @@ public class UserController {
     @PostMapping(UrlConstant.User.UPLOAD_AVATAR)
     public ResponseEntity<?> uploadAvatar(
             @RequestParam("file") MultipartFile file,
-            @RequestParam(name = "id") String id) throws IOException {
+            Authentication authentication
+    ) {
         try {
             Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
             String imageUrl = (String) result.get("secure_url");
-            return VsResponseUtil.success(userService.uploadAvatar(id, imageUrl));
+
+            return VsResponseUtil.success(userService.uploadAvatar(authentication, imageUrl));
         } catch (Exception e) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
         }
@@ -95,7 +100,8 @@ public class UserController {
     @PutMapping(UrlConstant.User.UPDATE_PROFILE)
     public ResponseEntity<?> updateProfile(
             @Valid @RequestBody ConfirmPasswordRequestDto request,
-            Authentication authentication) {
+            Authentication authentication
+    ) {
         return VsResponseUtil.success(userService.updateProfile(request, authentication));
     }
 

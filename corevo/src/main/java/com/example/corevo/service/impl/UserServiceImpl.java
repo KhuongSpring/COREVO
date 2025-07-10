@@ -59,15 +59,18 @@ public class UserServiceImpl implements UserService {
     PersonalInformationHelper stringPersonalInformationHelper;
 
     @Override
-    public UserResponseDto personalInformation(PersonalInformationRequestDto request) {
+    public UserResponseDto personalInformation(
+            Authentication authentication,
+            PersonalInformationRequestDto request
+    ) {
 
-        if (!userRepository.existsUserByUsername(request.getUsername()))
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+        if (!userRepository.existsUserByUsername(authentication.getName()))
+            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         if (userRepository.existsUsersByPhone(request.getPhone()))
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
 
-        User user = userRepository.findByUsername(request.getUsername());
+        User user = userRepository.findByUsername(authentication.getName());
 
         Address address = addressRepository
                 .findByProvinceAndDistrict(request.getAddress().getProvince(), request.getAddress().getDistrict())
@@ -89,10 +92,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto uploadAvatar(String id, String url) {
+    public UserResponseDto uploadAvatar(
+            Authentication authentication,
+            String url
+    ) {
 
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
+        if (!userRepository.existsUserByUsername(authentication.getName()))
+            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+
+        User user = userRepository.findByUsername(authentication.getName());
 
         user.setLinkAvatar(url);
 
