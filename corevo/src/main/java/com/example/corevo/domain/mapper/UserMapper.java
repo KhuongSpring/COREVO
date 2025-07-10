@@ -1,10 +1,8 @@
 package com.example.corevo.domain.mapper;
 
 import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import com.example.corevo.domain.dto.request.user.enter_personal_infomation.UpdatePersonalInformationRequestDto;
+import org.mapstruct.*;
 
 import com.example.corevo.domain.dto.request.admin.CreateUserRequestDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
@@ -21,4 +19,6 @@ public interface UserMapper {
     User createUserRequestDtoToUser(CreateUserRequestDto request);
 
     void updateUserFromDto(UpdateUserRequestDto request, @MappingTarget User user);
+
+    void updateUserFromPersonalInformationDto(UpdatePersonalInformationRequestDto request, @MappingTarget User user);
 }

@@ -1,6 +1,8 @@
 package com.example.corevo.domain.entity.user;
 
 import com.example.corevo.constant.CommonConstant;
+import com.example.corevo.domain.entity.training.Equipment;
+import com.example.corevo.domain.entity.training.TrainingPlan;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -72,5 +75,13 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     UserHealth userHealth;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_training_plans",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "training_plan_id")
+    )
+    List<TrainingPlan> trainingPlans;
 
 }

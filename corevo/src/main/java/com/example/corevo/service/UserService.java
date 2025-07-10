@@ -5,6 +5,7 @@ import com.example.corevo.domain.dto.pagination.PaginationResponseDto;
 import com.example.corevo.domain.dto.request.admin.CreateUserRequestDto;
 import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
+import com.example.corevo.domain.dto.request.user.profile.ConfirmPasswordRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.user.AccountDeletionResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
@@ -31,5 +32,9 @@ public interface UserService {
     CommonResponseDto unlockUser(String userId);
 
     CommonResponseDto deleteUserAccount(String userId);
+
+    UserResponseDto getMyProfile(Authentication authentication);
+
+    UserResponseDto updateProfile(ConfirmPasswordRequestDto request, Authentication authentication);
 
 }

@@ -10,6 +10,7 @@ import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.request.admin.CreateUserRequestDto;
 import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
+import com.example.corevo.domain.dto.request.user.profile.ConfirmPasswordRequestDto;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -74,6 +75,28 @@ public class UserController {
     @DeleteMapping(UrlConstant.User.DELETE_MY_ACCOUNT)
     public ResponseEntity<?> deleteMyAccount(Authentication authentication) {
         return VsResponseUtil.success(userService.deleteMyAccount(authentication));
+    }
+
+    @Operation(
+            summary = "Lấy thông tin profile (thông tin user và user health)",
+            description = "Dùng để người dùng lấy thông tin profile đầy đủ (thông tin cá nhân + sức khỏe)",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.User.GET_PROFILE)
+    public ResponseEntity<?> getMyProfile(Authentication authentication) {
+        return VsResponseUtil.success(userService.getMyProfile(authentication));
+    }
+
+    @Operation(
+            summary = "Cập nhật thông tin profile",
+            description = "Dùng để người dùng cập nhật thông tin cá nhân và sức khỏe với xác nhận mật khẩu",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PutMapping(UrlConstant.User.UPDATE_PROFILE)
+    public ResponseEntity<?> updateProfile(
+            @Valid @RequestBody ConfirmPasswordRequestDto request,
+            Authentication authentication) {
+        return VsResponseUtil.success(userService.updateProfile(request, authentication));
     }
 
     //                                  //

@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -36,5 +37,14 @@ public class TrainingPlanFlowController {
                 request.getSelectedValue(),
                 request.getSelectedValues()
         ));
+    }
+
+    @Operation(summary = "Xóa toàn bộ training plan của người dùng đã chọn",
+            description = "Reset tất cả training plan mà người dùng đã chọn trước đó",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @DeleteMapping(UrlConstant.TrainingPlan.RESET)
+    public ResponseEntity<?> resetTrainingPlan() {
+        return VsResponseUtil.success(trainingPlanFlowService.resetTrainingPlan());
     }
 }

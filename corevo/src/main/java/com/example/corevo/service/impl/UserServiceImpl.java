@@ -4,13 +4,21 @@ import com.example.corevo.constant.*;
 import com.example.corevo.domain.dto.pagination.*;
 import com.example.corevo.domain.dto.request.admin.*;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
+import com.example.corevo.domain.dto.request.user.enter_personal_infomation.UpdatePersonalInformationRequestDto;
+import com.example.corevo.domain.dto.request.user.health.UpdateHealthRequestDto;
+import com.example.corevo.domain.dto.request.user.health.UserHealthRequestDto;
+import com.example.corevo.domain.dto.request.user.profile.ConfirmPasswordRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.user.*;
+import com.example.corevo.domain.dto.response.user.health.UserHealthResponseDto;
 import com.example.corevo.domain.entity.user.*;
 import com.example.corevo.domain.mapper.UserMapper;
+import com.example.corevo.domain.mapper.UserHealthMapper;
 import com.example.corevo.exception.*;
+import com.example.corevo.helper.PersonalInformationHelper;
 import com.example.corevo.repository.*;
 import com.example.corevo.service.UserService;
+import com.example.corevo.service.HealthCalculationService;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -38,9 +46,17 @@ public class UserServiceImpl implements UserService {
 
     AddressRepository addressRepository;
 
+    UserHealthRepository userHealthRepository;
+
     UserMapper userMapper;
 
+    UserHealthMapper userHealthMapper;
+
     PasswordEncoder passwordEncoder;
+
+    HealthCalculationService healthCalculationService;
+
+    PersonalInformationHelper stringPersonalInformationHelper;
 
     @Override
     public UserResponseDto personalInformation(PersonalInformationRequestDto request) {
@@ -236,6 +252,100 @@ public class UserServiceImpl implements UserService {
                 gracePeriodDays,
                 "corevo@gmail.com"
         );
+    }
+
+    @Override
+    public UserResponseDto getMyProfile(Authentication authentication) {
+        String username = authentication.getName();
+
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+        }
+
+        UserResponseDto userResponseDto = userMapper.userToUserResponseDto(user);
+        if (user.getUserHealth() != null) {
+            UserHealthResponseDto response = userHealthMapper.userHealthToUserHealthResponseDto(user.getUserHealth());
+            userResponseDto.setUserHealth(response);
+        }
+
+        return userResponseDto;
+    }
+
+    @Override
+    @Transactional
+    public UserResponseDto updateProfile(ConfirmPasswordRequestDto request, Authentication authentication) {
+        String username = authentication.getName();
+
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+        }
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_INCORRECT_PASSWORD_CONFIRMATION);
+        }
+
+        if (request.getProfileData().getPersonalInformation() != null) {
+
+            UpdatePersonalInformationRequestDto personalInfo = stringPersonalInformationHelper.handleEmptyStrings(
+                    request.getProfileData().getPersonalInformation());
+
+            userMapper.updateUserFromPersonalInformationDto(personalInfo, user);
+
+            if (personalInfo.getAddress() != null) {
+                Address address = addressRepository
+                        .findByProvinceAndDistrict(
+                                personalInfo.getAddress().getProvince(),
+                                personalInfo.getAddress().getDistrict())
+                        .orElseGet(() -> {
+                            Address newAddress = new Address();
+                            newAddress.setProvince(personalInfo.getAddress().getProvince());
+                            newAddress.setDistrict(personalInfo.getAddress().getDistrict());
+                            return addressRepository.save(newAddress);
+                        });
+                user.setAddress(address);
+            }
+        }
+
+        if (request.getProfileData().getHealth() != null) {
+            UserHealth userHealth = user.getUserHealth();
+
+            UpdateHealthRequestDto healthDto = request.getProfileData().getHealth();
+
+            userHealthMapper.updateUserHealthFromDto(healthDto, userHealth);
+
+            calculateHealthData(userHealth);
+
+            userHealthRepository.save(userHealth);
+        }
+
+        User updatedUser = userRepository.save(user);
+        UserResponseDto userResponseDto = userMapper.userToUserResponseDto(updatedUser);
+        if (updatedUser.getUserHealth() != null) {
+            UserHealthResponseDto response = userHealthMapper.userHealthToUserHealthResponseDto(user.getUserHealth());
+            userResponseDto.setUserHealth(response);
+        }
+        return userResponseDto;
+    }
+
+
+    private void calculateHealthData(UserHealth userHealth) {
+
+        UserHealthRequestDto healthRequest = new UserHealthRequestDto();
+        healthRequest.setGender(userHealth.getGender());
+        healthRequest.setHeight(userHealth.getHeight());
+        healthRequest.setWeight(userHealth.getWeight());
+        healthRequest.setAge(userHealth.getAge());
+        healthRequest.setActivityLevel(userHealth.getActivityLevel());
+
+        double bmr = healthCalculationService.calculateBMR(healthRequest);
+        int mhr = healthCalculationService.calculateMaximumHeartRate(healthRequest);
+        double tdee = healthCalculationService.calculateTDEE(healthRequest);
+
+        userHealth.setBasalMetabolicRate(bmr);
+        userHealth.setMaximumHeartRate(mhr);
+        userHealth.setTDEE(tdee);
     }
 
     private void checkLockUser(Optional<User> user) {
