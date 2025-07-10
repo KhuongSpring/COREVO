@@ -12,6 +12,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +45,7 @@ public class TrainingPlanFlowController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @DeleteMapping(UrlConstant.TrainingPlan.RESET)
-    public ResponseEntity<?> resetTrainingPlan() {
-        return VsResponseUtil.success(trainingPlanFlowService.resetTrainingPlan());
+    public ResponseEntity<?> resetTrainingPlan(Authentication authentication) {
+        return VsResponseUtil.success(trainingPlanFlowService.resetTrainingPlan(authentication));
     }
 }
