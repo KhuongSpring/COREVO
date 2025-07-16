@@ -272,6 +272,7 @@ public class UserServiceImpl implements UserService {
         }
 
         UserResponseDto userResponseDto = userMapper.userToUserResponseDto(user);
+
         if (user.getUserHealth() != null) {
             UserHealthResponseDto response = userHealthMapper.userHealthToUserHealthResponseDto(user.getUserHealth());
             userResponseDto.setUserHealth(response);
@@ -312,6 +313,7 @@ public class UserServiceImpl implements UserService {
                             newAddress.setDistrict(personalInfo.getAddress().getDistrict());
                             return addressRepository.save(newAddress);
                         });
+
                 user.setAddress(address);
             }
         }
@@ -321,6 +323,10 @@ public class UserServiceImpl implements UserService {
 
             UpdateHealthRequestDto healthDto = request.getProfileData().getHealth();
 
+            if (userHealth == null) {
+                throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.UserHealth.ERR_USER_HEALTH_NOT_FOUND);
+            }
+
             userHealthMapper.updateUserHealthFromDto(healthDto, userHealth);
 
             calculateHealthData(userHealth);
@@ -329,11 +335,14 @@ public class UserServiceImpl implements UserService {
         }
 
         User updatedUser = userRepository.save(user);
+
         UserResponseDto userResponseDto = userMapper.userToUserResponseDto(updatedUser);
+
         if (updatedUser.getUserHealth() != null) {
             UserHealthResponseDto response = userHealthMapper.userHealthToUserHealthResponseDto(user.getUserHealth());
             userResponseDto.setUserHealth(response);
         }
+
         return userResponseDto;
     }
 

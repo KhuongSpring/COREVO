@@ -51,6 +51,7 @@ public class ErrorMessage {
     }
 
     public static class UserHealth {
+        public static final String ERR_USER_HEALTH_NOT_FOUND = "exception.user-health.not.found";
         public static final String ERR_GENDER_REQUIRED = "exception.user-health.gender.required";
         public static final String ERR_ACTIVITY_LEVEL_REQUIRED = "exception.user-health.activity-level.required";
         public static final String ERR_HEIGHT_MIN_VALUE = "exception.user-health.height.min-value";

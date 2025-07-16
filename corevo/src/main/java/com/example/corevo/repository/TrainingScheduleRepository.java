@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrainingScheduleRepository extends JpaRepository<TrainingSchedule, Long> {
+
+    TrainingSchedule findByTrainingPlan_Id(Long trainingPlanId);
 }

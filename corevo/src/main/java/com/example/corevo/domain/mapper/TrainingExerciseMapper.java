@@ -3,7 +3,6 @@ package com.example.corevo.domain.mapper;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExercisePreviewResponseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
 import com.example.corevo.domain.entity.training.TrainingExercise;
-import com.example.corevo.domain.entity.training.*;
 import com.example.corevo.helper.training_helper.TrainingMapperHelper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -43,29 +42,5 @@ public interface TrainingExerciseMapper {
     TrainingExercisePreviewResponseDto trainingExerciseToTrainingExercisePreviewResponseDto(TrainingExercise exercise);
 
     List<TrainingExercisePreviewResponseDto> listTrainingExerciseToListTrainingExercisePreviewResponseDto(List<TrainingExercise> exercises);
-
-    default List<Long> mapLevelsToIds(List<Level> levels) {
-        return levels == null ? null : levels.stream().map(Level::getId).toList();
-    }
-
-    default List<Long> mapTypesToIds(List<Type> types) {
-        return types == null ? null : types.stream().map(Type::getId).toList();
-    }
-
-    default List<Long> mapTargetMusclesToIds(List<TargetMuscle> muscles) {
-        return muscles == null ? null : muscles.stream().map(TargetMuscle::getId).toList();
-    }
-
-    default List<Long> mapEquipmentsToIds(List<Equipment> list) {
-        return list == null ? null : list.stream().map(Equipment::getId).toList();
-    }
-
-    default List<Long> mapLocationsToIds(List<Location> list) {
-        return list == null ? null : list.stream().map(Location::getId).toList();
-    }
-
-    default List<Long> mapGoalsToIds(List<Goal> list) {
-        return list == null ? null : list.stream().map(Goal::getId).toList();
-    }
 
 }

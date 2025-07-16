@@ -4,6 +4,8 @@ import com.example.corevo.constant.ErrorMessage;
 import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
 import com.example.corevo.domain.dto.response.training.*;
 import com.example.corevo.domain.dto.response.training_exercise.*;
+import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
+import com.example.corevo.domain.dto.response.training_schedule.TrainingScheduleResponseDto;
 import com.example.corevo.domain.entity.training.TrainingExercise;
 import com.example.corevo.domain.mapper.*;
 import com.example.corevo.exception.VsException;
@@ -19,14 +21,16 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.corevo.helper.ToCapitalizedString.toCapitalized;
-
 @Service
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TrainingServiceImpl implements TrainingService {
 
     TrainingExerciseRepository trainingExerciseRepository;
+
+    TrainingPlanRepository trainingPlanRepository;
+
+    TrainingScheduleRepository trainingScheduleRepository;
 
     EquipmentRepository equipmentRepository;
 
@@ -42,6 +46,10 @@ public class TrainingServiceImpl implements TrainingService {
 
 
     TrainingExerciseMapper trainingExerciseMapper;
+
+    TrainingPlanMapper trainingPlanMapper;
+
+    TrainingScheduleMapper trainingScheduleMapper;
 
     EquipmentMapper equipmentMapper;
 
@@ -255,6 +263,13 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
+    public List<TrainingPlanResponseDto> getTrainingPlans() {
+        return trainingPlanMapper.listTrainingPlanToListTrainingPlanResponseDto(
+                trainingPlanRepository.findAll()
+        );
+    }
+
+    @Override
     public List<EquipmentResponseDto> getEquipments() {
         return equipmentMapper.listEquipmentToListEquipmentResponseDto(
                 equipmentRepository.findAll()
@@ -294,6 +309,14 @@ public class TrainingServiceImpl implements TrainingService {
         return typeMapper.listTypeToListTypeResponseDto(
                 typeRepository.findAll()
         );
+    }
+
+    @Override
+    public TrainingScheduleResponseDto getTrainingSchedule(Long planId) {
+        return trainingScheduleMapper
+                .trainingScheduleToTrainingScheduleResponseDto(
+                        trainingScheduleRepository.findByTrainingPlan_Id(planId)
+                );
     }
 
 }

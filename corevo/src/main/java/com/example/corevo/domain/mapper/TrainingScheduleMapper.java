@@ -23,4 +23,11 @@ public interface TrainingScheduleMapper {
     TrainingSchedule trainingScheduleResponseDtoToTrainingSchedule(TrainingScheduleResponseDto dto);
 
     List<TrainingSchedule> listTrainingScheduleResponseDtoToListTrainingSchedule(List<TrainingScheduleResponseDto> listDto);
+
+    @Mapping(target = "userId", source = "user")
+    @Mapping(target = "trainingPlanId", source = "trainingPlan")
+    @Mapping(target = "days", source = "days")
+    TrainingScheduleResponseDto trainingScheduleToTrainingScheduleResponseDto(TrainingSchedule entity);
+
+    List<TrainingScheduleResponseDto> listTrainingScheduleToListTrainingScheduleResponseDto(List<TrainingSchedule> listEntity);
 }
