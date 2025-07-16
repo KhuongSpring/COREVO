@@ -72,6 +72,11 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findByUsername(authentication.getName());
 
+        String oldAddressId = null;
+        if (user.getAddress() != null) {
+            oldAddressId = user.getAddress().getId();
+        }
+
         Address address = addressRepository
                 .findByProvinceAndDistrict(request.getAddress().getProvince(), request.getAddress().getDistrict())
                 .orElseGet(() -> {
@@ -87,6 +92,13 @@ public class UserServiceImpl implements UserService {
         user.setAddress(address);
 
         userRepository.save(user);
+
+        if (oldAddressId != null && !oldAddressId.equals(address.getId())) {
+            long userCountWithOldAddress = userRepository.countByAddressId(oldAddressId);
+            if (userCountWithOldAddress == 0) {
+                addressRepository.deleteById(oldAddressId);
+            }
+        }
 
         return userMapper.userToUserResponseDto(user);
     }
@@ -168,6 +180,18 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
+
+        if (request.getEmail() != null && !request.getEmail().equals(user.getEmail())) {
+            if (userRepository.existsUserByEmail(request.getEmail())) {
+                throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_EXISTED);
+            }
+        }
+
+        if (request.getPhone() != null && !request.getPhone().equals(user.getPhone())) {
+            if (userRepository.existsUsersByPhone(request.getPhone())) {
+                throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
+            }
+        }
 
         userMapper.updateUserFromDto(request, user);
 
@@ -295,14 +319,30 @@ public class UserServiceImpl implements UserService {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_INCORRECT_PASSWORD_CONFIRMATION);
         }
 
+        if (user.getPhone() == null || user.getBirth() == null ||
+                user.getNationality() == null || user.getAddress() == null) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_PERSONAL_INFORMATION_NOT_COMPLETED);
+        }
+
         if (request.getProfileData().getPersonalInformation() != null) {
 
             UpdatePersonalInformationRequestDto personalInfo = stringPersonalInformationHelper.handleEmptyStrings(
                     request.getProfileData().getPersonalInformation());
 
+            if (personalInfo.getPhone() != null && !personalInfo.getPhone().equals(user.getPhone())) {
+                if (userRepository.existsUsersByPhone(personalInfo.getPhone())) {
+                    throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
+                }
+            }
+
             userMapper.updateUserFromPersonalInformationDto(personalInfo, user);
 
             if (personalInfo.getAddress() != null) {
+                String oldAddressId = null;
+                if (user.getAddress() != null) {
+                    oldAddressId = user.getAddress().getId();
+                }
+
                 Address address = addressRepository
                         .findByProvinceAndDistrict(
                                 personalInfo.getAddress().getProvince(),
@@ -315,6 +355,13 @@ public class UserServiceImpl implements UserService {
                         });
 
                 user.setAddress(address);
+
+                if (oldAddressId != null && !oldAddressId.equals(address.getId())) {
+                    long userCountWithOldAddress = userRepository.countByAddressId(oldAddressId);
+                    if (userCountWithOldAddress == 0) {
+                        addressRepository.deleteById(oldAddressId);
+                    }
+                }
             }
         }
 
