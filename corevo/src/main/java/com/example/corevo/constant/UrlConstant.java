@@ -75,21 +75,26 @@ public class UrlConstant {
 
     public static class Training {
         private static final String PRE_FIX = "/training";
+        private static final String PRE_FIX_EXERCISE = PRE_FIX + "/exercise";
+        private static final String PRE_FIX_RESOURCE = PRE_FIX + "/resource";
 
-        public static final String GET_EXERCISE = PRE_FIX + "/exercise/{id}";
+        public static final String GET_EXERCISE = PRE_FIX_EXERCISE + "/{id}";
 
-        public static final String SEARCH_TRAINING_EXERCISE = PRE_FIX + "/exercise/search";
+        public static final String SEARCH_TRAINING_EXERCISE = PRE_FIX_EXERCISE + "/search";
 
-        public static final String GET_EXERCISE_BY_PRIMARY_MUSCLE = PRE_FIX + "/exercise/target-muscle";
-        public static final String GET_EXERCISE_BY_TYPE = PRE_FIX + "/exercise/type";
-        public static final String GET_EXERCISE_BY_GOAL = PRE_FIX + "/exercise/goal";
+        public static final String GET_EXERCISE_BY_PRIMARY_MUSCLE = PRE_FIX_EXERCISE + "/target-muscle";
+        public static final String GET_EXERCISE_BY_TYPE = PRE_FIX_EXERCISE + "/type";
+        public static final String GET_EXERCISE_BY_GOAL = PRE_FIX_EXERCISE + "/goal";
 
-        public static final String GET_EQUIPMENT = PRE_FIX + "/equipments";
-        public static final String GET_GOAL = PRE_FIX + "/goals";
-        public static final String GET_LEVEL = PRE_FIX + "/levels";
-        public static final String GET_LOCATION = PRE_FIX + "/locations";
-        public static final String GET_TARGET_MUSCLE = PRE_FIX + "/target-muscles";
-        public static final String GET_TYPE = PRE_FIX + "/types";
+        public static final String GET_TRAINING_PLAN = PRE_FIX_RESOURCE + "/plans";
+        public static final String GET_EQUIPMENT = PRE_FIX_RESOURCE + "/equipments";
+        public static final String GET_GOAL = PRE_FIX_RESOURCE + "/goals";
+        public static final String GET_LEVEL = PRE_FIX_RESOURCE + "/levels";
+        public static final String GET_LOCATION = PRE_FIX_RESOURCE + "/locations";
+        public static final String GET_TARGET_MUSCLE = PRE_FIX_RESOURCE + "/target-muscles";
+        public static final String GET_TYPE = PRE_FIX_RESOURCE + "/types";
+
+        public static final String GET_TRAINING_SCHEDULE = PRE_FIX + "/schedule";
 
         private Training() {
 

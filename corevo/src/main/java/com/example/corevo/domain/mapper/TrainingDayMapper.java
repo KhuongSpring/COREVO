@@ -22,4 +22,9 @@ public interface TrainingDayMapper {
     TrainingDay trainingScheduleResponseDtoToTrainingSchedule(TrainingDayResponseDto dto);
 
     List<TrainingDay> listTrainingScheduleResponseDtoToListTrainingSchedule(List<TrainingDayResponseDto> listDto);
+
+    @Mapping(target = "exerciseGroupIds", source = "exerciseGroups")
+    TrainingDayResponseDto trainingScheduleToTrainingScheduleResponseDto(TrainingDay entity);
+
+    List<TrainingDayResponseDto> listTrainingScheduleToListTrainingScheduleResponseDto(List<TrainingDay> listEntity);
 }

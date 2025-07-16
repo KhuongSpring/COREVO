@@ -414,8 +414,6 @@ public class AppDataSeeder implements ApplicationRunner {
                     return schedule;
                 }).toList();
 
-
-                System.out.println("CHECK");
                 trainingScheduleRepository.saveAll(schedules);
             }
 

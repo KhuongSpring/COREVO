@@ -44,4 +44,28 @@ public class TrainingMapperHelper {
     public List<Type> mapTypeIds(List<Long> ids) {
         return ids == null ? List.of() : typeRepository.findAllById(ids);
     }
+
+    public List<Long> mapEquipmentToIds(List<Equipment> ids) {
+        return ids == null ? null : ids.stream().map(Equipment::getId).toList();
+    }
+
+    public List<Long> mapGoalToIds(List<Goal> ids) {
+        return ids == null ? null : ids.stream().map(Goal::getId).toList();
+    }
+
+    public List<Long> mapLevelToIds(List<Level> ids) {
+        return ids == null ? null : ids.stream().map(Level::getId).toList();
+    }
+
+    public List<Long> mapLocationToIds(List<Location> ids) {
+        return ids == null ? null : ids.stream().map(Location::getId).toList();
+    }
+
+    public List<Long> mapTargetMuscleToIds(List<TargetMuscle> ids) {
+        return ids == null ? null : ids.stream().map(TargetMuscle::getId).toList();
+    }
+
+    public List<Long> mapTypeToIds(List<Type> ids) {
+        return ids == null ? null : ids.stream().map(Type::getId).toList();
+    }
 }

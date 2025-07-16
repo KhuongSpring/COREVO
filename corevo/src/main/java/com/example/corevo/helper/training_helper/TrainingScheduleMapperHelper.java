@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -42,4 +43,20 @@ public class TrainingScheduleMapperHelper {
         if (ids == null) return new ArrayList<>();
         return trainingExerciseGroupRepository.findAllById(ids);
     }
+
+    public String mapUserToId(User user) {
+        return user != null ? user.getId() : null;
+    }
+
+    public Long mapTrainingPlanToId(TrainingPlan plan) {
+        return plan != null ? plan.getId() : null;
+    }
+
+    public List<Long> mapExerciseGroupsToIds(List<TrainingExerciseGroup> groups) {
+        if (groups == null) return null;
+        return groups.stream()
+                .map(TrainingExerciseGroup::getId)
+                .collect(Collectors.toList());
+    }
+
 }

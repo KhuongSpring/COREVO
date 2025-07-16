@@ -22,4 +22,11 @@ public interface TrainingPlanMapper {
     TrainingPlan trainingPlanResponseDtoToTrainingPlan(TrainingPlanResponseDto dto);
 
     List<TrainingPlan> listTrainingPlanResponseDtoToListTrainingPlan(List<TrainingPlanResponseDto> dtoList);
+
+    @Mapping(target = "levelIds", source = "levels")
+    @Mapping(target = "locationIds", source = "locations")
+    @Mapping(target = "equipmentIds", source = "equipments")
+    TrainingPlanResponseDto trainingPlanToTrainingPlanResponseDto(TrainingPlan entity);
+
+    List<TrainingPlanResponseDto> listTrainingPlanToListTrainingPlanResponseDto(List<TrainingPlan> entityList);
 }

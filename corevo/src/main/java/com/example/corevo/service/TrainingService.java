@@ -5,6 +5,8 @@ import com.example.corevo.domain.dto.response.training.*;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseLevelPreviewResponseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExercisePreviewResponseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
+import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
+import com.example.corevo.domain.dto.response.training_schedule.TrainingScheduleResponseDto;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ public interface TrainingService {
 
     TrainingExerciseResponseDto getTrainingExerciseById(Long id);
 
+    List<TrainingPlanResponseDto> getTrainingPlans();
+
     List<EquipmentResponseDto> getEquipments();
 
     List<GoalResponseDto> getGoals();
@@ -31,5 +35,7 @@ public interface TrainingService {
     List<TargetMuscleResponseDto> getTargetMuscles();
 
     List<TypeResponseDto> getTypes();
+
+    TrainingScheduleResponseDto getTrainingSchedule(Long planId);
 
 }
