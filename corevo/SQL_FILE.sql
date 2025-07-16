@@ -12,20 +12,27 @@ SELECT * FROM level;
 SELECT * FROM location;
 SELECT * FROM target_muscle;
 
+SELECT * FROM training_day;
+SELECT * FROM training_day_exercise;
+
 SELECT * FROM training_exercise;
 SELECT * FROM training_exercise_equipments;
 SELECT * FROM training_exercise_goals;
+SELECT * FROM training_exercise_levels;
 SELECT * FROM training_exercise_locations;
 SELECT * FROM training_exercise_primary_muscles;
-SELECT * FROM training_exercise_types;
 SELECT * FROM training_exercise_secondary_muscles;
-SELECT * FROM training_exercise_levels;
+SELECT * FROM training_exercise_types;
 
+SELECT * FROM training_group;
+SELECT * FROM training_group_exercise;
 
 SELECT * FROM training_plan;
 SELECT * FROM training_plan_equipments;
 SELECT * FROM training_plan_levels;
 SELECT * FROM training_plan_locations;
+
+SELECT * FROM training_schedule;
 
 SELECT * FROM type;
 SELECT * FROM user;

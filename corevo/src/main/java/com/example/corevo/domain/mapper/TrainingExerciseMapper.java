@@ -4,7 +4,7 @@ import com.example.corevo.domain.dto.response.training_exercise.TrainingExercise
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
 import com.example.corevo.domain.entity.training.TrainingExercise;
 import com.example.corevo.domain.entity.training.*;
-import com.example.corevo.helper.IdToEntityHelper;
+import com.example.corevo.helper.training_helper.TrainingMapperHelper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
@@ -13,7 +13,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import java.util.List;
 
 @Mapper(componentModel = "spring",
-        uses = IdToEntityHelper.class,
+        uses = TrainingMapperHelper.class,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )

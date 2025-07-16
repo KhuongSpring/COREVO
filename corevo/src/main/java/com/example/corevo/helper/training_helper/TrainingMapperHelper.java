@@ -1,4 +1,4 @@
-package com.example.corevo.helper;
+package com.example.corevo.helper.training_helper;
 
 import com.example.corevo.domain.entity.training.*;
 import com.example.corevo.repository.*;
@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-public class IdToEntityHelper {
+public class TrainingMapperHelper {
 
     EquipmentRepository equipmentRepo;
     GoalRepository goalRepository;

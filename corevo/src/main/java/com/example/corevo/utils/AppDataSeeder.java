@@ -6,12 +6,17 @@ import com.example.corevo.constant.ErrorMessage;
 import com.example.corevo.domain.dto.helper_dto.RawTrainingExerciseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
+import com.example.corevo.domain.dto.response.training_schedule.TrainingScheduleResponseDto;
 import com.example.corevo.domain.entity.training.TrainingExercise;
 import com.example.corevo.domain.entity.training.*;
+import com.example.corevo.domain.entity.training.training_schedule_details.TrainingDay;
+import com.example.corevo.domain.entity.training.training_schedule_details.TrainingSchedule;
+import com.example.corevo.domain.mapper.TrainingDayMapper;
 import com.example.corevo.domain.mapper.TrainingExerciseMapper;
 import com.example.corevo.domain.mapper.TrainingPlanMapper;
+import com.example.corevo.domain.mapper.TrainingScheduleMapper;
 import com.example.corevo.exception.VsException;
-import com.example.corevo.helper.TrainingExerciseConverter;
+import com.example.corevo.helper.training_helper.TrainingExerciseConverter;
 import com.example.corevo.repository.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,6 +52,10 @@ public class AppDataSeeder implements ApplicationRunner {
 
     TrainingExerciseMapper trainingExerciseMapper;
 
+    TrainingScheduleMapper trainingScheduleMapper;
+
+    TrainingDayMapper trainingDayMapper;
+
 
     LevelRepository levelRepository;
 
@@ -63,6 +72,10 @@ public class AppDataSeeder implements ApplicationRunner {
     TrainingPlanRepository trainingPlanRepository;
 
     TrainingExerciseRepository trainingExerciseRepository;
+
+    TrainingScheduleRepository trainingScheduleRepository;
+
+    TrainingDayRepository trainingDayRepository;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -82,6 +95,8 @@ public class AppDataSeeder implements ApplicationRunner {
         seedTrainingPlans();
 
         seedTrainingExercise();
+
+        seedTrainingSchedule();
     }
 
     void seedEquipments() {
@@ -262,16 +277,13 @@ public class AppDataSeeder implements ApplicationRunner {
             });
 
             if (trainingPlansFromDB.isEmpty()) {
-                List<TrainingPlan> trainingPlans = trainingPlanMapper.
-                        listTrainingPlanResponseDtoToListTrainingPlan(trainingPlansFromJson);
+                List<TrainingPlan> trainingPlans = trainingPlanMapper.listTrainingPlanResponseDtoToListTrainingPlan(trainingPlansFromJson);
                 trainingPlanRepository.saveAll(trainingPlans);
             } else {
                 if (trainingPlansFromJson.size() > trainingPlansFromDB.size()) {
                     for (TrainingPlanResponseDto x : trainingPlansFromJson) {
                         if (!trainingPlanRepository.existsByNameAndType(x.getName(), x.getType())) {
-                            trainingPlanRepository.save(
-                                    trainingPlanMapper.trainingPlanResponseDtoToTrainingPlan(x)
-                            );
+                            trainingPlanRepository.save(trainingPlanMapper.trainingPlanResponseDtoToTrainingPlan(x));
                         }
                     }
                 }
@@ -285,17 +297,7 @@ public class AppDataSeeder implements ApplicationRunner {
     }
 
     void seedTrainingExercise() {
-        List<String> jsonFiles = List.of(
-                "/data/training_exercise_data/abs_training_exercise.json",
-                "/data/training_exercise_data/back_training_exercise.json",
-                "/data/training_exercise_data/biceps_training_exercise.json",
-                "/data/training_exercise_data/chest_training_exercise.json",
-                "/data/training_exercise_data/glute_training_exercise.json",
-                "/data/training_exercise_data/hamstring_training_exercise.json",
-                "/data/training_exercise_data/quads_training_exercise.json",
-                "/data/training_exercise_data/shoulders_training_exercise.json",
-                "/data/training_exercise_data/triceps_training_exercise.json"
-        );
+        List<String> jsonFiles = List.of("/data/training_exercise_data/abs_training_exercise.json", "/data/training_exercise_data/back_training_exercise.json", "/data/training_exercise_data/biceps_training_exercise.json", "/data/training_exercise_data/chest_training_exercise.json", "/data/training_exercise_data/glute_training_exercise.json", "/data/training_exercise_data/hamstring_training_exercise.json", "/data/training_exercise_data/quads_training_exercise.json", "/data/training_exercise_data/shoulders_training_exercise.json", "/data/training_exercise_data/triceps_training_exercise.json");
 
         log.info("Start seeding training exercise from JSON...");
 
@@ -307,9 +309,7 @@ public class AppDataSeeder implements ApplicationRunner {
                 for (TrainingExerciseResponseDto x : trainingExercisesFromJSON) {
                     x.setImageURL(uploadImageIfNotExists(x.getImageURL(), cloudinary));
                 }
-                trainingExerciseRepository.saveAll(
-                        trainingExerciseMapper.
-                                listTrainingExerciseResponseDtoToListTrainingExercise(trainingExercisesFromJSON));
+                trainingExerciseRepository.saveAll(trainingExerciseMapper.listTrainingExerciseResponseDtoToListTrainingExercise(trainingExercisesFromJSON));
                 log.info("Seeding training exercise from {} completed!", file);
             }
         } else {
@@ -321,14 +321,9 @@ public class AppDataSeeder implements ApplicationRunner {
 
             if (trainingExercisesFromJSON.size() > trainingExercisesFromDB.size()) {
                 for (TrainingExerciseResponseDto x : trainingExercisesFromJSON) {
-                    if (!trainingExerciseRepository.existsByNameAndTypes_IdInAndPrimaryMuscles_IdIn(
-                            x.getName(),
-                            x.getTypeIds(),
-                            x.getPrimaryMuscleIds()
-                    )) {
+                    if (!trainingExerciseRepository.existsByNameAndTypes_IdInAndPrimaryMuscles_IdIn(x.getName(), x.getTypeIds(), x.getPrimaryMuscleIds())) {
                         x.setImageURL(uploadImageIfNotExists(x.getImageURL(), cloudinary));
-                        trainingExerciseRepository.save(
-                                trainingExerciseMapper.trainingExerciseResponseDtoToTrainingExercise(x));
+                        trainingExerciseRepository.save(trainingExerciseMapper.trainingExerciseResponseDtoToTrainingExercise(x));
                     }
                 }
             }
@@ -343,9 +338,7 @@ public class AppDataSeeder implements ApplicationRunner {
             List<RawTrainingExerciseDto> rawList = objectMapper.readValue(is, new TypeReference<>() {
             });
 
-            return rawList.stream()
-                    .map(TrainingExerciseConverter::convert)
-                    .collect(Collectors.toList());
+            return rawList.stream().map(TrainingExerciseConverter::convert).collect(Collectors.toList());
         } catch (IOException e) {
             log.warn("Load training exercise data from {} fail", path);
         }
@@ -355,10 +348,7 @@ public class AppDataSeeder implements ApplicationRunner {
 
     private boolean imageExists(Cloudinary cloudinary, String publicId) {
         try {
-            cloudinary.uploader().explicit(publicId, ObjectUtils.asMap(
-                    "type", "upload",
-                    "resource_type", "image"
-            ));
+            cloudinary.uploader().explicit(publicId, ObjectUtils.asMap("type", "upload", "resource_type", "image"));
             return true;
         } catch (Exception e) {
             return false;
@@ -373,11 +363,7 @@ public class AppDataSeeder implements ApplicationRunner {
 
         try {
             if (imageExists(cloudinary, publicId)) {
-                return cloudinary.url()
-                        .resourceType("image")
-                        .publicId(publicId)
-                        .secure(true)
-                        .generate();
+                return cloudinary.url().resourceType("image").publicId(publicId).secure(true).generate();
             }
 
             return uploadImageFromResources(cloudinary, filePath, publicId);
@@ -393,13 +379,7 @@ public class AppDataSeeder implements ApplicationRunner {
             try (InputStream inputStream = resource.getInputStream()) {
                 byte[] imageBytes = inputStream.readAllBytes();
 
-                Map result = cloudinary.uploader().upload(
-                        imageBytes,
-                        ObjectUtils.asMap(
-                                "resource_type", "image",
-                                "public_id", publicId
-                        )
-                );
+                Map result = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap("resource_type", "image", "public_id", publicId));
 
                 return (String) result.get("secure_url");
             }
@@ -409,4 +389,40 @@ public class AppDataSeeder implements ApplicationRunner {
         }
     }
 
+    void seedTrainingSchedule() {
+        try (InputStream is = getClass().getResourceAsStream("/data/training_schedule_data/training_schedule.json")) {
+            log.info("Start seeding training schedule from JSON...");
+
+            List<TrainingSchedule> trainingSchedulesFromDB = trainingScheduleRepository.findAll();
+
+            List<TrainingScheduleResponseDto> trainingSchedulesFromJson = objectMapper.readValue(is, new TypeReference<>() {
+            });
+
+            if (trainingSchedulesFromDB.isEmpty()) {
+                List<TrainingSchedule> schedules = trainingSchedulesFromJson.stream().map(dto -> {
+
+                    TrainingSchedule schedule = trainingScheduleMapper.trainingScheduleResponseDtoToTrainingSchedule(dto);
+
+                    List<TrainingDay> mappedDays = trainingDayMapper.listTrainingScheduleResponseDtoToListTrainingSchedule(dto.getDays());
+
+                    for (TrainingDay day : mappedDays) {
+                        day.setTrainingSchedule(schedule);
+                    }
+
+                    schedule.setDays(mappedDays);
+
+                    return schedule;
+                }).toList();
+
+
+                System.out.println("CHECK");
+                trainingScheduleRepository.saveAll(schedules);
+            }
+
+            log.info("Seeding training schedule from JSON completed!");
+
+        } catch (IOException e) {
+            log.warn("Seeding training schedule from JSON fail");
+        }
+    }
 }

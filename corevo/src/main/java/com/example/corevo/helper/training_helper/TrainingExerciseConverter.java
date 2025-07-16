@@ -1,4 +1,4 @@
-package com.example.corevo.helper;
+package com.example.corevo.helper.training_helper;
 
 import com.example.corevo.domain.dto.helper_dto.RawTrainingExerciseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
