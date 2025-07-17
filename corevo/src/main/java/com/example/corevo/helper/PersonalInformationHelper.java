@@ -12,10 +12,6 @@ public class PersonalInformationHelper {
         if (personalInformation == null) {
             return null;
         }
-        
-        if (personalInformation.getUsername() != null && personalInformation.getUsername().trim().isEmpty()) {
-            personalInformation.setUsername(null);
-        }
 
         if (personalInformation.getFirstName() != null && personalInformation.getFirstName().trim().isEmpty()) {
             personalInformation.setFirstName(null);

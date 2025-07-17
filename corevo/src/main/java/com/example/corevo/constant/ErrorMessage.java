@@ -48,6 +48,7 @@ public class ErrorMessage {
         public static final String ERR_ACCOUNT_RECOVERY_EXPIRED = "exception.user.account.recovery.period.has.expired";
         public static final String ERR_ACCOUNT_NOT_DELETED = "exception.user.account.is.not.in.deleted.state";
         public static final String ERR_INCORRECT_PASSWORD_CONFIRMATION = "exception.user.incorrect.password.confirmation";
+        public static final String ERR_PERSONAL_INFORMATION_NOT_COMPLETED = "exception.user.personal.information.not.completed";
     }
 
     public static class UserHealth {

@@ -14,9 +14,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UpdatePersonalInformationRequestDto {
 
-    @Schema(description = "Tên tài khoản", example = "user123")
-    String username;
-
     @Schema(description = "Họ", example = "Nguyễn")
     String firstName;
 
