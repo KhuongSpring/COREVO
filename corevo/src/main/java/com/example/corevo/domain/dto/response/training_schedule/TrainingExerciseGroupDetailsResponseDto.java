@@ -8,19 +8,9 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class TrainingDayResponseDto {
+public class TrainingExerciseGroupDetailsResponseDto {
 
-    Long id;
-
-    String dayOfWeek;
-
-    String name;
+    Long exerciseId;
 
     String duration;
-
-    String location;
-
-    String description;
-
-    TrainingExerciseGroupResponseDto exerciseGroups;
 }

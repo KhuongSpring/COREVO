@@ -5,28 +5,32 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
-
 @Entity
-@Table(name = "training_group")
+@Table(name = "training_group_detail")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class TrainingExerciseGroup {
+public class TrainingExerciseGroupDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String note;
+    @ManyToOne
+    @JoinColumn(name = "training_exercise_id", nullable = false)
+    TrainingExercise exercise;
 
-    @OneToOne
-    @JoinColumn(name = "training_day_id", nullable = false)
-    TrainingDay trainingDay;
+    String sets;
 
-    @OneToMany(mappedBy = "exerciseGroup", cascade = CascadeType.ALL)
-    List<TrainingExerciseGroupDetail> exercises;
+    String repsPerSet;
+
+    String durationPerSet;
+
+    @ManyToOne
+    @JoinColumn(name = "training_exercise_group_id", nullable = false)
+    TrainingExerciseGroup exerciseGroup;
+
 }

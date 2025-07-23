@@ -27,8 +27,6 @@ public class TrainingScheduleMapperHelper {
 
     TrainingPlanRepository trainingPlanRepository;
 
-    TrainingExerciseGroupRepository trainingExerciseGroupRepository;
-
     public User mapUser(String id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED));
@@ -39,24 +37,12 @@ public class TrainingScheduleMapperHelper {
                 .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.Training.ERR_TRAINING_PLAN_NOT_EXISTS));
     }
 
-    public List<TrainingExerciseGroup> mapExerciseGroups(List<Long> ids) {
-        if (ids == null) return new ArrayList<>();
-        return trainingExerciseGroupRepository.findAllById(ids);
-    }
-
     public String mapUserToId(User user) {
         return user != null ? user.getId() : null;
     }
 
     public Long mapTrainingPlanToId(TrainingPlan plan) {
         return plan != null ? plan.getId() : null;
-    }
-
-    public List<Long> mapExerciseGroupsToIds(List<TrainingExerciseGroup> groups) {
-        if (groups == null) return null;
-        return groups.stream()
-                .map(TrainingExerciseGroup::getId)
-                .collect(Collectors.toList());
     }
 
 }

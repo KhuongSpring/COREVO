@@ -9,7 +9,35 @@
         "duration": "30 phút",
         "location": "HOME",
         "description": "Cardio toàn thân, nâng cao nhịp tim",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 1 phút giữa vòng",
+          "exercises": [
+            {
+              "exerciseId": 130,
+              "duration": "2 setsX45 giây"
+            },
+            {
+              "exerciseId": 125,
+              "duration": "2 setsX45 giây"
+            },
+            {
+              "exerciseId": 6,
+              "duration": "2 setsX45 giây"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 63,
+              "duration": "2 setsX45 giây"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -17,7 +45,27 @@
         "duration": "45 phút",
         "location": "OUTSIDE",
         "description": "Đi bộ nhanh hoặc chạy nhẹ, giữ nhịp tim ổn định",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Lặp lại 7 lần vòng tập chính",
+          "exercises": [
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -25,7 +73,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -33,7 +81,27 @@
         "duration": "45 phút",
         "location": "HOME",
         "description": "Cardio theo nhạc, tăng hưng phấn & đốt mỡ",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 2 phút giữa một vòng",
+          "exercises": [
+            {
+              "exerciseId": 199,
+              "duration": "4 setsX1 phút"
+            },
+            {
+              "exerciseId": 180,
+              "duration": "4 setsX1 phút"
+            },
+            {
+              "exerciseId": 198,
+              "duration": "4 setsX1 phút"
+            },
+            {
+              "exerciseId": 6,
+              "duration": "4 setsX1 phút"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -41,7 +109,31 @@
         "duration": "20 - 30 phút",
         "location": "HOME",
         "description": "Bài tập ngắt quãng cường độ cao",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 1 phút giữa bài",
+          "exercises": [
+            {
+              "exerciseId": 116,
+              "duration": "8 setsX20 giây"
+            },
+            {
+              "exerciseId": 122,
+              "duration": "8 setsX20 giây"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 201,
+              "duration": "8 setsX20 giây"
+            },
+            {
+              "exerciseId": 180,
+              "duration": "8 setsX20 giây"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -49,7 +141,27 @@
         "duration": "60 phút",
         "location": "OUTSIDE",
         "description": "Cardio bền vững giúp đốt mỡ sâu",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Lặp lại 5 - 6 lần vòng tập chính",
+          "exercises": [
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -57,7 +169,35 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, giúp cơ thể hồi phục",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "",
+          "exercises": [
+            {
+              "exerciseId": 1,
+              "duration": ""
+            },
+            {
+              "exerciseId": 1,
+              "duration": ""
+            },
+            {
+              "exerciseId": 1,
+              "duration": ""
+            },
+            {
+              "exerciseId": 1,
+              "duration": ""
+            },
+            {
+              "exerciseId": 1,
+              "duration": ""
+            },
+            {
+              "exerciseId": 1,
+              "duration": ""
+            }
+          ]
+        }
       }
     ]
   },
@@ -71,7 +211,35 @@
         "duration": "45 phút",
         "location": "GYM",
         "description": "Tăng sức mạnh & săn chắc thân trên",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 60s - 90s giữa mỗi vòng",
+          "exercises": [
+            {
+              "exerciseId": 109,
+              "duration": "4 setsX10 reps"
+            },
+            {
+              "exerciseId": 198,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 113,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 111,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 206,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 220,
+              "duration": "3 setsX10 resp mỗi bên"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -79,7 +247,35 @@
         "duration": "45 - 60 phút",
         "location": "GYM",
         "description": "Tập trung phần thân dưới & mông",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 60s - 90s giữa mỗi vòng",
+          "exercises": [
+            {
+              "exerciseId": 142,
+              "duration": "3 setsX10 reps mỗi bên"
+            },
+            {
+              "exerciseId": 144,
+              "duration": "4 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 141,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 143,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 174,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 170,
+              "duration": "3 setsX12 - 15 reps"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -87,7 +283,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi nhẹ, hỗ trợ phục hồi",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -95,7 +291,35 @@
         "duration": "45 phút",
         "location": "GYM",
         "description": "Đốt mỡ toàn thân qua bài tập kết hợp",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 60s - 90s giữa mỗi vòng",
+          "exercises": [
+            {
+              "exerciseId": 186,
+              "duration": "3 setsX12 reps mỗi bên"
+            },
+            {
+              "exerciseId": 63,
+              "duration": "3 setsX10 reps mỗi bên"
+            },
+            {
+              "exerciseId": 99,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 180,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 198,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 126,
+              "duration": "3 setsX10 reps"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -103,7 +327,35 @@
         "duration": "45 phút",
         "location": "GYM",
         "description": "Tập trung vào lưng và vùng core",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 60s - 90s giữa mỗi vòng",
+          "exercises": [
+            {
+              "exerciseId": 74,
+              "duration": "4 setsX12 reps"
+            },
+            {
+              "exerciseId": 66,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 60,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 52,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 27,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -111,7 +363,31 @@
         "duration": "45 - 60 phút",
         "location": "GYM",
         "description": "Cardio cường độ cao, đốt mỡ hiệu quả",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Lặp lại 4 vòng",
+          "exercises": [
+            {
+              "exerciseId": 168,
+              "duration": "4 setsX45 giây"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 180,
+              "duration": "4 setsX45 giây"
+            },
+            {
+              "exerciseId": 99,
+              "duration": "4 setsX45 giây"
+            },
+            {
+              "exerciseId": 101,
+              "duration": "4 setsX45 giây"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -119,7 +395,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ hoàn toàn, tái tạo năng lượng",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -133,7 +409,35 @@
         "duration": "45 phút",
         "location": "ANYWHERE",
         "description": "Tập thân trên với các động tác đẩy",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 60s - 90s giữa mỗi set, tập 2-3 vòng full circuit",
+          "exercises": [
+            {
+              "exerciseId": 114,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 116,
+              "duration": "3 setsX10 reps"
+            },
+            {
+              "exerciseId": 234,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 125,
+              "duration": "3 setsX10 reps mỗi bên"
+            },
+            {
+              "exerciseId": 118,
+              "duration": "3 setsX10 reps"
+            },
+            {
+              "exerciseId": 126,
+              "duration": "2 setsX45 giây"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -141,7 +445,35 @@
         "duration": "45 - 60 phút",
         "location": "ANYWHERE",
         "description": "Tập thân dưới và mông với bodyweight",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 60s - 75s giữa bài, tập 3 vòng. Nên khởi động kỹ",
+          "exercises": [
+            {
+              "exerciseId": 142,
+              "duration": "3 setsX10 reps mỗi bên"
+            },
+            {
+              "exerciseId": 180,
+              "duration": "3 setsX15 reps"
+            },
+            {
+              "exerciseId": 151,
+              "duration": "3 setsX20 reps"
+            },
+            {
+              "exerciseId": 147,
+              "duration": "3 setsX12 reps mỗi bên"
+            },
+            {
+              "exerciseId": 148,
+              "duration": "3 setsX15 reps"
+            },
+            {
+              "exerciseId": 150,
+              "duration": "3 setsX20 giây"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -149,7 +481,35 @@
         "duration": "30 - 45 phút",
         "location": "ANYWHERE",
         "description": "Tập trung đốt mỡ và săn chắc vùng core",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 45s - 60s giữa set, tập 2-3 vòng tùy thể trạng",
+          "exercises": [
+            {
+              "exerciseId": 1,
+              "duration": "3 setsX45 giây"
+            },
+            {
+              "exerciseId": 4,
+              "duration": "3 setsX15 reps mỗi bên"
+            },
+            {
+              "exerciseId": 8,
+              "duration": "3 setsX12 reps"
+            },
+            {
+              "exerciseId": 5,
+              "duration": "3 setsX12 reps"
+            },
+            {
+              "exerciseId": 20,
+              "duration": "3 setsX15 reps"
+            },
+            {
+              "exerciseId": 10,
+              "duration": "3 setsX30 giây"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -157,7 +517,35 @@
         "duration": "45 phút",
         "location": "ANYWHERE",
         "description": "Tăng sức mạnh lưng và tay với bài kéo",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 75s - 90s giữa mỗi vòng. Ưu tiên kiểm soát form hơn là số rep",
+          "exercises": [
+            {
+              "exerciseId": 60,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 56,
+              "duration": "3 setsXmax reps"
+            },
+            {
+              "exerciseId": 63,
+              "duration": "3 setsX10 reps mỗi bên"
+            },
+            {
+              "exerciseId": 64,
+              "duration": "3 setsX12 reps"
+            },
+            {
+              "exerciseId": 54,
+              "duration": "3 setsX12 reps"
+            },
+            {
+              "exerciseId": 19,
+              "duration": "2 setsX8 reps"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -165,7 +553,35 @@
         "duration": "30 phút",
         "location": "ANYWHERE",
         "description": "Cardio cường độ cao không cần dụng cụ",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 20s giữa mỗi bài. Nghỉ 1 phút giữa vòng",
+          "exercises": [
+            {
+              "exerciseId": 180,
+              "duration": "4 setsX40 giây"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 152,
+              "duration": "4 setsX40 giây"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 47,
+              "duration": "4 setsX40 giây"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -173,15 +589,43 @@
         "duration": "30 phút",
         "location": "ANYWHERE",
         "description": "Giãn cơ, vận động nhẹ, phục hồi linh hoạt",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Di chuyển nhẹ, giữ đều nhịp thở",
+          "exercises": [
+            {
+              "exerciseId": 49,
+              "duration": "1 setsX2 phút"
+            },
+            {
+              "exerciseId": 156,
+              "duration": "1 setsX2 phút"
+            },
+            {
+              "exerciseId": 48,
+              "duration": "2 setsX12 reps mỗi bên"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "2 setsX45 giây"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "SUNDAY",
         "name": "Burn or Rest",
         "duration": null,
         "location": null,
-        "description": "Tập nhẹ hoặc nghỉ tùy theo thể trạng",
-        "exerciseGroups": []
+        "description": "Nghỉ hoàn toàn, tái tạo năng lượng",
+        "exerciseGroups": {}
       }
     ]
   },
@@ -195,7 +639,35 @@
         "duration": "60 phút",
         "location": "GYM",
         "description": "Tăng cơ ngực & tay sau với các bài đẩy",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 60s - 90s giữa set",
+          "exercises": [
+            {
+              "exerciseId": 109,
+              "duration": "4 setsX8 - 10 reps"
+            },
+            {
+              "exerciseId": 112,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 119,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 237,
+              "duration": "3 setsX10 reps"
+            },
+            {
+              "exerciseId": 241,
+              "duration": "3 setsX12 reps"
+            },
+            {
+              "exerciseId": 238,
+              "duration": "3 setsX15 reps"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -203,7 +675,35 @@
         "duration": "60 phút",
         "location": "GYM",
         "description": "Phát triển cơ lưng & tay trước toàn diện",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 60s - 75s giữa set. Tập trung form, kéo siết",
+          "exercises": [
+            {
+              "exerciseId": 61,
+              "duration": "4 setsXmax reps"
+            },
+            {
+              "exerciseId": 66,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 62,
+              "duration": "3 setsX10 reps mỗi bên"
+            },
+            {
+              "exerciseId": 81,
+              "duration": "3 setsX10 - 12 reps"
+            },
+            {
+              "exerciseId": 82,
+              "duration": "3 setsX12 reps"
+            },
+            {
+              "exerciseId": 85,
+              "duration": "3 setsX12 - 15 reps"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -211,7 +711,35 @@
         "duration": "60 phút",
         "location": "GYM",
         "description": "Xây dựng cơ đùi, mông và bắp chân",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 60s - 90s giữa bài. Chú ý kiểm soát",
+          "exercises": [
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            },
+            {
+              "exerciseId": 142,
+              "duration": "3 setsX10 reps mỗi bên"
+            },
+            {
+              "exerciseId": 52,
+              "duration": "3 setsX10 reps"
+            },
+            {
+              "exerciseId": 190,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 169,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -219,7 +747,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ hoặc cardio nhẹ giúp phục hồi",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -227,7 +755,35 @@
         "duration": "45 - 60 phút",
         "location": "GYM",
         "description": "Phát triển cơ vai & tăng sức mạnh vùng core",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 45s - 75s giữa bài. Tập trung vào kiểm soat chuyển động",
+          "exercises": [
+            {
+              "exerciseId": 196,
+              "duration": "4 setsX8 - 10 reps"
+            },
+            {
+              "exerciseId": 206,
+              "duration": "3 setsX12 - 15 reps"
+            },
+            {
+              "exerciseId": 228,
+              "duration": "3 setsX12 reps"
+            },
+            {
+              "exerciseId": 201,
+              "duration": "3 setsX15 reps"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "3setsX1 phút"
+            },
+            {
+              "exerciseId": 1,
+              "duration": "0X0"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -235,7 +791,35 @@
         "duration": "60 phút",
         "location": "GYM",
         "description": "Kết hợp ngực, lưng, vai, tay - tập toàn diện",
-        "exerciseGroups": []
+        "exerciseGroups": {
+          "note": "Nghỉ 60s - 90s giữa bài. Nghỉ 30s - 45s giữa các bài nhỏ",
+          "exercises": [
+            {
+              "exerciseId": 112,
+              "duration": "3 setsX10 reps"
+            },
+            {
+              "exerciseId": 56,
+              "duration": "3 setsXmax reps"
+            },
+            {
+              "exerciseId": 73,
+              "duration": "3 setsX10 reps mỗi bên"
+            },
+            {
+              "exerciseId": 198,
+              "duration": "3 setsX12 reps"
+            },
+            {
+              "exerciseId": 81,
+              "duration": "3 setsX10 reps"
+            },
+            {
+              "exerciseId": 240,
+              "duration": "3 setsX12 reps"
+            }
+          ]
+        }
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -243,7 +827,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, phục hồi và phát triển cơ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -257,7 +841,7 @@
         "duration": "45 phút",
         "location": "HOME / OUTSIDE",
         "description": "Phát triển ngực, vai và tay sau",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -265,7 +849,7 @@
         "duration": "45 - 60 phút",
         "location": "HOME / OUTSIDE",
         "description": "Tăng cơ lưng và tay trước với bài kéo",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -273,7 +857,7 @@
         "duration": "45 – 60 phút",
         "location": "HOME / OUTSIDE",
         "description": "Tập trung phát triển cơ chân và mông",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -281,7 +865,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Tăng sức mạnh vùng bụng và thăng bằng",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -289,7 +873,7 @@
         "duration": "45 - 60 phút",
         "location": "HOME / OUTSIDE",
         "description": "Kết hợp các nhóm cơ, volume cao",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -297,7 +881,7 @@
         "duration": "30 phút",
         "location": "HOME / OUTSIDE",
         "description": "Giãn cơ, phục hồi, cải thiện độ linh hoạt",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -305,7 +889,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, phục hồi và phát triển cơ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -319,7 +903,7 @@
         "duration": "60 phút",
         "location": "GYM",
         "description": "Tăng cơ ngực & tay sau với các bài đẩy",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -327,7 +911,7 @@
         "duration": "60 phút",
         "location": "GYM",
         "description": "Phát triển cơ lưng & tay trước toàn diện",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -335,7 +919,7 @@
         "duration": "60 phút",
         "location": "GYM",
         "description": "Tập trung xây dựng sức mạnh và khối lượng thân dưới",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -343,7 +927,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi nhẹ, hỗ trợ phục hồi",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -351,7 +935,7 @@
         "duration": "45 - 60 phút",
         "location": "GYM",
         "description": "Phát triển cơ vai và cầu vai sắc nét",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -359,7 +943,7 @@
         "duration": "60 phút",
         "location": "GYM",
         "description": "Tổng hợp nhóm cơ thân trên với volume cao",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -367,7 +951,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, phục hồi và phát triển cơ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -381,7 +965,7 @@
         "duration": "45 - 60 phút",
         "location": "HOME / OUTSIDE",
         "description": "Tăng cơ ngực, vai, tay sau với các bài đẩy nâng cao",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -389,7 +973,7 @@
         "duration": "45 - 60 phút",
         "location": "HOME / OUTSIDE",
         "description": "Tập trung lưng, tay trước & sức kéo toàn thân",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -397,7 +981,7 @@
         "duration": "45 - 60 phút",
         "location": "HOME / OUTSIDE",
         "description": "Tăng sức mạnh thân dưới, phối hợp và thăng bằng",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -405,7 +989,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME / OUTSIDE",
         "description": "Kiểm soát vùng core, linh hoạt và phục hồi cơ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -413,7 +997,7 @@
         "duration": "45 - 60 phút",
         "location": "HOME / OUTSIDE",
         "description": "Isometric & động tác giữ lâu: plank, L-sit, wall handstand,..",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -421,7 +1005,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME / OUTSIDE",
         "description": "Luyện các kỹ thuật khó (pike push-up, pseudo planche) hoặc nghỉ nhẹ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -429,7 +1013,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, phục hồi và phát triển cơ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -443,7 +1027,7 @@
         "duration": "30 - 45 phút",
         "location": "ANYWHERE",
         "description": "Cardio nhẹ kết hợp tập trung vùng core săn chắc",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -451,7 +1035,7 @@
         "duration": "30 phút",
         "location": "ANYWHERE",
         "description": "Cardio cường độ cao kết hợp động tác sức mạnh",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -459,7 +1043,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi nhẹ, hỗ trợ phục hồi",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -467,7 +1051,7 @@
         "duration": "45 phút",
         "location": "ANYWHERE",
         "description": "Đi bộ dốc hoặc chạy ngắt quãng giúp đốt mỡ - tăng sức bền cơ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -475,7 +1059,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi nhẹ, hỗ trợ phục hồi",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -483,7 +1067,7 @@
         "duration": "45 – 60 phút",
         "location": "ANYWHERE",
         "description": "Bài cardio toàn thân hỗ trợ giữ cơ, giảm mỡ đều",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -491,7 +1075,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, phục hồi và phát triển cơ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -505,7 +1089,7 @@
         "duration": "45 phút",
         "location": "GYM",
         "description": "Tăng sức bền và giữ form toàn thân",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -513,7 +1097,7 @@
         "duration": "30 - 45 phút",
         "location": "GYM",
         "description": "Cardio nhịp trung bình + tập trung vùng core",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -521,7 +1105,7 @@
         "duration": "45 - 60 phút",
         "location": "GYM",
         "description": "Tập thân trên kết hợp giãn cơ nhẹ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -529,7 +1113,7 @@
         "duration": null,
         "location": null,
         "description": "Đi bộ/chạy nhẹ + giãn cơ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -537,7 +1121,7 @@
         "duration": "45 - 60 phút",
         "location": "GYM",
         "description": "Giữ cơ và tăng săn chắc thân dưới",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -545,7 +1129,7 @@
         "duration": "30 - 45 phút",
         "location": "GYM",
         "description": "Cardio nhẹ, yoga hoặc tổng hợp toàn thân",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -553,7 +1137,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -567,7 +1151,7 @@
         "duration": "30 phút",
         "location": "ANYWHERE",
         "description": "Yoga nhẹ mở vai, cột sống, hông",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -575,7 +1159,7 @@
         "duration": "30 - 45 phút",
         "location": "ANYWHERE",
         "description": "Tăng sức mạnh core với plank, boat pose,...",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -583,7 +1167,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoặc thiền 10 phút nếu muốn",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -591,7 +1175,7 @@
         "duration": "45 phút",
         "location": "ANYWHERE",
         "description": "Tư thế giữ thăng bằng, giãn gân kheo, hông",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -599,7 +1183,7 @@
         "duration": "45 - 60 phút",
         "location": "ANYWHERE",
         "description": "Chiến binh, chaturanga, ghế – flow liên tục",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -607,7 +1191,7 @@
         "duration": "45 phút",
         "location": "ANYWHERE",
         "description": "Yoga thả lỏng sâu, kết hợp hơi thở chậm",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -615,7 +1199,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -629,7 +1213,7 @@
         "duration": "45 phút",
         "location": "OUTSIDE / HOME",
         "description": "Đi bộ ổn định kết hợp giãn cơ, khởi động khớp",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -637,7 +1221,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Cardio nhẹ, tăng nhịp tim an toàn",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -645,7 +1229,7 @@
         "duration": "30 phút",
         "location": "HOME",
         "description": "Cardio chậm kết hợp giãn cơ, phục hồi chủ động",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -653,7 +1237,7 @@
         "duration": "45 phút",
         "location": "OUTSIDE / HOME",
         "description": "Đi bộ hoặc chạy đều nhịp, tăng sức bền tim mạch",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -661,7 +1245,7 @@
         "duration": "45 - 60 phút",
         "location": "HOME",
         "description": "Chuỗi bài cardio toàn thân, đốt mỡ, tăng sức bền",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -669,7 +1253,7 @@
         "duration": "30 - 45 phút",
         "location": "OUTSIDE",
         "description": "Chạy nhẹ hoặc đi bộ thư giãn",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -677,7 +1261,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -691,7 +1275,7 @@
         "duration": "45 - 60 phút",
         "location": "OUTSIDE",
         "description": "Chạy đều pace ổn định, tăng sức bền nền tảng",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -699,7 +1283,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Cardio kết hợp plank, crunch, leg raise",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -707,7 +1291,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi nhẹ, hỗ trợ phục hồi",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -715,7 +1299,7 @@
         "duration": "30 - 45 phút",
         "location": "OUTSIDE / HOME",
         "description": "Chạy ngắt quãng tốc độ vừa - cao xen kẽ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -723,7 +1307,7 @@
         "duration": "60 phút",
         "location": "OUTSIDE",
         "description": "Đi bộ dài tốc độ cao, nâng sức chịu đựng",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -731,7 +1315,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Cardio nhẹ nhàng, không nhảy, phục hồi năng lượng",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -739,7 +1323,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -753,7 +1337,7 @@
         "duration": "45 phút",
         "location": "HOME",
         "description": "Hít đất, squat, plank - rèn sức bền toàn thân",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -761,7 +1345,7 @@
         "duration": "30 - 45 phút",
         "location": "OUTSIDE / HOME",
         "description": "Pull-up, dips, band row - phát triển thân trên",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -769,7 +1353,7 @@
         "duration": "30 phút",
         "location": "OUTSIDE / HOME",
         "description": "Giãn cơ, breathing, đi bộ nhẹ giúp phục hồi",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -777,7 +1361,7 @@
         "duration": "45 phút",
         "location": "OUTSIDE",
         "description": "Xen kẽ đi bộ nhanh và chạy nhẹ, cải thiện tim mạch",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -785,7 +1369,7 @@
         "duration": "45 - 60 phút",
         "location": "HOME",
         "description": "Tăng sức bền vùng core với plank, leg raise",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -793,7 +1377,7 @@
         "duration": "45 phút",
         "location": "OUTSIDE / HOME",
         "description": "Chuỗi bài toàn thân không nghỉ, cải thiện tim mạch",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -801,7 +1385,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -815,7 +1399,7 @@
         "duration": "60 phút",
         "location": "GYM",
         "description": "Tập ngực, lưng, vai giúp tăng sức mạnh phần thân trên",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -823,7 +1407,7 @@
         "duration": "45 phút",
         "location": "GYM",
         "description": "Chạy bộ, chèo máy, đạp xe ở cường độ vừa phải",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -831,7 +1415,7 @@
         "duration": "60 phút",
         "location": "GYM",
         "description": "Squat, deadlift, lunge giúp khỏe chân và tăng sức bền",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -839,7 +1423,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi nhẹ, hỗ trợ phục hồi",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -847,7 +1431,7 @@
         "duration": "45 - 60 phút",
         "location": "GYM",
         "description": "Tập nhiều nhóm cơ liên tục với thời gian nghỉ ngắn",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -855,7 +1439,7 @@
         "duration": "30 - 45 phút",
         "location": "GYM",
         "description": "Tập bụng, đẩy xe, đi tạ rèn sự ổn định và kiểm soát cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -863,7 +1447,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -877,7 +1461,7 @@
         "duration": "45 phút",
         "location": "OUTSIDE / HOME",
         "description": "Đi bộ nhanh hoặc chạy nhẹ giữ nhịp tim ổn định",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -885,7 +1469,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Cardio nhẹ nhàng giúp cải thiện tuần hoàn",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -893,7 +1477,7 @@
         "duration": "45 phút",
         "location": "HOME",
         "description": "Đi bộ đều nhịp trên máy giúp tăng sức khỏe tim",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -901,7 +1485,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -909,7 +1493,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Đi bộ dài hoặc chạy chậm tăng sức bền tim mạch",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -917,7 +1501,7 @@
         "duration": "60 phút",
         "location": "OUTSIDE",
         "description": "Cardio nhẹ kết hợp giãn cơ giúp thư giãn tim",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -925,7 +1509,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -939,7 +1523,7 @@
         "duration": "45 phút",
         "location": "GYM",
         "description": "Chạy bộ nhẹ kết hợp plank và gập bụng",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -947,7 +1531,7 @@
         "duration": "45 - 60 phút",
         "location": "GYM",
         "description": "Chạy bộ kết hợp hít đất và kéo cáp thân trên",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -955,7 +1539,7 @@
         "duration": "30 phút",
         "location": "GYM",
         "description": "Luân phiên chạy bộ, squat và nâng hông",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -963,7 +1547,7 @@
         "duration": "30 phút",
         "location": "GYM",
         "description": "Đi bộ chậm trên máy và giãn cơ toàn thân",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -971,7 +1555,7 @@
         "duration": "45 - 60 phút",
         "location": "GYM",
         "description": "Chạy bộ kết hợp bài tập toàn thân, nghỉ ngắn giữa các hiệp",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -979,7 +1563,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoặc đi bộ nhẹ và thở sâu",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -987,7 +1571,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -1001,7 +1585,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Thiền nhẹ kết hợp thư giãn toàn thân",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -1009,7 +1593,7 @@
         "duration": "30 phút",
         "location": "HOME",
         "description": "Chuỗi tư thế nhẹ nhàng kết hợp hơi thở sâu",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -1017,7 +1601,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Tư thế đứng liên tục giúp tăng nhịp tim và cải thiện tuần hoàn",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -1025,7 +1609,7 @@
         "duration": "15 - 30 phút",
         "location": "HOME",
         "description": "Vặn xoắn nhẹ kết hợp hít thở điều hòa thư giãn",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -1033,7 +1617,7 @@
         "duration": "30 phút",
         "location": "HOME",
         "description": "Tư thế mở ngực như lạc đà, chiến binh giúp lưu thông khí huyết",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -1041,7 +1625,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Chuỗi chuyển động liền mạch nâng cao năng lượng và tim mạch",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -1049,7 +1633,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -1063,7 +1647,7 @@
         "duration": "25 phút",
         "location": "ANYWHERE",
         "description": "Giãn toàn thân sau buổi leg/upper day",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -1071,7 +1655,7 @@
         "duration": "20 phút",
         "location": "ANYWHERE",
         "description": "Thả lỏng vai - gáy - cổ ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -1079,7 +1663,7 @@
         "duration": "30 phútt",
         "location": "ANYWHERE",
         "description": "Mở hông, giãn lưng dưới, giảm stress vùng lưng - mông",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -1087,7 +1671,7 @@
         "duration": "30 phút",
         "location": "ANYWHERE",
         "description": "Yoga chuyển động nhẹ",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -1095,7 +1679,7 @@
         "duration": "30 phút",
         "location": "ANYWHERE",
         "description": "Static stretch: mỗi tư thế giữ 1-2 phút, tập trung tăng linh hoạt",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -1103,7 +1687,7 @@
         "duration": "20 phút",
         "location": "ANYWHERE",
         "description": "Rolling toàn thân: đùi trước/sau, bắp chân, lưng trên",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -1111,7 +1695,7 @@
         "duration": "15 - 25 phút",
         "location": "ANYWHERE",
         "description": "Thiền dẫn  + tư thế giãn sâu đơn giản",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -1125,7 +1709,7 @@
         "duration": "30 phút",
         "location": "OUTSIDE",
         "description": "Đi bộ nhịp chậm hoặc trung bình, kết hợp nghe nhạc",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -1133,7 +1717,7 @@
         "duration": "25 phút",
         "location": "HOME / GYM",
         "description": "Đi bộ trên máy với nhịp tim ổn định",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -1141,7 +1725,7 @@
         "duration": "30 phút",
         "location": "HOME / OUTSIDE",
         "description": "Đi bộ theo nhịp nhạc nhẹ nhàng",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -1149,7 +1733,7 @@
         "duration": "15 - 20 phút",
         "location": "HOME",
         "description": "Kết hợp đi bộ chậm + giãn cơ nhẹ + tập thở",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -1157,7 +1741,7 @@
         "duration": "30 - 45 phút",
         "location": "OUTSIDE",
         "description": "Đi bộ lúc hoàng hôn - giải tỏa căng thẳng sau tuần dài",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -1165,7 +1749,7 @@
         "duration": "20 - 30 phút",
         "location": "HOME / GYM",
         "description": "Tập máy nhẹ nhàng + 5-10 phút stretching sau đó",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -1173,7 +1757,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -1187,7 +1771,7 @@
         "duration": "20 phút",
         "location": "HOME",
         "description": "Làm nóng các khớp",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -1195,7 +1779,7 @@
         "duration": "30 phút",
         "location": "HOME",
         "description": "Core nhẹ + breathing",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -1203,7 +1787,7 @@
         "duration": "25 phút",
         "location": "HOME",
         "description": "Kết hợp bodyweight + stretching",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -1211,7 +1795,7 @@
         "duration": "30 phút",
         "location": "HOME",
         "description": "Circuit nhẹ + kiểm soát hơi thở",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -1219,7 +1803,7 @@
         "duration": "30 - 40 phút",
         "location": "HOME",
         "description": "Flow nhẹ toàn thân... chuyển động linh hoạt",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -1227,7 +1811,7 @@
         "duration": "20 - 30 phút",
         "location": "HOME",
         "description": "Chậm rãi & thư giãn",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -1235,7 +1819,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -1249,7 +1833,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Kéo giãn cột sống, cải thiện tư thế",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -1257,7 +1841,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Mở hông, kéo giãn chân & cơ đùi",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -1265,7 +1849,7 @@
         "duration": "15 - 30 phút",
         "location": "HOME",
         "description": "Yoga nhẹ thư giãn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -1273,7 +1857,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Thả lỏng vùng vai gáy, giảm áp lực cột sống",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -1281,7 +1865,7 @@
         "duration": "45 phút",
         "location": "HOME",
         "description": "Yoga toàn thân, cân bằng & linh hoạt",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -1289,7 +1873,7 @@
         "duration": "30 phút",
         "location": "HOME",
         "description": "Tăng độ linh hoạt & phối hợp cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -1297,7 +1881,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -1311,7 +1895,7 @@
         "duration": "30 - 45 phút",
         "location": "GYM / HOME",
         "description": "Bật nhảy cao kết hợp giãn cơ toàn thân",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -1319,7 +1903,7 @@
         "duration": "30 - 45 phút",
         "location": "GYM / HOME",
         "description": "Tập sức bật chân kết hợp giãn chân, hông",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -1327,7 +1911,7 @@
         "duration": "15 - 30 phút",
         "location": "HOME",
         "description": "Nghỉ hoặc giãn cơ nhẹ nhàng hồi phục",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -1335,7 +1919,7 @@
         "duration": "30 - 45 phút",
         "location": "GYM / HOME",
         "description": "Cardio kết hợp bài tập kéo dài cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -1343,7 +1927,7 @@
         "duration": "30 phút",
         "location": "GYM / HOME",
         "description": "Plyometrics nhẹ, tăng độ bật và linh hoạt",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -1351,7 +1935,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Yoga & stretch toàn thân, tăng chiều cao",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -1359,7 +1943,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   },
@@ -1373,7 +1957,7 @@
         "duration": "30 phút",
         "location": "HOME",
         "description": "Tăng sức mạnh vùng bụng và lưng dưới",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "TUESDAY",
@@ -1381,7 +1965,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Tập cơ lưng, vai, cải thiện tư thế thân trên",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "WEDNESDAY",
@@ -1389,7 +1973,7 @@
         "duration": "15 - 30 phút",
         "location": "HOME",
         "description": "Nghỉ ngơi hoặc giãn cơ nhẹ nhàng",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "THURSDAY",
@@ -1397,7 +1981,7 @@
         "duration": "30 - 45 phút",
         "location": "GYM / HOME",
         "description": "Bài tập cải thiện tư thế cột sống, giãn cơ lưng",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "FRIDAY",
@@ -1405,7 +1989,7 @@
         "duration": "30 phút",
         "location": "HOME",
         "description": "Tăng độ cân bằng và kiểm soát cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SATURDAY",
@@ -1413,7 +1997,7 @@
         "duration": "30 - 45 phút",
         "location": "HOME",
         "description": "Kết hợp giãn cơ và tăng sức mạnh toàn thân",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       },
       {
         "dayOfWeek": "SUNDAY",
@@ -1421,7 +2005,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, hồi phục cơ thể",
-        "exerciseGroups": []
+        "exerciseGroups": {}
       }
     ]
   }

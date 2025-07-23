@@ -37,5 +37,4 @@ public interface TrainingService {
     List<TypeResponseDto> getTypes();
 
     TrainingScheduleResponseDto getTrainingSchedule(Long planId);
-
 }
