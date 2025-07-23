@@ -58,10 +58,19 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
             default -> null;
         };
 
+        List<String> goals = selectedValues.getOrDefault("goals", List.of());
+        List<String> types = selectedValues.getOrDefault("type", List.of());
+        List<String> durations = selectedValues.getOrDefault("duration", List.of());
+        List<String> frequencies = selectedValues.getOrDefault("frequency", List.of());
+
         List<Long> levelIds = parseIds("level", selectedValues.get("level"));
         List<Long> locationIds = parseIds("location", selectedValues.get("location"));
         List<Long> equipmentIds = parseIds("equipment", selectedValues.get("equipment"));
 
+        boolean hasGoalsFilter = goals != null && !goals.isEmpty();
+        boolean hasTypeFilter = types != null && !types.isEmpty();
+        boolean hasDurationFilter = durations != null && !durations.isEmpty();
+        boolean hasFrequencyFilter = frequencies != null && !frequencies.isEmpty();
         boolean hasLevelFilter = levelIds != null && !levelIds.isEmpty();
         boolean hasLocationFilter = locationIds != null && !locationIds.isEmpty();
         boolean hasEquipmentFilter = equipmentIds != null && !equipmentIds.isEmpty();
@@ -70,16 +79,10 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
 
         try {
             matchingPlans = trainingPlanRepository.searchPlans(
-                    getFirst(selectedValues.get("goals")),
-                    getFirst(selectedValues.get("type")),
-                    getFirst(selectedValues.get("duration")),
-                    getFirst(selectedValues.get("frequency")),
-                    hasLevelFilter,
-                    hasLocationFilter,
-                    hasEquipmentFilter,
-                    levelIds,
-                    locationIds,
-                    equipmentIds);
+                    hasGoalsFilter, hasTypeFilter, hasDurationFilter, hasFrequencyFilter,
+                    hasLevelFilter, hasLocationFilter, hasEquipmentFilter,
+                    goals, types, durations, frequencies,
+                    levelIds, locationIds, equipmentIds);
         } catch (Exception e) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.TrainingPlanFlow.ERR_SOMETHING_WRONG);
         }
