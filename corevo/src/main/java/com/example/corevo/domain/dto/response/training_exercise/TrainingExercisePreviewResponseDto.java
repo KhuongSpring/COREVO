@@ -18,4 +18,6 @@ public class TrainingExercisePreviewResponseDto {
 
     String description;
 
+    String levelName;
+
 }

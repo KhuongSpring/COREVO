@@ -16,4 +16,6 @@ public interface EquipmentMapper {
 
     List<EquipmentResponseDto> listEquipmentToListEquipmentResponseDto(List<Equipment> equipments);
 
+    EquipmentResponseDto equipmentToEquipmentResponseDto(Equipment equipment);
+
 }
