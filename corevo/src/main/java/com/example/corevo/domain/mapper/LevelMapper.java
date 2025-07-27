@@ -16,4 +16,6 @@ public interface LevelMapper {
 
     List<LevelResponseDto> listLevelToListLevelResponseDto(List<Level> levels);
 
+    LevelResponseDto levelToLevelResponseDto(Level level);
+
 }

@@ -16,4 +16,6 @@ public interface TargetMuscleMapper {
 
     List<TargetMuscleResponseDto> listTargetMuscleToListTargetMuscleResponseDto(List<TargetMuscle> targetMuscles);
 
+    TargetMuscleResponseDto targetMuscleToTargetMuscleResponseDto(TargetMuscle targetMuscle);
+
 }

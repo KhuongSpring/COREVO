@@ -16,4 +16,6 @@ public interface GoalMapper {
 
     List<GoalResponseDto> listGoalToListGoalResponseDto(List<Goal> goals);
 
+    GoalResponseDto goalToGoalResponseDto(Goal goal);
+
 }
