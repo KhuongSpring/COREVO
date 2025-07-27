@@ -556,5 +556,23 @@
       "video": null
     },
     "description": "Tác động sâu vào cơ vai sau và lưng trên, giúp mở rộng vùng upper-back. Hữu ích để khắc phục vai tròn và cải thiện dáng lưng toàn diện."
+  },
+  {
+    "name": "Barbell Clean and Press",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [2, 7],
+    "secondaryTargetMuscleIds": [1, 3, 4, 5, 11, 12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "60,60",
+    "goalIds": [1, 3, 5, 6],
+    "media": {
+      "image": "images/back/back_barbell-clean-and-press.jpg",
+      "video": null
+    },
+    "description": "Nâng tạ từ sàn và đẩy lên cao. Rèn sức mạnh toàn thân và tăng sức bền."
   }
 ]

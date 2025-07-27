@@ -682,5 +682,23 @@
       "video": null
     },
     "description": "Kích hoạt cả vai và core, giúp cải thiện sự cân bằng, kiểm soát và sức mạnh ổn định."
+  },
+  {
+    "name": "Kettlebell Turkish Get-up",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [7, 11, 12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "8,10",
+    "duration": "30,60",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/shoulders/shoulders_kettlebell-half-turkish-get-up.jpg",
+      "video": null
+    },
+    "description": "Bài tập kỹ thuật cao giúp cải thiện sự ổn định vai, sức mạnh toàn thân và khả năng phối hợp."
   }
 ]

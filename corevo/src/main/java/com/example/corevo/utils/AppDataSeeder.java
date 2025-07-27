@@ -98,7 +98,7 @@ public class AppDataSeeder implements ApplicationRunner {
 
         seedTrainingExercise();
 
-        seedTrainingSchedule();
+//        seedTrainingSchedule();
     }
 
     void seedEquipments() {
@@ -299,7 +299,19 @@ public class AppDataSeeder implements ApplicationRunner {
     }
 
     void seedTrainingExercise() {
-        List<String> jsonFiles = List.of("/data/training_exercise_data/abs_training_exercise.json", "/data/training_exercise_data/back_training_exercise.json", "/data/training_exercise_data/biceps_training_exercise.json", "/data/training_exercise_data/chest_training_exercise.json", "/data/training_exercise_data/glute_training_exercise.json", "/data/training_exercise_data/hamstring_training_exercise.json", "/data/training_exercise_data/quads_training_exercise.json", "/data/training_exercise_data/shoulders_training_exercise.json", "/data/training_exercise_data/triceps_training_exercise.json");
+        List<String> jsonFiles = List.of(
+                "/data/training_exercise_data/abs_training_exercise.json",
+                "/data/training_exercise_data/back_training_exercise.json",
+                "/data/training_exercise_data/biceps_training_exercise.json",
+                "/data/training_exercise_data/chest_training_exercise.json",
+                "/data/training_exercise_data/glute_training_exercise.json",
+                "/data/training_exercise_data/hamstring_training_exercise.json",
+                "/data/training_exercise_data/quads_training_exercise.json",
+                "/data/training_exercise_data/shoulders_training_exercise.json",
+                "/data/training_exercise_data/triceps_training_exercise.json",
+                "/data/training_exercise_data/cardio_training_exercise.json",
+                "/data/training_exercise_data/yoga_training_exercise.json"
+        );
 
         log.info("Start seeding training exercise from JSON...");
 
@@ -319,7 +331,8 @@ public class AppDataSeeder implements ApplicationRunner {
             for (String file : jsonFiles) {
                 trainingExercisesFromJSON.addAll(loadTrainingExerciseDataFromJSON(file));
             }
-
+            System.out.println(trainingExercisesFromJSON.size());
+            System.out.println(trainingExercisesFromDB.size());
 
             if (trainingExercisesFromJSON.size() > trainingExercisesFromDB.size()) {
                 for (TrainingExerciseResponseDto x : trainingExercisesFromJSON) {

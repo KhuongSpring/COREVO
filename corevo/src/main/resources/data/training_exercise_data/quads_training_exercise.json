@@ -358,5 +358,77 @@
       "video": null
     },
     "description": "Kettlebell Front Rack Squat tăng cường cơ đùi và vai, phù hợp tập tại nhà hoặc gym."
+  },
+  {
+    "name": "Wall Ball",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [11, 9],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "30,60",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/quads/quads_wall-ball.jpg",
+      "video": null
+    },
+    "description": "Thực hiện squat kết hợp ném bóng y tế lên tường, tăng sức mạnh thân dưới và cải thiện phản xạ."
+  },
+  {
+    "name": "Barbell Front Squat",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [11, 9],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/quads/quads_barbell-front-squat.jpg",
+      "video": null
+    },
+    "description": "Squat với tạ đòn đặt phía trước vai, kích hoạt cơ đùi trước và cơ bụng để giữ thăng bằng."
+  },
+  {
+    "name": "Dumbbell Thruster",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [11, 9],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "30,60",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/quads/quads_dumbbell-thruster.jpg",
+      "video": null
+    },
+    "description": "Kết hợp squat và đẩy tạ đơn qua đầu, tác động toàn thân và tăng sức mạnh tim mạch."
+  },
+  {
+    "name": "Barbell Thruster",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [11, 9],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "30,60",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/quads/quads_barbell-thruster.jpg",
+      "video": null
+    },
+    "description": "Kết hợp squat và overhead press bằng tạ đòn, rèn luyện toàn thân và nâng cao sức mạnh tim mạch."
   }
 ]
