@@ -1,5 +1,6 @@
 package com.example.corevo.domain.mapper;
 
+import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseLevelPreviewResponseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExercisePreviewResponseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
 import com.example.corevo.domain.entity.training.TrainingExercise;

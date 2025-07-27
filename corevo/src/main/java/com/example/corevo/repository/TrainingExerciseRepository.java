@@ -2,7 +2,12 @@ package com.example.corevo.repository;
 
 import com.example.corevo.domain.entity.training.TrainingExercise;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +23,10 @@ public interface TrainingExerciseRepository extends JpaRepository<TrainingExerci
 
     List<TrainingExercise> findByLevels_IdAndGoals_Id(Long levelsId, Optional<Long> goalsId);
 
-    List<TrainingExercise> findByNameContainingIgnoreCase(String name);
+    @Query("""
+           SELECT DISTINCT te FROM TrainingExercise te
+           WHERE (:name IS NULL OR LOWER(te.name) LIKE LOWER(CONCAT('%', :name, '%')))
+           """
+    )
+    Page<TrainingExercise> findByNameContainingIgnoreCase(String name, Pageable pageable);
 }

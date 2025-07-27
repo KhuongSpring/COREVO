@@ -16,4 +16,6 @@ public interface TypeMapper {
 
     List<TypeResponseDto> listTypeToListTypeResponseDto(List<Type> types);
 
+    TypeResponseDto typeToTypeResponseDto(Type type);
+
 }

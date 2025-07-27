@@ -3,6 +3,7 @@ package com.example.corevo.controller;
 import com.example.corevo.base.RestApiV1;
 import com.example.corevo.base.VsResponseUtil;
 import com.example.corevo.constant.UrlConstant;
+import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
 import com.example.corevo.service.TrainingService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,8 +32,12 @@ public class TrainingController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @GetMapping(UrlConstant.Training.GET_TRAINING_PLAN)
-    public ResponseEntity<?> getTrainingPlans() {
-        return VsResponseUtil.success(trainingService.getTrainingPlans());
+    public ResponseEntity<?> getTrainingPlans(
+            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
+            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+    ) {
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.getTrainingPlans(request));
     }
 
     @Tag(name = "training-controller-resource")
@@ -42,8 +47,12 @@ public class TrainingController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @GetMapping(UrlConstant.Training.GET_EQUIPMENT)
-    public ResponseEntity<?> getEquipments() {
-        return VsResponseUtil.success(trainingService.getEquipments());
+    public ResponseEntity<?> getEquipments(
+            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
+            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+    ) {
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.getEquipments(request));
     }
 
     @Tag(name = "training-controller-resource")
@@ -53,8 +62,12 @@ public class TrainingController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @GetMapping(UrlConstant.Training.GET_GOAL)
-    public ResponseEntity<?> getGoals() {
-        return VsResponseUtil.success(trainingService.getGoals());
+    public ResponseEntity<?> getGoals(
+            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
+            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+    ) {
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.getGoals(request));
     }
 
     @Tag(name = "training-controller-resource")
@@ -64,8 +77,12 @@ public class TrainingController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @GetMapping(UrlConstant.Training.GET_LEVEL)
-    public ResponseEntity<?> getLevels() {
-        return VsResponseUtil.success(trainingService.getLevels());
+    public ResponseEntity<?> getLevels(
+            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
+            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+    ) {
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.getLevels(request));
     }
 
     @Tag(name = "training-controller-resource")
@@ -75,8 +92,12 @@ public class TrainingController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @GetMapping(UrlConstant.Training.GET_LOCATION)
-    public ResponseEntity<?> getLocations() {
-        return VsResponseUtil.success(trainingService.getLocations());
+    public ResponseEntity<?> getLocations(
+            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
+            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+    ) {
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.getLocations(request));
     }
 
     @Tag(name = "training-controller-resource")
@@ -86,8 +107,12 @@ public class TrainingController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @GetMapping(UrlConstant.Training.GET_TARGET_MUSCLE)
-    public ResponseEntity<?> getTargetMuscles() {
-        return VsResponseUtil.success(trainingService.getTargetMuscles());
+    public ResponseEntity<?> getTargetMuscles(
+            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
+            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+    ) {
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.getTargetMuscles(request));
     }
 
     @Tag(name = "training-controller-resource")
@@ -97,8 +122,12 @@ public class TrainingController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @GetMapping(UrlConstant.Training.GET_TYPE)
-    public ResponseEntity<?> getTypes() {
-        return VsResponseUtil.success(trainingService.getTypes());
+    public ResponseEntity<?> getTypes(
+            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
+            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+    ) {
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.getTypes(request));
     }
 
     @Tag(name = "training-controller-exercise-search")
@@ -109,9 +138,12 @@ public class TrainingController {
     )
     @GetMapping(UrlConstant.Training.GET_EXERCISE_BY_PRIMARY_MUSCLE)
     public ResponseEntity<?> getExerciseByPrimaryMuscle(
-            @RequestParam(name = "primary muscle") String primaryMuscle
+            @RequestParam(name = "primary muscle") String primaryMuscle,
+            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
+            @RequestParam(name = "page size", defaultValue = "1") int PageSize
     ) {
-        return VsResponseUtil.success(trainingService.getPreviewExerciseByPrimaryMuscle(primaryMuscle));
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.getPreviewExerciseByPrimaryMuscle(primaryMuscle, request));
     }
 
     @Tag(name = "training-controller-exercise-search")
@@ -122,9 +154,12 @@ public class TrainingController {
     )
     @GetMapping(UrlConstant.Training.GET_EXERCISE_BY_TYPE)
     public ResponseEntity<?> getExerciseByType(
-            @RequestParam(name = "type") String type
+            @RequestParam(name = "type") String type,
+            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
+            @RequestParam(name = "page size", defaultValue = "1") int PageSize
     ) {
-        return VsResponseUtil.success(trainingService.getPreviewExerciseByType(type));
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.getPreviewExerciseByType(type, request));
     }
 
     @Tag(name = "training-controller-exercise-search")
@@ -135,9 +170,12 @@ public class TrainingController {
     )
     @GetMapping(UrlConstant.Training.GET_EXERCISE_BY_GOAL)
     public ResponseEntity<?> getExerciseByGoal(
-            @RequestParam(name = "goal") String goal
+            @RequestParam(name = "goal") String goal,
+            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
+            @RequestParam(name = "page size", defaultValue = "1") int PageSize
     ) {
-        return VsResponseUtil.success(trainingService.getPreviewExerciseByGoal(goal));
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.getPreviewExerciseByGoal(goal, request));
     }
 
     @Tag(name = "training-controller-exercise-search")
@@ -158,8 +196,13 @@ public class TrainingController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @PostMapping(UrlConstant.Training.SEARCH_TRAINING_EXERCISE)
-    public ResponseEntity<?> searchExercise(@Valid @RequestBody TrainingExerciseSearchingRequestDto request) {
-        return VsResponseUtil.success(trainingService.searchExercise(request));
+    public ResponseEntity<?> searchExercise(
+            @Valid @RequestBody TrainingExerciseSearchingRequestDto searchRequest,
+            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
+            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+    ) {
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.searchExercise(searchRequest, request));
     }
 
     @Tag(name = "training-controller-schedule")

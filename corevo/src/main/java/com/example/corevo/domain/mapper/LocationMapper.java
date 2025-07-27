@@ -16,4 +16,6 @@ public interface LocationMapper {
 
     List<LocationResponseDto> listLocationToListLocationResponseDto(List<Location> locations);
 
+    LocationResponseDto locationToLocationResponseDto(Location location);
+
 }
