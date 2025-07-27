@@ -3792,7 +3792,7 @@
         "location": "ANYWHERE",
         "description": "Giãn toàn thân sau buổi leg/upper day",
         "exerciseGroups": {
-          "note": "Lập  lại 3 lần",
+          "note": "Lập  lại 3 lần. Giữ cơ thể thư giãn, thở sâu và chú trọng vào việc giãn cơ",
           "exercises": [
             {
               "exerciseId": 1,
@@ -3824,7 +3824,7 @@
         "location": "ANYWHERE",
         "description": "Thả lỏng vai - gáy - cổ ",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "ập trung vào việc thả lỏng cơ thể, kết hợp nhịp thở sâu và thư giãn. Lập lại các bài tập 3 lần ",
           "exercises": [
             {
               "exerciseId": 1,
@@ -3856,7 +3856,7 @@
         "location": "ANYWHERE",
         "description": "Mở hông, giãn lưng dưới, giảm stress vùng lưng - mông",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Chú ý thả lỏng cơ thể",
           "exercises": [
             {
               "exerciseId": 1,
@@ -3888,7 +3888,7 @@
         "location": "ANYWHERE",
         "description": "Yoga chuyển động nhẹ",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Thả lỏng cơ thể, chú ý về form. Tập các bài tập 3 lần",
           "exercises": [
             {
               "exerciseId": 1,
@@ -3920,7 +3920,7 @@
         "location": "ANYWHERE",
         "description": "Static stretch: mỗi tư thế giữ 1-2 phút, tập trung tăng linh hoạt",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Chú giữ giữ chuẩn form. Lập lại các bài tập 3 lần",
           "exercises": [
             {
               "exerciseId": 1,
@@ -3952,7 +3952,7 @@
         "location": "ANYWHERE",
         "description": "Rolling toàn thân: đùi trước/sau, bắp chân, lưng trên",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Chú ý hít thở đều",
           "exercises": [
             {
               "exerciseId": 1,
@@ -3984,7 +3984,7 @@
         "location": "ANYWHERE",
         "description": "Thiền dẫn  + tư thế giãn sâu đơn giản",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Thả lỏng cơ thể ",
           "exercises": [
             {
               "exerciseId": 1,
@@ -4082,7 +4082,7 @@
         "location": "HOME",
         "description": "Kết hợp đi bộ chậm + giãn cơ nhẹ + tập thở",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Tập các bi tập 3 vòng, mỗi vòng nghỉ 60 giây",
           "exercises": [
             {
               "exerciseId": 1,
@@ -4188,7 +4188,7 @@
         "location": "HOME",
         "description": "Làm nóng các khớp",
         "exerciseGroups": {
-          "note": "Lập lại 2 lần",
+          "note": "Lập lại 2 lần. Giữ cơ bụng siết chặt, kiểm soát động tác và duy trì thở đều",
           "exercises": [
             {
               "exerciseId": 125,
@@ -4224,7 +4224,7 @@
         "location": "HOME",
         "description": "Core nhẹ + breathing",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Lập lại 3 lần, nghỉ 60 giấy giữa các lần. Giữ lưng thẳng, siết cơ bụng khi tập",
           "exercises": [
             {
               "exerciseId": 48,
@@ -4256,7 +4256,7 @@
         "location": "HOME",
         "description": "Kết hợp bodyweight + stretching",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Tập các bài 3 vòng, nghỉ 60 giây giữa các vòng. Giữ lưng thẳng, kiểm soát chuyển động",
           "exercises": [
             {
               "exerciseId": 111,
@@ -4288,7 +4288,7 @@
         "location": "HOME",
         "description": "Circuit nhẹ + kiểm soát hơi thở",
         "exerciseGroups": {
-          "note": "Lập lại 2 lần",
+          "note": "Tập 2 vòng, nghỉ giữa các vòng 60 giây. Giữ form chuẩn, siết cơ bụng",
           "exercises": [
             {
               "exerciseId": 1,
@@ -4320,7 +4320,7 @@
         "location": "HOME",
         "description": "Flow nhẹ toàn thân... chuyển động linh hoạt",
         "exerciseGroups": {
-          "note": "Lập lại 2 lần",
+          "note": "Giữ thăng bằng, kiểm soát động tác. Tập 2 vòng và có thể nghỉ giữa các vòng 60 giây",
           "exercises": [
             {
               "exerciseId": 150,
@@ -4352,7 +4352,7 @@
         "location": "HOME",
         "description": "Chậm rãi & thư giãn",
         "exerciseGroups": {
-          "note": "Lập lại 2 lần",
+          "note": "Tập các bài 2 vòng. Khi tập siết cơ bụng và thở đều",
           "exercises": [
             {
               "exerciseId": 177,
@@ -4384,7 +4384,7 @@
         "location": "HOME",
         "description": "Đi lại chậm + thở đều",
         "exerciseGroups": {
-          "note": "Lập lại 2 lần",
+          "note": "Chú ý giữ thẳng lưng, căng cơ bụng và duy trì nhịp thở ổn định",
           "exercises": [
             {
               "exerciseId": 49,
@@ -4676,7 +4676,7 @@
         "location": "GYM / HOME",
         "description": "Bật nhảy cao kết hợp giãn cơ toàn thân",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Lặp lại 3 vòng, nghỉ 60 giây giữa các vòng, tập trung vào việc bật nhảy cao, chú trọng vào động tác và hít thở đều.",
           "exercises": [
             {
               "exerciseId": 49,
@@ -4708,7 +4708,7 @@
         "location": "GYM / HOME",
         "description": "Tập sức bật chân kết hợp giãn chân, hông",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Lập lại 3 lần. Tập chung hít thở đều để tăng cường độ linh hoạt và sức mạnh.",
           "exercises": [
             {
               "exerciseId": 150,
@@ -4740,7 +4740,7 @@
         "location": "HOME",
         "description": "Nghỉ hoặc giãn cơ nhẹ nhàng hồi phục",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Lập lại 3 lần. Giãn cơ nhẹ nhàng để hồi phục, tập trung vào thả lỏng cơ thể.",
           "exercises": [
             {
               "exerciseId": 1,
@@ -4772,7 +4772,7 @@
         "location": "GYM / HOME",
         "description": "Cardio kết hợp bài tập kéo dài cơ thể",
         "exerciseGroups": {
-          "note": "Lập lại 2 lần",
+          "note": "Lập lại 2 lần. Tăng cường sức mạnh và linh hoạt cơ thể, chú trọng form và hít thở đều.",
           "exercises": [
             {
               "exerciseId": 1,
@@ -4804,7 +4804,7 @@
         "location": "GYM / HOME",
         "description": "Plyometrics nhẹ, tăng độ bật và linh hoạt",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Lập lại 3 lần. Giữ form chuẩn, kiểm soát động tác, tránh căng cơ quá mức và thở đều",
           "exercises": [
             {
               "exerciseId": 1,
@@ -4836,7 +4836,7 @@
         "location": "HOME",
         "description": "Yoga & stretch toàn thân, tăng chiều cao",
         "exerciseGroups": {
-          "note": "",
+          "note": "Giữ form đúng, căng cơ nhẹ và thở đều khi tập các bài stretch",
           "exercises": [
             {
               "exerciseId": 1,
@@ -4882,7 +4882,7 @@
         "location": "HOME",
         "description": "Tăng sức mạnh vùng bụng và lưng dưới",
         "exerciseGroups": {
-          "note": "Lập lại các bài tập 3 lần ",
+          "note": "Tập 3 vòng, mỗi vòng nghỉ 30-60 giây, tập trung vào giữ form, hít thở đều và kiểm soát rep",
           "exercises": [
             {
               "exerciseId": 126,
@@ -4914,7 +4914,7 @@
         "location": "HOME",
         "description": "Tập cơ lưng, vai, cải thiện tư thế thân trên",
         "exerciseGroups": {
-          "note": "Lập lại các bài tập 3 lần ",
+          "note": "Tập 3 vòng, nghỉ 30–60 giây giữa mỗi vòng, hít thở đều và kiểm soát rep,",
           "exercises": [
             {
               "exerciseId": 125,
@@ -4946,7 +4946,7 @@
         "location": "HOME",
         "description": "Nghỉ ngơi hoặc giãn cơ nhẹ nhàng",
         "exerciseGroups": {
-          "note": "Lập lại các bài tập 3 lần ",
+          "note": "Tập 2 vòng, nghỉ 60 giây giữa mỗi vòng, tập trung vào giãn cơ nhẹ nhàng, không cần căng cơ quá mức.",
           "exercises": [
             {
               "exerciseId": 49,
@@ -4978,7 +4978,7 @@
         "location": "GYM / HOME",
         "description": "Bài tập cải thiện tư thế cột sống, giãn cơ lưng",
         "exerciseGroups": {
-          "note": "Lập lại các bài tập 3 lần ",
+          "note": "Lặp lại 3 vòng, nghỉ từ 30 giây giữa các vòng, tập trung vào giữ form và hít thở đều để giãn cơ lưng. ",
           "exercises": [
             {
               "exerciseId": 49,
@@ -5010,7 +5010,7 @@
         "location": "HOME",
         "description": "Tăng độ cân bằng và kiểm soát cơ thể",
         "exerciseGroups": {
-          "note": "Lập lại các bài tập 3 lần ",
+          "note": "Chú trọng vào giữ thăng bằng, và hít thở đều. Lập lại 3 lần các bài tập.",
           "exercises": [
             {
               "exerciseId": 135,
@@ -5042,7 +5042,7 @@
         "location": "HOME",
         "description": "Kết hợp giãn cơ và tăng sức mạnh toàn thân",
         "exerciseGroups": {
-          "note": "Lập lại các bài tập 3 lần ",
+          "note": "Lặp lại 3 vòng, nghỉ 30–60 giây giữa các vòng.",
           "exercises": [
             {
               "exerciseId": 49,
