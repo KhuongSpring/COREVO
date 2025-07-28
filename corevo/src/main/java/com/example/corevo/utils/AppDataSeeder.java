@@ -98,7 +98,7 @@ public class AppDataSeeder implements ApplicationRunner {
 
         seedTrainingExercise();
 
-//        seedTrainingSchedule();
+        seedTrainingSchedule();
     }
 
     void seedEquipments() {
