@@ -880,5 +880,59 @@
       "video": null
     },
     "description": "Cat Cow Stretch là bài yoga nhẹ nhàng giúp giãn cơ bụng, cột sống và cải thiện lưu thông khí huyết. Rất tốt cho việc thư giãn sau buổi tập hoặc khởi động cơ bản."
+  },
+  {
+    "name": "Hanging Leg Raise",
+    "levelIds": [2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [8, 10],
+    "equipmentIds": [6],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "15,20",
+    "duration": "15,60",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/abs/abs_hanging-leg-raise.jpg",
+      "video": null
+    },
+    "description": "Bài tập treo người giúp kích hoạt cơ bụng dưới và cải thiện khả năng kiểm soát thân người."
+  },
+  {
+    "name": "Hollow Hold",
+    "levelIds": [2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [11],
+    "equipmentIds": [2],
+    "locationIds": [1, 2],
+    "sets": "2,3",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 5, 6, 7],
+    "media": {
+      "image": "images/abs/abs_hollow-hold.jpg",
+      "video": null
+    },
+    "description": "Bài tập giữ cơ bụng giúp cải thiện sức bền và sự ổn định phần thân."
+  },
+  {
+    "name": "L-sit on Floor",
+    "levelIds": [2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [5, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 5],
+    "media": {
+      "image": "images/abs/abs_l-sit-on-floor.jpg",
+      "video": null
+    },
+    "description": "Tư thế tĩnh tăng cường cơ bụng và cải thiện kiểm soát cơ thể."
   }
 ]

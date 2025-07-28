@@ -13,7 +13,6 @@ SELECT * FROM location;
 SELECT * FROM target_muscle;
 
 SELECT * FROM training_day;
-SELECT * FROM training_day_exercise;
 
 SELECT * FROM training_exercise;
 SELECT * FROM training_exercise_equipments;
@@ -25,7 +24,7 @@ SELECT * FROM training_exercise_secondary_muscles;
 SELECT * FROM training_exercise_types;
 
 SELECT * FROM training_group;
-SELECT * FROM training_group_exercise;
+SELECT * FROM training_group_detail;
 
 SELECT * FROM training_plan;
 SELECT * FROM training_plan_equipments;
@@ -37,6 +36,8 @@ SELECT * FROM training_schedule;
 SELECT * FROM type;
 SELECT * FROM user;
 SELECT * FROM user_health;
+
+SELECT * FROM user_training_plans;
 
 
 
@@ -54,4 +55,3 @@ delete from training_plan;
 delete from training_plan_levels;
 delete from training_plan_locations;
 delete from training_plan_equipments;
-

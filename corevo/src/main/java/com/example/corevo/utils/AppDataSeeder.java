@@ -6,17 +6,19 @@ import com.example.corevo.constant.ErrorMessage;
 import com.example.corevo.domain.dto.helper_dto.RawTrainingExerciseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
+import com.example.corevo.domain.dto.response.training_schedule.TrainingExerciseGroupDetailsResponseDto;
+import com.example.corevo.domain.dto.response.training_schedule.TrainingExerciseGroupResponseDto;
 import com.example.corevo.domain.dto.response.training_schedule.TrainingScheduleResponseDto;
 import com.example.corevo.domain.entity.training.TrainingExercise;
 import com.example.corevo.domain.entity.training.*;
 import com.example.corevo.domain.entity.training.training_schedule_details.TrainingDay;
+import com.example.corevo.domain.entity.training.training_schedule_details.TrainingExerciseGroup;
+import com.example.corevo.domain.entity.training.training_schedule_details.TrainingExerciseGroupDetail;
 import com.example.corevo.domain.entity.training.training_schedule_details.TrainingSchedule;
-import com.example.corevo.domain.mapper.TrainingDayMapper;
-import com.example.corevo.domain.mapper.TrainingExerciseMapper;
-import com.example.corevo.domain.mapper.TrainingPlanMapper;
-import com.example.corevo.domain.mapper.TrainingScheduleMapper;
+import com.example.corevo.domain.mapper.*;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.helper.training_helper.TrainingExerciseConverter;
+import com.example.corevo.helper.training_helper.TrainingExerciseGroupDetailParserHelper;
 import com.example.corevo.repository.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,6 +58,8 @@ public class AppDataSeeder implements ApplicationRunner {
 
     TrainingDayMapper trainingDayMapper;
 
+    TrainingExerciseGroupMapper trainingExerciseGroupMapper;
+
 
     LevelRepository levelRepository;
 
@@ -74,8 +78,6 @@ public class AppDataSeeder implements ApplicationRunner {
     TrainingExerciseRepository trainingExerciseRepository;
 
     TrainingScheduleRepository trainingScheduleRepository;
-
-    TrainingDayRepository trainingDayRepository;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -297,7 +299,19 @@ public class AppDataSeeder implements ApplicationRunner {
     }
 
     void seedTrainingExercise() {
-        List<String> jsonFiles = List.of("/data/training_exercise_data/abs_training_exercise.json", "/data/training_exercise_data/back_training_exercise.json", "/data/training_exercise_data/biceps_training_exercise.json", "/data/training_exercise_data/chest_training_exercise.json", "/data/training_exercise_data/glute_training_exercise.json", "/data/training_exercise_data/hamstring_training_exercise.json", "/data/training_exercise_data/quads_training_exercise.json", "/data/training_exercise_data/shoulders_training_exercise.json", "/data/training_exercise_data/triceps_training_exercise.json");
+        List<String> jsonFiles = List.of(
+                "/data/training_exercise_data/abs_training_exercise.json",
+                "/data/training_exercise_data/back_training_exercise.json",
+                "/data/training_exercise_data/biceps_training_exercise.json",
+                "/data/training_exercise_data/chest_training_exercise.json",
+                "/data/training_exercise_data/glute_training_exercise.json",
+                "/data/training_exercise_data/hamstring_training_exercise.json",
+                "/data/training_exercise_data/quads_training_exercise.json",
+                "/data/training_exercise_data/shoulders_training_exercise.json",
+                "/data/training_exercise_data/triceps_training_exercise.json",
+                "/data/training_exercise_data/cardio_training_exercise.json",
+                "/data/training_exercise_data/yoga_training_exercise.json"
+        );
 
         log.info("Start seeding training exercise from JSON...");
 
@@ -317,7 +331,6 @@ public class AppDataSeeder implements ApplicationRunner {
             for (String file : jsonFiles) {
                 trainingExercisesFromJSON.addAll(loadTrainingExerciseDataFromJSON(file));
             }
-
 
             if (trainingExercisesFromJSON.size() > trainingExercisesFromDB.size()) {
                 for (TrainingExerciseResponseDto x : trainingExercisesFromJSON) {
@@ -403,10 +416,49 @@ public class AppDataSeeder implements ApplicationRunner {
 
                     TrainingSchedule schedule = trainingScheduleMapper.trainingScheduleResponseDtoToTrainingSchedule(dto);
 
-                    List<TrainingDay> mappedDays = trainingDayMapper.listTrainingScheduleResponseDtoToListTrainingSchedule(dto.getDays());
+                    List<TrainingDay> mappedDays = trainingDayMapper.listTrainingDayResponseDtoToListTrainingDay(dto.getDays());
 
-                    for (TrainingDay day : mappedDays) {
+                    for (int i = 0; i < mappedDays.size(); i++) {
+                        TrainingDay day = mappedDays.get(i);
                         day.setTrainingSchedule(schedule);
+
+                        TrainingExerciseGroupResponseDto groupResponseDto = dto.getDays().get(i).getExerciseGroups();
+
+                        if (groupResponseDto != null) {
+                            TrainingExerciseGroup group = trainingExerciseGroupMapper.
+                                    trainingExerciseGroupResponseDtoToTrainingExerciseGroup(groupResponseDto);
+
+                            List<TrainingExerciseGroupDetail> exerciseDetails = new ArrayList<>();
+
+                            if (groupResponseDto.getExercises() != null) {
+                                for (TrainingExerciseGroupDetailsResponseDto detailDto : groupResponseDto.getExercises()) {
+
+                                    TrainingExerciseGroupDetail detail = new TrainingExerciseGroupDetail();
+
+                                    TrainingExerciseGroupDetailParserHelper.Result result =
+                                            TrainingExerciseGroupDetailParserHelper.parse(detailDto.getDuration());
+
+                                    detail.setSets(result.getSets());
+                                    detail.setRepsPerSet(result.getRepsPerSet());
+                                    detail.setDurationPerSet(result.getDurationPerSet());
+
+                                    TrainingExercise exercise = trainingExerciseRepository.findById(detailDto.getExerciseId())
+                                            .orElseThrow(() -> new VsException(
+                                                    HttpStatus.NOT_FOUND,
+                                                    "Exercise not found: " + detailDto.getExerciseId()
+                                            ));
+
+                                    detail.setExercise(exercise);
+                                    detail.setExerciseGroup(group);
+
+                                    exerciseDetails.add(detail);
+                                }
+                            }
+
+                            group.setTrainingDay(day);
+                            group.setExercises(exerciseDetails);
+                            day.setExerciseGroup(group);
+                        }
                     }
 
                     schedule.setDays(mappedDays);

@@ -358,5 +358,149 @@
       "video": null
     },
     "description": "Kettlebell Front Rack Squat tăng cường cơ đùi và vai, phù hợp tập tại nhà hoặc gym."
+  },
+  {
+    "name": "Wall Ball",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [11, 9],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "30,60",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/quads/quads_wall-ball.jpg",
+      "video": null
+    },
+    "description": "Thực hiện squat kết hợp ném bóng y tế lên tường, tăng sức mạnh thân dưới và cải thiện phản xạ."
+  },
+  {
+    "name": "Barbell Front Squat",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [11, 9],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "30,60",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/quads/quads_barbell-front-squat.jpg",
+      "video": null
+    },
+    "description": "Squat với tạ đòn đặt phía trước vai, kích hoạt cơ đùi trước và cơ bụng để giữ thăng bằng."
+  },
+  {
+    "name": "Dumbbell Thruster",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [11, 9],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "30,60",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/quads/quads_dumbbell-thruster.jpg",
+      "video": null
+    },
+    "description": "Kết hợp squat và đẩy tạ đơn qua đầu, tác động toàn thân và tăng sức mạnh tim mạch."
+  },
+  {
+    "name": "Barbell Thruster",
+    "levelIds": [3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [11, 9],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "30,60",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/quads/quads_barbell-thruster.jpg",
+      "video": null
+    },
+    "description": "Kết hợp squat và overhead press bằng tạ đòn, rèn luyện toàn thân và nâng cao sức mạnh tim mạch."
+  },
+  {
+    "name": "Sit Squat",
+    "levelIds": [1],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [13],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "15,60",
+    "goalIds": [1, 4, 5, 6],
+    "media": {
+      "image": "images/quads/quads_sit-squat.jpg",
+      "video": null
+    },
+    "description": "Bài squat đơn giản hỗ trợ cải thiện sức mạnh thân dưới"
+  },
+  {
+    "name": "Barbell Squat",
+    "levelIds": [2, 3],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [12],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "20,90",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/quads/quads_barbell-squat.jpg",
+      "video": null
+    },
+    "description": "Bài tập trọng tải giúp phát triển toàn diện nhóm cơ thân dưới"
+  },
+  {
+    "name": "Squat to Overhead Reach",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [10, 11],
+    "secondaryTargetMuscleIds": [8, 12, 13],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "12,15",
+    "duration": "15,60",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/quads/quads_squat-to-overhead-reach.jpg",
+      "video": null
+    },
+    "description": "Kết hợp squat và vươn tay giúp tăng sức mạnh thân dưới và độ linh hoạt vai lưng."
+  },
+  {
+    "name": "High Knee Tap",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11, 12],
+    "secondaryTargetMuscleIds": [7, 8, 13],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,4",
+    "reps": "10,12",
+    "duration": "20,60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/quads/quads_high-knee-tap.jpg",
+      "video": null
+    },
+    "description": "Bài cardio giúp tăng nhịp tim, cải thiện sức bền và đốt cháy mỡ hiệu quả. Thích hợp trong các buổi khởi động hoặc tập tăng chiều cao."
   }
 ]

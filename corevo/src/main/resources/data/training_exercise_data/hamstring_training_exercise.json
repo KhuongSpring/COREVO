@@ -340,5 +340,23 @@
       "video": null
     },
     "description": "Bài tập đơn giản với dây kháng lực giúp cô lập nhóm cơ đùi sau hiệu quả tại nhà."
+  },
+  {
+    "name": "Farmers Walk",
+    "levelIds": [2],
+    "typeIds": [1],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [3, 6, 11],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/hamstring/hamstring_farmers-walk.jpg",
+      "video": null
+    },
+    "description": "Cầm tạ hai tay và đi bộ, tăng sức mạnh tay, cơ bụng và khả năng giữ thăng bằng."
   }
 ]

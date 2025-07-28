@@ -11,7 +11,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import java.util.List;
 
 @Mapper(componentModel = "spring",
-        uses = TrainingScheduleMapperHelper.class,
+        uses = {TrainingScheduleMapperHelper.class, TrainingDayMapper.class},
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )

@@ -21,17 +21,12 @@ public class TrainingExerciseGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String name;
+    String note;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "training_day_id", nullable = false)
     TrainingDay trainingDay;
 
-    @ManyToMany
-    @JoinTable(
-            name = "training_group_exercise",
-            joinColumns = @JoinColumn(name = "training_exercise_group_id"),
-            inverseJoinColumns = @JoinColumn(name = "training_exercise_id")
-    )
-    List<TrainingExercise> trainingExercises;
+    @OneToMany(mappedBy = "exerciseGroup", cascade = CascadeType.ALL)
+    List<TrainingExerciseGroupDetail> exercises;
 }
