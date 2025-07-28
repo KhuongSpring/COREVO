@@ -718,5 +718,41 @@
       "video": null
     },
     "description": "Run on Treadmill là bài cardio mô phỏng chạy ngoài trời nhưng trong môi trường kiểm soát - bạn có thể tự điều chỉnh tốc độ, độ dốc, và thời gian để phù hợp với thể lực và mục tiêu."
+  },
+  {
+    "name": "Walking on Incline Treadmill",
+    "levelIds": [1, 2, 3],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11, 12],
+    "secondaryTargetMuscleIds": [10, 13],
+    "equipmentIds": [3],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_walking-on-incline-treadmill.jpg",
+      "video": null
+    },
+    "description": "Đi bộ trên máy nghiêng giúp cải thiện sức bền tim mạch, đốt calo và tăng cường sức mạnh chân"
+  },
+  {
+    "name": "Standing Calf Raise",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [13],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "12,15",
+    "duration": "15,30",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/cardio/cardio_standing-calf-raise.jpg",
+      "video": null
+    },
+    "description": "Bài đơn giản nhưng hiệu quả cho việc tăng sức mạnh bắp chân"
   }
 ]

@@ -592,5 +592,23 @@
       "video": null
     },
     "description": "Động tác giúp kéo giãn cột sống thắt lưng, giải phóng áp lực ở hông, cơ bụng xiên và vùng lưng dưới. Rất phù hợp khi thực hiện sau buổi tập nặng, hoặc trước khi đi ngủ để thư giãn tinh thần và cơ thể."
+  },
+  {
+    "name": "Camel Pose",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [2, 11],
+    "secondaryTargetMuscleIds": [1, 3, 7, 8],
+    "equipmentIds": [2],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [7, 4, 8],
+    "media": {
+      "image": "images/yoga/yoga_camel-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế lạc đà giúp kéo giãn cơ lưng, mở ngực và tăng độ linh hoạt cột sống."
   }
 ]

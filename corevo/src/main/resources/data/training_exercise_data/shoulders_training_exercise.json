@@ -700,5 +700,23 @@
       "video": null
     },
     "description": "Bài tập kỹ thuật cao giúp cải thiện sự ổn định vai, sức mạnh toàn thân và khả năng phối hợp."
+  },
+  {
+    "name": "Handstand Hold on Wall",
+    "levelIds": [3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [3, 5],
+    "secondaryTargetMuscleIds": [1, 4],
+    "equipmentIds": [1],
+    "locationIds": [1, 2],
+    "sets": "2,3",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [5],
+    "media": {
+      "image": "images/shoulders/shoulders_handstand-hold-on-wall.jpg",
+      "video": null
+    },
+    "description": "Tư thế thăng bằng ngược trên tường giúp cải thiện sức mạnh vai và thăng bằng."
   }
 ]

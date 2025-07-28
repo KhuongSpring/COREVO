@@ -25,16 +25,16 @@
               "duration": "2 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 273,
+              "duration": "2 setsX45 giây"
             },
             {
               "exerciseId": 63,
               "duration": "2 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 285,
+              "duration": "2 setsX45 giây"
             }
           ]
         }
@@ -44,25 +44,25 @@
         "name": "Easy Run / Fast Walk",
         "duration": "45 phút",
         "location": "OUTSIDE",
-        "description": "Đi bộ nhanh hoặc chạy nhẹ, giữ nhịp tim ổn định",
+        "description": "Khởi động kĩ trước khi chạy và giãn cơ sau khi chạy",
         "exerciseGroups": {
           "note": "Lặp lại 7 lần vòng tập chính",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 278,
+              "duration": "1 setX5 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 310,
+              "duration": "7 setsX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 312,
+              "duration": "7 setsX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 278,
+              "duration": "1 setX5 phút"
             }
           ]
         }
@@ -121,8 +121,8 @@
               "duration": "8 setsX20 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 274,
+              "duration": "8 setsX20 giây"
             },
             {
               "exerciseId": 201,
@@ -145,20 +145,20 @@
           "note": "Lặp lại 5 - 6 lần vòng tập chính",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 278,
+              "duration": "1 setX10 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 312,
+              "duration": "5 - 6 setsX4 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 310,
+              "duration": "5 - 6 setsX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 278,
+              "duration": "5 - 6 setsX2 phút"
             }
           ]
         }
@@ -169,35 +169,7 @@
         "duration": null,
         "location": null,
         "description": "Nghỉ ngơi hoàn toàn, giúp cơ thể hồi phục",
-        "exerciseGroups": {
-          "note": "",
-          "exercises": [
-            {
-              "exerciseId": 1,
-              "duration": ""
-            },
-            {
-              "exerciseId": 1,
-              "duration": ""
-            },
-            {
-              "exerciseId": 1,
-              "duration": ""
-            },
-            {
-              "exerciseId": 1,
-              "duration": ""
-            },
-            {
-              "exerciseId": 1,
-              "duration": ""
-            },
-            {
-              "exerciseId": 1,
-              "duration": ""
-            }
-          ]
-        }
+        "exerciseGroups": {}
       }
     ]
   },
@@ -236,7 +208,7 @@
             },
             {
               "exerciseId": 220,
-              "duration": "3 setsX10 resp mỗi bên"
+              "duration": "3 setsX10 reps mỗi bên"
             }
           ]
         }
@@ -569,16 +541,16 @@
               "duration": "4 setsX40 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 285,
+              "duration": "4 setsX40 giây"
             },
             {
               "exerciseId": 47,
               "duration": "4 setsX40 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 306,
+              "duration": "4 setsX40 giây"
             }
           ]
         }
@@ -594,11 +566,11 @@
           "exercises": [
             {
               "exerciseId": 49,
-              "duration": "1 setsX2 phút"
+              "duration": "1 setX2 phút"
             },
             {
               "exerciseId": 156,
-              "duration": "1 setsX2 phút"
+              "duration": "1 setX2 phút"
             },
             {
               "exerciseId": 48,
@@ -1875,24 +1847,24 @@
           "note": "Nghỉ 90s giữa mỗi set. Chú trọng hít thở sâu",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 339,
+              "duration": "3 setsX10 - 12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 323,
+              "duration": "3 setsX8 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 332,
+              "duration": "3 setsX12 reps"
             },
             {
               "exerciseId": 13,
               "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 314,
+              "duration": "3 setsX10 reps"
             }
           ]
         }
@@ -1911,20 +1883,20 @@
               "duration": "3 setsX10 - 12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 324,
+              "duration": "3 setsX8 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 327,
+              "duration": "3 setsX10 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 333,
+              "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 319,
+              "duration": "3 setsX8 reps"
             }
           ]
         }
@@ -1947,24 +1919,24 @@
           "note": "Nghỉ 90s giữa mỗi set. Tập trung giữ cột sống thẳng",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 316,
+              "duration": "3 setsX8 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 340,
+              "duration": "3 setsX10 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 341,
+              "duration": "3 setsX8 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 342,
+              "duration": "3 setsX10 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 317,
+              "duration": "3 setsX8 reps"
             }
           ]
         }
@@ -1979,24 +1951,24 @@
           "note": "Nghỉ 90s giữa mỗi set. Ưu tiên kiểm soát hơi thở",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 330,
+              "duration": "3 setsX8 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 331,
+              "duration": "3 setsX6 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 325,
+              "duration": "3 setsX5 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 338,
+              "duration": "3 setsX8 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 318,
+              "duration": "3 setsX6 reps"
             }
           ]
         }
@@ -2011,20 +1983,20 @@
           "note": "Nghỉ 2 phút giữa vòng. Giữ tư thế tĩnh và thư giãn sâu",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 343,
+              "duration": "2 setsX1 phút mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 344,
+              "duration": "2 setsX1 phút mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 326,
+              "duration": "2 setsX45 - 60 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 336,
+              "duration": "2 setsX1 phút"
             }
           ]
         }
@@ -2053,24 +2025,24 @@
           "note": "Tập trung giữ nhịp đều",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 278,
+              "duration": "5 - 6 setsX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 279,
+              "duration": "5 - 6 setsX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 280,
+              "duration": "3 setsX5 - 6 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 281,
+              "duration": "3 setsX5 - 6 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 282,
+              "duration": "3 setsX10 - 12 phút"
             }
           ]
         }
@@ -2085,16 +2057,16 @@
           "note": "Nghỉ 60s - 75s giữa mỗi set. Tập trung kiểm soát nhịp thở",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 273,
+              "duration": "4 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 283,
+              "duration": "4 setsX30 - 40 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 284,
+              "duration": "4 setsX30 - 40 giây"
             },
             {
               "exerciseId": 10,
@@ -2113,24 +2085,24 @@
           "note": "Nghỉ 60s - 75s giữa mỗi set. Giữ lưng thẳng",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 285,
+              "duration": "3 setsX30 - 40 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 286,
+              "duration": "3 setsX20 - 30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 287,
+              "duration": "3 setsX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 288,
+              "duration": "3 setsX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 299,
+              "duration": "3 setsX20 reps mỗi bên"
             }
           ]
         }
@@ -2145,20 +2117,20 @@
           "note": "Giữ pace đều, kiểm soát bước chân khi tăng tốc",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 312,
+              "duration": "2 setsX5 - 6 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 290,
+              "duration": "3 setsX45 - 60 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 291,
+              "duration": "3 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 292,
+              "duration": "3 setsX30 - 45 giây"
             }
           ]
         }
@@ -2173,16 +2145,16 @@
           "note": "Nghỉ 90s - 2 phút giữa mỗi vòng",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 306,
+              "duration": "4 setsX40 giây"
             },
             {
               "exerciseId": 180,
               "duration": "4 setsX40 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 293,
+              "duration": "4 setsX40 giây"
             }
           ]
         }
@@ -2197,16 +2169,16 @@
           "note": "Chú trọng giữ thăng bằng và kiểm soát chuyển động",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 294,
+              "duration": "3 setsX10 reps mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 295,
+              "duration": "3 setsX8 reps mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 296,
+              "duration": "3 setsX8 reps"
             },
             {
               "exerciseId": 173,
@@ -2247,12 +2219,12 @@
           "note": "Nghỉ 60s giữa set. Tập trung siết cơ core",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 310,
+              "duration": "1 setX15 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 279,
+              "duration": "1 setX10 phút"
             },
             {
               "exerciseId": 116,
@@ -2287,12 +2259,12 @@
               "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 312,
+              "duration": "1 setX5 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 285,
+              "duration": "3 setsX20 reps"
             },
             {
               "exerciseId": 133,
@@ -2319,20 +2291,20 @@
           "note": "Nghỉ 60s giữa set. Chú ý hơi thở và tốc độ",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 312,
+              "duration": "2 setsX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 283,
+              "duration": "1 setX10 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 273,
+              "duration": "3 setsX20 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 306,
+              "duration": "3 setsX8 - 10 reps"
             }
           ]
         }
@@ -2348,15 +2320,15 @@
           "exercises": [
             {
               "exerciseId": 168,
-              "duration": ""
+              "duration": "3 setsX12 - 15 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 279,
+              "duration": "1 setX10 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 310,
+              "duration": "1 setX15 phút"
             },
             {
               "exerciseId": 1,
@@ -2383,20 +2355,20 @@
               "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 281,
+              "duration": "2 setsX1 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 287,
+              "duration": "2 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 286,
+              "duration": "2 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 297,
+              "duration": "2 setsX1 phút"
             }
           ]
         }
@@ -2577,8 +2549,8 @@
               "duration": "3 setsX30 - 40 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 41,
+              "duration": "3 setsX15 - 20 reps"
             },
             {
               "exerciseId": 41,
@@ -2818,27 +2790,27 @@
         "location": "OUTSIDE / HOME",
         "description": "Đi bộ nhanh hoặc chạy nhẹ giữ nhịp tim ổn định",
         "exerciseGroups": {
-          "note": "Nghỉ 45–60s giữa các set. Tập trung vào nhịp thở và kiểm soát",
+          "note": "Nghỉ 45s - 60s giữa các set. Tập trung vào nhịp thở và kiểm soát",
           "exercises": [
             {
               "exerciseId": 168,
               "duration": "3 setsX12 - 15 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 306,
+              "duration": "3 setsX8 - 10 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 274,
+              "duration": "8 setsX20 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 298,
+              "duration": "4 setsX20 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 285,
+              "duration": "2 setsX45 giây"
             }
           ]
         }
@@ -2850,27 +2822,27 @@
         "location": "HOME",
         "description": "Cardio nhẹ nhàng giúp cải thiện tuần hoàn",
         "exerciseGroups": {
-          "note": "Nghỉ 30–45s. Duy trì nhịp độ đều, tránh vội",
+          "note": "Nghỉ 30s - 45s. Duy trì nhịp độ đều, tránh vội",
           "exercises": [
             {
               "exerciseId": 10,
               "duration": "3 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 273,
+              "duration": "4 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 284,
+              "duration": "4 setsX30 - 40 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 299,
+              "duration": "4 setsX40 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 286,
+              "duration": "3 setsX30 giây"
             }
           ]
         }
@@ -2885,24 +2857,24 @@
           "note": "Nghỉ 30s giữa set. Tập trung sức bền",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 283,
+              "duration": "6 setsX45 giây"
             },
             {
               "exerciseId": 180,
               "duration": "6 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 300,
+              "duration": "6 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 301,
+              "duration": "6 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 287,
+              "duration": "6 setsX45 giây"
             }
           ]
         }
@@ -2937,16 +2909,16 @@
               "duration": "3 setsX15 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 305,
+              "duration": "3 setsX8 reps"
             },
             {
               "exerciseId": 181,
               "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 302,
+              "duration": "3 setsX18 reps"
             }
           ]
         }
@@ -2965,24 +2937,24 @@
               "duration": "2 setsX1 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 303,
+              "duration": "5 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 294,
+              "duration": "5 setsX40 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 278,
+              "duration": "5 setsX60 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 308,
+              "duration": "5 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 311,
+              "duration": "1 setX3 phút"
             }
           ]
         }
@@ -3015,12 +2987,12 @@
               "duration": "3 setsX12 - 15 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 201,
+              "duration": "3 setsX12 - 15 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 66,
+              "duration": "3 setsX12 - 15 reps"
             },
             {
               "exerciseId": 43,
@@ -3040,23 +3012,23 @@
           "exercises": [
             {
               "exerciseId": 181,
-              "duration": "3 setsX9 reps"
+              "duration": "3 setsX10 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 81,
+              "duration": "3 setsX8 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 63,
+              "duration": "3 setsX8 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 306,
+              "duration": "3 setsX10 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 198,
+              "duration": "3 setsX15 reps"
             }
           ]
         }
@@ -3071,24 +3043,24 @@
           "note": "Nghỉ 60s - 75s giữa các set. Giữ lưng thẳng, kiểm soát nhịp thở",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 275,
+              "duration": "6 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 199,
+              "duration": "4 setsX10 - 12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 200,
+              "duration": "4 setsX10 - 12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 182,
+              "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 11,
+              "duration": "3 setsX12 - 15 reps"
             },
             {
               "exerciseId": 77,
@@ -3107,8 +3079,8 @@
           "note": "Nghỉ tuỳ ý. Duy trì nhịp thở ổn định, thả lỏng cơ",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 310,
+              "duration": "2 setsX15 phút"
             }
           ]
         }
@@ -3127,20 +3099,20 @@
               "duration": "3 setsX10 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 240,
+              "duration": "2 setsX5 reps mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 177,
+              "duration": "3 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 304,
+              "duration": "3 setsX1 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 285,
+              "duration": "3 setsX45 giây"
             }
           ]
         }
@@ -3155,8 +3127,8 @@
           "note": "Nghỉ tuỳ ý. Thư giãn nhẹ nhàng, giữ thẳng dáng đi bộ",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 310,
+              "duration": "2 setsX15 phút"
             }
           ]
         }
@@ -3185,24 +3157,24 @@
           "note": "Nghỉ 30s - 45s giữa các set. Chú trọng vào hơi thở chậm rãi",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 330,
+              "duration": "4 setsX1 phút 30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 314,
+              "duration": "4 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 313,
+              "duration": "4 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 333,
+              "duration": "4 setsX1 phút 30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 329 ,
+              "duration": "4 setsX30 giây"
             }
           ]
         }
@@ -3217,24 +3189,24 @@
           "note": "Nghỉ 30s - 60s giữa các set. Giữ tư thế ổn định",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 334,
+              "duration": "3 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 323,
+              "duration": "3 setsX15 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 324,
+              "duration": "3 setsX20 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 332,
+              "duration": "3 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 342,
+              "duration": "3 setsX1 phút"
             }
           ]
         }
@@ -3249,28 +3221,28 @@
           "note": "Nghỉ 45s - 60s giữa các set. Duy trì sự cân bằng và kiểm soát khi giữ tư thế lâu",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 340,
+              "duration": "5 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 341,
+              "duration": "5 setsX25 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 319,
+              "duration": "5 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 320,
+              "duration": "5 setsX15 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 335,
+              "duration": "5 setsX20 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 316,
+              "duration": "5 setsX30 giây"
             }
           ]
         }
@@ -3285,24 +3257,24 @@
           "note": "Nghỉ 30s - 45s giữa các set. Không vội vàng giữa các tư thế",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 343,
+              "duration": "3 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 344,
+              "duration": "3 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 327,
+              "duration": "3 setsX20 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 315,
+              "duration": "3 setsX25 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 336,
+              "duration": "3 setsX25 giây"
             }
           ]
         }
@@ -3317,24 +3289,24 @@
           "note": "Nghỉ 45s - 75s giữa các set. Tập trung vào độ mở của ngực và cột sống",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 325,
+              "duration": "4 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 326,
+              "duration": "4 setsX40 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 323,
+              "duration": "4 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 324,
+              "duration": "4 setsX25 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 328,
+              "duration": "4 setsX20 giây"
             }
           ]
         }
@@ -3349,28 +3321,28 @@
           "note": "Nghỉ 60s - 90s giữa các set. Chú trọng giữ thăng bằng và ổn định ở các tư thế nâng cao",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 338,
+              "duration": "6 setsX1 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 318,
+              "duration": "6 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 321,
+              "duration": "6 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 322,
+              "duration": "6 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 337,
+              "duration": "6 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 331,
+              "duration": "6 setsX1 phút 30 giây"
             }
           ]
         }
@@ -3399,24 +3371,24 @@
           "note": "Lặp lại 3 lần. Giữ cơ thể thư giãn, thở sâu và chú trọng vào việc giãn cơ",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 313,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 322,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 328,
+              "duration": "2 setsX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 326,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 336,
+              "duration": "1 setX3 phút"
             }
           ]
         }
@@ -3428,27 +3400,27 @@
         "location": "ANYWHERE",
         "description": "Thả lỏng vai - gáy - cổ ",
         "exerciseGroups": {
-          "note": "Tập trung vào việc thả lỏng cơ thể, kết hợp nhịp thở sâu và thư giãn. Lặp lại các bài tập 3 lần ",
+          "note": "Tập trung vào việc thả lỏng cơ thể, kết hợp nhịp thở sâu và thư giãn. Lặp lại các bài tập 3 lần",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 314,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 313,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 35,
+              "duration": "1 setX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 326,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 309,
+              "duration": "1 setX3 phút"
             }
           ]
         }
@@ -3463,24 +3435,24 @@
           "note": "Chú ý thả lỏng cơ thể",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 314,
+              "duration": "1 setX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 313,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 322,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 328,
+              "duration": "2 setsX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 336,
+              "duration": "1 setX3 phút"
             }
           ]
         }
@@ -3495,24 +3467,24 @@
           "note": "Thả lỏng cơ thể, chú ý về form. Tập các bài tập 3 lần",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 314,
+              "duration": "1 setX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 334,
+              "duration": "1 setX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 328,
+              "duration": "2 setsX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 322,
+              "duration": "1 setX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 335,
+              "duration": "1 setX2 phút"
             }
           ]
         }
@@ -3527,24 +3499,24 @@
           "note": "Chú ý giữ giữ chuẩn form. Lặp lại các bài tập 3 lần",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 336,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 322,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 328,
+              "duration": "2 setsX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 326,
+              "duration": "1 setX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 313,
+              "duration": "1 setX3 phút"
             }
           ]
         }
@@ -3559,24 +3531,24 @@
           "note": "Chú ý hít thở đều",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 313,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 322,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 336,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 326,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 314,
+              "duration": "1 setX3 phút"
             }
           ]
         }
@@ -3588,27 +3560,27 @@
         "location": "ANYWHERE",
         "description": "Thiền dẫn  + tư thế giãn sâu đơn giản",
         "exerciseGroups": {
-          "note": "Thả lỏng cơ thể ",
+          "note": "Thả lỏng cơ thể",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 313,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 314,
+              "duration": "1 setX2 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 322,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 336,
+              "duration": "1 setX3 phút"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 330,
+              "duration": "1 setX3 phút"
             }
           ]
         }
@@ -3815,8 +3787,8 @@
               "duration": "2 setsX10 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 307,
+              "duration": "2 setsX12 reps"
             }
           ]
         }
@@ -3832,11 +3804,11 @@
           "exercises": [
             {
               "exerciseId": 48,
-              "duration": "1 setsX120 giây"
+              "duration": "1 setX120 giây"
             },
             {
               "exerciseId": 26,
-              "duration": "1 setsX120 giây"
+              "duration": "1 setX120 giây"
             },
             {
               "exerciseId": 25,
@@ -3844,11 +3816,11 @@
             },
             {
               "exerciseId": 1,
-              "duration": "1 setsX60 giây"
+              "duration": "1 setX60 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 322,
+              "duration": "2 setsX8 reps"
             }
           ]
         }
@@ -3895,16 +3867,16 @@
           "note": "Tập 2 vòng, nghỉ giữa các vòng 60 giây. Giữ form chuẩn, siết cơ bụng",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 309,
+              "duration": "1 setX60 giây"
             },
             {
               "exerciseId": 46,
-              "duration": "1 setsX150 giây"
+              "duration": "1 setX2 phút"
             },
             {
               "exerciseId": 188,
-              "duration": "1 setsX15 reps"
+              "duration": "1 setX15 reps"
             },
             {
               "exerciseId": 48,
@@ -3912,7 +3884,7 @@
             },
             {
               "exerciseId": 131,
-              "duration": "1 setsX90 giây"
+              "duration": "1 setX1 phút 30 giây"
             }
           ]
         }
@@ -4026,35 +3998,27 @@
         "location": "HOME",
         "description": "Kéo giãn cột sống, cải thiện tư thế",
         "exerciseGroups": {
-          "note": "Lặp lại 3 lần",
+          "note": "Tập trung kết hợp thở đều và chuyển động nhẹ nhàng, buổi khởi đầu tuần giúp cơ thể hồi phục sau cuối tuần",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 314,
+              "duration": "3 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 313,
+              "duration": "2 setsX60 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 328,
+              "duration": "2 setsX45 giây mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 334,
+              "duration": "2 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 326,
+              "duration": "1 setX60 giây"
             }
           ]
         }
@@ -4066,35 +4030,27 @@
         "location": "HOME",
         "description": "Mở hông, kéo giãn chân & cơ đùi",
         "exerciseGroups": {
-          "note": "Lặp lại 3 lần",
+          "note": "Tập trung vào thăng bằng và kéo giãn sau dưới, thích hợp cho ngày vận động nhẹ nhàng hoặc trước buổi tập chân",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 322,
+              "duration": "3 setsX40 giây"
             },
             {
               "exerciseId": 1,
               "duration": "0X0"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 328,
+              "duration": "2 setsX45 giây mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 336,
+              "duration": "1 setX1 phút 30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 320,
+              "duration": "2 setsX45 giây mỗi bên"
             }
           ]
         }
@@ -4106,35 +4062,27 @@
         "location": "HOME",
         "description": "Yoga nhẹ thư giãn, hồi phục cơ thể",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Lý tưởng cho buổi kéo giãn nhẹ sau tập push hoặc core, giúp phục hồi lưng dưới và cột sống",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 313,
+              "duration": "2 setsX60 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 314,
+              "duration": "2 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 326,
+              "duration": "1 setX60 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 322,
+              "duration": "2 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 336,
+              "duration": "1 setX1 phút 30 giây"
             }
           ]
         }
@@ -4146,35 +4094,27 @@
         "location": "HOME",
         "description": "Thả lỏng vùng vai gáy, giảm áp lực cột sống",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Phù hợp để khởi động cho buổi tập thân trên hoặc dùng để giãn sau khi ngồi máy tính nhiều giờ",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 314,
+              "duration": "3 setsX45 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 313,
+              "duration": "2 setsX60 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 326,
+              "duration": "1 setX60 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 35,
+              "duration": "2 setsX30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 309,
+              "duration": "2 setsX30 giây"
             }
           ]
         }
@@ -4186,35 +4126,27 @@
         "location": "HOME",
         "description": "Yoga toàn thân, cân bằng & linh hoạt",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Buổi tập nhẹ thiên về phục hồi, tĩnh tâm và thở chánh niệm - rất phù hợp trước khi ngủ hoặc sau tuần căng thẳng",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 314,
+              "duration": "3 setsX90 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 328,
+              "duration": "2 setsX60 giây mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 319,
+              "duration": "2 setsX45 giây mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 336,
+              "duration": "1 setX1 phút 30 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 330,
+              "duration": "1 setX3 phút"
             }
           ]
         }
@@ -4226,35 +4158,27 @@
         "location": "HOME",
         "description": "Tăng độ linh hoạt & phối hợp cơ thể",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần",
+          "note": "Kết hợp động - tĩnh giúp kích hoạt cơ nhẹ nhàng, tăng tính linh hoạt, thích hợp cho active recovery",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 47,
+              "duration": "3 setsX45 giây mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 48,
+              "duration": "3 setsX10 reps mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 127,
+              "duration": "3 setsX8 - 10 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 328,
+              "duration": "2 setsX45 giây mỗi bên"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 322,
+              "duration": "2 setsX45 giây"
             }
           ]
         }
@@ -4280,26 +4204,26 @@
         "location": "GYM / HOME",
         "description": "Bật nhảy cao kết hợp giãn cơ toàn thân",
         "exerciseGroups": {
-          "note": "Lặp lại 3 vòng, nghỉ 60 giây giữa các vòng, tập trung vào việc bật nhảy cao, chú trọng vào động tác và hít thở đều.",
+          "note": "Nghỉ 30s giữa các set. Ưu tiên form, cảm nhận căng cơ - không cần quá nhanh",
           "exercises": [
             {
               "exerciseId": 49,
               "duration": "2 setsX15 reps"
             },
             {
-              "exerciseId": 137,
+              "exerciseId": 138,
               "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 273,
+              "duration": "1 setsX60 giây"
             },
             {
-              "exerciseId": 125,
-              "duration": "3 setsX6 reps"
+              "exerciseId": 126,
+              "duration": "3 setsX8 - 10 reps"
             },
             {
-              "exerciseId": 171,
+              "exerciseId": 172,
               "duration": "2 setsX8 reps"
             }
           ]
@@ -4312,27 +4236,27 @@
         "location": "GYM / HOME",
         "description": "Tập sức bật chân kết hợp giãn chân, hông",
         "exerciseGroups": {
-          "note": "Lặp lại 3 lần. Tập chung hít thở đều để tăng cường độ linh hoạt và sức mạnh.",
+          "note": "Nghỉ 45s - 60s giữa các set. Duy trì nhịp thở ổn định",
           "exercises": [
             {
-              "exerciseId": 150,
+              "exerciseId": 151,
               "duration": "3 setsX15 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 144,
-              "duration": "4 setsX 8 reps"
-            },
-            {
-              "exerciseId": 139,
-              "duration": "3 sets X 10 reps"
+              "exerciseId": 274,
+              "duration": "1 setX60 giây"
             },
             {
               "exerciseId": 145,
-              "duration": "3 sets X 12 reps"
+              "duration": "4 setsX8 reps"
+            },
+            {
+              "exerciseId": 140,
+              "duration": "3 setsX10 reps"
+            },
+            {
+              "exerciseId": 146,
+              "duration": "3 setsX12 reps"
             }
           ]
         }
@@ -4344,27 +4268,27 @@
         "location": "HOME",
         "description": "Nghỉ hoặc giãn cơ nhẹ nhàng hồi phục",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần. Giãn cơ nhẹ nhàng để hồi phục, tập trung vào thả lỏng cơ thể.",
+          "note": "Nghỉ ngơi hoặc thực hiện các bài giãn cơ nhẹ nhàng",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 313,
+              "duration": "2 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 277,
+              "duration": "1 setX60 giây"
             },
             {
-              "exerciseId": 140,
-              "duration": "3 sets X 12 reps"
+              "exerciseId": 141,
+              "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 276,
+              "duration": "3 setsX15 reps"
             },
             {
-              "exerciseId": 149,
-              "duration": "2 sets X 12 reps"
+              "exerciseId": 150,
+              "duration": "2 setsX12 reps"
             }
           ]
         }
@@ -4376,27 +4300,27 @@
         "location": "GYM / HOME",
         "description": "Cardio kết hợp bài tập kéo dài cơ thể",
         "exerciseGroups": {
-          "note": "Lập lại 2 lần. Tăng cường sức mạnh và linh hoạt cơ thể, chú trọng form và hít thở đều.",
+          "note": "Giữ pace đều, tăng dần nhịp độ qua từng vòng",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 274,
+              "duration": "3 setsX60 giây"
             },
             {
-              "exerciseId": 150,
-              "duration": "3 sets X 12 reps"
+              "exerciseId": 151,
+              "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 308,
+              "duration": "2 setsX20 reps"
             },
             {
-              "exerciseId": 180,
-              "duration": "2 sets X 20 reps"
+              "exerciseId": 182,
+              "duration": "2 setsX20 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 334,
+              "duration": "1 setX90 giây"
             }
           ]
         }
@@ -4408,27 +4332,27 @@
         "location": "GYM / HOME",
         "description": "Plyometrics nhẹ, tăng độ bật và linh hoạt",
         "exerciseGroups": {
-          "note": "Lập lại 3 lần. Giữ form chuẩn, kiểm soát động tác, tránh căng cơ quá mức và thở đều",
+          "note": "Nghỉ 60s - 75s giữa mỗi set. Kiểm soát kỹ chuyển động",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 273,
+              "duration": "1 setX60 giây"
             },
             {
               "exerciseId": 48,
-              "duration": "2 sets X 10 reps"
+              "duration": "2 setsX10 reps"
             },
             {
-              "exerciseId": 180,
-              "duration": "2 sets X 15 reps"
+              "exerciseId": 182,
+              "duration": "2 setsX15 reps"
             },
             {
-              "exerciseId": 181,
-              "duration": "3 sets X 12 reps"
+              "exerciseId": 183,
+              "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 345,
+              "duration": "2 setsX12 reps"
             }
           ]
         }
@@ -4440,27 +4364,23 @@
         "location": "HOME",
         "description": "Yoga & stretch toàn thân, tăng chiều cao",
         "exerciseGroups": {
-          "note": "Giữ form đúng, căng cơ nhẹ và thở đều khi tập các bài stretch",
+          "note": "Chú trọng kéo giãn sâu, không thực hiện quá vội vàng",
           "exercises": [
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 277,
+              "duration": "1 setX60 giây"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 276,
+              "duration": "3 setsX20 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
+              "exerciseId": 344,
+              "duration": "2 setsX12 reps"
             },
             {
-              "exerciseId": 1,
-              "duration": "0X0"
-            },
-            {
-              "exerciseId": 180,
-              "duration": "2 sets X 15 reps"
+              "exerciseId": 182,
+              "duration": "2 setsX15 reps"
             }
           ]
         }
@@ -4486,27 +4406,27 @@
         "location": "HOME",
         "description": "Tăng sức mạnh vùng bụng và lưng dưới",
         "exerciseGroups": {
-          "note": "Tập 3 vòng, mỗi vòng nghỉ 30-60 giây, tập trung vào giữ form, hít thở đều và kiểm soát rep",
+          "note": "Tập 3 vòng, mỗi vòng nghỉ 30 - 60 giây, tập trung vào giữ form, hít thở đều và kiểm soát rep",
           "exercises": [
             {
-              "exerciseId": 126,
-              "duration": "3 setX12reps"
+              "exerciseId": 127,
+              "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 131,
-              "duration": "3setsX 10reps"
+              "exerciseId": 25,
+              "duration": "3 setsX10 reps"
             },
             {
               "exerciseId": 19,
-              "duration": "3setsX 12reps"
+              "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 152,
-              "duration": "3setsX30 giây"
+              "exerciseId": 153,
+              "duration": "3 setsX30 giây"
             },
             {
               "exerciseId": 29,
-              "duration": "3 setsX 30 giây"
+              "duration": "3 setsX30 giây"
             }
           ]
         }
@@ -4518,27 +4438,27 @@
         "location": "HOME",
         "description": "Tập cơ lưng, vai, cải thiện tư thế thân trên",
         "exerciseGroups": {
-          "note": "Tập 3 vòng, nghỉ 30–60 giây giữa mỗi vòng, hít thở đều và kiểm soát rep,",
+          "note": "Tập 3 vòng, nghỉ 30 - 60 giây giữa mỗi vòng, hít thở đều và kiểm soát rep",
           "exercises": [
             {
-              "exerciseId": 125,
-              "duration": "3setsX12reps"
-            },
-            {
               "exerciseId": 126,
-              "duration": "3setsX12reps"
+              "duration": "3 setsX12 reps"
             },
             {
               "exerciseId": 127,
-              "duration": "3setsX30 giây"
+              "duration": "3 setsX12 reps"
+            },
+            {
+              "exerciseId": 128,
+              "duration": "3 setsX30 giây"
             },
             {
               "exerciseId": 19,
-              "duration": "3setsX10reps"
+              "duration": "3 setsX10 reps"
             },
             {
               "exerciseId": 2,
-              "duration": "3setsX30 giây"
+              "duration": "3 setsX30 giây"
             }
           ]
         }
@@ -4550,7 +4470,7 @@
         "location": "HOME",
         "description": "Nghỉ ngơi hoặc giãn cơ nhẹ nhàng",
         "exerciseGroups": {
-          "note": "Tập 2 vòng, nghỉ 60 giây giữa mỗi vòng, tập trung vào giãn cơ nhẹ nhàng, không cần căng cơ quá mức.",
+          "note": "Tập 2 vòng, nghỉ 60 giây giữa mỗi vòng, tập trung vào giãn cơ nhẹ nhàng, không cần căng cơ quá mức",
           "exercises": [
             {
               "exerciseId": 49,
@@ -4561,7 +4481,7 @@
               "duration": "2 setsX60 giây"
             },
             {
-              "exerciseId": 149,
+              "exerciseId": 150,
               "duration": "2 setsX60 giây"
             },
             {
@@ -4582,7 +4502,7 @@
         "location": "GYM / HOME",
         "description": "Bài tập cải thiện tư thế cột sống, giãn cơ lưng",
         "exerciseGroups": {
-          "note": "Lặp lại 3 vòng, nghỉ từ 30 giây giữa các vòng, tập trung vào giữ form và hít thở đều để giãn cơ lưng. ",
+          "note": "Lặp lại 3 vòng, nghỉ từ 30 giây giữa các vòng, tập trung vào giữ form và hít thở đều để giãn cơ lưng",
           "exercises": [
             {
               "exerciseId": 49,
@@ -4593,12 +4513,12 @@
               "duration": "3 setsX60 giây"
             },
             {
-              "exerciseId": 149,
-              "duration": "2setsX10reps"
+              "exerciseId": 150,
+              "duration": "2 setsX10 reps"
             },
             {
               "exerciseId": 48,
-              "duration": "3setsX30 giây"
+              "duration": "3 setsX30 giây"
             },
             {
               "exerciseId": 7,
@@ -4614,27 +4534,27 @@
         "location": "HOME",
         "description": "Tăng độ cân bằng và kiểm soát cơ thể",
         "exerciseGroups": {
-          "note": "Chú trọng vào giữ thăng bằng, và hít thở đều. Lập lại 3 lần các bài tập.",
+          "note": "Chú trọng vào giữ thăng bằng, và hít thở đều. Lập lại 3 lần các bài tập",
           "exercises": [
             {
-              "exerciseId": 135,
-              "duration": "3setsX10reps"
+              "exerciseId": 136,
+              "duration": "3 setsX10 reps"
             },
             {
-              "exerciseId": 151,
-              "duration": "3setsX10reps"
+              "exerciseId": 152,
+              "duration": "3 setsX10 reps"
             },
             {
               "exerciseId": 2,
-              "duration": "2setsX30 giây"
+              "duration": "2 setsX30 giây"
             },
             {
-              "exerciseId": 126,
-              "duration": "3setsX10reps"
+              "exerciseId": 127,
+              "duration": "3 setsX10 reps"
             },
             {
               "exerciseId": 7,
-              "duration": "2setsX45 giây"
+              "duration": "2 setsX45 giây"
             }
           ]
         }
@@ -4646,7 +4566,7 @@
         "location": "HOME",
         "description": "Kết hợp giãn cơ và tăng sức mạnh toàn thân",
         "exerciseGroups": {
-          "note": "Lặp lại 3 vòng, nghỉ 30–60 giây giữa các vòng.",
+          "note": "Lặp lại 3 vòng, nghỉ 30 - 60 giây giữa các vòng",
           "exercises": [
             {
               "exerciseId": 49,
@@ -4654,19 +4574,19 @@
             },
             {
               "exerciseId": 47,
-              "duration": "2setsX10reps"
+              "duration": "2 setsX10 reps"
             },
             {
               "exerciseId": 48,
-              "duration": "3setsX12reps"
+              "duration": "3 setsX12 reps"
             },
             {
-              "exerciseId": 126,
-              "duration": "3setsX12reps"
+              "exerciseId": 127,
+              "duration": "3 setsX12 reps"
             },
             {
               "exerciseId": 19,
-              "duration": "3setsX12reps"
+              "duration": "3 setsX12 reps"
             }
           ]
         }

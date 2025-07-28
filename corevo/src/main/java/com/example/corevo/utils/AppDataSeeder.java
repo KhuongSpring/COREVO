@@ -331,8 +331,6 @@ public class AppDataSeeder implements ApplicationRunner {
             for (String file : jsonFiles) {
                 trainingExercisesFromJSON.addAll(loadTrainingExerciseDataFromJSON(file));
             }
-            System.out.println(trainingExercisesFromJSON.size());
-            System.out.println(trainingExercisesFromDB.size());
 
             if (trainingExercisesFromJSON.size() > trainingExercisesFromDB.size()) {
                 for (TrainingExerciseResponseDto x : trainingExercisesFromJSON) {

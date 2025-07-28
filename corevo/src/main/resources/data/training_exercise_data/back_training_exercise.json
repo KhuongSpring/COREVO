@@ -574,5 +574,59 @@
       "video": null
     },
     "description": "Nâng tạ từ sàn và đẩy lên cao. Rèn sức mạnh toàn thân và tăng sức bền."
+  },
+  {
+    "name": "Pull Up",
+    "levelIds": [2, 3],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [2],
+    "secondaryTargetMuscleIds": [4],
+    "equipmentIds": [6],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "8,10",
+    "duration": "15,60",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/back/back_pull-up.jpg",
+      "video": null
+    },
+    "description": "Bài tập thể hình cổ điển tăng cường cơ xô, tay trước và sức mạnh lưng"
+  },
+  {
+    "name": "Band Assisted Pull Up",
+    "levelIds": [1, 2],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [2],
+    "secondaryTargetMuscleIds": [4],
+    "equipmentIds": [4, 6],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "10,12",
+    "duration": "15,60",
+    "goalIds": [3, 5],
+    "media": {
+      "image": "images/back/back_band-assisted-pull-up.jpg",
+      "video": null
+    },
+    "description": "Phiên bản hỗ trợ của pull-up phù hợp cho người mới bắt đầu luyện tập."
+  },
+  {
+    "name": "Side Lying Leg Raise",
+    "levelIds": [1],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [9],
+    "secondaryTargetMuscleIds": [8],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "10,12",
+    "duration": "15,60",
+    "goalIds": [4, 5, 6],
+    "media": {
+      "image": "images/back/back_side-lying-leg-raise.jpg",
+      "video": null
+    },
+    "description": "Bài tập đơn giản tăng cường cơ mông và kiểm soát chuyển động chân."
   }
 ]
