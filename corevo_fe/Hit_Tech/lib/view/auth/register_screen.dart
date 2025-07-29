@@ -4,17 +4,17 @@ import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/core/constants/app_message.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
-import 'package:hit_tech/features/auth/models/responses/register_response.dart';
-import 'package:hit_tech/features/auth/view/widgets/auth_custom_button.dart';
-import 'package:hit_tech/features/auth/view/widgets/button_gg_fb_auth.dart';
-import 'package:hit_tech/features/auth/view/widgets/custom_input_field.dart';
-import 'package:hit_tech/features/auth/view/otp_verification_screen.dart';
+import 'package:hit_tech/view/auth/widgets/auth_custom_button.dart';
+import 'package:hit_tech/view/auth/widgets/button_gg_fb_auth.dart';
+import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
 
 import '../../../core/constants/app_assets.dart';
-import '../models/requests/register_request.dart';
-import '../service/auth_service.dart';
-import '../utils/validator_util.dart';
+import '../../../service/auth_service.dart';
+import '../../../utils/validator_util.dart';
+import '../../model/request/auth/register_request.dart';
+import '../../model/response/auth/register_response.dart';
 import 'login_screen.dart';
+import 'otp_verification_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

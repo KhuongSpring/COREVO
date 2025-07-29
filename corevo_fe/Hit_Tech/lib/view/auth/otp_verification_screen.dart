@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hit_tech/core/constants/app_message.dart';
-import 'package:hit_tech/features/auth/models/requests/verify_otp_request.dart';
-import 'package:hit_tech/features/auth/service/auth_service.dart';
-import 'package:hit_tech/features/auth/view/reset_password_screen.dart';
+import 'package:hit_tech/service/auth_service.dart';
+import 'package:hit_tech/view/auth/reset_password_screen.dart';
 import 'dart:async';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_color.dart';
+import '../../model/request/auth/verify_otp_request.dart';
 import 'login_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {

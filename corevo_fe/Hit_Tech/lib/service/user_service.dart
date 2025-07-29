@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:hit_tech/features/auth/models/user_profile_response.dart';
+import 'package:hit_tech/model/response/user/user_profile_response.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../core/constants/api_endpoint.dart';
-import '../../../services/shared_preferences/shared_preferences.dart';
+import '../core/constants/api_endpoint.dart';
+import 'shared_preferences.dart';
 
 class UserService {
   static Future<UserProfileResponse> getProfile() async {

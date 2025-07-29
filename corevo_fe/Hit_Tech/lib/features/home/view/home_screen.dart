@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hit_tech/services/shared_preferences/shared_preferences.dart';
+import 'package:hit_tech/service/shared_preferences.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

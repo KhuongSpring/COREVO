@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
-import 'package:hit_tech/features/auth/models/requests/forgot_password_request.dart';
-import 'package:hit_tech/features/auth/models/responses/forgot_password_response.dart';
-import 'package:hit_tech/features/auth/view/widgets/custom_input_field.dart';
+import 'package:hit_tech/model/request/auth/forgot_password_request.dart';
+import 'package:hit_tech/model/response/auth/forgot_password_response.dart';
+import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_color.dart';
 import '../../../core/constants/app_message.dart';
-import '../service/auth_service.dart';
-import '../utils/validator_util.dart';
+import '../../../service/auth_service.dart';
+import '../../../utils/validator_util.dart';
 import 'otp_verification_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {

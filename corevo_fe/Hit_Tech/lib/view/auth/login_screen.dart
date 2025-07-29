@@ -4,20 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/core/constants/app_message.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
-import 'package:hit_tech/features/auth/models/requests/login_request.dart';
-import 'package:hit_tech/features/auth/service/user_service.dart';
-import 'package:hit_tech/features/auth/utils/validator_util.dart';
-import 'package:hit_tech/features/auth/view/widgets/auth_custom_button.dart';
-import 'package:hit_tech/features/auth/view/widgets/button_gg_fb_auth.dart';
-import 'package:hit_tech/features/auth/view/widgets/custom_input_field.dart';
-import 'package:hit_tech/features/auth/view/widgets/text_bottom_auth.dart';
+import 'package:hit_tech/service/user_service.dart';
+import 'package:hit_tech/utils/validator_util.dart';
 import 'package:hit_tech/features/health_infor/view/health_info_page.dart';
 import 'package:hit_tech/features/home/view/home_screen.dart';
 import 'package:hit_tech/features/main_root/home_root.dart';
-import 'package:hit_tech/services/shared_preferences/shared_preferences.dart';
+import 'package:hit_tech/service/shared_preferences.dart';
+import 'package:hit_tech/view/auth/widgets/auth_custom_button.dart';
+import 'package:hit_tech/view/auth/widgets/button_gg_fb_auth.dart';
+import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
+import 'package:hit_tech/view/auth/widgets/text_bottom_auth.dart';
 
 import '../../../core/constants/app_assets.dart';
-import '../service/auth_service.dart';
+import '../../../service/auth_service.dart';
+import '../../model/request/auth/login_request.dart';
 import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {

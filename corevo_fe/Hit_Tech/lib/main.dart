@@ -1,14 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hit_tech/features/auth/view/forgot_password_screen.dart';
-import 'package:hit_tech/features/auth/view/reset_password_screen.dart';
 
-import 'package:hit_tech/features/auth/view/splash_page.dart';
-import 'package:hit_tech/features/auth/view/login_screen.dart';
-import 'package:hit_tech/features/auth/view/register_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hit_tech/features/auth/view/otp_verification_screen.dart';
 import 'package:hit_tech/features/health_infor/view/health_info_page.dart';
 import 'package:hit_tech/features/health_infor/view/widgets/gender_selection_widget.dart';
 import 'package:hit_tech/features/home/view/home_screen.dart';
@@ -16,6 +10,7 @@ import 'package:hit_tech/features/training_flow/view/widget/training_equipment_s
 import 'package:hit_tech/features/training_flow/view/widget/training_frequency_selection_widget.dart';
 import 'package:hit_tech/features/training_flow/view/widget/training_location_selection_widget.dart';
 import 'package:hit_tech/features/training_flow/view/widget/training_type_selection_widget.dart';
+import 'package:hit_tech/view/auth/login_screen.dart';
 
 import 'features/health_infor/cubit/blocs/health_bloc.dart';
 import 'features/health_infor/cubit/data/repository/health_infor_repo.dart';
@@ -58,11 +53,11 @@ class MyApp extends StatelessWidget {
             home: LoginScreen(),
             routes: {
               // '/login': (context) => const LoginScreen(),
-              '/register': (context) => const RegisterScreen(),
-              '/home': (context) => HomeScreen(),
+              // '/register': (context) => const RegisterScreen(),
+              // '/home': (context) => HomeScreen(),
               // '/forgot-password': (context) => const ForgotPasswordScreen(),
-              '/splash': (context) => const SplashScreen(),
-              '/homeRoot': (context) => HomeRoot(),
+              // '/splash': (context) => const SplashScreen(),
+              // '/homeRoot': (context) => HomeRoot(),
               // '/trainingGoalSelection': (context) =>
               //     TrainingGoalSelectionWidget(),
               // '/trainingTypeSelection': (context) =>

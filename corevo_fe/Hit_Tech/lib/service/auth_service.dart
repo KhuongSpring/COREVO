@@ -1,17 +1,18 @@
 import 'package:hit_tech/core/constants/api_endpoint.dart';
-import 'package:hit_tech/features/auth/models/requests/forgot_password_request.dart';
-import 'package:hit_tech/features/auth/models/requests/login_request.dart';
-import 'package:hit_tech/features/auth/models/requests/reset_password_request.dart';
-import 'package:hit_tech/features/auth/models/responses/forgot_password_response.dart';
-import 'package:hit_tech/features/auth/models/responses/login_response.dart';
-import 'package:hit_tech/features/auth/models/responses/register_response.dart';
-import 'package:hit_tech/features/auth/models/responses/reset_password_response.dart';
+import 'package:hit_tech/model/request/auth/forgot_password_request.dart';
+import 'package:hit_tech/model/response/auth/forgot_password_response.dart';
+import 'package:hit_tech/model/response/auth/login_response.dart';
+import 'package:hit_tech/model/response/auth/reset_password_response.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../models/requests/register_request.dart';
-import '../models/requests/verify_otp_request.dart';
-import '../models/responses/verify_opt_response.dart';
+import '../model/request/auth/login_request.dart';
+import '../model/request/auth/register_request.dart';
+import '../model/request/auth/reset_password_request.dart';
+import '../model/request/auth/verify_otp_request.dart';
+import '../model/response/auth/register_response.dart';
+import '../model/response/auth/verify_opt_response.dart';
+
 
 class AuthService {
   static Future<LoginResponse> login(LoginRequest request) async {

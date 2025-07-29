@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
-import 'package:hit_tech/features/auth/models/requests/reset_password_request.dart';
-import 'package:hit_tech/features/auth/models/responses/reset_password_response.dart';
-import 'package:hit_tech/features/auth/view/login_screen.dart';
-import 'package:hit_tech/features/auth/view/widgets/custom_input_field.dart';
+import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_color.dart';
 import '../../../core/constants/app_message.dart';
-import '../service/auth_service.dart';
-import '../utils/validator_util.dart';
+import '../../../service/auth_service.dart';
+import '../../../utils/validator_util.dart';
+import '../../model/request/auth/reset_password_request.dart';
+import '../../model/response/auth/reset_password_response.dart';
+import 'login_screen.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   final String email;
