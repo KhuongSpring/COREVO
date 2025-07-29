@@ -1,0 +1,4 @@
+
+class SettingPage {
+  const SettingPage();
+}
