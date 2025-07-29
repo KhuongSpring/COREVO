@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
+import 'package:hit_tech/features/home/view/home_screen.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
+import 'package:hit_tech/view/auth/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -31,9 +33,15 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(Duration(milliseconds: 100));
 
     if (isLoggedIn) {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
     } else {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
     }
   }
 

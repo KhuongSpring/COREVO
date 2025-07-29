@@ -1,35 +1,25 @@
-class HealthInfoModel {
+class PersonalHealthRequest {
   final String gender;
+  final int age;
   final int height;
   final double weight;
-  final int age;
   final String activityLevel;
 
-  HealthInfoModel({
+  PersonalHealthRequest({
     required this.gender,
+    required this.age,
     required this.height,
     required this.weight,
-    required this.age,
     required this.activityLevel,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'gender': gender,
+      'age': age,
       'height': height,
       'weight': weight,
-      'age': age,
       'activityLevel': activityLevel,
     };
-  }
-
-  factory HealthInfoModel.fromJson(Map<String, dynamic> json) {
-    return HealthInfoModel(
-      gender: json['gender'],
-      height: json['height'],
-      weight: json['weight'].toDouble(),
-      age: json['age'],
-      activityLevel: json['activityLevel'],
-    );
   }
 }

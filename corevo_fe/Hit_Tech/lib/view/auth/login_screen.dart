@@ -6,7 +6,6 @@ import 'package:hit_tech/core/constants/app_message.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
 import 'package:hit_tech/service/user_service.dart';
 import 'package:hit_tech/utils/validator_util.dart';
-import 'package:hit_tech/features/health_infor/view/health_info_page.dart';
 import 'package:hit_tech/features/home/view/home_screen.dart';
 import 'package:hit_tech/features/main_root/home_root.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
@@ -14,6 +13,7 @@ import 'package:hit_tech/view/auth/widgets/auth_custom_button.dart';
 import 'package:hit_tech/view/auth/widgets/button_gg_fb_auth.dart';
 import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
 import 'package:hit_tech/view/auth/widgets/text_bottom_auth.dart';
+import 'package:hit_tech/view/personal_health/gender_selection_screen.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../service/auth_service.dart';
@@ -68,13 +68,15 @@ class _LoginScreenState extends State<LoginScreen> {
           );
           await SharedPreferencesService.saveUserData(response.userId ?? '');
 
+          print(await SharedPreferencesService.getAccessToken());
+
           try {
             final subResponse = await UserService.getProfile();
 
             if (subResponse.userHealth == null) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HealthInfoPage()),
+                MaterialPageRoute(builder: (context) => GenderSelectionScreen()),
               );
               return;
             }

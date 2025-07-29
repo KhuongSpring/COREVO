@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
+import 'package:hit_tech/view/auth/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -47,6 +48,9 @@ class HomeScreen extends StatelessWidget {
     // Trigger logout event
 
     // Navigate to login screen
-    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
   }
 }
