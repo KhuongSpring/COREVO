@@ -37,4 +37,37 @@ class TrainingService {
       throw Exception('Get profile failed');
     }
   }
+
+  static Future<TrainingPlanResultResponse> getTrainingPlanByType(
+      String type,
+      int pageNum,
+      int pageSize,
+      ) async {
+    final token = await SharedPreferencesService.getAccessToken();
+
+    final uri = Uri.parse(ApiEndpoint.getTrainingPlanByType).replace(
+      queryParameters: {
+        'type': type,
+        'page num': pageNum.toString(),
+        'page size': pageSize.toString(),
+      },
+    );
+
+    final response = await http.get(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+        if (token != null) 'Authorization': 'Bearer $token',
+      },
+    );
+
+    final data = json.decode(utf8.decode(response.bodyBytes));
+
+    if (response.statusCode == 200) {
+      return TrainingPlanResultResponse.fromJson(data);
+    } else {
+      print('Error: $response.statusCode');
+      throw Exception('Get profile failed');
+    }
+  }
 }

@@ -35,6 +35,7 @@ abstract class ApiEndpoint {
   static const String getExerciseByPrimaryMuscle =
       '$trainingExercise/target-muscle';
   static const String getExerciseByGoal = '$trainingExercise/goal';
+  static const String getTrainingPlanByType = trainingPlanFlow;
 
   // Training-plan-flow
   static const String flowStep = '$trainingPlanFlow/step';

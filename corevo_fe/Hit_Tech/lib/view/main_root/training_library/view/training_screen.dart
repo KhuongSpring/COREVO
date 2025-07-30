@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/model/response/training/training_plan_response.dart';
 import 'package:hit_tech/service/training_service.dart';
 
@@ -16,6 +17,8 @@ class TrainingScreen extends StatefulWidget {
 class _TrainingScreenState extends State<TrainingScreen> {
   int selectedIndex = 0;
   bool _isLoading = true;
+  String? selectedFilter;
+
   List<TrainingPlanResponse> trainingPlanLoseFat = [];
   List<TrainingPlanResponse> trainingPlanGainWeight = [];
   List<TrainingPlanResponse> trainingPlanGainMuscle = [];
@@ -24,6 +27,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
   List<TrainingPlanResponse> trainingPlanImproveCardiovascular = [];
   List<TrainingPlanResponse> trainingPlanStressRelief = [];
   List<TrainingPlanResponse> trainingPlanIncreaseHeight = [];
+
+  List<TrainingPlanResponse> trainingPlanByType = [];
 
   @override
   void initState() {
@@ -85,6 +90,29 @@ class _TrainingScreenState extends State<TrainingScreen> {
     }
   }
 
+  Future<void> _handleGetTrainingPlanByType() async {
+    try {
+      final response = await TrainingService.getTrainingPlanByType(
+        selectedFilter!,
+        1,
+        23,
+      );
+
+      if (response.status == 'SUCCESS') {
+        setState(() {
+          trainingPlanByType.clear();
+          trainingPlanByType.addAll(response.items);
+        });
+        return;
+      }
+    } catch (e, stackTrace) {
+      print(stackTrace);
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,72 +159,116 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         scrollDirection: Axis.vertical,
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 80),
-                          child: Column(
-                            children: [
-                              buildTrainingPlanSection(
-                                title: trainingPlanLoseFat.first.goals,
-                                plans: (trainingPlanLoseFat).map((plan) {
-                                  return _buildTrainingPlanItem(plan);
-                                }).toList(),
-                              ),
-                              const SizedBox(height: 20),
-                              buildTrainingPlanSection(
-                                title: trainingPlanGainWeight.first.goals,
-                                plans: (trainingPlanGainWeight).map((plan) {
-                                  return _buildTrainingPlanItem(plan);
-                                }).toList(),
-                              ),
-                              const SizedBox(height: 20),
-                              buildTrainingPlanSection(
-                                title: trainingPlanGainMuscle.first.goals,
-                                plans: (trainingPlanGainMuscle).map((plan) {
-                                  return _buildTrainingPlanItem(plan);
-                                }).toList(),
-                              ),
-                              const SizedBox(height: 20),
-                              buildTrainingPlanSection(
-                                title: trainingPlanMaintainBody.first.goals,
-                                plans: (trainingPlanMaintainBody).map((plan) {
-                                  return _buildTrainingPlanItem(plan);
-                                }).toList(),
-                              ),
-                              const SizedBox(height: 20),
-                              buildTrainingPlanSection(
-                                title:
-                                    trainingPlanIncreaseEndurance.first.goals,
-                                plans: (trainingPlanIncreaseEndurance).map((
-                                  plan,
-                                ) {
-                                  return _buildTrainingPlanItem(plan);
-                                }).toList(),
-                              ),
-                              const SizedBox(height: 20),
-                              buildTrainingPlanSection(
-                                title: trainingPlanImproveCardiovascular
-                                    .first
-                                    .goals,
-                                plans: (trainingPlanImproveCardiovascular).map((
-                                  plan,
-                                ) {
-                                  return _buildTrainingPlanItem(plan);
-                                }).toList(),
-                              ),
-                              const SizedBox(height: 20),
-                              buildTrainingPlanSection(
-                                title: trainingPlanStressRelief.first.goals,
-                                plans: (trainingPlanStressRelief).map((plan) {
-                                  return _buildTrainingPlanItem(plan);
-                                }).toList(),
-                              ),
-                              const SizedBox(height: 20),
-                              buildTrainingPlanSection(
-                                title: trainingPlanIncreaseHeight.first.goals,
-                                plans: (trainingPlanIncreaseHeight).map((plan) {
-                                  return _buildTrainingPlanItem(plan);
-                                }).toList(),
-                              ),
-                            ],
-                          ),
+                          child: selectedFilter != null
+                              ? Padding(
+                                  padding: const EdgeInsets.only(left: 16),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: Column(
+                                      children: [
+                                        ...trainingPlanByType
+                                            .map(
+                                              (plan) =>
+                                                  _buildTrainingPlanItem2(plan),
+                                            )
+                                            .toList(),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              : Column(
+                                  children: [
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanLoseFat.first.goals,
+                                      ),
+                                      plans: (trainingPlanLoseFat).map((plan) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanGainWeight.first.goals,
+                                      ),
+                                      plans: (trainingPlanGainWeight).map((
+                                        plan,
+                                      ) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanGainMuscle.first.goals,
+                                      ),
+                                      plans: (trainingPlanGainMuscle).map((
+                                        plan,
+                                      ) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanMaintainBody.first.goals,
+                                      ),
+                                      plans: (trainingPlanMaintainBody).map((
+                                        plan,
+                                      ) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanIncreaseEndurance
+                                            .first
+                                            .goals,
+                                      ),
+                                      plans: (trainingPlanIncreaseEndurance)
+                                          .map((plan) {
+                                            return _buildTrainingPlanItem(plan);
+                                          })
+                                          .toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanImproveCardiovascular
+                                            .first
+                                            .goals,
+                                      ),
+                                      plans: (trainingPlanImproveCardiovascular)
+                                          .map((plan) {
+                                            return _buildTrainingPlanItem(plan);
+                                          })
+                                          .toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanStressRelief.first.goals,
+                                      ),
+                                      plans: (trainingPlanStressRelief).map((
+                                        plan,
+                                      ) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanIncreaseHeight.first.goals,
+                                      ),
+                                      plans: (trainingPlanIncreaseHeight).map((
+                                        plan,
+                                      ) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                  ],
+                                ),
                         ),
                       ),
                     ),
@@ -275,33 +347,46 @@ class _TrainingScreenState extends State<TrainingScreen> {
     );
   }
 
-  Widget _buildFilterButton(
-    String label, {
-    bool selected = false,
-    bool isCalis = false,
-  }) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: (isCalis) ? 10 : 20,
-        vertical: 10,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 6,
-            offset: const Offset(0, 2),
+  Widget _buildFilterButton(String label, {bool isCalis = false}) {
+    final bool selected = selectedFilter == label;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          if (selectedFilter == label) {
+            selectedFilter = null;
+          } else {
+            selectedFilter = label;
+            _handleGetTrainingPlanByType();
+          }
+        });
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.easeInOut,
+        padding: EdgeInsets.symmetric(
+          horizontal: isCalis ? 10 : 20,
+          vertical: 10,
+        ),
+        decoration: BoxDecoration(
+          color: selected ? AppColors.bLightActive2 : Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 6,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: AnimatedDefaultTextStyle(
+          duration: const Duration(milliseconds: 250),
+          style: TextStyle(
+            fontSize: selected ? 14 : 12,
+            fontWeight: FontWeight.w600,
+            color: selected ? Colors.white : Colors.black,
           ),
-        ],
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          color: Colors.black,
+          child: Text(label),
         ),
       ),
     );
@@ -393,6 +478,92 @@ class _TrainingScreenState extends State<TrainingScreen> {
     );
   }
 
+  Widget _buildTrainingPlanItem2(TrainingPlanResponse plan) {
+    return Container(
+      width: 380.sp,
+      height: 200,
+      margin: const EdgeInsets.only(right: 16, bottom: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        image: DecorationImage(
+          image: AssetImage(TrainingAssets.trainingPlan1),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Stack(
+        children: [
+          // Lớp overlay gradient để dễ đọc chữ
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                gradient: LinearGradient(
+                  colors: [Colors.transparent, Colors.black.withOpacity(0.4)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+            ),
+          ),
+          // Nội dung
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Stack(
+              children: [
+                // Bên dưới (nút ở góc phải)
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // xử lý khi nhấn "Bắt đầu"
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.lightHover.withOpacity(0.6),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                    ),
+                    child: const Text(
+                      'Bắt đầu',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                // Bên trái (2 dòng text)
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        plan.name,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      SizedBox(
+                        width: 250.sp,
+                        child: Text(
+                          plan.description,
+                          style: TextStyle(fontSize: 12, color: Colors.white70),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget buildTrainingPlanSection({
     required String title,
     required List<Widget> plans,
@@ -421,5 +592,20 @@ class _TrainingScreenState extends State<TrainingScreen> {
         ),
       ],
     );
+  }
+
+  String normalizePlanName(String vietnameseName) {
+    const mapping = {
+      "Lose fat": "Giảm cân / Giảm mỡ",
+      "Gain weight": "Tăng cân",
+      "Gain muscle": "Tăng cơ",
+      "Maintain Body": "Duy trì vóc dáng",
+      "Increase endurance": "Tăng sức bền",
+      "Improve cardiovascular": "Cải thiện tim mạch",
+      "Stress relief/relaxation": "Giảm stress, thư giãn",
+      "Increase height": "Tăng chiều cao",
+    };
+
+    return mapping[vietnameseName] ?? vietnameseName;
   }
 }
