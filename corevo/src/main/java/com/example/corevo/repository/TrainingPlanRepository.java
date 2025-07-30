@@ -1,6 +1,9 @@
 package com.example.corevo.repository;
 
+import com.example.corevo.domain.entity.training.TrainingExercise;
 import com.example.corevo.domain.entity.training.TrainingPlan;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -45,4 +48,5 @@ public interface TrainingPlanRepository extends JpaRepository<TrainingPlan, Long
 
 
     boolean existsByNameAndType(String name, String type);
+    Page<TrainingPlan> findByType(String type, Pageable pageable);
 }
