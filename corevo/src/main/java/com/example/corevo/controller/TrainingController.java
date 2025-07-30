@@ -40,6 +40,22 @@ public class TrainingController {
         return VsResponseUtil.success(trainingService.getTrainingPlans(request));
     }
 
+        @Tag(name = "training-controller-exercise-search")
+        @Operation(
+                summary = "Tìm kiếm kế hoạch luyện tập theo loại hình",
+                description = "Dùng để lấy danh sách kế hoạch luyện tập theo loại hình",
+                security = @SecurityRequirement(name = "Bearer Token")
+        )
+        @GetMapping(UrlConstant.TrainingPlan.GET_BY_TYPE)
+        public ResponseEntity<?> getTrainingPlanByType(
+                @RequestParam(name = "type") String type,
+                @RequestParam(name = "page num", defaultValue = "1") int pageNum,
+                @RequestParam(name = "page size", defaultValue = "1") int pageSize
+        ) {
+                PaginationRequestDto request = new PaginationRequestDto(pageNum, pageSize);
+                return VsResponseUtil.success(trainingService.getTrainingPlanByType(type, request));
+        }
+
     @Tag(name = "training-controller-resource")
     @Operation(
             summary = "Lấy tất cả dụng cụ luyện tập",
