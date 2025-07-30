@@ -1,3 +1,5 @@
+import 'package:hit_tech/model/response/user/user_health_response.dart';
+
 class UserProfileResponse {
   final String status;
   String? id;
@@ -9,7 +11,7 @@ class UserProfileResponse {
   String? phone;
   String? nationality;
   String? linkAvatar;
-  Object? userHealth;
+  UserHealthResponse? userHealth;
 
   UserProfileResponse({
     required this.status,
@@ -26,18 +28,21 @@ class UserProfileResponse {
   });
 
   factory UserProfileResponse.fromJson(Map<String, dynamic> json) {
+    final data = json['data'];
     return UserProfileResponse(
       status: json['status'],
-      id: json['data']['id'],
-      username: json['data']['username'],
-      email: json['data']['email'],
-      firstName: json['data']['firstName'],
-      lastName: json['data']['lastName'],
-      birth: json['data']['birth'],
-      phone: json['data']['phone'],
-      nationality: json['data']['nationality'],
-      linkAvatar: json['data']['linkAvatar'],
-      userHealth: json['data']['userHealth'],
+      id: data['id'],
+      username: data['username'],
+      email: data['email'],
+      firstName: data['firstName'],
+      lastName: data['lastName'],
+      birth: data['birth'],
+      phone: data['phone'],
+      nationality: data['nationality'],
+      linkAvatar: data['linkAvatar'],
+      userHealth: data['userHealth'] != null
+          ? UserHealthResponse.fromJson(data['userHealth'])
+          : null,
     );
   }
 }

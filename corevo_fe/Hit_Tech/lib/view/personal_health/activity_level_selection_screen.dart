@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hit_tech/features/home/view/home_screen.dart';
+import 'package:hit_tech/view/main_root/home/home_screen.dart';
 import 'package:hit_tech/model/request/personal_health_request.dart';
 import 'package:hit_tech/model/response/default_response.dart';
 import 'package:hit_tech/service/user_service.dart';

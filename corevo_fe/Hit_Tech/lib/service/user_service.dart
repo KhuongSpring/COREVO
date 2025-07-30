@@ -23,7 +23,7 @@ class UserService {
       body: jsonEncode(request.toJson()),
     );
 
-    final data = jsonDecode(response.body);
+    final data = json.decode(utf8.decode(response.bodyBytes));
 
     if (response.statusCode == 200) {
       return DefaultResponse.fromJson(data);
@@ -43,7 +43,7 @@ class UserService {
       },
     );
 
-    final data = jsonDecode(response.body);
+    final data = json.decode(utf8.decode(response.bodyBytes));
 
     if (response.statusCode == 200) {
       return UserProfileResponse.fromJson(data);

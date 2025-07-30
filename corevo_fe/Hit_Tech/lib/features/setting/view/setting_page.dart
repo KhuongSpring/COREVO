@@ -1,4 +1,0 @@
-
-class SettingPage {
-  const SettingPage();
-}

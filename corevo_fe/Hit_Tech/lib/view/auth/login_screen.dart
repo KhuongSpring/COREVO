@@ -6,8 +6,8 @@ import 'package:hit_tech/core/constants/app_message.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
 import 'package:hit_tech/service/user_service.dart';
 import 'package:hit_tech/utils/validator_util.dart';
-import 'package:hit_tech/features/home/view/home_screen.dart';
-import 'package:hit_tech/features/main_root/home_root.dart';
+import 'package:hit_tech/view/main_root/home/home_screen.dart';
+import 'package:hit_tech/view/main_root/home_root.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
 import 'package:hit_tech/view/auth/widgets/auth_custom_button.dart';
 import 'package:hit_tech/view/auth/widgets/button_gg_fb_auth.dart';
@@ -73,21 +73,22 @@ class _LoginScreenState extends State<LoginScreen> {
           try {
             final subResponse = await UserService.getProfile();
 
-            if (subResponse.userHealth == null) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => GenderSelectionScreen()),
-              );
-              return;
+            if (subResponse.status == "SUCCESS") {
+              if (subResponse.userHealth == null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => GenderSelectionScreen()),
+                );
+                return;
+              }
             }
-
-          } catch (e) {
-            throw Exception(e);
+          } catch (e, stackTrace) {
+            print(stackTrace);
           }
 
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(builder: (context) => HomeRoot()),
           );
         } else {
           if (isDeleted ?? true) {

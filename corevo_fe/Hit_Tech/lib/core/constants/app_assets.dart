@@ -14,6 +14,8 @@ class TrainingAssets {
       'assets/images/main_background_image.png';
   static const String authBackground =
       'assets/images/auth_background_image.png';
+  static const String libraryBackground =
+      'assets/images/library_background_image.png';
 
   static const String defaultImage = '';
 
@@ -115,4 +117,18 @@ class TrainingAssets {
   static const String policyIcon = 'assets/icons/setting/policy_icon.png';
   static const String noticeTraining =
       'assets/icons/setting/notice_training/notice_training.png';
+
+  // Training plan
+  static const String trainingPlan1 =
+      'assets/images/training_plan/training_plan_1.png';
+  static const String trainingPlan2 =
+      'assets/images/training_plan/training_plan_2.png';
+  static const String trainingPlan3 =
+      'assets/images/training_plan/training_plan_3.png';
+  static const String trainingPlan4 =
+      'assets/images/training_plan/training_plan_4.png';
+  static const String trainingPlan5 =
+      'assets/images/training_plan/training_plan_5.png';
+  static const String trainingPlan6 =
+      'assets/images/training_plan/training_plan_6.png';
 }
