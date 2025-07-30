@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:hit_tech/service/auth_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
@@ -128,6 +129,12 @@ class SharedPreferencesService {
 
   static Future<void> logout() async {
     try {
+      final token = await getAccessToken();
+
+      if (token != null) {
+        await AuthService.logout(token);
+      }
+
       await removeToken();
       await removeUserData();
     } catch (e) {
@@ -135,4 +142,5 @@ class SharedPreferencesService {
       rethrow;
     }
   }
+
 }

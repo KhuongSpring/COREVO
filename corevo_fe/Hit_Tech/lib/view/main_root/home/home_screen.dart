@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
 
   void _handleLogout(BuildContext context) async {
     // Clear saved data
-    await SharedPreferencesService.clearAll();
+    await SharedPreferencesService.logout();
 
     // Trigger logout event
 

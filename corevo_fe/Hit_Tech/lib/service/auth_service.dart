@@ -3,6 +3,7 @@ import 'package:hit_tech/model/request/auth/forgot_password_request.dart';
 import 'package:hit_tech/model/response/auth/forgot_password_response.dart';
 import 'package:hit_tech/model/response/auth/login_response.dart';
 import 'package:hit_tech/model/response/auth/reset_password_response.dart';
+import 'package:hit_tech/model/response/default_response.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -12,7 +13,6 @@ import '../model/request/auth/reset_password_request.dart';
 import '../model/request/auth/verify_otp_request.dart';
 import '../model/response/auth/register_response.dart';
 import '../model/response/auth/verify_opt_response.dart';
-
 
 class AuthService {
   static Future<LoginResponse> login(LoginRequest request) async {
@@ -74,8 +74,8 @@ class AuthService {
   }
 
   static Future<VerifyOtpResponse> verifyOtpToResetPassword(
-      VerifyOtpRequest request,
-      ) async {
+    VerifyOtpRequest request,
+  ) async {
     final response = await http.post(
       Uri.parse(ApiEndpoint.verifyOptResetPassword),
       headers: {'Content-Type': 'application/json'},
@@ -87,8 +87,8 @@ class AuthService {
   }
 
   static Future<ResetPasswordResponse> resetPassword(
-      ResetPasswordRequest request,
-      ) async {
+    ResetPasswordRequest request,
+  ) async {
     final response = await http.post(
       Uri.parse(ApiEndpoint.resetPassword),
       headers: {'Content-Type': 'application/json'},
@@ -97,5 +97,16 @@ class AuthService {
 
     final data = jsonDecode(response.body);
     return ResetPasswordResponse.fromJson(data);
+  }
+
+  static Future<DefaultResponse> logout(String request) async {
+    final response = await http.post(
+      Uri.parse(ApiEndpoint.logout),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'token': request}),
+    );
+
+    final data = jsonDecode(response.body);
+    return DefaultResponse.fromJson(data);
   }
 }

@@ -9,7 +9,9 @@ import 'package:hit_tech/view/main_root/setting/widgets/personal_health_selectio
 import 'package:hit_tech/view/main_root/setting/widgets/personal_infor_selection_widget.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../service/shared_preferences.dart';
 import '../../../service/user_service.dart';
+import '../../auth/login_screen.dart';
 
 class SettingScreen extends StatefulWidget {
   @override
@@ -66,11 +68,19 @@ class _SettingScreenState extends State<SettingScreen> {
         setState(() {
           linkAvatar = response?.linkAvatar;
         });
-
       } catch (e) {
         print(e);
       }
     }
+  }
+
+  void _handleLogout() async {
+    await SharedPreferencesService.logout();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
   }
 
   @override
@@ -242,7 +252,9 @@ class _SettingScreenState extends State<SettingScreen> {
                               ),
                             ),
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                _handleLogout();
+                              },
                               // style: ,
                               child: const Text(
                                 'Đăng Xuất',
