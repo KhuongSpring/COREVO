@@ -4,6 +4,7 @@ import com.example.corevo.constant.RoleConstant;
 import com.example.corevo.security.JwtAuthenticationFilter;
 import com.example.corevo.service.OAuth2.CustomOAuth2UserService;
 import com.example.corevo.service.OAuth2.OAuth2AuthenticationSuccessHandler;
+import com.example.corevo.service.OAuth2.OAuth2PkceAuthorizationRequestResolver;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +18,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -54,7 +57,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, InMemoryClientRegistrationRepository clientRegistrationRepository) throws Exception {
         http.cors(Customizer.withDefaults());
 
         http.csrf(AbstractHttpConfigurer::disable);
@@ -66,7 +69,15 @@ public class SecurityConfig {
                 .requestMatchers(OPEN_API).permitAll()
                 .anyRequest().authenticated());
 
+        OAuth2PkceAuthorizationRequestResolver pkceResolver =
+                new OAuth2PkceAuthorizationRequestResolver(
+                        clientRegistrationRepository,
+                        OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI
+                );
+
         http.oauth2Login(oauth2 -> oauth2
+                .authorizationEndpoint(authorizationEndpointConfig -> authorizationEndpointConfig
+                        .authorizationRequestResolver(pkceResolver))
                 .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
                 .successHandler(oAuth2AuthenticationSuccessHandler)
         );

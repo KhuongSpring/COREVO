@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import jakarta.servlet.http.Cookie;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -52,7 +53,15 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
         String token = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
 
-        String redirectUrl = "http://localhost:3000/oauth2/redirect?token=" + token;
+        Cookie cookie = new Cookie("access_token", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge((int) ACCESS_TOKEN_EXPIRATION / 1000);
+
+        response.addCookie(cookie);
+
+        String redirectUrl = "http://localhost:3000/oauth2/redirect";
 
         response.sendRedirect(redirectUrl);
     }
