@@ -4,7 +4,7 @@ import 'package:hit_tech/service/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import '../core/constants/api_endpoint.dart';
-import '../model/request/training_flow_request.dart';
+import '../model/request/training/training_flow_request.dart';
 import '../model/response/training/training_flow_response.dart';
 
 class TrainingFlowService {

@@ -3,7 +3,7 @@ import 'package:hit_tech/model/response/training/training_plan_response.dart';
 class TrainingFlowResponse {
   final String? nextStep;
   final Map<String, List<String>> selectedValues;
-  final List<TrainingPlan>? trainingPlans;
+  final List<TrainingPlanResponse>? trainingPlans;
   final List<String> options;
   final bool finalStep;
 
@@ -26,7 +26,7 @@ class TrainingFlowResponse {
         ),
       ),
       trainingPlans: (data['trainingPlans'] as List<dynamic>? ?? [])
-          .map((e) => TrainingPlan.fromJson(e))
+          .map((e) => TrainingPlanResponse.fromJson(e))
           .toList(),
       finalStep: data['finalStep'] ?? false,
       options: _normalizeOptions(data['options']),

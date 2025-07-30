@@ -3,6 +3,7 @@ abstract class ApiEndpoint {
 
   // Máy Khương
   static const String baseUrl = 'http://10.0.2.2:8080';
+  // static const String baseUrl = 'http://192.168.137.1:8080';
 
   // Base Endpoints
   static const String version = '$baseUrl/api/v1';

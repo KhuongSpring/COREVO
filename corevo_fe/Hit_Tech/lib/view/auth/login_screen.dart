@@ -6,6 +6,7 @@ import 'package:hit_tech/core/constants/app_message.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
 import 'package:hit_tech/service/user_service.dart';
 import 'package:hit_tech/utils/validator_util.dart';
+import 'package:hit_tech/view/auth/register_screen.dart';
 import 'package:hit_tech/view/main_root/home/home_screen.dart';
 import 'package:hit_tech/view/main_root/home_root.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
@@ -343,7 +344,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(width: 4),
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, '/register');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => RegisterScreen()),
+                                );
                               },
                               child: Text(
                                 AppStrings.register,

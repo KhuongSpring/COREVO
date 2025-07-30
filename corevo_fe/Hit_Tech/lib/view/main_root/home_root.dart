@@ -3,7 +3,7 @@ import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/view/main_root/custom_bottom_nav_bar.dart';
 import 'package:hit_tech/view/main_root/home/home_screen.dart';
 import 'package:hit_tech/view/main_root/setting/setting_screen.dart';
-import 'package:hit_tech/view/main_root/training_library/view/training_page.dart';
+import 'package:hit_tech/view/main_root/training_library/view/training_screen.dart';
 
 class HomeRoot extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class _HomeRootState extends State<HomeRoot> {
 
   final List<Widget> _screens = [
     HomeScreen(),
-    TrainingPage(),
+    TrainingScreen(),
     SettingScreen(),
     SettingScreen(),
     SettingScreen(),

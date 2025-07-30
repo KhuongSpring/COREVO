@@ -363,7 +363,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       } else {
         _showSnackBar(response.data ?? '', isError: true);
       }
-    } catch (e) {
+    } catch (e, stackStrace) {
+      print(stackStrace);
       _showSnackBar(AuthMessage.errRegisterFail, isError: false);
     }
   }

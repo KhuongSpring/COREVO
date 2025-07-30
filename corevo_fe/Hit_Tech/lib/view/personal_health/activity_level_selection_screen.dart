@@ -4,6 +4,7 @@ import 'package:hit_tech/view/main_root/home/home_screen.dart';
 import 'package:hit_tech/model/request/personal_health_request.dart';
 import 'package:hit_tech/model/response/default_response.dart';
 import 'package:hit_tech/service/user_service.dart';
+import 'package:hit_tech/view/main_root/home_root.dart';
 
 import '../../core/constants/app_assets.dart';
 import '../../core/constants/app_color.dart';
@@ -64,7 +65,7 @@ class _ActivityLevelSelectionScreenState
       if (response.status == 'SUCCESS') {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => HomeRoot()),
         );
       } else {
         _showSnackBar('Lỗi', isError: true);

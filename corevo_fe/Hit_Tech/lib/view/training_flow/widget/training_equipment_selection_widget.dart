@@ -3,7 +3,7 @@ import 'package:hit_tech/core/constants/app_dimension.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_color.dart';
-import '../../../model/request/training_flow_request.dart';
+import '../../../model/request/training/training_flow_request.dart';
 import '../../../service/training_flow_service.dart';
 
 class TrainingEquipmentSelectionWidget extends StatefulWidget {

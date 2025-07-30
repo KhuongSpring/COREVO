@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:hit_tech/model/response/default_response.dart';
 import 'package:hit_tech/model/response/user/user_profile_response.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as path;
+import 'package:http_parser/http_parser.dart';
 
 import '../core/constants/api_endpoint.dart';
 import '../model/request/personal_health_request.dart';
@@ -10,8 +13,8 @@ import 'shared_preferences.dart';
 
 class UserService {
   static Future<DefaultResponse> fillPersonalHealth(
-      PersonalHealthRequest request
-      ) async {
+    PersonalHealthRequest request,
+  ) async {
     final token = await SharedPreferencesService.getAccessToken();
 
     final response = await http.post(
@@ -49,6 +52,36 @@ class UserService {
       return UserProfileResponse.fromJson(data);
     } else {
       throw Exception('Get profile failed');
+    }
+  }
+
+  static Future<UserProfileResponse?> uploadAvatar(File imageFile) async {
+    final token = await SharedPreferencesService.getAccessToken();
+
+    final uri = Uri.parse(ApiEndpoint.uploadAvatar);
+
+    final request = http.MultipartRequest('POST', uri)
+      ..headers['Authorization'] = 'Bearer $token'
+      ..files.add(
+        await http.MultipartFile.fromPath(
+          'file',
+          imageFile.path,
+          filename: path.basename(imageFile.path),
+          contentType: MediaType('image', 'jpeg'),
+        ),
+      );
+
+    final response = await request.send();
+
+
+    if (response.statusCode == 200) {
+      final responseBody = await response.stream.bytesToString();
+      final json = jsonDecode(responseBody);
+
+      return UserProfileResponse.fromJson(json);
+
+    } else {
+      print("Upload thất bại: ${response.statusCode}");
     }
   }
 }

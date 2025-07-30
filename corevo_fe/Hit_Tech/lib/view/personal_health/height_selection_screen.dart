@@ -16,7 +16,7 @@ class HeightSelectionScreen extends StatefulWidget {
 }
 
 class _HeightSelectionScreenState extends State<HeightSelectionScreen> {
-  int height = 182;
+  int height = 200;
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +160,7 @@ class _HeightSelectionScreenState extends State<HeightSelectionScreen> {
                       bottom: 40,
                       child: Container(
                         width: 180,
-                        child: _buildGenderImage("MALE"),
+                        child: _buildGenderImage(widget.gender),
                       ),
                     ),
                     Positioned(
@@ -276,15 +276,15 @@ class _HeightSelectionScreenState extends State<HeightSelectionScreen> {
   }
 
   Widget _buildGenderImage(String? gender) {
-    if (gender == 'FEMALE') {
+    if (gender == 'Female') {
       return Image.asset(
-        'assets/images/health_infor/girl.png',
+        TrainingAssets.imageGenderGirl,
         fit: BoxFit.contain,
         alignment: Alignment.bottomCenter,
       );
     } else {
       return Image.asset(
-        'assets/images/health_infor/boy.png',
+        TrainingAssets.imageGenderBoy,
         fit: BoxFit.contain,
         alignment: Alignment.bottomCenter,
       );

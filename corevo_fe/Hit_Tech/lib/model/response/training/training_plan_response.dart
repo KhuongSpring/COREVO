@@ -1,4 +1,4 @@
-class TrainingPlan {
+class TrainingPlanResponse {
   final String name;
   final String description;
   final String aim;
@@ -10,7 +10,7 @@ class TrainingPlan {
   final List<int> locationIds;
   final List<int> equipmentIds;
 
-  TrainingPlan({
+  TrainingPlanResponse({
     required this.name,
     required this.description,
     required this.aim,
@@ -23,8 +23,8 @@ class TrainingPlan {
     required this.equipmentIds,
   });
 
-  factory TrainingPlan.fromJson(Map<String, dynamic> json) {
-    return TrainingPlan(
+  factory TrainingPlanResponse.fromJson(Map<String, dynamic> json) {
+    return TrainingPlanResponse(
       name: json['name'] ?? '',
       description: json['description'] ?? '',
       aim: json['aim'] ?? '',

@@ -1,9 +1,13 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/personal_health_selection_widget.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/personal_infor_selection_widget.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../service/user_service.dart';
 
@@ -47,6 +51,25 @@ class _SettingScreenState extends State<SettingScreen> {
       setState(() {
         _isLoading = false;
       });
+    }
+  }
+
+  Future<void> _pickImage(ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      final file = File(pickedFile.path);
+      try {
+        final response = await UserService.uploadAvatar(file);
+
+        setState(() {
+          linkAvatar = response?.linkAvatar;
+        });
+
+      } catch (e) {
+        print(e);
+      }
     }
   }
 
@@ -97,20 +120,76 @@ class _SettingScreenState extends State<SettingScreen> {
                             Positioned(
                               bottom: 0,
                               right: 0,
-                              child: Container(
-                                padding: const EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: Colors.blue,
-                                    width: 1.5,
+                              child: GestureDetector(
+                                onTap: () {
+                                  showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (BuildContext context) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                      ),
+                                      child: CupertinoActionSheet(
+                                        actions: <CupertinoActionSheetAction>[
+                                          CupertinoActionSheetAction(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              _pickImage(ImageSource.camera);
+                                            },
+                                            child: const Text(
+                                              'Chụp ảnh',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: AppColors.bNormal,
+                                              ),
+                                            ),
+                                          ),
+                                          CupertinoActionSheetAction(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              _pickImage(ImageSource.gallery);
+                                            },
+                                            child: const Text(
+                                              'Chọn ảnh từ Album',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: AppColors.bNormal,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                        cancelButton:
+                                            CupertinoActionSheetAction(
+                                              isDefaultAction: true,
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text(
+                                                'Hủy bỏ',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: AppColors.bNormal,
+                                                ),
+                                              ),
+                                            ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: Colors.blue,
+                                      width: 1.5,
+                                    ),
                                   ),
-                                ),
-                                child: const Icon(
-                                  Icons.camera_alt,
-                                  size: 16,
-                                  color: Colors.black,
+                                  child: const Icon(
+                                    Icons.camera_alt,
+                                    size: 16,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ),

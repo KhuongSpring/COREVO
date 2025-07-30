@@ -4,7 +4,7 @@ import 'package:hit_tech/view/training_flow/widget/training_type_selection_widge
 
 import '../../../../core/constants/app_color.dart';
 import '../../../core/constants/app_dimension.dart';
-import '../../../model/request/training_flow_request.dart';
+import '../../../model/request/training/training_flow_request.dart';
 import '../../../service/training_flow_service.dart';
 
 class TrainingDurationSelectionWidget extends StatefulWidget {
