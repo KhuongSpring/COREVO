@@ -1,11 +1,8 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:hit_tech/model/response/list_default_response.dart';
 import 'package:hit_tech/model/response/training/training_exercise_preview_level_response.dart';
-import 'package:hit_tech/model/response/training/training_exercise_preview_response.dart';
 import 'package:hit_tech/model/response/training/training_plan_result_response.dart';
-import 'package:hit_tech/service/shared_preferences.dart';
-import 'package:http/http.dart' as http;
+import 'package:hit_tech/utils/dio_client.dart';
 
 import '../core/constants/api_endpoint.dart';
 
@@ -14,30 +11,29 @@ class TrainingService {
     int pageNum,
     int pageSize,
   ) async {
-    final token = await SharedPreferencesService.getAccessToken();
+    try {
+      final response = await DioClient.dio.get(
+        ApiEndpoint.getAllTrainingPlan,
+        queryParameters: {
+          'page num': pageNum.toString(),
+          'page size': pageSize.toString(),
+        },
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
 
-    final uri = Uri.parse(ApiEndpoint.getAllTrainingPlan).replace(
-      queryParameters: {
-        'page num': pageNum.toString(),
-        'page size': pageSize.toString(),
-      },
-    );
-
-    final response = await http.get(
-      uri,
-      headers: {
-        'Content-Type': 'application/json',
-        if (token != null) 'Authorization': 'Bearer $token',
-      },
-    );
-
-    final data = json.decode(utf8.decode(response.bodyBytes));
-
-    if (response.statusCode == 200) {
-      return TrainingPlanResultResponse.fromJson(data);
-    } else {
-      print('Error: $response.statusCode');
-      throw Exception('Get profile failed');
+      return TrainingPlanResultResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
     }
   }
 
@@ -46,31 +42,30 @@ class TrainingService {
     int pageNum,
     int pageSize,
   ) async {
-    final token = await SharedPreferencesService.getAccessToken();
+    try {
+      final response = await DioClient.dio.get(
+        ApiEndpoint.getTrainingPlanByType,
+        queryParameters: {
+          'type': type,
+          'page num': pageNum.toString(),
+          'page size': pageSize.toString(),
+        },
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
 
-    final uri = Uri.parse(ApiEndpoint.getTrainingPlanByType).replace(
-      queryParameters: {
-        'type': type,
-        'page num': pageNum.toString(),
-        'page size': pageSize.toString(),
-      },
-    );
-
-    final response = await http.get(
-      uri,
-      headers: {
-        'Content-Type': 'application/json',
-        if (token != null) 'Authorization': 'Bearer $token',
-      },
-    );
-
-    final data = json.decode(utf8.decode(response.bodyBytes));
-
-    if (response.statusCode == 200) {
-      return TrainingPlanResultResponse.fromJson(data);
-    } else {
-      print('Error: $response.statusCode');
-      throw Exception('Get profile failed');
+      return TrainingPlanResultResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
     }
   }
 
@@ -79,34 +74,34 @@ class TrainingService {
     int pageNum,
     int pageSize,
   ) async {
-    final token = await SharedPreferencesService.getAccessToken();
+    try {
+      final response = await DioClient.dio.get(
+        ApiEndpoint.getExerciseByPrimaryMuscle,
+        queryParameters: {
+          'primary muscle': targetMuscle,
+          'page num': pageNum.toString(),
+          'page size': pageSize.toString(),
+        },
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
 
-    final uri = Uri.parse(ApiEndpoint.getExerciseByPrimaryMuscle).replace(
-      queryParameters: {
-        'primary muscle': targetMuscle,
-        'page num': pageNum.toString(),
-        'page size': pageSize.toString(),
-      },
-    );
-
-    final response = await http.get(
-      uri,
-      headers: {
-        'Content-Type': 'application/json',
-        if (token != null) 'Authorization': 'Bearer $token',
-      },
-    );
-
-    final data = json.decode(utf8.decode(response.bodyBytes));
-
-    if (response.statusCode == 200) {
+      final data = response.data;
       return ListDefaultResponse<TrainingExercisePreviewLevelResponse>.fromJson(
         data,
         (json) => TrainingExercisePreviewLevelResponse.fromJson(json),
       );
-    } else {
-      print('Error: $response.statusCode');
-      throw Exception('Get profile failed');
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
     }
   }
 }

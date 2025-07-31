@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:hit_tech/service/auth_service.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
@@ -108,8 +109,8 @@ class SharedPreferencesService {
 
   static Future<bool> isLoggedIn() async {
     try {
-      final token = await getAccessToken();
-      return token != null && token.isNotEmpty;
+      final refreshToken = await getRefreshToken();
+      return refreshToken != null && refreshToken.isNotEmpty;
     } catch (e) {
       print('Error checking login status: $e');
       return false;
@@ -135,12 +136,15 @@ class SharedPreferencesService {
         await AuthService.logout(token);
       }
 
-      await removeToken();
-      await removeUserData();
+      await clearAll();
     } catch (e) {
       print('Error during logout: $e');
       rethrow;
     }
+  }
+
+  static bool isExpired(String token) {
+    return JwtDecoder.isExpired(token);
   }
 
 }

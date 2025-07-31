@@ -1,9 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:hit_tech/core/constants/api_endpoint.dart';
 import 'package:hit_tech/model/request/auth/forgot_password_request.dart';
 import 'package:hit_tech/model/response/auth/forgot_password_response.dart';
 import 'package:hit_tech/model/response/auth/login_response.dart';
 import 'package:hit_tech/model/response/auth/reset_password_response.dart';
 import 'package:hit_tech/model/response/default_response.dart';
+import 'package:hit_tech/service/shared_preferences.dart';
+import 'package:hit_tech/utils/dio_client.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -16,97 +19,198 @@ import '../model/response/auth/verify_opt_response.dart';
 
 class AuthService {
   static Future<LoginResponse> login(LoginRequest request) async {
-    final response = await http.post(
-      Uri.parse(ApiEndpoint.login),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(request.toJson()),
-    );
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.login,
+        data: request.toJson(),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
 
-    final data = jsonDecode(response.body);
-
-    if (response.statusCode == 200) {
-      return LoginResponse.fromJson(data);
-    } else {
-      throw Exception('Login failed');
+      return LoginResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
     }
   }
 
   static Future<RegisterResponse> register(RegisterRequest request) async {
-    final response = await http.post(
-      Uri.parse(ApiEndpoint.register),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(request.toJson()),
-    );
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.register,
+        data: request.toJson(),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
 
-    final data = json.decode(utf8.decode(response.bodyBytes));
-
-    if (response.statusCode == 200) {
-      return RegisterResponse.fromJson(data);
-    } else {
-      throw Exception('Registration failed');
+      return RegisterResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
     }
   }
 
   static Future<VerifyOtpResponse> verifyOtpToRegister(
     VerifyOtpRequest request,
   ) async {
-    final response = await http.post(
-      Uri.parse(ApiEndpoint.verifyOtp),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(request.toJson()),
-    );
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.verifyOtp,
+        data: request.toJson(),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
 
-    final data = jsonDecode(response.body);
-    return VerifyOtpResponse.fromJson(data);
+      return VerifyOtpResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
   }
 
   static Future<ForgotPasswordResponse> sendEmailToForgotPassword(
     ForgotPasswordRequest request,
   ) async {
-    final response = await http.post(
-      Uri.parse(ApiEndpoint.sendEmailToForgotPassword),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(request.toJson()),
-    );
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.sendEmailToForgotPassword,
+        data: request.toJson(),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
 
-    final data = jsonDecode(response.body);
-    return ForgotPasswordResponse.fromJson(data);
+      return ForgotPasswordResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
   }
 
   static Future<VerifyOtpResponse> verifyOtpToResetPassword(
     VerifyOtpRequest request,
   ) async {
-    final response = await http.post(
-      Uri.parse(ApiEndpoint.verifyOptResetPassword),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(request.toJson()),
-    );
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.verifyOptResetPassword,
+        data: request.toJson(),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
 
-    final data = jsonDecode(response.body);
-    return VerifyOtpResponse.fromJson(data);
+      return VerifyOtpResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
   }
 
   static Future<ResetPasswordResponse> resetPassword(
     ResetPasswordRequest request,
   ) async {
-    final response = await http.post(
-      Uri.parse(ApiEndpoint.resetPassword),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(request.toJson()),
-    );
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.resetPassword,
+        data: request.toJson(),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
 
-    final data = jsonDecode(response.body);
-    return ResetPasswordResponse.fromJson(data);
+      return ResetPasswordResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
   }
 
   static Future<DefaultResponse> logout(String request) async {
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.resetPassword,
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+
+      return DefaultResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
+  }
+
+  static Future<String?> refreshAccessToken() async {
+    final refreshToken = await SharedPreferencesService.getRefreshToken();
+    if (refreshToken == null) return null;
+
     final response = await http.post(
-      Uri.parse(ApiEndpoint.logout),
+      Uri.parse(ApiEndpoint.refreshToken),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'token': request}),
+      body: jsonEncode({'refreshToken': refreshToken}),
     );
 
-    final data = jsonDecode(response.body);
-    return DefaultResponse.fromJson(data);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final newAccessToken = data['accessToken'];
+      await SharedPreferencesService.saveAccessToken(newAccessToken);
+      return newAccessToken;
+    } else {
+      await SharedPreferencesService.clearAll();
+      return null;
+    }
   }
 }

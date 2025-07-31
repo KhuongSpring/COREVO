@@ -1,87 +1,109 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:hit_tech/model/response/default_response.dart';
 import 'package:hit_tech/model/response/user/user_profile_response.dart';
-import 'package:http/http.dart' as http;
+import 'package:hit_tech/utils/dio_client.dart';
 import 'package:path/path.dart' as path;
 import 'package:http_parser/http_parser.dart';
 
 import '../core/constants/api_endpoint.dart';
 import '../model/request/personal_health_request.dart';
-import 'shared_preferences.dart';
 
 class UserService {
   static Future<DefaultResponse> fillPersonalHealth(
     PersonalHealthRequest request,
   ) async {
-    final token = await SharedPreferencesService.getAccessToken();
-
-    final response = await http.post(
-      Uri.parse(ApiEndpoint.fillHeathInformation),
-      headers: {
-        'Content-Type': 'application/json',
-        if (token != null) 'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode(request.toJson()),
-    );
-
-    final data = json.decode(utf8.decode(response.bodyBytes));
-
-    if (response.statusCode == 200) {
-      return DefaultResponse.fromJson(data);
-    } else {
-      throw Exception('Get profile failed');
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.fillHeathInformation,
+        data: request.toJson(),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+      return DefaultResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.sendTimeout ||
+          e.type == DioExceptionType.receiveTimeout) {
+        print('Timeout: Không thể kết nối đến server.');
+      } else {
+        print('DIO EXCEPTION: ${e.message}');
+        print('RESPONSE: ${e.response?.data}');
+      }
+      rethrow;
+    } catch (e, stack) {
+      print('EXCEPTION: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
     }
   }
 
   static Future<UserProfileResponse> getProfile() async {
-    final token = await SharedPreferencesService.getAccessToken();
+    try {
+      final response = await DioClient.dio.get(
+        ApiEndpoint.getProfile,
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
 
-    final response = await http.get(
-      Uri.parse(ApiEndpoint.getProfile),
-      headers: {
-        'Content-Type': 'application/json',
-        if (token != null) 'Authorization': 'Bearer $token',
-      },
-    );
-
-    final data = json.decode(utf8.decode(response.bodyBytes));
-
-    if (response.statusCode == 200) {
-      return UserProfileResponse.fromJson(data);
-    } else {
-      throw Exception('Get profile failed');
+      return UserProfileResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.sendTimeout ||
+          e.type == DioExceptionType.receiveTimeout) {
+        print('Timeout: Không thể kết nối đến server.');
+      } else {
+        print('DIO EXCEPTION: ${e.message}');
+        print('RESPONSE: ${e.response?.data}');
+      }
+      rethrow;
+    } catch (e, stack) {
+      print('EXCEPTION: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
     }
   }
 
   static Future<UserProfileResponse?> uploadAvatar(File imageFile) async {
-    final token = await SharedPreferencesService.getAccessToken();
-
-    final uri = Uri.parse(ApiEndpoint.uploadAvatar);
-
-    final request = http.MultipartRequest('POST', uri)
-      ..headers['Authorization'] = 'Bearer $token'
-      ..files.add(
-        await http.MultipartFile.fromPath(
-          'file',
+    try {
+      final formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(
           imageFile.path,
           filename: path.basename(imageFile.path),
           contentType: MediaType('image', 'jpeg'),
         ),
+      });
+
+      final response = await DioClient.dio.post(
+        ApiEndpoint.uploadAvatar,
+        data: formData,
+        options: Options(
+          contentType: 'multipart/form-data',
+          sendTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 10),
+        ),
       );
 
-    final response = await request.send();
-
-
-    if (response.statusCode == 200) {
-      final responseBody = await response.stream.bytesToString();
-      final json = jsonDecode(responseBody);
-
-      return UserProfileResponse.fromJson(json);
-
-    } else {
-      print("Upload thất bại: ${response.statusCode}");
+      return UserProfileResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.sendTimeout ||
+          e.type == DioExceptionType.receiveTimeout) {
+        print('Timeout: Không thể kết nối đến server.');
+      } else {
+        print('DIO EXCEPTION: ${e.message}');
+        print('RESPONSE: ${e.response?.data}');
+      }
+      rethrow;
+    } catch (e, stack) {
+      print('EXCEPTION: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
     }
   }
 }

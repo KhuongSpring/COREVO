@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
+import 'package:hit_tech/utils/dio_client.dart';
 import 'package:http/http.dart' as http;
 
 import '../core/constants/api_endpoint.dart';
@@ -8,32 +10,30 @@ import '../model/request/training/training_flow_request.dart';
 import '../model/response/training/training_flow_response.dart';
 
 class TrainingFlowService {
-  static const String url = ApiEndpoint.flowStep;
-
   static Future<TrainingFlowResponse> sendStep(
     TrainingFlowRequest request,
   ) async {
     try {
-      final token = await SharedPreferencesService.getAccessToken();
-      final response = await http
+      final response = await DioClient.dio
           .post(
-            Uri.parse(url),
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer $token',
-            },
-            body: json.encode(request.toJson()),
-          )
-          .timeout(const Duration(seconds: 5));
+            ApiEndpoint.flowStep,
+            data: request.toJson(),
+            options: Options(
+              contentType: Headers.jsonContentType,
+              sendTimeout: Duration(seconds: 5),
+              receiveTimeout: Duration(seconds: 5)
+            )
+          );
 
-      if (response.statusCode == 200) {
-        final jsonData = json.decode(utf8.decode(response.bodyBytes));
-        return TrainingFlowResponse.fromJson(jsonData);
+      return TrainingFlowResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.sendTimeout ||
+          e.type == DioExceptionType.receiveTimeout) {
+        print('Timeout: Không thể kết nối đến server.');
       } else {
-        throw Exception('Lỗi khi gọi API: ${response.statusCode}');
+        print('DIO EXCEPTION: ${e.message}');
+        print('RESPONSE: ${e.response?.data}');
       }
-    } on TimeoutException catch (_) {
-      print('Timeout: Không thể kết nối đến server.');
       rethrow;
     } catch (e, stack) {
       print('EXCEPTION: $e');
