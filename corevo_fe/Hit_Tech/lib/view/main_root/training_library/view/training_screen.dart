@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/model/response/training/training_plan_response.dart';
 import 'package:hit_tech/service/training_service.dart';
-import 'package:hit_tech/view/main_root/training_library/view/training_exercise_screen.dart';
+import 'package:hit_tech/view/main_root/training_library/view/widgets/training_exercise_widget.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_color.dart';
@@ -685,7 +685,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TrainingExercise(
+            builder: (context) => TrainingExerciseWidget(
               primaryMuscleToQuery: normalizeTargetMuscleName(categoryName),
               primaryMuscle: categoryName.toUpperCase(),
             ),

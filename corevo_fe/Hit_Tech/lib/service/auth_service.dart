@@ -205,9 +205,14 @@ class AuthService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      final newAccessToken = data['accessToken'];
-      await SharedPreferencesService.saveAccessToken(newAccessToken);
-      return newAccessToken;
+      final newAccessToken = data['data']['accessToken'];
+      if (newAccessToken != null) {
+        await SharedPreferencesService.saveAccessToken(newAccessToken);
+        return newAccessToken;
+      } else {
+        await SharedPreferencesService.clearAll();
+        return null;
+      }
     } else {
       await SharedPreferencesService.clearAll();
       return null;

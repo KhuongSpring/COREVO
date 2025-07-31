@@ -30,7 +30,7 @@ abstract class ApiEndpoint {
 
   // Training-exercise-search
   static const String searchExercise = '$trainingExercise/search';
-  static const String getExercise = trainingExercise;
+  static String getExercise(int id) => '$trainingExercise/$id';
   static const String getExerciseByType = '$trainingExercise/type';
   static const String getExerciseByPrimaryMuscle =
       '$trainingExercise/target-muscle';

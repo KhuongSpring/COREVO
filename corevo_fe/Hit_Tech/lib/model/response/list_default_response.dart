@@ -1,5 +1,3 @@
-import 'package:hit_tech/model/response/training/training_exercise_preview_response.dart';
-
 class ListDefaultResponse<T> {
   final String status;
   final List<T> data;

@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:hit_tech/model/response/default_response.dart';
 import 'package:hit_tech/model/response/list_default_response.dart';
 import 'package:hit_tech/model/response/training/training_exercise_preview_level_response.dart';
+import 'package:hit_tech/model/response/training/training_exercise_response.dart';
 import 'package:hit_tech/model/response/training/training_plan_result_response.dart';
 import 'package:hit_tech/utils/dio_client.dart';
 
@@ -94,6 +96,31 @@ class TrainingService {
         data,
         (json) => TrainingExercisePreviewLevelResponse.fromJson(json),
       );
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
+  }
+
+  static Future<DefaultResponse> getExerciseById(
+      int id,
+      ) async {
+    try {
+      final response = await DioClient.dio.get(
+        ApiEndpoint.getExercise(id),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+
+      return DefaultResponse.fromJson(response.data);
     } on DioException catch (e) {
       print('DIO ERROR: ${e.message}');
       print('RESPONSE: ${e.response?.data}');

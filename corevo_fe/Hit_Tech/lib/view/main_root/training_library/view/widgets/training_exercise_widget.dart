@@ -5,25 +5,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/model/response/training/training_exercise_preview_response.dart';
+import 'package:hit_tech/model/response/training/training_exercise_response.dart';
+import 'package:hit_tech/view/main_root/training_library/view/widgets/training_exercise_detail_widget.dart';
 
-import '../../../../core/constants/app_color.dart';
-import '../../../../service/training_service.dart';
+import '../../../../../core/constants/app_color.dart';
+import '../../../../../service/training_service.dart';
 
-class TrainingExercise extends StatefulWidget {
+class TrainingExerciseWidget extends StatefulWidget {
   final String primaryMuscleToQuery;
   final String primaryMuscle;
 
-  const TrainingExercise({
+  const TrainingExerciseWidget({
     super.key,
     required this.primaryMuscleToQuery,
     required this.primaryMuscle,
   });
 
   @override
-  State<TrainingExercise> createState() => _TrainingExerciseState();
+  State<TrainingExerciseWidget> createState() => _TrainingExerciseWidgetState();
 }
 
-class _TrainingExerciseState extends State<TrainingExercise> {
+class _TrainingExerciseWidgetState extends State<TrainingExerciseWidget> {
   bool _showLoading = true;
 
   List<TrainingExercisePreviewResponse> exercises = [];
@@ -142,11 +144,7 @@ class _TrainingExerciseState extends State<TrainingExercise> {
 
                       // List bài tập
                       ...List.generate(exercises.length, (index) {
-                        return _buildExerciseItem(
-                          exercises[index].imageURL,
-                          title: exercises[index].name,
-                          level: exercises[index].levelName,
-                        );
+                        return _buildExerciseItem(exercise: exercises[index]);
                       }),
                     ],
                   ),
@@ -165,48 +163,83 @@ class _TrainingExerciseState extends State<TrainingExercise> {
     );
   }
 
-  Widget _buildExerciseItem(
-    String imagePath, {
-    required String title,
-    required String level,
+  Widget _buildExerciseItem({
+    required TrainingExercisePreviewResponse exercise,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
-        children: [
-          Container(
-            height: 60,
-            width: 110,
-            color: Colors.grey.shade300,
-            child: imagePath == null
-                ? const Icon(Icons.image, color: Colors.grey)
-                : CachedNetworkImage(
-                    imageUrl: imagePath,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.broken_image, color: Colors.red),
-                  ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                    fontSize: 16,
-                  ),
+      child: GestureDetector(
+        onTap: () async {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const Center(child: CircularProgressIndicator()),
+          );
+          try {
+            final response = await TrainingService.getExerciseById(exercise.id);
+
+            if (response.status == 'SUCCESS') {
+              Navigator.of(context).pop();
+
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => TrainingExerciseDetailWidget(
+                  exercise: TrainingExerciseResponse.fromJson(response.data),
                 ),
-                Text(level, style: const TextStyle(color: AppColors.bNormal)),
-              ],
-            ),
+              );
+            } else {
+              Navigator.of(context).pop();
+            }
+          } catch (e) {
+            Navigator.of(context).pop();
+          }
+        },
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.transparent),
+          child: Row(
+            children: [
+              Container(
+                height: 60,
+                width: 110,
+                color: Colors.grey.shade300,
+                child: exercise.imageURL == null
+                    ? const Icon(Icons.image, color: Colors.grey)
+                    : CachedNetworkImage(
+                        imageUrl: exercise.imageURL,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.broken_image, color: Colors.red),
+                      ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      exercise.name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                    SizedBox(height: 10.sp),
+                    Text(
+                      exercise.levelName,
+                      style: const TextStyle(color: AppColors.bNormal),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
