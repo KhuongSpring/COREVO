@@ -131,4 +131,10 @@ class TrainingAssets {
       'assets/images/training_plan/training_plan_5.png';
   static const String trainingPlan6 =
       'assets/images/training_plan/training_plan_6.png';
+
+  // Training
+  static const String targetMuscleCategory1 =
+      'assets/images/training/target_muscle_category_1.png';
+  static const String targetMuscleDetail1 =
+      'assets/images/training/target_muscle_detail_1.png';
 }
