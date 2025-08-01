@@ -36,6 +36,11 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
     @Value("${jwt.refresh.expiration_time}")
     long REFRESH_TOKEN_EXPIRATION;
 
+
+    @NonFinal
+    @Value("${app.oauth2.frontend-redirect-uri}")
+    String frontendRedirectUri;
+
     public OAuth2AuthenticationSuccessHandler(JwtService jwtService, UserRepository userRepository) {
         this.jwtService = jwtService;
         this.userRepository = userRepository;
@@ -61,9 +66,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
         response.addCookie(cookie);
 
-        String redirectUrl = "http://localhost:3000/oauth2/redirect";
-
-        response.sendRedirect(redirectUrl);
+        response.sendRedirect(frontendRedirectUri);
     }
 }
 

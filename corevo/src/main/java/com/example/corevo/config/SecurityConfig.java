@@ -2,9 +2,7 @@ package com.example.corevo.config;
 
 import com.example.corevo.constant.RoleConstant;
 import com.example.corevo.security.JwtAuthenticationFilter;
-import com.example.corevo.service.OAuth2.CustomOAuth2UserService;
-import com.example.corevo.service.OAuth2.OAuth2AuthenticationSuccessHandler;
-import com.example.corevo.service.OAuth2.OAuth2PkceAuthorizationRequestResolver;
+import com.example.corevo.service.OAuth2.*;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,14 +44,18 @@ public class SecurityConfig {
 
     final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
+    final OAuth2PkceTokenResponseClient oAuth2PkceTokenResponseClient;
+
     public SecurityConfig(
             JwtAuthenticationFilter jwtAuthenticationFilter,
             CustomOAuth2UserService customOAuth2UserService,
-            OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler
+            OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler,
+            OAuth2PkceTokenResponseClient oAuth2PkceTokenResponseClient
     ) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.customOAuth2UserService = customOAuth2UserService;
         this.oAuth2AuthenticationSuccessHandler = oAuth2AuthenticationSuccessHandler;
+        this.oAuth2PkceTokenResponseClient = oAuth2PkceTokenResponseClient;
     }
 
     @Bean
@@ -78,13 +80,16 @@ public class SecurityConfig {
         http.oauth2Login(oauth2 -> oauth2
                 .authorizationEndpoint(authorizationEndpointConfig -> authorizationEndpointConfig
                         .authorizationRequestResolver(pkceResolver))
+                .tokenEndpoint(tokenEndpointConfig -> tokenEndpointConfig
+                        .accessTokenResponseClient(oAuth2PkceTokenResponseClient))
                 .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
                 .successHandler(oAuth2AuthenticationSuccessHandler)
         );
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
 
         return http.build();
     }
