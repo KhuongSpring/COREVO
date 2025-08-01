@@ -127,7 +127,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    TrainingAssets.libraryBackground,
+                    TrainingAssets.libraryBackground2,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -145,18 +145,18 @@ class _TrainingScreenState extends State<TrainingScreen> {
                     const SizedBox(height: 24),
                     _buildSearchBar(),
                     const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildFilterButton("Gym"),
-                          _buildFilterButton("Cardio"),
-                          _buildFilterButton("Yoga"),
-                          _buildFilterButton("Calisthenic", isCalis: true),
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 16),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       _buildFilterButton("Gym"),
+                    //       _buildFilterButton("Cardio"),
+                    //       _buildFilterButton("Yoga"),
+                    //       _buildFilterButton("Calisthenic", isCalis: true),
+                    //     ],
+                    //   ),
+                    // ),
                     SizedBox(height: 30),
                     (selectedIndex == 0)
                         ? Expanded(

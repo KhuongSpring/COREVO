@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:hit_tech/model/response/default_response.dart';
 import 'package:hit_tech/model/response/user/user_profile_response.dart';
-import 'package:hit_tech/service/shared_preferences.dart';
 import 'package:hit_tech/utils/dio_client.dart';
 import 'package:path/path.dart' as path;
 import 'package:http_parser/http_parser.dart';

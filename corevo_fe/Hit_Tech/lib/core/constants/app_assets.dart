@@ -16,6 +16,8 @@ class TrainingAssets {
       'assets/images/auth_background_image.png';
   static const String libraryBackground =
       'assets/images/library_background_image.png';
+  static const String libraryBackground2 =
+      'assets/images/library_background_image2.png';
 
   static const String defaultImage = '';
 

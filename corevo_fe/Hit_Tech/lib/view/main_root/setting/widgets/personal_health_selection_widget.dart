@@ -120,12 +120,23 @@ class _PersonalHealthSelectionWidgetState
 
                           Align(
                             alignment: Alignment.center,
-                            child: CircleAvatar(
-                              radius: 40,
-                              backgroundImage: linkAvatar?.isNotEmpty ?? false
-                                  ? NetworkImage(linkAvatar!)
-                                  : const AssetImage(TrainingAssets.googleIcon)
-                                        as ImageProvider,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.blue,
+                                  width: 2,
+                                ),
+                              ),
+                              child: CircleAvatar(
+                                radius: 40,
+                                backgroundImage: linkAvatar?.isNotEmpty ?? false
+                                    ? NetworkImage(linkAvatar!)
+                                    : const AssetImage(
+                                  TrainingAssets.googleIcon,
+                                )
+                                as ImageProvider,
+                              ),
                             ),
                           ),
                         ],

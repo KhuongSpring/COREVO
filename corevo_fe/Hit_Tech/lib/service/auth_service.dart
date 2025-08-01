@@ -173,7 +173,10 @@ class AuthService {
   static Future<DefaultResponse> logout(String request) async {
     try {
       final response = await DioClient.dio.post(
-        ApiEndpoint.resetPassword,
+        ApiEndpoint.logout,
+        data: {
+          'token': request
+        },
         options: Options(
           contentType: Headers.jsonContentType,
           sendTimeout: Duration(seconds: 5),
