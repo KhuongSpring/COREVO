@@ -27,6 +27,7 @@ import lombok.experimental.FieldDefaults;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -252,6 +253,26 @@ public class UserServiceImpl implements UserService {
         }
 
         return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.DELETE_SUCCESS);
+    }
+
+    @Override
+    public User findOrCreateUser(String email, String name, String picture, String firstName, String lastName) {
+        return userRepository.findByEmail(email).orElseGet(() -> {
+
+            User newUser = new User();
+            newUser.setUsername(name);
+            newUser.setPassword(UUID.randomUUID().toString());
+            newUser.setEmail(email);
+            newUser.setFirstName(firstName);
+            newUser.setLastName(lastName);
+            newUser.setLinkAvatar(picture);
+            newUser.setProvider("GOOGLE");
+            newUser.setRole(Role.USER);
+            newUser.setIsLocked(false);
+            newUser.setCreatedAt(LocalDate.now());
+
+            return userRepository.save(newUser);
+        });
     }
 
     @Override

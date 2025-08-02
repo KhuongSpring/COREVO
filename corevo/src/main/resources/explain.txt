@@ -1,4 +1,4 @@
-This file is explain files in this base
+This file is explain files
 
 I. RepositoryAspect
     Đây là một Spring AOP Aspect, dùng để log thời gian thực thi các phương thức trong repository, cụ thể: 
@@ -37,3 +37,28 @@ II. Folder base
         return VsResponseUtil.success(HttpStatus.CREATED, headers, report);
     - error(HttpStatus status, Object message): Trả về lỗi với status tùy chọn và message.
         return VsResponseUtil.error(HttpStatus.NOT_FOUND, "User not found");
+
+III. PKCE (Proof Key for Code Exchange)
+    1. PKCE là 1 extension bảo mật cho OAuth2, giúp bảo vệ authorization_code không bị đánh cắp trong quas trình trao đổi.
+    2. Đặt vấn đề:
+        Trong OAuth2 Authorization Code Flow truyền thống, có 2 lổ hổng chính:
+        - Authorization Code Interception: Đánh cắp authorization_code trong quá trình redirect và dùng để đổi ấy access_token.
+        - CSRF attack: Lừa user tạo authorization request giả mạo.
+        => PKCE giải quyết vấn đề này bằng cách:
+        - Thêm 1 bước xác thực bổ sung khi trao đổi authorization_code lấy access_token.
+        - Đảm bảo rằng chỉ client đã khởi tạo authorization request thì mới lấy được access_token.
+    3. OAuth2 + PKCE flow:
+        3.1. Client tạo code_verifier và code_challenge
+        3.2. Authorization request
+            - Client gửi request đến authorization server với code_challenge và code_callenge_method.
+            - Authorization server lưu code_challenge dùng để xác thực sau.
+        3.3. Authorization Consent:
+            - User xác thực và cho phép truy cập.
+        3.4. Authorization Response:
+            - Authorization Server trả về authorization_code.
+        3.5. Token request exchange:
+            - Client gửi authorization_code gốc và code_verifier (từ session) đến Google Token Endpoint.
+            - Authorization Server check xem base64url(SHA256(code_verifier)) khớp với code_challenge không?
+        3.6 Token response:
+            - Xác thực thành công thì authorization server trả về access_token.
+    4. Tài liệu: https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce
