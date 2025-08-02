@@ -4,6 +4,7 @@ import com.example.corevo.domain.entity.user.Role;
 import com.example.corevo.domain.entity.user.User;
 import com.example.corevo.repository.UserRepository;
 import com.example.corevo.service.JwtService;
+import com.example.corevo.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
@@ -18,6 +19,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -28,7 +31,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
 
     JwtService jwtService;
 
-    UserRepository userRepository;
+    UserService userServicel;
 
     @NonFinal
     @Value("${jwt.access.expiration_time}")
@@ -42,9 +45,9 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
     @Value("${app.oauth2.frontend-redirect-uri}")
     String frontendRedirectUri;
 
-    public OAuth2AuthenticationSuccessHandler(JwtService jwtService, UserRepository userRepository) {
+    public OAuth2AuthenticationSuccessHandler(JwtService jwtService, UserService userServicel) {
         this.jwtService = jwtService;
-        this.userRepository = userRepository;
+        this.userServicel = userServicel;
     }
 
     @Override
@@ -59,41 +62,21 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
         String firstName = oAuth2User.getAttribute("given_name");
         String lastName = oAuth2User.getAttribute("family_name");
 
-        User user = findOrCreateUser(email, name, picture, firstName, lastName);
+        User user = userServicel.findOrCreateUser(email, name, picture, firstName, lastName);
 
-        String token = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
+        String accessToken = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
+        String refreshToken = jwtService.generateToken(user, REFRESH_TOKEN_EXPIRATION);
 
-        Cookie cookie = new Cookie("access_token", token);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(true);
-        cookie.setPath("/");
-        cookie.setMaxAge((int) ACCESS_TOKEN_EXPIRATION / 1000);
+        String encodedAccessToken = URLEncoder.encode(accessToken, StandardCharsets.UTF_8);
+        String encodedRefreshToken = URLEncoder.encode(refreshToken, StandardCharsets.UTF_8);
 
-        response.addCookie(cookie);
+        String redirectUrl = frontendRedirectUri
+                + "?access_token=" + encodedAccessToken
+                + "&refresh_token=" + encodedRefreshToken;
 
-        response.sendRedirect(frontendRedirectUri);
+
+        response.sendRedirect(redirectUrl);
     }
 
-    private User findOrCreateUser(String email, String name, String picture, String firstName, String lastName) {
-        return userRepository.findByEmail(email).orElseGet(() -> {
-            log.info("Creating new user for email: {}", email);
-
-            User newUser = new User();
-            newUser.setUsername(name);
-            newUser.setPassword(UUID.randomUUID().toString());
-            newUser.setEmail(email);
-            newUser.setFirstName(firstName);
-            newUser.setLastName(lastName);
-            newUser.setLinkAvatar(picture);
-            newUser.setProvider("GOOGLE");
-            newUser.setRole(Role.USER);
-            newUser.setIsLocked(false);
-            newUser.setCreatedAt(LocalDate.now());
-
-            User savedUser = userRepository.save(newUser);
-            log.info("Created new user w id {} and email {}", savedUser.getId(), email);
-            return savedUser;
-        });
-    }
 }
 
