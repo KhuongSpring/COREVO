@@ -72,4 +72,9 @@ public class ErrorMessage {
         public static final String ERR_TRAINING_PLAN_NOT_EXISTS = "exception.training.plan.not.exists";
         public static final String ERR_TRAINING_SCHEDULE_NOT_EXISTS = "exception.training.schedule.not.exists";
     }
+
+    public static class Admin {
+        public static final String ERR_NOT_ADMIN = "exception.admin.not.admin";
+    }
+
 }

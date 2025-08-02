@@ -117,8 +117,8 @@ public class UserController {
     )
     @GetMapping(UrlConstant.Admin.GET_USERS)
     public ResponseEntity<?> getAllUsers(
-            @RequestParam(name = "page num", defaultValue = "0") int pageNum,
-            @RequestParam(name = "page size", defaultValue = "0") int pageSize
+            @RequestParam(name = "pageNum", defaultValue = "0") int pageNum,
+            @RequestParam(name = "pageSize", defaultValue = "0") int pageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(pageNum, pageSize);
         return VsResponseUtil.success(userService.getAllUsers(request));
@@ -190,6 +190,17 @@ public class UserController {
     @DeleteMapping(UrlConstant.Admin.DELETE_USER)
     public ResponseEntity<?> deleteUserPermanently(@PathVariable String userId) {
         return VsResponseUtil.success(userService.deleteUserAccount(userId));
+    }
+
+    @Tag(name = "admin-controller")
+    @Operation(
+            summary = "Đếm số lượng User",
+            description = "Dùng để tính tổng user và admin",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.Admin.GET_ALL_USER)
+    public ResponseEntity<?> countAllUsers() {
+        return VsResponseUtil.success(userService.countAllUser());
     }
 
 }

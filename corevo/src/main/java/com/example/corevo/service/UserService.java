@@ -37,4 +37,6 @@ public interface UserService {
 
     CommonResponseDto deleteUserAccount(String userId);
 
+    long countAllUser();
+
 }
