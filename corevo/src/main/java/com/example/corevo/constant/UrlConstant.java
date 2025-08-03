@@ -5,6 +5,7 @@ public class UrlConstant {
         private static final String PRE_FIX = "/auth";
 
         public static final String LOGIN = PRE_FIX + "/login";
+        public static final String LOGIN_WITH_GOOGLE = PRE_FIX + "/google";
         public static final String REGISTER = PRE_FIX + "/register";
         public static final String VERIFY_OTP = PRE_FIX + "/verify-otp";
         public static final String FORGOT_PASSWORD = PRE_FIX + "/forgot-password";

@@ -17,6 +17,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 @RestApiV1
 @Validated
 @RequiredArgsConstructor
@@ -31,6 +34,15 @@ public class AuthController {
     @PostMapping(UrlConstant.Auth.LOGIN)
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto requestDto) {
         return VsResponseUtil.success(authService.authentication(requestDto));
+    }
+
+    @Operation(
+            summary = "Đăng nhập bằng Google",
+            description = "Dùng để đăng nhập bằng Google"
+    )
+    @PostMapping(UrlConstant.Auth.LOGIN_WITH_GOOGLE)
+    public ResponseEntity<?> loginWithGoogle(@RequestBody OAuth2GoogleRequestDto request) throws GeneralSecurityException, IOException {
+        return VsResponseUtil.success(authService.loginWithGoogle(request));
     }
 
     @Operation(

@@ -44,10 +44,6 @@ SELECT * FROM user_training_plans;
 
 
 
-
-
-
-
 delete from address;
 delete from user;
 delete from user_health;
