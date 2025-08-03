@@ -1,5 +1,6 @@
 package com.example.corevo.service.impl;
 
+import com.example.corevo.constant.CommonConstant;
 import com.example.corevo.constant.ErrorMessage;
 import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.pagination.PaginationResponseDto;
@@ -114,11 +115,12 @@ public class TrainingServiceImpl implements TrainingService {
                                 .peek(dto -> dto.setLevelName("Advanced"))
                                 .toList());
 
-                int pageNum = paginationRequestDto.getPageNum() + 1;
-                int pageSize = paginationRequestDto.getPageSize();
+                int pageNum = paginationRequestDto.getPageNum();
+                int pageSize = CommonConstant.PAGE_SIZE_DEFAULT;
+                int pageSizeRequest = paginationRequestDto.getPageSize();
 
-                int start = (pageNum - 1) * pageSize;
-                int end = Math.min(start + pageSize, allExercises.size());
+                int start = pageNum * pageSize;
+                int end = Math.min(start + pageSizeRequest - 1, allExercises.size());
 
                 if (start >= allExercises.size()) {
                         return List.of();
@@ -185,11 +187,12 @@ public class TrainingServiceImpl implements TrainingService {
                                 .peek(dto -> dto.setLevelName("Advanced"))
                                 .toList());
 
-                int pageNum = paginationRequestDto.getPageNum() + 1;
-                int pageSize = paginationRequestDto.getPageSize();
+                int pageNum = paginationRequestDto.getPageNum();
+                int pageSize = CommonConstant.PAGE_SIZE_DEFAULT;
+                int pageSizeRequest = paginationRequestDto.getPageSize();
 
-                int start = (pageNum - 1) * pageSize;
-                int end = Math.min(start + pageSize, allExercises.size());
+                int start = pageNum * pageSize;
+                int end = Math.min(start + pageSizeRequest - 1, allExercises.size());
 
                 if (start >= allExercises.size()) {
                         return List.of();
@@ -256,11 +259,12 @@ public class TrainingServiceImpl implements TrainingService {
                                 .peek(dto -> dto.setLevelName("Advanced"))
                                 .toList());
 
-                int pageNum = paginationRequestDto.getPageNum() + 1;
-                int pageSize = paginationRequestDto.getPageSize();
+                int pageNum = paginationRequestDto.getPageNum();
+                int pageSize = CommonConstant.PAGE_SIZE_DEFAULT;
+                int pageSizeRequest = paginationRequestDto.getPageSize();
 
-                int start = (pageNum - 1) * pageSize;
-                int end = Math.min(start + pageSize, allExercises.size());
+                int start = pageNum * pageSize;
+                int end = Math.min(start + pageSizeRequest - 1, allExercises.size());
 
                 if (start >= allExercises.size()) {
                         return List.of();
@@ -289,32 +293,37 @@ public class TrainingServiceImpl implements TrainingService {
                         TrainingExerciseSearchingRequestDto request,
                         PaginationRequestDto paginationRequestDto) {
 
-                List<TrainingExercisePreviewResponseDto> result;
-
                 Pageable pageable = PageRequest.of(
                                 paginationRequestDto.getPageNum(),
-                                paginationRequestDto.getPageSize());
+                                CommonConstant.PAGE_SIZE_DEFAULT);
 
                 Page<TrainingExercise> trainingExercisesPage = trainingExerciseRepository
                                 .findByNameContainingIgnoreCase(
                                                 request.getSearchSentence(),
                                                 pageable);
 
-                result = trainingExercisesPage.getContent()
+                List<TrainingExercisePreviewResponseDto> trainingExerciseResponseDtos = trainingExercisesPage
+                                .getContent()
                                 .stream()
                                 .map(trainingExerciseMapper::trainingExerciseToTrainingExercisePreviewResponseDto)
                                 .filter(Objects::nonNull)
+                                .toList();
+
+                int requestSize = paginationRequestDto.getPageSize();
+                List<TrainingExercisePreviewResponseDto> limitedTrainingExerciseResponseDtos = trainingExerciseResponseDtos
+                                .stream()
+                                .limit(requestSize)
                                 .toList();
 
                 PagingMeta pagingMeta = new PagingMeta(
                                 trainingExercisesPage.getTotalElements(),
                                 trainingExercisesPage.getTotalPages(),
                                 paginationRequestDto.getPageNum() + 1,
-                                paginationRequestDto.getPageSize(),
+                                limitedTrainingExerciseResponseDtos.size(),
                                 null,
                                 null);
 
-                return new PaginationResponseDto<>(pagingMeta, result);
+                return new PaginationResponseDto<>(pagingMeta, limitedTrainingExerciseResponseDtos);
 
         }
 
@@ -333,7 +342,7 @@ public class TrainingServiceImpl implements TrainingService {
                         PaginationRequestDto paginationRequestDto) {
                 Pageable pageable = PageRequest.of(
                                 paginationRequestDto.getPageNum(),
-                                paginationRequestDto.getPageSize());
+                                CommonConstant.PAGE_SIZE_DEFAULT);
 
                 Page<TrainingPlan> trainingPage = trainingPlanRepository.findAll(pageable);
 
@@ -342,22 +351,27 @@ public class TrainingServiceImpl implements TrainingService {
                                 .map(trainingPlanMapper::trainingPlanToTrainingPlanResponseDto)
                                 .toList();
 
+                int requestSize = paginationRequestDto.getPageSize();
+                List<TrainingPlanResponseDto> limitedTrainingPlanResponseDtos = trainingPlanResponseDtos.stream()
+                                .limit(requestSize)
+                                .toList();
+
                 PagingMeta pagingMeta = new PagingMeta(
                                 trainingPage.getTotalElements(),
                                 trainingPage.getTotalPages(),
                                 paginationRequestDto.getPageNum() + 1,
-                                paginationRequestDto.getPageSize(),
+                                limitedTrainingPlanResponseDtos.size(),
                                 null,
                                 null);
 
-                return new PaginationResponseDto<>(pagingMeta, trainingPlanResponseDtos);
+                return new PaginationResponseDto<>(pagingMeta, limitedTrainingPlanResponseDtos);
         }
 
         @Override
         public PaginationResponseDto<EquipmentResponseDto> getEquipments(PaginationRequestDto request) {
                 Pageable pageable = PageRequest.of(
                                 request.getPageNum(),
-                                request.getPageSize());
+                                CommonConstant.PAGE_SIZE_DEFAULT);
 
                 Page<Equipment> equipmentPage = equipmentRepository.findAll(pageable);
 
@@ -366,22 +380,27 @@ public class TrainingServiceImpl implements TrainingService {
                                 .map(equipmentMapper::equipmentToEquipmentResponseDto)
                                 .toList();
 
+                int requestSize = request.getPageSize();
+                List<EquipmentResponseDto> limitedEquipmentResponseDtos = equipmentResponseDtos.stream()
+                                .limit(requestSize)
+                                .toList();
+
                 PagingMeta pagingMeta = new PagingMeta(
                                 equipmentPage.getTotalElements(),
                                 equipmentPage.getTotalPages(),
                                 request.getPageNum() + 1,
-                                request.getPageSize(),
+                                limitedEquipmentResponseDtos.size(),
                                 null,
                                 null);
 
-                return new PaginationResponseDto<>(pagingMeta, equipmentResponseDtos);
+                return new PaginationResponseDto<>(pagingMeta, limitedEquipmentResponseDtos);
         }
 
         @Override
         public PaginationResponseDto<GoalResponseDto> getGoals(PaginationRequestDto request) {
                 Pageable pageable = PageRequest.of(
                                 request.getPageNum(),
-                                request.getPageSize());
+                                CommonConstant.PAGE_SIZE_DEFAULT);
 
                 Page<Goal> goalPage = goalRepository.findAll(pageable);
 
@@ -390,22 +409,27 @@ public class TrainingServiceImpl implements TrainingService {
                                 .map(goalMapper::goalToGoalResponseDto)
                                 .toList();
 
+                int requestSize = request.getPageSize();
+                List<GoalResponseDto> limitedGoalResponseDtos = goalResponseDtos.stream()
+                                .limit(requestSize)
+                                .toList();
+
                 PagingMeta pagingMeta = new PagingMeta(
                                 goalPage.getTotalElements(),
                                 goalPage.getTotalPages(),
                                 request.getPageNum() + 1,
-                                request.getPageSize(),
+                                limitedGoalResponseDtos.size(),
                                 null,
                                 null);
 
-                return new PaginationResponseDto<>(pagingMeta, goalResponseDtos);
+                return new PaginationResponseDto<>(pagingMeta, limitedGoalResponseDtos);
         }
 
         @Override
         public PaginationResponseDto<LevelResponseDto> getLevels(PaginationRequestDto request) {
                 Pageable pageable = PageRequest.of(
                                 request.getPageNum(),
-                                request.getPageSize());
+                                CommonConstant.PAGE_SIZE_DEFAULT);
 
                 Page<Level> levelPage = levelRepository.findAll(pageable);
 
@@ -414,14 +438,19 @@ public class TrainingServiceImpl implements TrainingService {
                                 .map(levelMapper::levelToLevelResponseDto)
                                 .toList();
 
+                int requestSize = request.getPageSize();
+                List<LevelResponseDto> limitedLevelResponseDtos = levelResponseDtos.stream()
+                                .limit(requestSize)
+                                .toList();
+
                 PagingMeta pagingMeta = new PagingMeta(
                                 levelPage.getTotalElements(),
                                 levelPage.getTotalPages(),
                                 request.getPageNum() + 1,
-                                request.getPageSize(),
+                                limitedLevelResponseDtos.size(),
                                 null, null);
 
-                return new PaginationResponseDto<>(pagingMeta, levelResponseDtos);
+                return new PaginationResponseDto<>(pagingMeta, limitedLevelResponseDtos);
         }
 
         @Override
@@ -429,7 +458,7 @@ public class TrainingServiceImpl implements TrainingService {
 
                 Pageable pageable = PageRequest.of(
                                 request.getPageNum(),
-                                request.getPageSize());
+                                CommonConstant.PAGE_SIZE_DEFAULT);
 
                 Page<Location> locationPage = locationRepository.findAll(pageable);
 
@@ -437,14 +466,19 @@ public class TrainingServiceImpl implements TrainingService {
                                 .stream().map(locationMapper::locationToLocationResponseDto)
                                 .toList();
 
+                int requestSize = request.getPageSize();
+                List<LocationResponseDto> limitedLocationResponseDtos = locationResponseDtos.stream()
+                                .limit(requestSize)
+                                .toList();
+
                 PagingMeta pagingMeta = new PagingMeta(
                                 locationPage.getTotalElements(),
                                 locationPage.getTotalPages(),
                                 request.getPageNum() + 1,
-                                request.getPageSize(),
+                                limitedLocationResponseDtos.size(),
                                 null, null);
 
-                return new PaginationResponseDto<>(pagingMeta, locationResponseDtos);
+                return new PaginationResponseDto<>(pagingMeta, limitedLocationResponseDtos);
 
         }
 
@@ -452,7 +486,7 @@ public class TrainingServiceImpl implements TrainingService {
         public PaginationResponseDto<TargetMuscleResponseDto> getTargetMuscles(PaginationRequestDto request) {
                 Pageable pageable = PageRequest.of(
                                 request.getPageNum(),
-                                request.getPageSize());
+                                CommonConstant.PAGE_SIZE_DEFAULT);
 
                 Page<TargetMuscle> targetMusclePage = targetMuscleRepository.findAll(pageable);
 
@@ -461,22 +495,27 @@ public class TrainingServiceImpl implements TrainingService {
                                 .map(targetMuscleMapper::targetMuscleToTargetMuscleResponseDto)
                                 .toList();
 
+                int requestSize = request.getPageSize();
+                List<TargetMuscleResponseDto> limitedTargetMuscleResponseDtos = targetMuscleResponseDtos.stream()
+                                .limit(requestSize)
+                                .toList();
+
                 PagingMeta pagingMeta = new PagingMeta(
                                 targetMusclePage.getTotalElements(),
                                 targetMusclePage.getTotalPages(),
                                 request.getPageNum() + 1,
-                                request.getPageSize(),
+                                limitedTargetMuscleResponseDtos.size(),
                                 null,
                                 null);
 
-                return new PaginationResponseDto<>(pagingMeta, targetMuscleResponseDtos);
+                return new PaginationResponseDto<>(pagingMeta, limitedTargetMuscleResponseDtos);
         }
 
         @Override
         public PaginationResponseDto<TypeResponseDto> getTypes(PaginationRequestDto request) {
                 Pageable pageable = PageRequest.of(
                                 request.getPageNum(),
-                                request.getPageSize());
+                                CommonConstant.PAGE_SIZE_DEFAULT);
 
                 Page<Type> typePage = typeRepository.findAll(pageable);
 
@@ -485,15 +524,20 @@ public class TrainingServiceImpl implements TrainingService {
                                 .map(typeMapper::typeToTypeResponseDto)
                                 .toList();
 
+                int requestSize = request.getPageSize();
+                List<TypeResponseDto> limitedTypeResponseDtos = typeResponseDtos.stream()
+                                .limit(requestSize)
+                                .toList();
+
                 PagingMeta pagingMeta = new PagingMeta(
                                 typePage.getTotalElements(),
                                 typePage.getTotalPages(),
                                 request.getPageNum() + 1,
-                                request.getPageSize(),
+                                limitedTypeResponseDtos.size(),
                                 null,
                                 null);
 
-                return new PaginationResponseDto<>(pagingMeta, typeResponseDtos);
+                return new PaginationResponseDto<>(pagingMeta, limitedTypeResponseDtos);
         }
 
         @Override
@@ -508,7 +552,7 @@ public class TrainingServiceImpl implements TrainingService {
                         PaginationRequestDto paginationRequestDto) {
                 Pageable pageable = PageRequest.of(
                                 paginationRequestDto.getPageNum(),
-                                paginationRequestDto.getPageSize());
+                                CommonConstant.PAGE_SIZE_DEFAULT);
 
                 Page<TrainingPlan> trainingPage = trainingPlanRepository.findByType(type, pageable);
 
@@ -517,15 +561,20 @@ public class TrainingServiceImpl implements TrainingService {
                                 .map(trainingPlanMapper::trainingPlanToTrainingPlanResponseDto)
                                 .toList();
 
+                int requestSize = paginationRequestDto.getPageSize();
+                List<TrainingPlanResponseDto> limitedTrainingPlanResponseDtos = trainingPlanResponseDtos.stream()
+                                .limit(requestSize)
+                                .toList();
+
                 PagingMeta pagingMeta = new PagingMeta(
                                 trainingPage.getTotalElements(),
                                 trainingPage.getTotalPages(),
                                 paginationRequestDto.getPageNum() + 1,
-                                paginationRequestDto.getPageSize(),
+                                limitedTrainingPlanResponseDtos.size(),
                                 null,
                                 null);
 
-                return new PaginationResponseDto<>(pagingMeta, trainingPlanResponseDtos);
+                return new PaginationResponseDto<>(pagingMeta, limitedTrainingPlanResponseDtos);
         }
 
 }

@@ -117,8 +117,8 @@ public class UserController {
     )
     @GetMapping(UrlConstant.Admin.GET_USERS)
     public ResponseEntity<?> getAllUsers(
-            @RequestParam(name = "page num", defaultValue = "0") int pageNum,
-            @RequestParam(name = "page size", defaultValue = "0") int pageSize
+            @RequestParam(name = "page num", defaultValue = "1") int pageNum,
+            @RequestParam(name = "page size", defaultValue = "10") int pageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(pageNum, pageSize);
         return VsResponseUtil.success(userService.getAllUsers(request));

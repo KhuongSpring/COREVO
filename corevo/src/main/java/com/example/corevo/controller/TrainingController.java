@@ -34,7 +34,7 @@ public class TrainingController {
     @GetMapping(UrlConstant.Training.GET_TRAINING_PLAN)
     public ResponseEntity<?> getTrainingPlans(
             @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+            @RequestParam(name = "page size", defaultValue = "10") int PageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.getTrainingPlans(request));
@@ -50,7 +50,7 @@ public class TrainingController {
         public ResponseEntity<?> getTrainingPlanByType(
                 @RequestParam(name = "type") String type,
                 @RequestParam(name = "page num", defaultValue = "1") int pageNum,
-                @RequestParam(name = "page size", defaultValue = "1") int pageSize
+                @RequestParam(name = "page size", defaultValue = "10") int pageSize
         ) {
                 PaginationRequestDto request = new PaginationRequestDto(pageNum, pageSize);
                 return VsResponseUtil.success(trainingService.getTrainingPlanByType(type, request));
@@ -65,7 +65,7 @@ public class TrainingController {
     @GetMapping(UrlConstant.Training.GET_EQUIPMENT)
     public ResponseEntity<?> getEquipments(
             @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+            @RequestParam(name = "page size", defaultValue = "10") int PageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.getEquipments(request));
@@ -80,7 +80,7 @@ public class TrainingController {
     @GetMapping(UrlConstant.Training.GET_GOAL)
     public ResponseEntity<?> getGoals(
             @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+            @RequestParam(name = "page size", defaultValue = "10") int PageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.getGoals(request));
@@ -95,7 +95,7 @@ public class TrainingController {
     @GetMapping(UrlConstant.Training.GET_LEVEL)
     public ResponseEntity<?> getLevels(
             @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+            @RequestParam(name = "page size", defaultValue = "10") int PageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.getLevels(request));
@@ -110,7 +110,7 @@ public class TrainingController {
     @GetMapping(UrlConstant.Training.GET_LOCATION)
     public ResponseEntity<?> getLocations(
             @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+            @RequestParam(name = "page size", defaultValue = "10") int PageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.getLocations(request));
@@ -125,7 +125,7 @@ public class TrainingController {
     @GetMapping(UrlConstant.Training.GET_TARGET_MUSCLE)
     public ResponseEntity<?> getTargetMuscles(
             @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+            @RequestParam(name = "page size", defaultValue = "10") int PageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.getTargetMuscles(request));
@@ -140,7 +140,7 @@ public class TrainingController {
     @GetMapping(UrlConstant.Training.GET_TYPE)
     public ResponseEntity<?> getTypes(
             @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+            @RequestParam(name = "page size", defaultValue = "10") int PageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.getTypes(request));
@@ -156,7 +156,7 @@ public class TrainingController {
     public ResponseEntity<?> getExerciseByPrimaryMuscle(
             @RequestParam(name = "primary muscle") String primaryMuscle,
             @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+            @RequestParam(name = "page size", defaultValue = "10") int PageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.getPreviewExerciseByPrimaryMuscle(primaryMuscle, request));
@@ -172,7 +172,7 @@ public class TrainingController {
     public ResponseEntity<?> getExerciseByType(
             @RequestParam(name = "type") String type,
             @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+            @RequestParam(name = "page size", defaultValue = "10") int PageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.getPreviewExerciseByType(type, request));
@@ -188,7 +188,7 @@ public class TrainingController {
     public ResponseEntity<?> getExerciseByGoal(
             @RequestParam(name = "goal") String goal,
             @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+            @RequestParam(name = "page size", defaultValue = "10") int PageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.getPreviewExerciseByGoal(goal, request));
@@ -215,7 +215,7 @@ public class TrainingController {
     public ResponseEntity<?> searchExercise(
             @Valid @RequestBody TrainingExerciseSearchingRequestDto searchRequest,
             @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+            @RequestParam(name = "page size", defaultValue = "10") int PageSize
     ) {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.searchExercise(searchRequest, request));

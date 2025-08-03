@@ -125,24 +125,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public PaginationResponseDto<UserResponseDto> getAllUsers(PaginationRequestDto request) {
 
-        Pageable pageable = PageRequest.of(request.getPageNum(), request.getPageSize());
+        Pageable pageable = PageRequest.of(request.getPageNum(), CommonConstant.PAGE_SIZE_DEFAULT);
 
         Page<User> userPage = userRepository.findAll(pageable);
 
         List<UserResponseDto> userResponseDtos = userPage.getContent()
                 .stream()
                 .map(userMapper::userToUserResponseDto)
-                .collect(Collectors.toList());
+                .toList();
+
+        int requestSize = request.getPageSize();
+        List<UserResponseDto> limitedUserResponseDtos = userResponseDtos.stream()
+                .limit(requestSize)
+                .toList();
 
         PagingMeta pagingMeta = new PagingMeta(
                 userPage.getTotalElements(),
                 userPage.getTotalPages(),
                 request.getPageNum() + 1,
-                request.getPageSize(),
+                limitedUserResponseDtos.size(),
                 null,
                 null);
 
-        return new PaginationResponseDto<>(pagingMeta, userResponseDtos);
+        return new PaginationResponseDto<>(pagingMeta, limitedUserResponseDtos);
     }
 
     @Override
