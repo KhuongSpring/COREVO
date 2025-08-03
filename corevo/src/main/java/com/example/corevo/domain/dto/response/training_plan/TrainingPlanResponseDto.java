@@ -12,6 +12,8 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TrainingPlanResponseDto {
 
+    int id;
+
     String name;
 
     String description;

@@ -1,5 +1,6 @@
 package com.example.corevo.domain.dto.response.user;
 
+import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
 import com.example.corevo.domain.dto.response.user.health.UserHealthResponseDto;
 import com.example.corevo.domain.entity.user.Address;
 import com.example.corevo.domain.entity.user.Role;
@@ -7,6 +8,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,5 +41,7 @@ public class UserResponseDto {
     Address address;
 
     UserHealthResponseDto userHealth;
+
+    List<TrainingPlanResponseDto> trainingPlans;
 
 }

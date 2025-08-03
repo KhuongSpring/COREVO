@@ -25,6 +25,7 @@ import 'package:http/http.dart' as http;
 import '../../../core/constants/app_assets.dart';
 import '../../../service/auth_service.dart';
 import '../../model/request/auth/login_request.dart';
+import '../training_flow/widget/training_goal_selection_widget.dart';
 import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -96,15 +97,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 );
                 return;
               }
+
+              if (subResponse.trainingPlans == null ||
+                  subResponse.trainingPlans!.isEmpty) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TrainingGoalSelectionWidget(),
+                  ),
+                );
+                return;
+              }
             }
           } catch (e, stackTrace) {
             print(stackTrace);
           }
 
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => HomeRoot()),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeRoot()),
+          );
         } else {
           if (isDeleted ?? true) {
             if (canRecovery ?? true) {
@@ -134,7 +146,6 @@ class _LoginScreenState extends State<LoginScreen> {
         final response = await AuthService.loginWithGoogle(
           Oauth2GoogleRequest(idToken: idToken),
         );
-        print(response.status);
         if (response.status == 'OK') {
           await SharedPreferencesService.saveAccessToken(
             response.accessToken ?? '',
@@ -157,6 +168,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     builder: (context) => GenderSelectionScreen(),
                   ),
                 );
+
+                return;
+              }
+
+              if (subResponse.trainingPlans == null ||
+                  subResponse.trainingPlans!.isEmpty) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TrainingGoalSelectionWidget(),
+                  ),
+                );
+
                 return;
               }
             }

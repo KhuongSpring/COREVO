@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class TrainingPlan {
 
     @Id

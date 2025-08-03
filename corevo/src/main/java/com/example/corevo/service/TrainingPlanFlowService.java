@@ -12,7 +12,8 @@ public interface TrainingPlanFlowService {
     TrainingPlanFlowResponseDto processStep(
             String currentStep,
             List<String> selectedValue,
-            Map<String, List<String>> selectedValues);
+            Map<String, List<String>> selectedValues,
+            Authentication authentication);
 
     CommonResponseDto resetTrainingPlan(Authentication authentication);
 

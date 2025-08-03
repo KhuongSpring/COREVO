@@ -1,4 +1,5 @@
 class TrainingPlanResponse {
+  final int id;
   final String name;
   final String description;
   final String aim;
@@ -11,6 +12,7 @@ class TrainingPlanResponse {
   final List<int> equipmentIds;
 
   TrainingPlanResponse({
+    required this.id,
     required this.name,
     required this.description,
     required this.aim,
@@ -25,6 +27,7 @@ class TrainingPlanResponse {
 
   factory TrainingPlanResponse.fromJson(Map<String, dynamic> json) {
     return TrainingPlanResponse(
+      id: json['id'] ?? 0,
       name: json['name'] ?? '',
       description: json['description'] ?? '',
       aim: json['aim'] ?? '',

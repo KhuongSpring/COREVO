@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:hit_tech/service/auth_service.dart';
+import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../core/constants/api_endpoint.dart';
 
 class SharedPreferencesService {
   static const String _accessTokenKey = 'auth_access_token';
@@ -110,7 +113,15 @@ class SharedPreferencesService {
   static Future<bool> isLoggedIn() async {
     try {
       final refreshToken = await getRefreshToken();
-      return refreshToken != null && refreshToken.isNotEmpty;
+      if (refreshToken == null || refreshToken.isEmpty) return false;
+
+      final response = await http.post(
+        Uri.parse(ApiEndpoint.refreshToken),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'refreshToken': refreshToken}),
+      );
+
+      return response.statusCode == 200;
     } catch (e) {
       print('Error checking login status: $e');
       return false;

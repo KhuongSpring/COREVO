@@ -5,6 +5,7 @@ import 'package:hit_tech/model/request/personal_health_request.dart';
 import 'package:hit_tech/model/response/default_response.dart';
 import 'package:hit_tech/service/user_service.dart';
 import 'package:hit_tech/view/main_root/home_root.dart';
+import 'package:hit_tech/view/training_flow/widget/training_goal_selection_widget.dart';
 
 import '../../core/constants/app_assets.dart';
 import '../../core/constants/app_color.dart';
@@ -59,10 +60,30 @@ class _ActivityLevelSelectionScreenState
         activityLevel: selectedActivityLevel,
       );
 
-      final DefaultResponse response =
-          await UserService.fillPersonalHealth(request);
+      final DefaultResponse response = await UserService.fillPersonalHealth(
+        request,
+      );
 
       if (response.status == 'SUCCESS') {
+        try {
+          final subResponse = await UserService.getProfile();
+
+          if (subResponse.status == "SUCCESS") {
+            if (subResponse.trainingPlans == null ||
+                subResponse.trainingPlans!.isEmpty) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TrainingGoalSelectionWidget(),
+                ),
+              );
+              return;
+            }
+          }
+        } catch (e, stackTrace) {
+          print(stackTrace);
+        }
+
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => HomeRoot()),
