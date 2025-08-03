@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_dimension.dart';
+import 'package:hit_tech/view/main_root/home_root.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_color.dart';
@@ -262,16 +263,12 @@ class _TrainingEquipmentSelectionState
                         print(selectedValues);
                         print(response.trainingPlans);
 
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => TrainingTypeSelectionWidget(
-                        //       nextStep: response.nextStep,
-                        //       selectedValues: selectedValues,
-                        //       options: response.options,
-                        //     ),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeRoot()
+                          ),
+                        );
                       } catch (e) {
                         print("Error: $e");
                       }

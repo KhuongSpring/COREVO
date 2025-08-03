@@ -1,3 +1,4 @@
+import 'package:hit_tech/model/response/training/training_plan_response.dart';
 import 'package:hit_tech/model/response/user/user_health_response.dart';
 
 class UserProfileResponse {
@@ -12,6 +13,7 @@ class UserProfileResponse {
   String? nationality;
   String? linkAvatar;
   UserHealthResponse? userHealth;
+  List<TrainingPlanResponse>? trainingPlans;
 
   UserProfileResponse({
     required this.status,
@@ -25,6 +27,7 @@ class UserProfileResponse {
     this.nationality,
     this.linkAvatar,
     this.userHealth,
+    this.trainingPlans,
   });
 
   factory UserProfileResponse.fromJson(Map<String, dynamic> json) {
@@ -42,6 +45,11 @@ class UserProfileResponse {
       linkAvatar: data['linkAvatar'],
       userHealth: data['userHealth'] != null
           ? UserHealthResponse.fromJson(data['userHealth'])
+          : null,
+      trainingPlans: data['trainingPlans'] != null
+          ? (data['trainingPlans'] as List)
+          .map((e) => TrainingPlanResponse.fromJson(e))
+          .toList()
           : null,
     );
   }

@@ -32,11 +32,12 @@ public class TrainingPlanFlowController {
             security = @SecurityRequirement(name = "Bearer Token")
     )
     @PostMapping(UrlConstant.TrainingPlan.FLOW_STEP)
-    public ResponseEntity<?> enterStep(@Valid @RequestBody TrainingPlanFlowRequestDto request) {
+    public ResponseEntity<?> enterStep(@Valid @RequestBody TrainingPlanFlowRequestDto request, Authentication authentication) {
         return VsResponseUtil.success(trainingPlanFlowService.processStep(
                 request.getCurrentStep(),
                 request.getSelectedValue(),
-                request.getSelectedValues()
+                request.getSelectedValues(),
+                authentication
         ));
     }
 

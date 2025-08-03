@@ -10,6 +10,7 @@ import com.example.corevo.domain.entity.training.Level;
 import com.example.corevo.domain.entity.training.Location;
 import com.example.corevo.domain.entity.training.TrainingPlan;
 import com.example.corevo.domain.entity.user.User;
+import com.example.corevo.domain.mapper.TrainingPlanMapper;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.helper.StringToTrainingIDHelper;
 import com.example.corevo.repository.TrainingPlanRepository;
@@ -39,11 +40,15 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
 
     UserRepository userRepository;
 
+    TrainingPlanMapper trainingPlanMapper;
+
     @Override
     public TrainingPlanFlowResponseDto processStep(
             String currentStep,
             List<String> selectedValue,
-            Map<String, List<String>> selectedValues) {
+            Map<String, List<String>> selectedValues,
+            Authentication authentication
+    ) {
         if (selectedValue != null && currentStep != null) {
             selectedValues.put(currentStep, selectedValue);
         }
@@ -91,6 +96,24 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
             List<TrainingPlanResponseDto> responseDtos = matchingPlans.stream()
                     .map(this::mapToDto)
                     .toList();
+
+            if (authentication == null || !authentication.isAuthenticated()) {
+                throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.UNAUTHORIZED);
+            }
+
+            String username = authentication.getName();
+
+            User user = userRepository.findByUsername(username);
+
+            if (user == null) {
+                throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+            }
+
+            if (!user.getTrainingPlans().contains(matchingPlans.getFirst())) {
+                user.getTrainingPlans().add(matchingPlans.getFirst());
+
+                userRepository.save(user);
+            }
 
             return new TrainingPlanFlowResponseDto(
                     null,
@@ -161,10 +184,6 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
                         : List.of());
 
         return dto;
-    }
-
-    private String getFirst(List<String> list) {
-        return (list != null && !list.isEmpty()) ? list.getFirst() : null;
     }
 
     private List<Long> parseIds(String key, List<String> list) {
