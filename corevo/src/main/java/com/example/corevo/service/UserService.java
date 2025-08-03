@@ -38,8 +38,6 @@ public interface UserService {
 
     CommonResponseDto deleteUserAccount(String userId);
 
-    User findOrCreateUser(String email, String name, String picture, String firstName, String lastName);
-
     long countAllUser();
 
 }
