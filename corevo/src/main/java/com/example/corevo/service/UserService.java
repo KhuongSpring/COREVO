@@ -9,6 +9,7 @@ import com.example.corevo.domain.dto.request.user.profile.ConfirmPasswordRequest
 import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.user.AccountDeletionResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
+import com.example.corevo.domain.entity.user.User;
 import org.springframework.security.core.Authentication;
 
 public interface UserService {
@@ -36,6 +37,8 @@ public interface UserService {
     CommonResponseDto unlockUser(String userId);
 
     CommonResponseDto deleteUserAccount(String userId);
+
+    User findOrCreateUser(String email, String name, String picture, String firstName, String lastName);
 
     long countAllUser();
 

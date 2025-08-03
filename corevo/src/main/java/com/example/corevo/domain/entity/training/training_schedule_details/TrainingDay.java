@@ -36,7 +36,7 @@ public class TrainingDay {
     @JoinColumn(name = "schedule_id", nullable = false)
     TrainingSchedule trainingSchedule;
 
-    @OneToMany(mappedBy = "trainingDay", cascade = CascadeType.ALL)
-    List<TrainingExerciseGroup> exerciseGroups;
+    @OneToOne(mappedBy = "trainingDay", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    TrainingExerciseGroup exerciseGroup;
 
 }

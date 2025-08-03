@@ -69,7 +69,7 @@ public class UrlConstant {
         private static final String PRE_FIX = "/training-plan";
         public static final String FLOW_STEP = PRE_FIX + "/step";
         public static final String RESET = PRE_FIX + "/reset";
-
+        public static final String GET_BY_TYPE = PRE_FIX;
         private TrainingPlan() {
 
         }

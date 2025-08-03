@@ -1,0 +1,614 @@
+[
+  {
+    "name": "Child Pose",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [6],
+    "secondaryTargetMuscleIds": [2, 4, 10],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "60,120",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/yoga/yoga_child-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế em bé giúp thư giãn vùng lưng dưới, hông và cổ. Đây là bài tập phục hồi hiệu quả, giúp giảm căng thẳng và cải thiện hô hấp."
+  },
+  {
+    "name": "Cat Pose",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [6],
+    "secondaryTargetMuscleIds": [2, 4, 10],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "60,120",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_cat-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế con mèo giúp kéo giãn và làm mềm cột sống. Cải thiện sự linh hoạt vùng lưng và cổ, hỗ trợ lưu thông máu và giảm đau do căng cứng kéo dài."
+  },
+  {
+    "name": "Half Moon Pose Ardha Chandrasana",
+    "levelIds": [2, 3],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [6, 7],
+    "secondaryTargetMuscleIds": [4, 9, 10],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_half-moon-pose-ardha-chandrasana.jpg",
+      "video": null
+    },
+    "description": "Tư thế bán nguyệt tập trung vào sự cân bằng toàn thân, tăng lực chân và core, đồng thời mở rộng háng và ngực giúp cải thiện sự tập trung, cân bằng và linh hoạt"
+  },
+  {
+    "name": "Eagle Pose",
+    "levelIds": [2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [4, 6],
+    "secondaryTargetMuscleIds": [1, 7],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 6, 7, 8],
+    "media": {
+      "image": "images/yoga/yoga_the-eagle-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế đại bàng giúp cải thiện khả năng cân bằng và tập trung toàn thân. Kết hợp kéo giãn vai, hông, đồng thời thắt chặt cơ core, đùi và mắt cá, hỗ trợ giảm mỏi cổ, vai và lưng trên "
+  },
+  {
+    "name": "Straight Angle Pose",
+    "levelIds": [3],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [7, 6],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_straight-angle-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế mở hông và gân kheo sâu, giúp tăng độ linh hoạt phần hông, đùi và lưng dưới. Đồng thời hỗ trợ thư giãn tinh thần bằng cách giải phóng căng thẳng lưu trữ ở vùng hông"
+  },
+  {
+    "name": "Plow Pose",
+    "levelIds": [2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [4, 7, 10],
+    "secondaryTargetMuscleIds": [6, 1],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [2, 4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_plow-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế cày ngược đầu, kéo giãn toàn bộ mặt sau cơ thể - gân kheo, vai, cổ và lưng. Hỗ trợ tăng lưu thông, thư giãn hệ thần kinh và cải thiện tiêu hóa"
+  },
+  {
+    "name": "Triangle Pose",
+    "levelIds": [2, 3],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [12, 3],
+    "secondaryTargetMuscleIds": [6, 9, 11],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 5, 7],
+    "media": {
+      "image": "images/yoga/yoga_triangle-pose-trikonasana.jpg",
+      "video": null
+    },
+    "description": "Tư thế tam giác giúp kéo giãn mạnh gân kheo, mở ngực vai, tăng độ linh hoạt cột sống và hỗ trợ tiêu hóa. Cải thiện thăng bằng và năng lượng tích cực"
+  },
+  {
+    "name": "Tree Pose Vrksasana",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [11, 13],
+    "secondaryTargetMuscleIds": [3, 13, 10],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 5, 7, 8],
+    "media": {
+      "image": "images/yoga/yoga_tree-pose-vrksasana.jpg",
+      "video": null
+    },
+    "description": "Tư thế đứng cây tập trung vào thăng bằng chân, mắt cá và core, đồng thời mở hông và vai. Giúp cải thiện tư thế, sự tập trung và thư giãn tinh thần"
+  },
+  {
+    "name": "Hero Pose Virasana",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [13, 10, 9],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/yoga/yoga_hero-pose-virasana.jpg",
+      "video": null
+    },
+    "description": "Tư thế hero giúp mở đùi trước, mắt cá, hông và cải thiện tiêu hóa. Tăng sự căn bản của tư thế và tạo cảm giác an yên trong thiền"
+  },
+  {
+    "name": "Garland Pose Malasana",
+    "levelIds": [2, 3],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [12, 3],
+    "secondaryTargetMuscleIds": [6, 9, 11],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 7, 8],
+    "media": {
+      "image": "images/yoga/yoga_garland-pose-malasana.jpg",
+      "video": null
+    },
+    "description": "Tư thế squat sâu giúp mở hông, giãn cơ đùi trong và mắt cá. Hỗ trợ tiêu hóa, thư giãn vùng lưng dưới và cải thiện sự linh hoạt khớp hông."
+  },
+  {
+    "name": "Cobra Pose",
+    "levelIds": [2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [3, 2, 9],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "15,60",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_cobra-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế rắn hổ mang giúp mở ngực và vai, kéo căng vùng bụng và lưng dưới. Rất hiệu quả để cải thiện tư thế và giảm đau lưng do ngồi lâu."
+  },
+  {
+    "name": "Bow Pose",
+    "levelIds": [2, 3],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [9, 10],
+    "secondaryTargetMuscleIds": [7, 11, 12],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "10,60",
+    "goalIds": [3, 4, 6],
+    "media": {
+      "image": "images/yoga/yoga_bow-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế hình cây cung mở rộng ngực, vai và hông trước, đồng thời siết mạnh cơ lưng dưới và mông. Hỗ trợ tiêu hóa và tăng cường sức mạnh vùng lưng sau."
+  },
+  {
+    "name": "Wheel Pose",
+    "levelIds": [3],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [9, 10],
+    "secondaryTargetMuscleIds": [2, 3, 7, 11],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [3, 4, 5, 6],
+    "media": {
+      "image": "images/yoga/yoga_wheel-pose-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế bánh xe giúp mở ngực, vai và hông, mang lại sức mạnh toàn thân - đặc biệt là cột sống, lưng và tay."
+  },
+  {
+    "name": "Fish Pose",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [2, 3],
+    "secondaryTargetMuscleIds": [7, 10, 11],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "15,90",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_fish-pose-matsyasana.jpg",
+      "video": null
+    },
+    "description": "Tư thế cá giúp mở ngực và cổ, kéo dài cột sống và hỗ trợ hô hấp. Tác động tích cực đến tư thế, giảm căng thẳng vùng cổ - vai."
+  },
+  {
+    "name": "Tiger Pose",
+    "levelIds": [1, 2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [9, 10],
+    "secondaryTargetMuscleIds": [7, 12],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "15,30",
+    "goalIds": [3, 4, 5],
+    "media": {
+      "image": "images/yoga/yoga_tiger-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế con hổ giúp cải thiện linh hoạt cột sống, tăng sức mạnh core và kích hoạt mông - chân, hỗ trợ ổn định toàn thân."
+  },
+  {
+    "name": "Crescent Moon Pose",
+    "levelIds": [1, 2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [11, 10],
+    "secondaryTargetMuscleIds": [8, 6, 7],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "60,60",
+    "goalIds": [4, 7, 8],
+    "media": {
+      "image": "images/yoga/yoga_crescent-moon-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế trăng lưỡi liềm kéo giãn sâu hông, cơ đùi và lưng dưới. Giúp mở rộng ngực - vai và cải thiện sự ổn định chân - core."
+  },
+  {
+    "name": "Pavanamuktasana Yoga Pose",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [12, 9],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "10,60",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_pavanamuktasana-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế giải phóng hơi giúp kích thích ruột và giảm đầy hơi. Đồng thời hỗ trợ thư giãn lưng dưới và cơ core."
+  },
+  {
+    "name": "Lotus Pose",
+    "levelIds": [1, 2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [8, 10],
+    "secondaryTargetMuscleIds": [7, 6],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "60,600",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_lotus-yoga-pose-padmasana.jpg",
+      "video": null
+    },
+    "description": "Tư thế hoa sen giúp mở hông sâu và thư giãn tâm trí. Hỗ trợ luyện thiền, tăng sự ổn định và dẫn năng lượng vào cơ thể."
+  },
+  {
+    "name": "Full Lotus Pose",
+    "levelIds": [1, 2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [10, 8],
+    "secondaryTargetMuscleIds": [7, 6],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "60,600",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/yoga/yoga_full-lotus-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế hoa sen giúp mở hông sâu và thư giãn tâm trí. Hỗ trợ luyện thiền, tăng sự ổn định và dẫn năng lượng vào cơ thể."
+  },
+  {
+    "name": "Butterfly Pose",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [10, 8],
+    "secondaryTargetMuscleIds": [6, 9],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "180,600",
+    "goalIds": [4, 7, 8],
+    "media": {
+      "image": "images/yoga/yoga_butterfly-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế bướm giúp mở rộng hông và đùi trong, cải thiện lưu thông vùng xương chậu. Giúp thư giãn lưng dưới và hỗ trợ tiêu hóa."
+  },
+  {
+    "name": "Crocodile Pose",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [9],
+    "secondaryTargetMuscleIds": [10, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,300",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/yoga/yoga_crocodile-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế cá sấu mang lại sự thư giãn sâu cho vùng lưng dưới và cột sống. Phù hợp để làm dịu cơ thể trước khi thiền hoặc khi cơ mỏi."
+  },
+  {
+    "name": "Downward Facing Dog Adho Mukha Svanasana",
+    "levelIds": [1, 2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [2, 5],
+    "secondaryTargetMuscleIds": [4, 7, 11, 12, 13],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 5, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_downward-facing-dog-adho-mukha-svanasana.jpg",
+      "video": null
+    },
+    "description": "Tư thế chó úp mặt kéo giãn toàn thân, đặc biệt là gân kheo, vai và lưng. Giúp cải thiện tuần hoàn máu và tăng độ linh hoạt cho cơ thể."
+  },
+  {
+    "name": "Standing Forward Bend Uttanasana",
+    "levelIds": [1, 2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [2, 6, 8, 10],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,75",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_standing-forward-bend-uttanasana.jpg",
+      "video": null
+    },
+    "description": "Tư thế gập người đứng kéo giãn sâu gân kheo và bắp chân, đồng thời thư giãn lưng dưới và kích thích tuần hoàn. Giúp giải tỏa căng thẳng, cải thiện tiêu hóa và cân bằng huyết áp"
+  },
+  {
+    "name": "Wide Legged Forward Bend",
+    "levelIds": [1, 2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [2, 7],
+    "secondaryTargetMuscleIds": [6, 10],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,45",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_wide-legged-forward-bend-prasarita-padottanasana.jpg",
+      "video": null
+    },
+    "description": "Tư thế gập người chân rộng giúp kéo dài toàn bộ mặt sau cơ thể - gân kheo, bắp chân, hông và lưng dưới - giúp giảm căng thẳng, cải thiện sự cân bằng và hỗ trợ lưu thông máu"
+  },
+  {
+    "name": "Stand Spread Leg Forward Fold",
+    "levelIds": [1, 2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [7, 4],
+    "secondaryTargetMuscleIds": [2, 6, 8, 10],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,75",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_stand-spread-leg-forward-fold.jpg",
+      "video": null
+    },
+    "description": "Biến thể gập người chân rộng này kết hợp kéo giãn gân kheo và mở vai/rộng ngực khi duỗi tay sau lưng hoặc chạm sàn. Tư thế giúp tăng sự linh hoạt của vai, cổ và giải tỏa áp lực thần kinh"
+  },
+  {
+    "name": "Shoulder Stand",
+    "levelIds": [1, 2],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [4, 5],
+    "secondaryTargetMuscleIds": [1, 7, 10],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [2, 4, 5],
+    "media": {
+      "image": "images/yoga/yoga_shoulder-stand-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế trồng vai đảo ngược toàn thân, giúp mở rộng ngực và hỗ trợ tuyến giáp, đồng thời tăng cường phần vai, lưng trên và cải thiện tuần hoàn máu"
+  },
+  {
+    "name": "Swaying Palm Tree",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [6, 10],
+    "secondaryTargetMuscleIds": [4, 7],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_swaying-palm-tree-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế nghiêng như cây cọ giúp kéo dãn vùng hông, hai bên thân và tăng cường sự ổn định cơ core, đồng thời cải thiện hô hấp và tập trung"
+  },
+  {
+    "name": "Warrior II",
+    "levelIds": [2, 3],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [11, 12],
+    "secondaryTargetMuscleIds": [3, 13, 10],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [3, 4, 5, 7],
+    "media": {
+      "image": "images/yoga/yoga_warrior-iii-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế chiến binh II tăng cường cơ đùi trước - sau và vai, đồng thời mở hông - ngực. Giúp cải thiện sức bền, sự ổn định và tư thế, đồng thời kích thích tuần hoàn máu và hệ hô hấp"
+  },
+  {
+    "name": "Extended Side Angle",
+    "levelIds": [2, 3],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [3, 10],
+    "secondaryTargetMuscleIds": [11, 6, 12],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [3, 4, 5, 7],
+    "media": {
+      "image": "images/yoga/yoga_extended-side-angle-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế nghiêng mở rộng kéo dãn vai và đùi, tăng cường core và hỗ trợ tiêu hóa. Có tác dụng mạnh trong ổn định thân và cải thiện khả năng thở"
+  },
+  {
+    "name": "Prayer Squat",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [11, 13],
+    "secondaryTargetMuscleIds": [3, 13, 10],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [1, 4, 7],
+    "media": {
+      "image": "images/yoga/yoga_prayer-squat-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tương tự true pose vrksana nhưng ở tư thế ngồi giúp tập trung vào phân cơ đùi hơn"
+  },
+  {
+    "name": "Ardha Matsyendrasana",
+    "levelIds": [2, 3],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [6, 9],
+    "secondaryTargetMuscleIds": [8, 2, 10],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "20,60",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/yoga/yoga_ardha-matsyendrasana-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế xoay cột sống giúp cải thiện sự linh hoạt vùng lưng trên - dưới. Hỗ trợ tiêu hóa và giảm căng thẳng vùng hông - lưng."
+  },
+  {
+    "name": "Supine Spinal Twist",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [6, 9],
+    "secondaryTargetMuscleIds": [12, 10, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "45,60",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/yoga/yoga_supine-spinal-twist-yoga-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế vặn cột sống ngả lưng giúp làm mềm lưng dưới và hông, thúc đẩy tiêu hóa và thư giãn cơ thể sau tập."
+  },
+  {
+    "name": "Bent Knee Lying Twist",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [8],
+    "secondaryTargetMuscleIds": [9, 10],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 7],
+    "media": {
+      "image": "images/yoga/yoga_bent-knee-lying-twist.jpg",
+      "video": null
+    },
+    "description": "Động tác giúp kéo giãn cột sống thắt lưng, giải phóng áp lực ở hông, cơ bụng xiên và vùng lưng dưới. Rất phù hợp khi thực hiện sau buổi tập nặng, hoặc trước khi đi ngủ để thư giãn tinh thần và cơ thể."
+  },
+  {
+    "name": "Camel Pose",
+    "levelIds": [1],
+    "typeIds": [3],
+    "primaryTargetMuscleIds": [2, 11],
+    "secondaryTargetMuscleIds": [1, 3, 7, 8],
+    "equipmentIds": [2],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [7, 4, 8],
+    "media": {
+      "image": "images/yoga/yoga_camel-pose.jpg",
+      "video": null
+    },
+    "description": "Tư thế lạc đà giúp kéo giãn cơ lưng, mở ngực và tăng độ linh hoạt cột sống."
+  }
+]

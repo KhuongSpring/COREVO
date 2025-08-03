@@ -44,4 +44,6 @@ public interface TrainingService {
 
     TrainingScheduleResponseDto getTrainingSchedule(Long planId);
 
+    PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlanByType(String type,
+                                                                         PaginationRequestDto paginationRequestDto);
 }

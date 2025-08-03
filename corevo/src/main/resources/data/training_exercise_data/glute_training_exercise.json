@@ -404,7 +404,7 @@
     "secondaryTargetMuscleIds": [12, 13],
     "equipmentIds": [2],
     "locationIds": [4],
-    "sets": "2, 3",
+    "sets": "2,3",
     "reps": "10,15",
     "duration": "20,30",
     "goalIds": [4, 5, 7, 8],
@@ -413,5 +413,23 @@
       "video": null
     },
     "description": "Runner's Stretch giúp kéo giãn cơ mông, cơ đùi sau và bắp chân, thường được dùng sau khi chạy bộ hoặc tập lower body để thư giãn và hồi phục cơ bắp"
+  },
+  {
+    "name": "Superman",
+    "levelIds": [1],
+    "typeIds": [4],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [7, 9, 3],
+    "equipmentIds": [2],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "8,10",
+    "duration": "20,60",
+    "goalIds": [4, 5, 8],
+    "media": {
+      "image": "images/glustes/glustes_superman.jpg",
+      "video": null
+    },
+    "description": "Bài tập nền tảng tăng cường sức mạnh lưng dưới và cải thiện tư thế."
   }
 ]

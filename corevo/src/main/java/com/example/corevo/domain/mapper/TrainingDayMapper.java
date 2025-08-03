@@ -11,20 +11,20 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import java.util.List;
 
 @Mapper(componentModel = "spring",
-        uses = TrainingScheduleMapperHelper.class,
+        uses = {TrainingExerciseGroupMapper.class, TrainingScheduleMapperHelper.class},
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
 public interface TrainingDayMapper {
 
-    @Mapping(target = "exerciseGroups", source = "exerciseGroupIds")
+    @Mapping(target = "exerciseGroup", source = "exerciseGroups")
     @Mapping(target = "trainingSchedule", ignore = true)
-    TrainingDay trainingScheduleResponseDtoToTrainingSchedule(TrainingDayResponseDto dto);
+    TrainingDay trainingDayResponseDtoToTrainingDay(TrainingDayResponseDto dto);
 
-    List<TrainingDay> listTrainingScheduleResponseDtoToListTrainingSchedule(List<TrainingDayResponseDto> listDto);
+    List<TrainingDay> listTrainingDayResponseDtoToListTrainingDay(List<TrainingDayResponseDto> listDto);
 
-    @Mapping(target = "exerciseGroupIds", source = "exerciseGroups")
-    TrainingDayResponseDto trainingScheduleToTrainingScheduleResponseDto(TrainingDay entity);
+    @Mapping(target = "exerciseGroups", source = "exerciseGroup")
+    TrainingDayResponseDto trainingDayToTrainingDayResponseDto(TrainingDay entity);
 
-    List<TrainingDayResponseDto> listTrainingScheduleToListTrainingScheduleResponseDto(List<TrainingDay> listEntity);
+    List<TrainingDayResponseDto> listTrainingDayToListTrainingDayResponseDto(List<TrainingDay> listEntity);
 }

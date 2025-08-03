@@ -1,0 +1,758 @@
+[
+  {
+    "name": "Jumping Jack",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [3, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [1, 4, 6],
+    "media": {
+      "image": "images/cardio/cardio_jumping-jack.jpg",
+      "video": null
+    },
+    "description": "Bài tập bật nhảy toàn thân giúp khởi động, đốt calo và nâng cao nhịp tim."
+  },
+  {
+    "name": "High Knees Butt Kicks",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [3, 12, 13],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5, 6, 7],
+    "media": {
+      "image": "images/cardio/cardio_high-knees-butt-kicks.jpg",
+      "video": null
+    },
+    "description": "Đây là một bài tập tim mạch giúp cải thiện khả năng phối hợp, sự nhanh nhẹn và thể lực tổng thể."
+  },
+  {
+    "name": "Battling Ropes",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [2],
+    "secondaryTargetMuscleIds": [4, 3, 7, 11],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,30",
+    "goalIds": [1, 5],
+    "media": {
+      "image": "images/cardio/cardio_battling-ropes.jpg",
+      "video": null
+    },
+    "description": "Vung dây liên tục giúp tăng nhịp tim, đốt mỡ và rèn sức bền toàn thân."
+  },
+  {
+    "name": "Rocking Frog",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [12],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 7, 8],
+    "media": {
+      "image": "images/cardio/cardio_rocking-frog-stretch.jpg",
+      "video": null
+    },
+    "description": "Bài tập giãn cơ giúp mở hông và đùi trong. Từ tư thế quỳ gối rộng, chống tay, đưa hông nhẹ nhàng ra trước rồi ra sau như “đu đưa”. Thực hiện chậm rãi, thở đều để tăng độ linh hoạt vùng chậu."
+  },
+  {
+    "name": "Assisted Lying Hamstring Stretch",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [10, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [3, 4, 7, 8],
+    "media": {
+      "image": "images/cardio/cardio_assisted-lying-hamstring-stretch.jpg",
+      "video": null
+    },
+    "description": "Tư thế làm giãn cơ đùi sau. Tránh các tình huống căng cơ khi luyện tập "
+  },
+  {
+    "name": "Walking",
+    "levelIds": [1, 2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [13],
+    "secondaryTargetMuscleIds": [9, 11],
+    "equipmentIds": [1],
+    "locationIds": [2, 3],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [1, 5, 6, 7],
+    "media": {
+      "image": "images/cardio/cardio_walking.jpg",
+      "video": null
+    },
+    "description": "Đi bộ là bài tập đơn giản giúp đốt cháy calo, cải thiện sức khỏe tim mạch và thư giãn tinh thần."
+  },
+  {
+    "name": "Briskly Walking",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [3, 9, 11],
+    "equipmentIds": [1],
+    "locationIds": [2, 3],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [4, 6, 7],
+    "media": {
+      "image": "images/cardio/cardio_briskly-walking.jpg",
+      "video": null
+    },
+    "description": "Đi bộ nhanh giúp đốt cháy calo, cải thiện hệ tim mạch và tăng cường sức bền."
+  },
+  {
+    "name": "Heel to Toe Walk",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [9],
+    "equipmentIds": [1],
+    "locationIds": [2, 3],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [4, 5, 7],
+    "media": {
+      "image": "images/cardio/cardio_heel-to-toe-walk.jpg",
+      "video": null
+    },
+    "description": "Bài đi bộ gót chạm mũi chân giúp cải thiện thăng bằng và độ ổn định của cơ chân."
+  },
+  {
+    "name": "Toe Walk",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [13],
+    "secondaryTargetMuscleIds": [9],
+    "equipmentIds": [1],
+    "locationIds": [2, 3],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [4, 5, 7],
+    "media": {
+      "image": "images/cardio/cardio_toe-walk.jpg",
+      "video": null
+    },
+    "description": "Đi bằng đầu ngón chân giúp tăng sức mạnh cơ bắp chân và khả năng giữ thăng bằng."
+  },
+  {
+    "name": "Shuffle",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [9],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [1],
+    "locationIds": [2, 3],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/cardio/cardio_shuffle.jpg",
+      "video": null
+    },
+    "description": "Di chuyển ngang nhanh giúp cải thiện sự linh hoạt và điều phối cơ thể."
+  },
+  {
+    "name": "High Knee Run",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [9],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_high-knee-run.jpg",
+      "video": null
+    },
+    "description": "Chạy nâng cao gối giúp tăng nhịp tim, cải thiện thể lực và sự dẻo dai."
+  },
+  {
+    "name": "Butt Kicks",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [9, 3],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/cardio/cardio_butt-kicks.jpg",
+      "video": null
+    },
+    "description": "Chạy đá mông giúp khởi động phần thân dưới, cải thiện độ dẻo dai và tốc độ."
+  },
+  {
+    "name": "Mountain Climber",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [9, 3],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/cardio/cardio_mountain-climber.jpg",
+      "video": null
+    },
+    "description": "Leo núi tại chỗ giúp vận động toàn thân, tăng nhịp tim và siết cơ bụng."
+  },
+  {
+    "name": "Bear Crawl",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [6],
+    "secondaryTargetMuscleIds": [1, 7, 11, 12],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/cardio/cardio_bear-crawl.jpg",
+      "video": null
+    },
+    "description": "Di chuyển bằng tay và chân như gấu giúp cải thiện sức mạnh toàn thân, tăng sức bền và sự phối hợp vận động."
+  },
+  {
+    "name": "Crab Walk",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [7, 10, 12],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,45",
+    "goalIds": [1, 4, 5],
+    "media": {
+      "image": "images/cardio/cardio_crab-walk.jpg",
+      "video": null
+    },
+    "description": "Di chuyển lùi ở tư thế chống tay sau, tăng cường cơ tay sau, cơ mông và cải thiện sự linh hoạt cơ thể."
+  },
+  {
+    "name": "Duck Walk",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [9, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,30",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/cardio/cardio_duck-walk.jpg",
+      "video": null
+    },
+    "description": "Đi bộ trong tư thế squat giúp tăng cường cơ đùi, mông và cải thiện sức bền phần thân dưới."
+  },
+  {
+    "name": "Skater",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [9],
+    "secondaryTargetMuscleIds": [10, 12],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30, 45",
+    "goalIds": [1, 5, 4],
+    "media": {
+      "image": "images/cardio/cardio_skater.jpg",
+      "video": null
+    },
+    "description": "Nhảy ngang mô phỏng động tác trượt băng, giúp tăng cường cơ chân, đốt mỡ và cải thiện sự thăng bằng."
+  },
+  {
+    "name": "Backwards Run",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [12],
+    "secondaryTargetMuscleIds": [6, 9],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30, 60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_backwards-run.jpg",
+      "video": null
+    },
+    "description": "Chạy lùi giúp cải thiện sức mạnh phần dưới, phản xạ và giảm áp lực lên khớp gối."
+  },
+  {
+    "name": "Run and Hop",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [6, 9],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30, 60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_run-and-hop.jpg",
+      "video": null
+    },
+    "description": "Bài chạy kết hợp bật nhảy giúp tăng nhịp tim, cải thiện sức bền và khả năng phối hợp tay chân."
+  },
+  {
+    "name": "High Knee Skips",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [6, 9],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30, 60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_high-knee-skips.jpg",
+      "video": null
+    },
+    "description": "Động tác nâng gối kết hợp nhảy nhẹ giúp tăng sức bền, đốt mỡ và làm nóng cơ thể hiệu quả."
+  },
+  {
+    "name": "Split Jacks",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [6, 10],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30, 60",
+    "goalIds": [1, 5],
+    "media": {
+      "image": "images/cardio/cardio_split-jacks.jpg",
+      "video": null
+    },
+    "description": "Nhảy tách chân kết hợp vung tay, tăng cường sức bền và khả năng phối hợp cơ thể."
+  },
+  {
+    "name": "Lateral Bound",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [9],
+    "secondaryTargetMuscleIds": [6, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30, 60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_lateral-bound.jpg",
+      "video": null
+    },
+    "description": "Nhảy sang ngang từng bên giúp cải thiện sức mạnh chân, sự thăng bằng và khả năng bật."
+  },
+  {
+    "name": "Single Leg Hopping",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [6, 9, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "20,40",
+    "goalIds": [1, 3, 5],
+    "media": {
+      "image": "images/cardio/cardio_single-leg-hopping.jpg",
+      "video": null
+    },
+    "description": "Nhảy lò cò một chân giúp phát triển sức mạnh từng bên chân và cải thiện khả năng giữ thăng bằng."
+  },
+  {
+    "name": "Frog Hops",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [10],
+    "secondaryTargetMuscleIds": [6, 9, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30, 60",
+    "goalIds": [1, 3],
+    "media": {
+      "image": "images/cardio/cardio_frog-hops.jpg",
+      "video": null
+    },
+    "description": "Nhảy kiểu ếch từ tư thế squat giúp tăng sức mạnh chân và cải thiện độ linh hoạt."
+  },
+  {
+    "name": "Tight Rope Walk",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [6, 12],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30, 60",
+    "goalIds": [5, 8],
+    "media": {
+      "image": "images/cardio/cardio_tight-rope-walk.jpg",
+      "video": null
+    },
+    "description": "Đi thăng bằng theo đường thẳng giúp cải thiện sự ổn định, khả năng giữ thăng bằng và sức mạnh lõi cơ thể."
+  },
+  {
+    "name": "Jump Rope",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [6, 9],
+    "equipmentIds": [3],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "60,120",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_jump-rope.jpg",
+      "video": null
+    },
+    "description": "Nhảy dây giúp đốt mỡ, tăng sức bền tim mạch và cải thiện sự phối hợp tay chân."
+  },
+  {
+    "name": "Skater Hops",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [9],
+    "secondaryTargetMuscleIds": [6, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30, 60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_skater-hops.jpg",
+      "video": null
+    },
+    "description": "Nhảy sang ngang theo kiểu trượt băng, giúp cải thiện khả năng cân bằng, sức mạnh chân và độ linh hoạt."
+  },
+  {
+    "name": "Cross Jacks",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [3, 7],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_cross-jacks.jpg",
+      "video": null
+    },
+    "description": "Biến thể động của Jumping Jacks với chuyển động chéo tay chân, giúp tăng nhịp tim và cải thiện sự phối hợp."
+  },
+  {
+    "name": "Plank Jump",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_plank-jump.jpg",
+      "video": null
+    },
+    "description": "Tư thế plank kết hợp bật nhảy hai chân sang hai bên rồi thu lại, rèn luyện bụng, vai và sức bền tim mạch."
+  },
+  {
+    "name": "Squat Jacks",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [9, 11],
+    "secondaryTargetMuscleIds": [3, 12],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_squat-jacks.jpg",
+      "video": null
+    },
+    "description": "Kết hợp giữa squat và jumping jack, bài tập tăng cường sức mạnh thân dưới và cải thiện tim mạch."
+  },
+  {
+    "name": "Star Jump",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11, 12],
+    "secondaryTargetMuscleIds": [3, 9],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_star-jump.jpg",
+      "video": null
+    },
+    "description": "Nhảy cao mở rộng tay chân tạo hình ngôi sao, giúp đốt cháy calo và cải thiện phản xạ."
+  },
+  {
+    "name": "Cycle Cross Trainer",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [12, 11],
+    "secondaryTargetMuscleIds": [9, 3],
+    "equipmentIds": [5],
+    "locationIds": [2],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_cycle-cross-trainer.jpg",
+      "video": null
+    },
+    "description": "Thiết bị mô phỏng đạp xe giúp cải thiện tim mạch, giảm mỡ và tăng sức bền toàn thân."
+  },
+  {
+    "name": "Burpee With Push-up",
+    "levelIds": [2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [1, 2, 4, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,30",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_burpee-with-push-up.jpg",
+      "video": null
+    },
+    "description": "Kết hợp squat, nhảy và chống đẩy giúp đốt calo nhanh và rèn thể lực toàn thân."
+  },
+  {
+    "name": "Burpee",
+    "levelIds": [3],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [7],
+    "secondaryTargetMuscleIds": [1, 2, 4, 5, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "45,60",
+    "goalIds": [1, 3, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_burpee.jpg",
+      "video": null
+    },
+    "description": "Biến thể nâng cao của burpee thêm chống đẩy. Đốt năng lượng mạnh và tăng sức mạnh cơ bắp."
+  },
+  {
+    "name": "Arm Crossover",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [1, 3],
+    "secondaryTargetMuscleIds": [2],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 5, 7],
+    "media": {
+      "image": "images/cardio/cardio_arm-crossover.jpg",
+      "video": null
+    },
+    "description": "Động tác này nên thực hiện trước các buổi tập có liên quan đến vai/ngực để tăng lưu thông máu, làm nóng khớp và giảm căng cơ."
+  },
+  {
+    "name": "Mountain Climber Jump",
+    "levelIds": [2, 3],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [7, 8],
+    "secondaryTargetMuscleIds": [1, 5, 3, 10, 11],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,45",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_mountain-climber-jump.jpg",
+      "video": null
+    },
+    "description": "Bài tập giúp vận động toàn thân, tăng cường core stability, sức bền tim mạch và hỗ trợ giảm mỡ hiệu quả. Được ưa chuộng trong các buổi HIIT, tabata hoặc để kết thúc buổi tập với cường độ cao."
+  },
+  {
+    "name": "Arm Circles",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [3],
+    "secondaryTargetMuscleIds": [4, 5],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "30,60",
+    "goalIds": [4, 5, 7],
+    "media": {
+      "image": "images/cardio/cardio_arm-circles.jpg",
+      "video": null
+    },
+    "description": "Động tác này giúp làm nóng toàn bộ vai và cánh tay, tăng tuần hoàn máu và chuẩn bị cho các bài tập như push, pull, hoặc shoulder day."
+  },
+  {
+    "name": "Walking on Treadmill",
+    "levelIds": [1, 2],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [13],
+    "secondaryTargetMuscleIds": [9, 11],
+    "equipmentIds": [3],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [1, 5, 6, 7],
+    "media": {
+      "image": "images/cardio/cardio_walking-on-treadmill.jpg",
+      "video": null
+    },
+    "description": "Bài tập này ít gây áp lực lên khớp, phù hợp với người mọi lứa tuổi và thể trạng, từ giảm cân đến hồi phục."
+  },
+  {
+    "name": "Run",
+    "levelIds": [1, 2, 3],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11, 12],
+    "secondaryTargetMuscleIds": [9, 3],
+    "equipmentIds": [3],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [1, 4, 5, 6, 7],
+    "media": {
+      "image": "images/cardio/cardio_run.jpg",
+      "video": null
+    },
+    "description": "Running là một trong những hình thức vận động tự nhiên và hiệu quả nhất. Khi chạy, cơ thể sử dụng nhiều nhóm cơ, đặc biệt là chân và core, đồng thời đẩy nhịp tim lên cao giúp đốt mỡ và tăng cường hệ tim mạch."
+  },
+  {
+    "name": "Run on Treadmill",
+    "levelIds": [1, 2, 3],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11, 12],
+    "secondaryTargetMuscleIds": [9, 3],
+    "equipmentIds": [3],
+    "locationIds": [4],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [1, 4, 5, 6, 7],
+    "media": {
+      "image": "images/cardio/cardio_run-on-treadmill.jpg",
+      "video": null
+    },
+    "description": "Run on Treadmill là bài cardio mô phỏng chạy ngoài trời nhưng trong môi trường kiểm soát - bạn có thể tự điều chỉnh tốc độ, độ dốc, và thời gian để phù hợp với thể lực và mục tiêu."
+  },
+  {
+    "name": "Walking on Incline Treadmill",
+    "levelIds": [1, 2, 3],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [11, 12],
+    "secondaryTargetMuscleIds": [10, 13],
+    "equipmentIds": [3],
+    "locationIds": [1, 2],
+    "sets": "3,5",
+    "reps": "0,0",
+    "duration": "150,180",
+    "goalIds": [1, 5, 6],
+    "media": {
+      "image": "images/cardio/cardio_walking-on-incline-treadmill.jpg",
+      "video": null
+    },
+    "description": "Đi bộ trên máy nghiêng giúp cải thiện sức bền tim mạch, đốt calo và tăng cường sức mạnh chân"
+  },
+  {
+    "name": "Standing Calf Raise",
+    "levelIds": [1],
+    "typeIds": [2],
+    "primaryTargetMuscleIds": [13],
+    "secondaryTargetMuscleIds": [],
+    "equipmentIds": [1],
+    "locationIds": [4],
+    "sets": "2,3",
+    "reps": "12,15",
+    "duration": "15,30",
+    "goalIds": [3, 4],
+    "media": {
+      "image": "images/cardio/cardio_standing-calf-raise.jpg",
+      "video": null
+    },
+    "description": "Bài đơn giản nhưng hiệu quả cho việc tăng sức mạnh bắp chân"
+  }
+]
