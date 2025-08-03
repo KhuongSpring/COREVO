@@ -53,7 +53,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(request -> request
                 .requestMatchers(PUBLIC_END_POINT).permitAll()
-                .requestMatchers(USER_END_POINT).hasAuthority(RoleConstant.USER)
+                .requestMatchers(USER_END_POINT).hasAnyAuthority(RoleConstant.USER,RoleConstant.ADMIN)
                 .requestMatchers(ADMIN_END_POINT).hasAuthority(RoleConstant.ADMIN)
                 .requestMatchers(OPEN_API).permitAll()
                 .anyRequest().authenticated());

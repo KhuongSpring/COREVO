@@ -37,4 +37,7 @@ public interface UserService {
     CommonResponseDto unlockUser(String userId);
 
     CommonResponseDto deleteUserAccount(String userId);
+
+    long countAllUser();
+
 }

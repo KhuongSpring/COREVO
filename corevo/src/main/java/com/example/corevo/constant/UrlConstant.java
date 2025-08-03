@@ -51,6 +51,8 @@ public class UrlConstant {
         public static final String LOCK_USER = PRE_FIX + "/lock-user/{userId}";
         public static final String UNLOCK_USER = PRE_FIX + "/unlock-user/{userId}";
 
+        public static final String GET_ALL_USER = PRE_FIX + "/users-count";
+
         private Admin() {
         }
     }
