@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hit_tech/core/constants/api_endpoint.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/core/constants/app_message.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
+import 'package:hit_tech/model/request/auth/oauth2_google_request.dart';
 import 'package:hit_tech/service/user_service.dart';
 import 'package:hit_tech/utils/validator_util.dart';
 import 'package:hit_tech/view/auth/register_screen.dart';
@@ -15,6 +20,7 @@ import 'package:hit_tech/view/auth/widgets/button_gg_fb_auth.dart';
 import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
 import 'package:hit_tech/view/auth/widgets/text_bottom_auth.dart';
 import 'package:hit_tech/view/personal_health/gender_selection_screen.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../core/constants/app_assets.dart';
 import '../../../service/auth_service.dart';
@@ -35,6 +41,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _isPasswordVisible = false;
   bool _rememberMe = false;
+
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: ['email', 'profile'],
+    serverClientId:
+        '42141829092-b08uu2gskgp6tks7q92k6ap5g5gdh0k9.apps.googleusercontent.com',
+  );
 
   @override
   void initState() {
@@ -78,7 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
               if (subResponse.userHealth == null) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => GenderSelectionScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => GenderSelectionScreen(),
+                  ),
                 );
                 return;
               }
@@ -87,10 +101,10 @@ class _LoginScreenState extends State<LoginScreen> {
             print(stackTrace);
           }
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeRoot()),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => HomeRoot()),
+          // );
         } else {
           if (isDeleted ?? true) {
             if (canRecovery ?? true) {
@@ -107,6 +121,70 @@ class _LoginScreenState extends State<LoginScreen> {
       } catch (e) {
         _showSnackBar(AuthMessage.errLoginFail, isError: true);
       }
+    }
+  }
+
+  Future<void> _handleLoginWithGoogle() async {
+    try {
+      final account = await _googleSignIn.signIn();
+      final auth = await account?.authentication;
+
+      final idToken = auth?.idToken;
+      if (idToken != null) {
+        final response = await AuthService.loginWithGoogle(
+          Oauth2GoogleRequest(idToken: idToken),
+        );
+        print(response.status);
+        if (response.status == 'OK') {
+          await SharedPreferencesService.saveAccessToken(
+            response.accessToken ?? '',
+          );
+          await SharedPreferencesService.saveRefreshToken(
+            response.refreshToken ?? '',
+          );
+          await SharedPreferencesService.saveUserData(response.userId ?? '');
+
+          print(await SharedPreferencesService.getAccessToken());
+
+          try {
+            final subResponse = await UserService.getProfile();
+
+            if (subResponse.status == "SUCCESS") {
+              if (subResponse.userHealth == null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GenderSelectionScreen(),
+                  ),
+                );
+                return;
+              }
+            }
+          } catch (e, stackTrace) {
+            print(stackTrace);
+          }
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeRoot()),
+          );
+        } else {
+          if (response.isDeleted ?? true) {
+            if (response.canRecovery ?? true) {
+              final dayRecoveryRemaining = response.dayRecoveryRemaining;
+            } else {
+              _showSnackBar(
+                UserMessage.errAccountAlreadyDeleted,
+                isError: true,
+              );
+              return;
+            }
+          }
+
+        }
+      }
+    } catch (e) {
+      print("❌ Google login failed: $e");
     }
   }
 
@@ -306,19 +384,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         // Social Login Buttons
                         ButtonGgFbAuth(
                           image: Image(
-                            image: AssetImage(TrainingAssets.facebookIcon),
+                            image: AssetImage(TrainingAssets.googleIcon),
                           ),
                           width: screenWidth * .9,
                           text: 'Tiếp tục với Google',
-                          onPressed: () {
-                            // Handle Google login
-                            _handleSocialLogin('google');
-                          },
+                          onPressed: _handleLoginWithGoogle,
                         ),
                         const SizedBox(height: 18),
                         ButtonGgFbAuth(
                           image: Image(
-                            image: AssetImage(TrainingAssets.googleIcon),
+                            image: AssetImage(TrainingAssets.facebookIcon),
                           ),
                           width: screenWidth * .9,
                           text: 'Tiếp tục với acebook',
@@ -346,7 +421,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => RegisterScreen()),
+                                  MaterialPageRoute(
+                                    builder: (context) => RegisterScreen(),
+                                  ),
                                 );
                               },
                               child: Text(

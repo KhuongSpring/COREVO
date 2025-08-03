@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hit_tech/core/constants/api_endpoint.dart';
 import 'package:hit_tech/model/request/auth/forgot_password_request.dart';
+import 'package:hit_tech/model/request/auth/oauth2_google_request.dart';
 import 'package:hit_tech/model/response/auth/forgot_password_response.dart';
 import 'package:hit_tech/model/response/auth/login_response.dart';
 import 'package:hit_tech/model/response/auth/reset_password_response.dart';
@@ -22,6 +23,32 @@ class AuthService {
     try {
       final response = await DioClient.dio.post(
         ApiEndpoint.login,
+        data: request.toJson(),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+
+      return LoginResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
+  }
+
+  static Future<LoginResponse> loginWithGoogle(
+    Oauth2GoogleRequest request,
+  ) async {
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.loginWithGoogle,
         data: request.toJson(),
         options: Options(
           contentType: Headers.jsonContentType,
@@ -174,9 +201,7 @@ class AuthService {
     try {
       final response = await DioClient.dio.post(
         ApiEndpoint.logout,
-        data: {
-          'token': request
-        },
+        data: {'token': request},
         options: Options(
           contentType: Headers.jsonContentType,
           sendTimeout: Duration(seconds: 5),

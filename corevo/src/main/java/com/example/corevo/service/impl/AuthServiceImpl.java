@@ -14,10 +14,15 @@ import com.example.corevo.repository.InvalidatedTokenRepository;
 import com.example.corevo.repository.UserRepository;
 import com.example.corevo.security.UserDetailsServiceImpl;
 import com.example.corevo.service.*;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +30,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.text.ParseException;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
@@ -60,6 +67,10 @@ public class AuthServiceImpl implements AuthService {
     @NonFinal
     @Value("${jwt.refresh.expiration_time}")
     long REFRESH_TOKEN_EXPIRATION;
+
+    @NonFinal
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    String GOOGLE_CLIENT_ID;
 
     public AuthServiceImpl(
             UserRepository userRepository,
@@ -137,6 +148,62 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public LoginResponseDto loginWithGoogle(OAuth2GoogleRequestDto request) throws GeneralSecurityException, IOException {
+        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier
+                .Builder(new NetHttpTransport(), new JacksonFactory())
+                .setAudience(Collections.singletonList(GOOGLE_CLIENT_ID))
+                .build();
+
+        GoogleIdToken token = verifier.verify(request.getIdToken());
+
+        if (token != null) {
+            GoogleIdToken.Payload payload = token.getPayload();
+
+            String email = payload.getEmail();
+            String firstName = (String) payload.get("given_name");
+            String lastName = (String) payload.get("family_name");
+            String username = email.split("@")[0];
+            String picture = (String) payload.get("picture");
+
+            User user = userRepository.findByEmail(email).orElseGet(() -> {
+
+                User newUser = new User();
+                newUser.setUsername(username);
+                newUser.setFirstName(firstName);
+                newUser.setLastName(lastName);
+                newUser.setPassword(UUID.randomUUID().toString());
+                newUser.setEmail(email);
+                newUser.setLinkAvatar(picture);
+                newUser.setProvider("GOOGLE");
+                newUser.setRole(Role.USER);
+                newUser.setIsLocked(false);
+                newUser.setCreatedAt(LocalDate.now());
+
+                return userRepository.save(newUser);
+            });
+
+            String accessToken = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
+            String refreshToken = jwtService.generateToken(user, REFRESH_TOKEN_EXPIRATION);
+
+            return LoginResponseDto.builder()
+                    .status(HttpStatus.OK)
+                    .message(SuccessMessage.Auth.LOGIN_SUCCESS)
+                    .accessToken(accessToken)
+                    .refreshToken(refreshToken)
+                    .id(user.getId())
+                    .isDeleted(CommonConstant.FALSE)
+                    .tokenType(CommonConstant.BEARER_TOKEN)
+                    .build();
+        } else {
+            return LoginResponseDto.builder()
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
+                    .isDeleted(CommonConstant.FALSE)
+                    .build();
+        }
+    }
+
+    @Override
     public CommonResponseDto logout(LogoutRequestDto request) {
         String JWTID = null;
         Date expirationTime = null;
@@ -150,7 +217,7 @@ public class AuthServiceImpl implements AuthService {
             invalidatedTokenRepository.save(new InvalidatedToken(JWTID, expirationTime));
 
             return new CommonResponseDto(HttpStatus.OK, SuccessMessage.Auth.LOGOUT_SUCCESS);
-        } catch (ParseException e){
+        } catch (ParseException e) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_GET_TOKEN_CLAIM_SET_FAIL);
         }
     }
@@ -168,7 +235,7 @@ public class AuthServiceImpl implements AuthService {
             throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.EXPIRED_REFRESH_TOKEN);
         }
 
-        if (!jwtService.isTokenValid(refreshToken, userDetails)){
+        if (!jwtService.isTokenValid(refreshToken, userDetails)) {
             throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.INVALID_REFRESH_TOKEN);
         }
 
