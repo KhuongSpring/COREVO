@@ -2,7 +2,6 @@ package com.example.corevo.config;
 
 import com.example.corevo.constant.RoleConstant;
 import com.example.corevo.security.JwtAuthenticationFilter;
-import com.example.corevo.service.OAuth2.*;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,22 +39,10 @@ public class SecurityConfig {
 
     final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    final CustomOAuth2UserService customOAuth2UserService;
-
-    final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-
-    final OAuth2PkceTokenResponseClient oAuth2PkceTokenResponseClient;
-
     public SecurityConfig(
-            JwtAuthenticationFilter jwtAuthenticationFilter,
-            CustomOAuth2UserService customOAuth2UserService,
-            OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler,
-            OAuth2PkceTokenResponseClient oAuth2PkceTokenResponseClient
+            JwtAuthenticationFilter jwtAuthenticationFilter
     ) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-        this.customOAuth2UserService = customOAuth2UserService;
-        this.oAuth2AuthenticationSuccessHandler = oAuth2AuthenticationSuccessHandler;
-        this.oAuth2PkceTokenResponseClient = oAuth2PkceTokenResponseClient;
     }
 
     @Bean
@@ -70,21 +57,6 @@ public class SecurityConfig {
                 .requestMatchers(ADMIN_END_POINT).hasAuthority(RoleConstant.ADMIN)
                 .requestMatchers(OPEN_API).permitAll()
                 .anyRequest().authenticated());
-
-        OAuth2PkceAuthorizationRequestResolver pkceResolver =
-                new OAuth2PkceAuthorizationRequestResolver(
-                        clientRegistrationRepository,
-                        OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI
-                );
-
-        http.oauth2Login(oauth2 -> oauth2
-                .authorizationEndpoint(authorizationEndpointConfig -> authorizationEndpointConfig
-                        .authorizationRequestResolver(pkceResolver))
-                .tokenEndpoint(tokenEndpointConfig -> tokenEndpointConfig
-                        .accessTokenResponseClient(oAuth2PkceTokenResponseClient))
-                .userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
-                .successHandler(oAuth2AuthenticationSuccessHandler)
-        );
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
