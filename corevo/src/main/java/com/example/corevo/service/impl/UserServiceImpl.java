@@ -9,9 +9,11 @@ import com.example.corevo.domain.dto.request.user.health.UpdateHealthRequestDto;
 import com.example.corevo.domain.dto.request.user.health.UserHealthRequestDto;
 import com.example.corevo.domain.dto.request.user.profile.ConfirmPasswordRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
+import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
 import com.example.corevo.domain.dto.response.user.*;
 import com.example.corevo.domain.dto.response.user.health.UserHealthResponseDto;
 import com.example.corevo.domain.entity.user.*;
+import com.example.corevo.domain.mapper.TrainingPlanMapper;
 import com.example.corevo.domain.mapper.UserMapper;
 import com.example.corevo.domain.mapper.UserHealthMapper;
 import com.example.corevo.exception.*;
@@ -52,6 +54,8 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     UserHealthMapper userHealthMapper;
+
+    TrainingPlanMapper trainingPlanMapper;
 
     PasswordEncoder passwordEncoder;
 
@@ -301,6 +305,12 @@ public class UserServiceImpl implements UserService {
         if (user.getUserHealth() != null) {
             UserHealthResponseDto response = userHealthMapper.userHealthToUserHealthResponseDto(user.getUserHealth());
             userResponseDto.setUserHealth(response);
+        }
+
+        if (!user.getTrainingPlans().isEmpty()) {
+            List<TrainingPlanResponseDto> listResponseDto = trainingPlanMapper.
+                    listTrainingPlanToListTrainingPlanResponseDto(user.getTrainingPlans());
+            userResponseDto.setTrainingPlans(listResponseDto);
         }
 
         return userResponseDto;
