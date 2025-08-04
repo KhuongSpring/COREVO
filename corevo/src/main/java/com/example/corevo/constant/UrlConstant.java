@@ -80,6 +80,7 @@ public class UrlConstant {
         private static final String PRE_FIX = "/training";
         private static final String PRE_FIX_EXERCISE = PRE_FIX + "/exercise";
         private static final String PRE_FIX_RESOURCE = PRE_FIX + "/resource";
+        private static final String PRE_FIX_PROGRESS = PRE_FIX + "/progress";
 
         public static final String GET_EXERCISE = PRE_FIX_EXERCISE + "/{id}";
 
@@ -98,6 +99,11 @@ public class UrlConstant {
         public static final String GET_TYPE = PRE_FIX_RESOURCE + "/types";
 
         public static final String GET_TRAINING_SCHEDULE = PRE_FIX + "/schedule";
+
+        public static final String COMPLETE_EXERCISE = PRE_FIX_PROGRESS + "/complete";
+        public static final String GET_DAILY_PROGRESS = PRE_FIX_PROGRESS + "/daily";
+        public static final String GET_WEEKLY_PROGRESS = PRE_FIX_PROGRESS + "/weekly";
+
 
         private Training() {
 
