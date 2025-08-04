@@ -10,9 +10,9 @@ import com.example.corevo.domain.entity.training.Level;
 import com.example.corevo.domain.entity.training.Location;
 import com.example.corevo.domain.entity.training.TrainingPlan;
 import com.example.corevo.domain.entity.user.User;
-import com.example.corevo.domain.mapper.TrainingPlanMapper;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.helper.StringToTrainingIDHelper;
+import com.example.corevo.repository.TrainingExerciseCompletionRepository;
 import com.example.corevo.repository.TrainingPlanRepository;
 import com.example.corevo.repository.UserRepository;
 import com.example.corevo.service.TrainingPlanFlowService;
@@ -22,7 +22,6 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +39,7 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
 
     UserRepository userRepository;
 
-    TrainingPlanMapper trainingPlanMapper;
+    TrainingExerciseCompletionRepository trainingExerciseCompletionRepository;
 
     @Override
     public TrainingPlanFlowResponseDto processStep(
@@ -197,6 +196,7 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
     }
 
     @Override
+    @Transactional
     public CommonResponseDto resetTrainingPlan(Authentication authentication) {
         try {
             if (authentication == null || !authentication.isAuthenticated()) {
@@ -211,7 +211,18 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
                 throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
             }
 
-            user.setTrainingPlans(null); // CHECK
+            List<TrainingPlan> currentTrainingPlans = user.getTrainingPlans();
+            if (currentTrainingPlans != null && !currentTrainingPlans.isEmpty()) {
+                List<Long> trainingPlanIds = currentTrainingPlans.stream()
+                        .map(TrainingPlan::getId)
+                        .toList();
+
+                for (Long trainingPlanId : trainingPlanIds) {
+                    trainingExerciseCompletionRepository.deleteByUser_IdAndTrainingPlanId(user.getId(), trainingPlanId);
+                }
+
+                user.getTrainingPlans().clear();
+            }
 
             userRepository.save(user);
 

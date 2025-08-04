@@ -18,4 +18,8 @@ public class SuccessMessage {
     public static class TrainingPlan {
         public static final String RESET_TRAINING_PLAN_SUCCESS = "Reset training plan successfully";
     }
+
+    public static class Exercise {
+        public static final String COMPLETE_EXERCISE_SUCCESS = "Exercise completed successfully";
+    }
 }
