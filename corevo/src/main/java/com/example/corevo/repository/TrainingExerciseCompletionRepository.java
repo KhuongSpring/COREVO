@@ -3,6 +3,7 @@ package com.example.corevo.repository;
 import com.example.corevo.domain.entity.training.training_schedule_details.DayOfWeek;
 import com.example.corevo.domain.entity.training.training_schedule_details.TrainingExerciseCompletion;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -42,6 +43,14 @@ public interface TrainingExerciseCompletionRepository extends JpaRepository<Trai
         """)
     Long countTotalExercisesByDay(@Param("trainingPlanId") Long trainingPlanId,
                                   @Param("dayOfWeek") DayOfWeek dayOfWeek);
+
+    @Modifying
+    @Query("""
+        DELETE FROM TrainingExerciseCompletion tec
+        WHERE tec.user.id = :userId 
+        AND tec.trainingPlanId = :trainingPlanId
+        """ )
+    void deleteByUser_IdAndTrainingPlanId(@Param("userId") String userId, @Param("trainingPlanId") Long trainingPlanId);
 
      boolean existsByExerciseId(Long exerciseId);
 }
