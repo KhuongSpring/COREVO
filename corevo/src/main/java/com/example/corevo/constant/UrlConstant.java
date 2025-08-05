@@ -103,6 +103,7 @@ public class UrlConstant {
         public static final String COMPLETE_EXERCISE = PRE_FIX_PROGRESS + "/complete";
         public static final String GET_DAILY_PROGRESS = PRE_FIX_PROGRESS + "/daily";
         public static final String GET_WEEKLY_PROGRESS = PRE_FIX_PROGRESS + "/weekly";
+        public static final String GET_COMPLETED_STATISTIC = PRE_FIX_PROGRESS +"/statistic";
 
 
         private Training() {
