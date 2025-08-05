@@ -327,6 +327,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                   MaterialPageRoute(
                     builder: (context) => TrainingDayStartTrainingScreen(
                       schedule: widget.schedule,
+                      exercises: exercises,
                     ),
                   ),
                 );
