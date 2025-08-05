@@ -3,16 +3,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
-import 'package:hit_tech/view/training_flow/widget/training_goal_selection_widget.dart';
+import 'package:hit_tech/view/personal_health/widget/age_selection_widget.dart';
+import 'package:hit_tech/view/personal_health/widget/gender_selection_widget.dart';
 
-class TrainingFlowStartPage extends StatefulWidget {
-  const TrainingFlowStartPage({super.key});
+class PersonalHealthStartPage extends StatefulWidget {
+  const PersonalHealthStartPage({super.key});
 
   @override
-  State<TrainingFlowStartPage> createState() => _TrainingFlowStartPageState();
+  State<PersonalHealthStartPage> createState() => _PersonalHealthStartPageState();
 }
 
-class _TrainingFlowStartPageState extends State<TrainingFlowStartPage> {
+class _PersonalHealthStartPageState extends State<PersonalHealthStartPage> {
   final PageController _pageController = PageController();
   late Timer _timer;
 
@@ -20,7 +21,6 @@ class _TrainingFlowStartPageState extends State<TrainingFlowStartPage> {
   void initState() {
     super.initState();
 
-    // Auto chuyển trang sau 5 giây
     _timer = Timer(const Duration(seconds: 5), () {
       if (_pageController.hasClients) {
         _pageController.animateToPage(
@@ -64,7 +64,7 @@ class _TrainingFlowStartPageState extends State<TrainingFlowStartPage> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Phần 2',
+                        'Phần 1',
                         style: TextStyle(
                           color: AppColors.wWhite,
                           fontSize: 16,
@@ -76,7 +76,7 @@ class _TrainingFlowStartPageState extends State<TrainingFlowStartPage> {
                     Row(
                       children: [
                         Text(
-                          'Kế hoạch tập luyện',
+                          'Chỉ số cơ thể',
                           style: TextStyle(
                             color: AppColors.wWhite,
                             fontSize: 32,
@@ -92,7 +92,7 @@ class _TrainingFlowStartPageState extends State<TrainingFlowStartPage> {
               ),
             ],
           ),
-          TrainingGoalSelectionWidget()
+          GenderSelectionWidget(),
         ],
       )
     );

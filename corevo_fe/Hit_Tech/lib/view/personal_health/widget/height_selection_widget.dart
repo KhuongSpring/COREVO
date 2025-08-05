@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:hit_tech/view/personal_health/weight_selection_screen.dart';
-import '../../../../core/constants/app_color.dart';
-import '../../core/constants/app_assets.dart';
-import '../../core/constants/app_dimension.dart';
-import '../../core/constants/app_string.dart';
+import 'package:hit_tech/view/personal_health/widget/weight_selection_widget.dart';
+import '../../../../../core/constants/app_color.dart';
+import '../../../core/constants/app_assets.dart';
+import '../../../core/constants/app_dimension.dart';
+import '../../../core/constants/app_string.dart';
 
-class HeightSelectionScreen extends StatefulWidget {
+class HeightSelectionWidget extends StatefulWidget {
   final String gender;
   final int age;
 
-  const HeightSelectionScreen({super.key, required this.gender, required this.age});
+  const HeightSelectionWidget({super.key, required this.gender, required this.age});
 
   @override
-  _HeightSelectionScreenState createState() => _HeightSelectionScreenState();
+  _HeightSelectionWidgetState createState() => _HeightSelectionWidgetState();
 }
 
-class _HeightSelectionScreenState extends State<HeightSelectionScreen> {
+class _HeightSelectionWidgetState extends State<HeightSelectionWidget> {
   int height = 200;
 
   @override
@@ -241,7 +241,7 @@ class _HeightSelectionScreenState extends State<HeightSelectionScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => WeightSelectionScreen(
+                          builder: (context) => WeightSelectionWidget(
                             gender: widget.gender,
                             age: widget.age,
                             height: height,

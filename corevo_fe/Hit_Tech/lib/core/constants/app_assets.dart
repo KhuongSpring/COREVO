@@ -18,6 +18,7 @@ class TrainingAssets {
       'assets/images/library_background_image.png';
   static const String libraryBackground2 =
       'assets/images/library_background_image2.png';
+  static const String welcomeHandImage = 'assets/images/welcome_hand_image.png';
 
   static const String defaultImage = '';
 
@@ -106,6 +107,10 @@ class TrainingAssets {
   static const String notificationIcon =
       'assets/icons/home_root/notification_icon.png';
   static const String profileIcon = 'assets/icons/home_root/profile_icon.png';
+  static const String prizeActiveIcon =
+      'assets/icons/home_root/prize_active_icon.png';
+  static const String prizeNotActiveIcon =
+      'assets/icons/home_root/prize_not_active_icon.png';
 
   // Setting
   static const String personalInformationIcon =
@@ -139,4 +144,12 @@ class TrainingAssets {
       'assets/images/training/target_muscle_category_1.png';
   static const String targetMuscleDetail1 =
       'assets/images/training/target_muscle_detail_1.png';
+  static const String trainingDay1 =
+      'assets/images/training/training_day_1.png';
+  static const String trainingNoteIcon =
+      'assets/icons/training/training_note_icon.png';
+
+
+  // Home
+  static const String fireIcon = 'assets/icons/home/fire_icon.png';
 }

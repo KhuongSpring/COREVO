@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/core/constants/app_dimension.dart';
-import 'package:hit_tech/view/personal_health/height_selection_screen.dart';
+import 'package:hit_tech/view/personal_health/widget/height_selection_widget.dart';
 
-import '../../core/constants/app_assets.dart';
-import '../../core/constants/app_string.dart';
+import '../../../core/constants/app_assets.dart';
+import '../../../core/constants/app_string.dart';
 
-class AgeSelectionScreen extends StatefulWidget {
+class AgeSelectionWidget extends StatefulWidget {
   final String gender;
 
-  const AgeSelectionScreen({super.key, required this.gender});
+  const AgeSelectionWidget({super.key, required this.gender});
 
   @override
   _AgeSelectionScreenstate createState() => _AgeSelectionScreenstate();
 }
 
-class _AgeSelectionScreenstate extends State<AgeSelectionScreen> {
+class _AgeSelectionScreenstate extends State<AgeSelectionWidget> {
   late FixedExtentScrollController _scrollController;
   final List<int> years = List.generate(50, (index) => 2025 - index);
   int? selectedYear;
@@ -201,7 +201,7 @@ class _AgeSelectionScreenstate extends State<AgeSelectionScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HeightSelectionScreen(
+                          builder: (context) => HeightSelectionWidget(
                             gender: widget.gender,
                             age: selectedYear ?? 2005,
                           ),

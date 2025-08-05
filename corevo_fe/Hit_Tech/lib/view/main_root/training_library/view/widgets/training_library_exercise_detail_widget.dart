@@ -8,18 +8,18 @@ import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
 import '../../../../../core/constants/app_color.dart';
 import '../../../../../utils/training_exercise_image_helper.dart';
 
-class TrainingExerciseDetailWidget extends StatefulWidget {
+class TrainingLibraryExerciseDetailWidget extends StatefulWidget {
   final TrainingExerciseResponse exercise;
 
-  const TrainingExerciseDetailWidget({super.key, required this.exercise});
+  const TrainingLibraryExerciseDetailWidget({super.key, required this.exercise});
 
   @override
-  State<TrainingExerciseDetailWidget> createState() =>
-      _TrainingExerciseDetailWidgetState();
+  State<TrainingLibraryExerciseDetailWidget> createState() =>
+      _TrainingLibraryExerciseDetailWidgetState();
 }
 
-class _TrainingExerciseDetailWidgetState
-    extends State<TrainingExerciseDetailWidget> {
+class _TrainingLibraryExerciseDetailWidgetState
+    extends State<TrainingLibraryExerciseDetailWidget> {
   final DraggableScrollableController _controller =
       DraggableScrollableController();
 

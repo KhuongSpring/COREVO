@@ -121,6 +121,11 @@ class SharedPreferencesService {
         body: jsonEncode({'refreshToken': refreshToken}),
       );
 
+      if (response.statusCode == 403) {
+        await clearAll();
+        return false;
+      }
+
       return response.statusCode == 200;
     } catch (e) {
       print('Error checking login status: $e');

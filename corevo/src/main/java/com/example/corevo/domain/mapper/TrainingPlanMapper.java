@@ -3,10 +3,7 @@ package com.example.corevo.domain.mapper;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
 import com.example.corevo.domain.entity.training.TrainingPlan;
 import com.example.corevo.helper.training_helper.TrainingMapperHelper;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -16,10 +13,21 @@ import java.util.List;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
 public interface TrainingPlanMapper {
+
     @Mapping(target = "levels", source = "levelIds")
     @Mapping(target = "locations", source = "locationIds")
     @Mapping(target = "equipments", source = "equipmentIds")
     TrainingPlan trainingPlanResponseDtoToTrainingPlan(TrainingPlanResponseDto dto);
+
+    @Named("withoutId")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "levels", source = "levelIds")
+    @Mapping(target = "locations", source = "locationIds")
+    @Mapping(target = "equipments", source = "equipmentIds")
+    TrainingPlan trainingPlanResponseDtoToTrainingPlanWithoutId(TrainingPlanResponseDto dto);
+
+    @IterableMapping(qualifiedByName = "withoutId")
+    List<TrainingPlan> listTrainingPlanResponseDtoToListTrainingPlanWithoutId(List<TrainingPlanResponseDto> dtoList);
 
     List<TrainingPlan> listTrainingPlanResponseDtoToListTrainingPlan(List<TrainingPlanResponseDto> dtoList);
 
@@ -30,3 +38,4 @@ public interface TrainingPlanMapper {
 
     List<TrainingPlanResponseDto> listTrainingPlanToListTrainingPlanResponseDto(List<TrainingPlan> entityList);
 }
+

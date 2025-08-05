@@ -44,6 +44,7 @@ dependencies:
   path_provider: ^2.0.15
   jwt_decoder: ^2.0.1
   google_sign_in: ^6.1.5
+  table_calendar: ^3.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,6 +72,8 @@ flutter:
     - assets/icons/home_root/
     - assets/icons/setting/
     - assets/icons/setting/notice_training/
+    - assets/icons/home/
+    - assets/icons/training/
     - assets/images/
     - assets/images/auth/
     - assets/images/duration/

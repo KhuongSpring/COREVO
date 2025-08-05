@@ -5,20 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/model/response/training/training_plan_response.dart';
 import 'package:hit_tech/service/training_service.dart';
-import 'package:hit_tech/view/main_root/training_library/view/widgets/training_exercise_widget.dart';
+import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_exercise_widget.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_color.dart';
 import '../../../../core/constants/app_dimension.dart';
 
-class TrainingScreen extends StatefulWidget {
-  const TrainingScreen({super.key});
+class TrainingLibraryScreen extends StatefulWidget {
+  const TrainingLibraryScreen({super.key});
 
   @override
-  State<TrainingScreen> createState() => _TrainingScreenState();
+  State<TrainingLibraryScreen> createState() => _TrainingLibraryScreenState();
 }
 
-class _TrainingScreenState extends State<TrainingScreen> {
+class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
   int selectedIndex = 0;
   bool _isLoading = true;
   String? selectedFilter;
@@ -685,7 +685,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TrainingExerciseWidget(
+            builder: (context) => TrainingLibraryExerciseWidget(
               primaryMuscleToQuery: normalizeTargetMuscleName(categoryName),
               primaryMuscle: categoryName.toUpperCase(),
             ),

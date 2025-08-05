@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hit_tech/view/personal_health/activity_level_selection_screen.dart';
-import '../../../../core/constants/app_color.dart';
-import '../../core/constants/app_assets.dart';
-import '../../core/constants/app_dimension.dart';
-import '../../core/constants/app_string.dart';
+import 'package:hit_tech/view/personal_health/widget/activity_level_selection_widget.dart';
+import '../../../../../core/constants/app_color.dart';
+import '../../../core/constants/app_assets.dart';
+import '../../../core/constants/app_dimension.dart';
+import '../../../core/constants/app_string.dart';
 
-class WeightSelectionScreen extends StatefulWidget {
+class WeightSelectionWidget extends StatefulWidget {
   final String gender;
   final int age;
   final int height;
 
-  const WeightSelectionScreen({
+  const WeightSelectionWidget({
     super.key,
     required this.gender,
     required this.age,
@@ -18,10 +18,10 @@ class WeightSelectionScreen extends StatefulWidget {
   });
 
   @override
-  _WeightSelectionScreenState createState() => _WeightSelectionScreenState();
+  _WeightSelectionWidgetState createState() => _WeightSelectionWidgetState();
 }
 
-class _WeightSelectionScreenState extends State<WeightSelectionScreen> {
+class _WeightSelectionWidgetState extends State<WeightSelectionWidget> {
   double weight = 40.0;
 
   @override
@@ -175,7 +175,7 @@ class _WeightSelectionScreenState extends State<WeightSelectionScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ActivityLevelSelectionScreen(
+                          builder: (context) => ActivityLevelSelectionWidget(
                             gender: widget.gender,
                             age: widget.age,
                             height: widget.height,

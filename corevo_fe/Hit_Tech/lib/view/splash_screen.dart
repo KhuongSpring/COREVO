@@ -4,6 +4,10 @@ import 'package:hit_tech/view/main_root/home/home_screen.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
 import 'package:hit_tech/view/auth/login_screen.dart';
 import 'package:hit_tech/view/main_root/home_root.dart';
+import 'package:hit_tech/view/training_flow/training_flow_start_page.dart';
+import 'package:hit_tech/view/welcome_screen.dart';
+
+import '../service/user_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -34,10 +38,39 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(Duration(milliseconds: 100));
 
     if (isLoggedIn) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomeRoot()),
-      );
+      try {
+        final subResponse = await UserService.getProfile();
+
+        if (subResponse.status == "SUCCESS") {
+          if (subResponse.userHealth == null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => WelcomeScreen()),
+            );
+
+            return;
+          }
+
+          if (subResponse.trainingPlans == null ||
+              subResponse.trainingPlans!.isEmpty) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TrainingFlowStartPage()),
+            );
+
+            return;
+          }
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeRoot(user: subResponse),
+            ),
+          );
+        }
+      } catch (e, stackTrace) {
+        print(stackTrace);
+      }
     } else {
       Navigator.push(
         context,

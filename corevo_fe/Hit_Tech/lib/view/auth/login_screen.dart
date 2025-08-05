@@ -19,7 +19,9 @@ import 'package:hit_tech/view/auth/widgets/auth_custom_button.dart';
 import 'package:hit_tech/view/auth/widgets/button_gg_fb_auth.dart';
 import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
 import 'package:hit_tech/view/auth/widgets/text_bottom_auth.dart';
-import 'package:hit_tech/view/personal_health/gender_selection_screen.dart';
+import 'package:hit_tech/view/personal_health/widget/gender_selection_widget.dart';
+import 'package:hit_tech/view/training_flow/training_flow_start_page.dart';
+import 'package:hit_tech/view/welcome_screen.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../core/constants/app_assets.dart';
@@ -91,9 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
               if (subResponse.userHealth == null) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => GenderSelectionScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
                 );
                 return;
               }
@@ -103,20 +103,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TrainingGoalSelectionWidget(),
+                    builder: (context) => TrainingFlowStartPage(),
                   ),
                 );
                 return;
               }
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeRoot(user: subResponse),
+                ),
+              );
             }
           } catch (e, stackTrace) {
             print(stackTrace);
           }
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeRoot()),
-          );
         } else {
           if (isDeleted ?? true) {
             if (canRecovery ?? true) {
@@ -164,9 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
               if (subResponse.userHealth == null) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => GenderSelectionScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
                 );
 
                 return;
@@ -177,21 +177,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TrainingGoalSelectionWidget(),
+                    builder: (context) => TrainingFlowStartPage(),
                   ),
                 );
 
                 return;
               }
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeRoot(user: subResponse),
+                ),
+              );
             }
           } catch (e, stackTrace) {
             print(stackTrace);
           }
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeRoot()),
-          );
         } else {
           if (response.isDeleted ?? true) {
             if (response.canRecovery ?? true) {
@@ -204,7 +206,6 @@ class _LoginScreenState extends State<LoginScreen> {
               return;
             }
           }
-
         }
       }
     } catch (e) {

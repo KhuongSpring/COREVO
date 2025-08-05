@@ -6,26 +6,26 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/model/response/training/training_exercise_preview_response.dart';
 import 'package:hit_tech/model/response/training/training_exercise_response.dart';
-import 'package:hit_tech/view/main_root/training_library/view/widgets/training_exercise_detail_widget.dart';
+import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_exercise_detail_widget.dart';
 
 import '../../../../../core/constants/app_color.dart';
 import '../../../../../service/training_service.dart';
 
-class TrainingExerciseWidget extends StatefulWidget {
+class TrainingLibraryExerciseWidget extends StatefulWidget {
   final String primaryMuscleToQuery;
   final String primaryMuscle;
 
-  const TrainingExerciseWidget({
+  const TrainingLibraryExerciseWidget({
     super.key,
     required this.primaryMuscleToQuery,
     required this.primaryMuscle,
   });
 
   @override
-  State<TrainingExerciseWidget> createState() => _TrainingExerciseWidgetState();
+  State<TrainingLibraryExerciseWidget> createState() => _TrainingLibraryExerciseWidgetState();
 }
 
-class _TrainingExerciseWidgetState extends State<TrainingExerciseWidget> {
+class _TrainingLibraryExerciseWidgetState extends State<TrainingLibraryExerciseWidget> {
   bool _showLoading = true;
 
   List<TrainingExercisePreviewResponse> exercises = [];
@@ -185,7 +185,7 @@ class _TrainingExerciseWidgetState extends State<TrainingExerciseWidget> {
                 context: context,
                 isScrollControlled: true,
                 backgroundColor: Colors.transparent,
-                builder: (context) => TrainingExerciseDetailWidget(
+                builder: (context) => TrainingLibraryExerciseDetailWidget(
                   exercise: TrainingExerciseResponse.fromJson(response.data),
                 ),
               );

@@ -1584,7 +1584,7 @@
         "location": "ANYWHERE",
         "description": "Bài cardio toàn thân hỗ trợ giữ cơ, giảm mỡ đều",
         "exerciseGroups": {
-          "note": "",
+          "note": "Ưu tiên form, không quan trọng số reps bằng độ căng cơ",
           "exercises": [
             {
               "exerciseId": 193,

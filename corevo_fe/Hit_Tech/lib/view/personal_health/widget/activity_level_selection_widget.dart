@@ -5,22 +5,23 @@ import 'package:hit_tech/model/request/personal_health_request.dart';
 import 'package:hit_tech/model/response/default_response.dart';
 import 'package:hit_tech/service/user_service.dart';
 import 'package:hit_tech/view/main_root/home_root.dart';
+import 'package:hit_tech/view/training_flow/training_flow_start_page.dart';
 import 'package:hit_tech/view/training_flow/widget/training_goal_selection_widget.dart';
 
-import '../../core/constants/app_assets.dart';
-import '../../core/constants/app_color.dart';
-import '../../core/constants/app_dimension.dart';
-import '../../core/constants/app_message.dart';
-import '../../core/constants/app_string.dart';
-import '../../service/auth_service.dart';
+import '../../../core/constants/app_assets.dart';
+import '../../../core/constants/app_color.dart';
+import '../../../core/constants/app_dimension.dart';
+import '../../../core/constants/app_message.dart';
+import '../../../core/constants/app_string.dart';
+import '../../../service/auth_service.dart';
 
-class ActivityLevelSelectionScreen extends StatefulWidget {
+class ActivityLevelSelectionWidget extends StatefulWidget {
   final String gender;
   final int age;
   final int height;
   final double weight;
 
-  const ActivityLevelSelectionScreen({
+  const ActivityLevelSelectionWidget({
     super.key,
     required this.gender,
     required this.age,
@@ -29,12 +30,12 @@ class ActivityLevelSelectionScreen extends StatefulWidget {
   });
 
   @override
-  State<ActivityLevelSelectionScreen> createState() =>
-      _ActivityLevelSelectionScreenState();
+  State<ActivityLevelSelectionWidget> createState() =>
+      _ActivityLevelSelectionWidgetState();
 }
 
-class _ActivityLevelSelectionScreenState
-    extends State<ActivityLevelSelectionScreen>
+class _ActivityLevelSelectionWidgetState
+    extends State<ActivityLevelSelectionWidget>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
@@ -74,20 +75,22 @@ class _ActivityLevelSelectionScreenState
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TrainingGoalSelectionWidget(),
+                  builder: (context) => TrainingFlowStartPage(),
                 ),
               );
               return;
             }
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeRoot(user: subResponse),
+              ),
+            );
           }
         } catch (e, stackTrace) {
           print(stackTrace);
         }
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomeRoot()),
-        );
       } else {
         _showSnackBar('Lỗi', isError: true);
       }

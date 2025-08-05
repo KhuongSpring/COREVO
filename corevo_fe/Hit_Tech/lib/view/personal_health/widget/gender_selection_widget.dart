@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hit_tech/view/personal_health/age_selection_screen.dart';
+import 'package:hit_tech/view/personal_health/widget/age_selection_widget.dart';
 
-import '../../core/constants/app_assets.dart';
-import '../../core/constants/app_color.dart';
-import '../../core/constants/app_dimension.dart';
-import '../../core/constants/app_string.dart';
+import '../../../core/constants/app_assets.dart';
+import '../../../core/constants/app_color.dart';
+import '../../../core/constants/app_dimension.dart';
+import '../../../core/constants/app_string.dart';
 
-class GenderSelectionScreen extends StatefulWidget {
-  const GenderSelectionScreen({super.key});
+class GenderSelectionWidget extends StatefulWidget {
+  const GenderSelectionWidget({super.key});
 
   @override
-  State<GenderSelectionScreen> createState() => _GenderSelectionScreenState();
+  State<GenderSelectionWidget> createState() => _GenderSelectionWidgetState();
 }
 
-class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
+class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
   String? selectedGender;
 
   @override
@@ -157,7 +157,7 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AgeSelectionScreen(
+                          builder: (context) => AgeSelectionWidget(
                             gender: selectedGender ?? 'Male',
                           ),
                         ),
