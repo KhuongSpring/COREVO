@@ -53,6 +53,11 @@ public class UrlConstant {
 
         public static final String GET_ALL_USER = PRE_FIX + "/users-count";
 
+        public static final String GET_ALL_EXERCISE = PRE_FIX + "/exercises";
+        public static final String CREATE_TRAINING_EXERCISE = PRE_FIX + "/create-training-exercises";
+        public static final String UPDATE_EXERCISE = PRE_FIX + "/update-exercise/{exerciseId}";
+        public static final String DELETE_EXERCISE = PRE_FIX + "/delete-exercise/{exerciseId}";
+
         private Admin() {
         }
     }

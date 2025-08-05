@@ -1,10 +1,14 @@
 package com.example.corevo.service.impl;
 
 import com.example.corevo.constant.ErrorMessage;
+import com.example.corevo.constant.SuccessMessage;
 import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.pagination.PaginationResponseDto;
 import com.example.corevo.domain.dto.pagination.PagingMeta;
+import com.example.corevo.domain.dto.request.admin.CreateTrainingExerciseRequestDto;
+import com.example.corevo.domain.dto.request.admin.UpdateTrainingExerciseRequestDto;
 import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
+import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.training.*;
 import com.example.corevo.domain.dto.response.training_exercise.*;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
@@ -285,6 +289,29 @@ public class TrainingServiceImpl implements TrainingService {
         }
 
         @Override
+        public PaginationResponseDto<TrainingExerciseResponseDto> getAllExercise(PaginationRequestDto paginationRequestDto) {
+
+                Pageable pageable = PageRequest.of(paginationRequestDto.getPageNum(),paginationRequestDto.getPageSize());
+
+                Page<TrainingExercise> exercisesPage = trainingExerciseRepository.findAll(pageable);
+
+                List<TrainingExerciseResponseDto> exercises = exercisesPage.getContent()
+                        .stream()
+                        .map(trainingExerciseMapper::trainingExerciseToTrainingExerciseResponseDto)
+                        .collect(Collectors.toList());
+
+                PagingMeta pagingMeta = new PagingMeta(
+                        exercisesPage.getTotalElements(),
+                        exercisesPage.getTotalPages(),
+                        paginationRequestDto.getPageNum() + 1,
+                        paginationRequestDto.getPageSize(),
+                        null,
+                        null);
+
+                return new PaginationResponseDto<>(pagingMeta, exercises);
+        }
+
+        @Override
         public PaginationResponseDto<TrainingExercisePreviewResponseDto> searchExercise(
                         TrainingExerciseSearchingRequestDto request,
                         PaginationRequestDto paginationRequestDto) {
@@ -528,4 +555,37 @@ public class TrainingServiceImpl implements TrainingService {
                 return new PaginationResponseDto<>(pagingMeta, trainingPlanResponseDtos);
         }
 
+        @Override
+        public TrainingExerciseResponseDto creatTrainingExercise(CreateTrainingExerciseRequestDto request){
+                if(trainingExerciseRepository.existsTrainingExercisesByName(request.getName())){
+                        throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS);
+                }
+
+                TrainingExercise trainingExercise = trainingExerciseMapper.createTrainingExercise(request);
+                return trainingExerciseMapper.trainingExerciseToTrainingExerciseResponseDto(trainingExerciseRepository.save(trainingExercise));
+        }
+
+        @Override
+        public TrainingExerciseResponseDto updateTrainingExercise(Long exerciseId,UpdateTrainingExerciseRequestDto request) {
+
+                TrainingExercise trainingExercise = trainingExerciseRepository.findById(exerciseId)
+                                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS));
+
+                trainingExerciseMapper.updateTrainingExerciseFromDto(request,trainingExercise);
+
+                TrainingExercise updatedTrainingExercise = trainingExerciseRepository.save(trainingExercise);
+
+                return trainingExerciseMapper.trainingExerciseToTrainingExerciseResponseDto(updatedTrainingExercise);
+
+        }
+
+        @Override
+        public CommonResponseDto deleteTrainingExercise(Long exerciseId) {
+                TrainingExercise trainingExercise = trainingExerciseRepository.findById(exerciseId)
+                        .orElseThrow(() -> new  VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS));
+
+                trainingExerciseRepository.delete(trainingExercise);
+
+                return new CommonResponseDto(HttpStatus.OK, SuccessMessage.TrainingExercise.DELETE_TRAINING_EXERCISE_SUCCESS);
+        }
 }

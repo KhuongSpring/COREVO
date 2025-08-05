@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './UserPage.scss';
 import { AuthContext } from '../../context/AuthContext';
-import AddUserModal from '../../components/user/AddUserModal';
-import UpdateUserModal from '../../components/user/UpdateUserModal';
-import ViewUserModal from '../../components/user/ViewUserModal';
+import AddUserModal from '../../components/AddUserModal';
+import UpdateUserModal from '../../components/UpdateUserModal';
+import ViewUserModal from '../../components/ViewUserModal';
 import Sidebar from '../../components/sidebar/Sideb';
 import { Dumbbell } from 'lucide-react';
 
@@ -182,8 +182,7 @@ const UserPage = () => {
 
   const navigationItems = [
     { name: 'Dashboard', icon: BarChart3, path: '/home' },
-    { name: 'Users', icon: User, path: '/users' },
-    { name: 'Exercise', icon: Dumbbell, path: '/exercise'}
+    { name: 'Users', icon: User, path: '/users' }
   ];
 
   if (!profile) return <div className="loading">Đang tải thông tin người dùng...</div>;
@@ -231,7 +230,6 @@ const UserPage = () => {
                       <span className="user-dropdown__name">{profile.firstName} {profile.lastName}</span>
                       <span className="user-dropdown__role">{profile.role}</span>
                     </div>
-                    <ChevronDown className={`user-dropdown__chevron ${userDropdownOpen ? 'user-dropdown__chevron--open' : ''}`} />
                   </button>
                   {userDropdownOpen && (
                     <div className="user-dropdown__menu">
@@ -309,6 +307,7 @@ const UserPage = () => {
                       >
                         <Lock size={16} />
                       </button>
+
 
                       <button className="unlock" onClick={() => handleUnlockUser(u.id)}>
                         <Unlock size={16} />

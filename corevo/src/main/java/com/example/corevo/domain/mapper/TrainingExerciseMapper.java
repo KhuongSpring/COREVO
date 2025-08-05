@@ -1,14 +1,12 @@
 package com.example.corevo.domain.mapper;
 
-import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseLevelPreviewResponseDto;
+import com.example.corevo.domain.dto.request.admin.CreateTrainingExerciseRequestDto;
+import com.example.corevo.domain.dto.request.admin.UpdateTrainingExerciseRequestDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExercisePreviewResponseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseResponseDto;
 import com.example.corevo.domain.entity.training.TrainingExercise;
 import com.example.corevo.helper.training_helper.TrainingMapperHelper;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -43,5 +41,24 @@ public interface TrainingExerciseMapper {
     TrainingExercisePreviewResponseDto trainingExerciseToTrainingExercisePreviewResponseDto(TrainingExercise exercise);
 
     List<TrainingExercisePreviewResponseDto> listTrainingExerciseToListTrainingExercisePreviewResponseDto(List<TrainingExercise> exercises);
+
+    @Mapping(target = "levels", source = "levelIds")
+    @Mapping(target = "types", source = "typeIds")
+    @Mapping(target = "primaryMuscles", source = "primaryMuscleIds")
+    @Mapping(target = "secondaryMuscles", source = "secondaryMuscleIds")
+    @Mapping(target = "equipments", source = "equipmentIds")
+    @Mapping(target = "locations", source = "locationIds")
+    @Mapping(target = "goals", source = "goalIds")
+    TrainingExercise createTrainingExercise(CreateTrainingExerciseRequestDto requestDto);
+
+
+    @Mapping(target = "levels", source = "levelIds")
+    @Mapping(target = "types", source = "typeIds")
+    @Mapping(target = "primaryMuscles", source = "primaryMuscleIds")
+    @Mapping(target = "secondaryMuscles", source = "secondaryMuscleIds")
+    @Mapping(target = "equipments", source = "equipmentIds")
+    @Mapping(target = "locations", source = "locationIds")
+    @Mapping(target = "goals", source = "goalIds")
+    void updateTrainingExerciseFromDto(UpdateTrainingExerciseRequestDto requestDto,@MappingTarget TrainingExercise trainingExercise);
 
 }

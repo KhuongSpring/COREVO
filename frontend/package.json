@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.14.3",
+    "@cloudinary/url-gen": "^1.21.0",
+    "axios": "^1.11.0",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.526.0",
     "react": "^19.1.0",
