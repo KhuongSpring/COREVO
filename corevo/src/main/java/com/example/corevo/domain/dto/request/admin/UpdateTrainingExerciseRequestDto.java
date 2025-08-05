@@ -20,7 +20,7 @@ public class UpdateTrainingExerciseRequestDto {
     @Schema(description = "Tên bài tập", example = "Plank")
     String name;
 
-    @Schema(description = "Tên bài tập", example = "Plank")
+    @Schema(description = "URL ảnh", example = "string")
     String imageURL;
 
     @Schema(description = "Mô tả bài tập", example = "Plank là bài giúp xây dựng sức bền cơ bụng...")
