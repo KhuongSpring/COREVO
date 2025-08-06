@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public interface TrainingExerciseCompletionRepository extends JpaRepository<TrainingExerciseCompletion, Long> {
 
@@ -53,4 +52,20 @@ public interface TrainingExerciseCompletionRepository extends JpaRepository<Trai
     void deleteByUser_IdAndTrainingPlanId(@Param("userId") String userId, @Param("trainingPlanId") Long trainingPlanId);
 
      boolean existsByExerciseId(Long exerciseId);
+
+    @Query("""
+        SELECT DISTINCT tec.completionDate FROM TrainingExerciseCompletion tec
+        WHERE tec.user.id = :userId
+        AND tec.completionDate BETWEEN :startDate AND :endDate
+        """)
+    List<LocalDate> findCompletionDatesByUserAndDateRange(@Param("userId") String userId,
+                                                          @Param("startDate") LocalDate startDate,
+                                                          @Param("endDate") LocalDate endDate);
+
+    @Query("""
+        SELECT DISTINCT tec.completionDate FROM TrainingExerciseCompletion tec
+        WHERE tec.user.id = :userId
+        ORDER BY tec.completionDate
+        """)
+    List<LocalDate> findAllCompletionDatesByUserId(String userId);
 }
