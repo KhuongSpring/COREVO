@@ -66,4 +66,19 @@ public class TrainingProgressController {
     ) {
         return VsResponseUtil.success(trainingProgressService.getWeeklyProgress(authentication));
     }
+
+    @Tag(name = "training-controller-progress")
+    @Operation(
+            summary = "Lấy các thông tin thống kê luyện tập",
+            description = "Dùng để lấy các thông tin thống kê luyện tập của nguời dùng hiện tại",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.Training.GET_COMPLETED_STATISTIC)
+    public ResponseEntity<?> getCompletionCalendar(
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) Integer month,
+            Authentication authentication
+    ){
+        return VsResponseUtil.success(trainingProgressService.getCompletionStatistic(year, month, authentication));
+    }
 }
