@@ -159,7 +159,28 @@ class _LoginScreenState extends State<LoginScreen> {
         final response = await AuthService.loginWithGoogle(
           Oauth2GoogleRequest(idToken: idToken),
         );
-        if (response.status == 'OK') {
+        if (response.status == 'UNAUTHORIZED') {
+          if (response.isDeleted ?? true) {
+            if (response.canRecovery ?? true) {
+              final dayRecoveryRemaining = response.dayRecoveryRemaining;
+
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => RecoverAccountPopUp(
+                  onCancel: () => Navigator.of(context).pop(),
+                  onSave: () {},
+                  dayRecoveryRemaining: dayRecoveryRemaining ?? 0,
+                ),
+              );
+            } else {
+              _showSnackBar(
+                UserMessage.errAccountAlreadyDeleted,
+                isError: true,
+              );
+              return;
+            }
+          }
+        } else {
           await SharedPreferencesService.saveAccessToken(
             response.accessToken ?? '',
           );
@@ -204,27 +225,6 @@ class _LoginScreenState extends State<LoginScreen> {
             }
           } catch (e, stackTrace) {
             print(stackTrace);
-          }
-        } else {
-          if (response.isDeleted ?? true) {
-            if (response.canRecovery ?? true) {
-              final dayRecoveryRemaining = response.dayRecoveryRemaining;
-
-              showCupertinoDialog(
-                context: context,
-                builder: (context) => RecoverAccountPopUp(
-                  onCancel: () => Navigator.of(context).pop(),
-                  onSave: () {},
-                  dayRecoveryRemaining: dayRecoveryRemaining ?? 0,
-                ),
-              );
-            } else {
-              _showSnackBar(
-                UserMessage.errAccountAlreadyDeleted,
-                isError: true,
-              );
-              return;
-            }
           }
         }
       }

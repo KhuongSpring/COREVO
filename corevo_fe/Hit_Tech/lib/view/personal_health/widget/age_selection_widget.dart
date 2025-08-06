@@ -201,10 +201,13 @@ class _AgeSelectionScreenstate extends State<AgeSelectionWidget> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HeightSelectionWidget(
-                            gender: widget.gender,
-                            age: selectedYear ?? 2005,
-                          ),
+                          builder: (context) =>
+                              HeightSelectionWidget(
+                                gender: widget.gender,
+                                age: DateTime
+                                    .now()
+                                    .year - (selectedYear ?? 1990),
+                              ),
                         ),
                       );
                     },

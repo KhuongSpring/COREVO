@@ -15,6 +15,8 @@ import '../../../core/constants/app_message.dart';
 import '../../../core/constants/app_string.dart';
 import '../../../service/auth_service.dart';
 
+
+// Loi UI: Bottom Over 1.6
 class ActivityLevelSelectionWidget extends StatefulWidget {
   final String gender;
   final int age;

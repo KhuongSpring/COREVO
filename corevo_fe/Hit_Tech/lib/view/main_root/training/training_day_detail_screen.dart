@@ -163,7 +163,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                                     Text(
                                       widget.schedule.duration ?? '60 phút',
                                       style: TextStyle(
-                                        fontSize: 20.sp,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
@@ -172,19 +172,19 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                                     Text(
                                       'Thời gian',
                                       style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 14.sp,
                                         color: Colors.black,
                                       ),
                                     ),
                                   ],
                                 ),
-                                SizedBox(width: 70.sp),
+                                SizedBox(width: 60.sp),
                                 Container(
                                   width: 1,
                                   color: AppColors.bNormal,
                                   height: 50,
                                 ),
-                                SizedBox(width: 70.sp),
+                                SizedBox(width: 60.sp),
                                 Column(
                                   children: [
                                     Text(
@@ -193,7 +193,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                                           ) ??
                                           'Mọi nơi',
                                       style: TextStyle(
-                                        fontSize: 20.sp,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
@@ -202,7 +202,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                                     Text(
                                       'Địa điểm',
                                       style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 14.sp,
                                         color: Colors.black,
                                       ),
                                     ),
@@ -427,7 +427,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                     ),
                     SizedBox(height: 10.sp),
                     Text(
-                      '${result.sets} sets | ${result.repsPerSet ?? result.durationPerSet}',
+                      '${result.sets} ${result.sets == '1' ? 'set' : 'sets'} | ${result.repsPerSet ?? result.durationPerSet}',
                       style: const TextStyle(color: AppColors.bNormal),
                     ),
                   ],

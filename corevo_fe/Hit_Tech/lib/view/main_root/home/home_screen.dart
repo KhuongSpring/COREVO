@@ -16,6 +16,8 @@ import 'package:hit_tech/view/main_root/setting/widgets/notice_training_selectio
 import '../../../core/constants/app_assets.dart';
 import '../../../service/training_service.dart';
 
+
+// Loi UI: percentage make screen extend height
 class HomeScreen extends StatefulWidget {
   final UserProfileResponse userProfileResponse;
   final List<TrainingScheduleResponse> schedules;

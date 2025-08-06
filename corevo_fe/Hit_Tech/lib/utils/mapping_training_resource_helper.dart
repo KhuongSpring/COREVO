@@ -25,11 +25,7 @@ class MappingTrainingResourceHelper {
   }
 
   static String mappingLevel(int id) {
-    const mapping = {
-      1: "Mới bắt đầu",
-      2: "Cơ bản",
-      3: "Nâng cao",
-    };
+    const mapping = {1: "Mới bắt đầu", 2: "Cơ bản", 3: "Nâng cao"};
     return mapping[id] ?? id.toString();
   }
 
@@ -144,7 +140,12 @@ class MappingTrainingResourceHelper {
       return Result(sets: null, repsPerSet: null, durationPerSet: null);
     }
 
-    String sets = parts[0].trim().replaceAll('sets', '').trim();
+    String sets = parts[0]
+        .trim()
+        .replaceAll('sets', '')
+        .replaceAll('set', '')
+        .trim();
+
     String secondPart = parts[1].trim().toLowerCase();
 
     if (secondPart.contains('giây') || secondPart.contains('phút')) {
@@ -154,7 +155,7 @@ class MappingTrainingResourceHelper {
     return Result(sets: sets, repsPerSet: secondPart, durationPerSet: null);
   }
 
-  static String getSetOfExercise(String duration){
+  static String getSetOfExercise(String duration) {
     List<String> parts = duration.split('X');
     return parts[0].trim().replaceAll('sets', '').trim();
   }
@@ -163,22 +164,21 @@ class MappingTrainingResourceHelper {
     return raw
         ?.split('/')
         .map((e) {
-      switch (e.trim().toUpperCase()) {
-        case 'GYM':
-          return 'Phòng Gym';
-        case 'HOME':
-          return 'Tại nhà';
-        case 'OUTSIDE':
-          return 'Ngoài trời';
-        case 'ANYWHERE':
-          return 'Mọi nơi';
-        default:
-          return e.trim();
-      }
-    })
+          switch (e.trim().toUpperCase()) {
+            case 'GYM':
+              return 'Phòng Gym';
+            case 'HOME':
+              return 'Tại nhà';
+            case 'OUTSIDE':
+              return 'Ngoài trời';
+            case 'ANYWHERE':
+              return 'Mọi nơi';
+            default:
+              return e.trim();
+          }
+        })
         .join(' / ');
   }
-
 }
 
 class Result {
