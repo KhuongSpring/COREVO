@@ -99,7 +99,7 @@ public class AuthServiceImpl implements AuthService {
         if (Boolean.TRUE.equals(user.getIsDeleted())) {
             LocalDate expiredDate = user.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
             if (LocalDate.now().isBefore(expiredDate)) {
-                long daysSinceDeleted = ChronoUnit.DAYS.between(user.getDeletedAt(), LocalDate.now());
+                long daysSinceDeleted = ChronoUnit.DAYS.between(LocalDate.now(), expiredDate);
 
                 return LoginResponseDto.builder()
                         .status(HttpStatus.UNAUTHORIZED)
@@ -181,6 +181,36 @@ public class AuthServiceImpl implements AuthService {
 
                 return userRepository.save(newUser);
             });
+
+            if (Boolean.TRUE.equals(user.getIsDeleted())) {
+                LocalDate expiredDate = user.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
+                if (LocalDate.now().isBefore(expiredDate)) {
+                    long daysSinceDeleted = ChronoUnit.DAYS.between(LocalDate.now(), expiredDate);
+
+                    return LoginResponseDto.builder()
+                            .status(HttpStatus.UNAUTHORIZED)
+                            .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
+                            .isDeleted(CommonConstant.TRUE)
+                            .canRecovery(CommonConstant.TRUE)
+                            .dayRecoveryRemaining(daysSinceDeleted)
+                            .build();
+                } else {
+                    return LoginResponseDto.builder()
+                            .status(HttpStatus.UNAUTHORIZED)
+                            .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
+                            .isDeleted(CommonConstant.TRUE)
+                            .canRecovery(CommonConstant.FALSE)
+                            .dayRecoveryRemaining(0)
+                            .build();
+                }
+            }
+
+            if (Boolean.TRUE.equals(user.getIsLocked())) {
+                return LoginResponseDto.builder()
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .message(ErrorMessage.Auth.ERR_ACCOUNT_LOCKED)
+                        .build();
+            }
 
             String accessToken = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
             String refreshToken = jwtService.generateToken(user, REFRESH_TOKEN_EXPIRATION);
