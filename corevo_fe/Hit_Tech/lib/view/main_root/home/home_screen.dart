@@ -16,13 +16,16 @@ import '../../../service/training_service.dart';
 
 class HomeScreen extends StatefulWidget {
   final UserProfileResponse userProfileResponse;
-  final VoidCallback? onNavigateToSetting;
   final List<TrainingScheduleResponse> schedules;
+  final VoidCallback? onNavigateToSetting;
+  final VoidCallback? onNavigateToTraining;
 
   const HomeScreen({
     super.key,
     required this.userProfileResponse,
-    this.onNavigateToSetting, required this.schedules,
+    this.onNavigateToSetting,
+    required this.schedules,
+    this.onNavigateToTraining,
   });
 
   @override
@@ -30,6 +33,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  double percentage = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _handleTrainingDailyProgress();
+  }
+
+  Future<void> _handleTrainingDailyProgress() async {
+    try {
+      final response = await TrainingService.getDailyProgress();
+
+      if (response.status == 'SUCCESS') {
+        setState(() {
+          percentage = response.data['percentage'];
+        });
+        return;
+      }
+    } catch (e, stackTrace) {
+      print(stackTrace);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     List<TrainingScheduleResponse> schedules = widget.schedules;
@@ -127,92 +153,95 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 30),
 
                   // Card
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: AppColors.bNormal,
-                      borderRadius: BorderRadius.circular(20.sp),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  MappingTrainingResourceHelper.mappingGoalToVietnamese(
-                                    trainingPlanResponse!.goals,
-                                  ),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  '${day}  •  ${schedules[weekDay - 1].exerciseGroups?.exercises.length} bài tập',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 50,
-                                  width: 50,
-                                  child: CircularProgressIndicator(
-                                    value: (25) / 100,
-                                    strokeWidth: 5,
-                                    backgroundColor: Colors.white24,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.white,
+                  GestureDetector(
+                    onTap: widget.onNavigateToTraining,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: AppColors.bNormal,
+                        borderRadius: BorderRadius.circular(20.sp),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    MappingTrainingResourceHelper.mappingGoalToVietnamese(
+                                      trainingPlanResponse!.goals,
+                                    ),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                ),
-                                const Text(
-                                  '25%',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    '${day}  •  ${schedules[weekDay - 1].exerciseGroups?.exercises.length} bài tập',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 50,
+                                    width: 50,
+                                    child: CircularProgressIndicator(
+                                      value: percentage / 100,
+                                      strokeWidth: 5,
+                                      backgroundColor: Colors.white24,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${percentage / 100 * 100}%',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            schedules[weekDay - 1].description,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: widget.onNavigateToTraining,
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(screenWidth * 0.9, 40),
+                              backgroundColor: Colors.white,
+                              foregroundColor: const Color(0xFF0094FF),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          schedules[weekDay-1].description,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(screenWidth * 0.9, 40),
-                            backgroundColor: Colors.white,
-                            foregroundColor: const Color(0xFF0094FF),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                            child: Text(
+                              'Luyện Tập',
+                              style: TextStyle(
+                                color: AppColors.bNormal,
+                                fontSize: 14.sp,
+                              ),
                             ),
                           ),
-                          child: Text(
-                            'Luyện Tập',
-                            style: TextStyle(
-                              color: AppColors.bNormal,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
 
@@ -226,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     child: IgnorePointer(
                       ignoring: true,
-                      child: CalendarWidget(schedules: schedules,),
+                      child: CalendarWidget(schedules: schedules),
                     ),
                   ),
 

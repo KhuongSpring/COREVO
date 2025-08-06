@@ -10,6 +10,7 @@ abstract class ApiEndpoint {
   static const String version = '$baseUrl/api/v1';
   static const String userEndpoint = '$version/user';
   static const String userHealthEndpoint = '$version/user-health';
+  static const String trainingProgress = '$version/training/progress';
   static const String trainingExercise = '$version/training/exercise';
   static const String trainingPlanFlow = '$version/training-plan';
   static const String auth = '$version/auth';
@@ -28,6 +29,15 @@ abstract class ApiEndpoint {
   // User-health Endpoint
   static const String fillHeathInformation =
       '$userHealthEndpoint/health-information';
+
+  // Training Controller Progress
+  static const String completeExercise =
+      '$trainingProgress/complete';
+  static const String getWeeklyProgress =
+      '$trainingProgress/weekly';
+  static const String getDailyProgress =
+      '$trainingProgress/daily';
+
 
   // Training-exercise-search
   static const String searchExercise = '$trainingExercise/search';

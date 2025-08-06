@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/model/response/training/training_plan_response.dart';
 import 'package:hit_tech/service/training_service.dart';
 import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_exercise_widget.dart';
+import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_plan_detail_widget.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_color.dart';
@@ -342,14 +343,11 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                                       SizedBox(height: 20.sp),
                                       _buildTargetMuscleCategory('Đùi sau', 20),
                                       SizedBox(height: 20.sp),
-                                      _buildTargetMuscleCategory('Cardio', 20),
+                                      _buildTypeCategory('Cardio', 20),
                                       SizedBox(height: 20.sp),
-                                      _buildTargetMuscleCategory('Yoga', 20),
+                                      _buildTypeCategory('Yoga', 20),
                                       SizedBox(height: 20.sp),
-                                      _buildTargetMuscleCategory(
-                                        'Calisthenic',
-                                        20,
-                                      ),
+                                      _buildTypeCategory('Calisthenic', 20),
                                     ],
                                   ),
                                 ),
@@ -514,7 +512,13 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                   alignment: Alignment.bottomRight,
                   child: ElevatedButton(
                     onPressed: () {
-                      // xử lý khi nhấn "Bắt đầu"
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              TrainingLibraryPlanDetailWidget(plan: plan),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.lightHover.withOpacity(0.6),
@@ -688,6 +692,48 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
             builder: (context) => TrainingLibraryExerciseWidget(
               primaryMuscleToQuery: normalizeTargetMuscleName(categoryName),
               primaryMuscle: categoryName.toUpperCase(),
+              typeToQuery: '',
+              type: '',
+            ),
+          ),
+        );
+      },
+      child: Stack(
+        children: [
+          Image.asset(TrainingAssets.targetMuscleCategory1, fit: BoxFit.cover),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  categoryName,
+                  style: TextStyle(
+                    color: AppColors.wWhite,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTypeCategory(String categoryName, int numberOfExercise) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TrainingLibraryExerciseWidget(
+              typeToQuery: normalizeTargetMuscleName(categoryName),
+              type: categoryName.toUpperCase(),
+              primaryMuscleToQuery: '',
+              primaryMuscle: '',
             ),
           ),
         );

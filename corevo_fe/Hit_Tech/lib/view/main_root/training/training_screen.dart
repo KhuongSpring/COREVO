@@ -34,7 +34,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   int selectedIndex = 0;
 
-  int selectedIndex2 = DateTime.now().weekday - 0;
+  int selectedIndex2 = DateTime.now().weekday - 1;
 
   @override
   Widget build(BuildContext context) {
@@ -69,31 +69,53 @@ class _TrainingScreenState extends State<TrainingScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: List.generate(days.length, (index) {
+                        int status;
+                        if (index < selectedDay) {
+                          status = 1;
+                        } else if (index == selectedDay) {
+                          status = 2;
+                        } else {
+                          status = 3;
+                        }
+
+                        Color bgColor;
+                        String iconAsset;
+                        Color textColor;
+
+                        switch (status) {
+                          case 1:
+                            bgColor = Colors.transparent;
+                            iconAsset = TrainingAssets.prizeActiveIcon;
+                            textColor = AppColors.bNormal;
+                            break;
+                          case 2:
+                            bgColor = AppColors.prizeSelected;
+                            iconAsset = TrainingAssets.prizeTodayIcon;
+                            textColor = AppColors.bNormal;
+                            break;
+                          case 3:
+                          default:
+                            bgColor = Colors.transparent;
+                            iconAsset = TrainingAssets.prizeNotActiveIcon;
+                            textColor = const Color(0xffb6abab);
+                            break;
+                        }
+
                         return Container(
                           width: 45,
                           height: 70,
                           decoration: BoxDecoration(
-                            color: index == selectedDay
-                                ? AppColors.prizeSelected
-                                : Colors.transparent,
+                            color: bgColor,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                index == selectedDay
-                                    ? TrainingAssets.prizeActiveIcon
-                                    : TrainingAssets.prizeNotActiveIcon,
-                              ),
+                              Image.asset(iconAsset),
                               SizedBox(height: 5),
                               Text(
                                 '${days[index].day}',
-                                style: TextStyle(
-                                  color: index == selectedDay
-                                      ? AppColors.bNormal
-                                      : Color(0xffb6abab),
-                                ),
+                                style: TextStyle(color: textColor),
                               ),
                             ],
                           ),
@@ -247,6 +269,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                   child: Column(
                                     children: [
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Column(
                                             crossAxisAlignment:
@@ -270,7 +294,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                               ),
                                               SizedBox(height: 5),
                                               Text(
-                                                '${schedules[index].duration}',
+                                                schedules[index].duration ??
+                                                    'Nghỉ ngơi, hồi phục',
                                                 style: const TextStyle(
                                                   fontSize: 14,
                                                   color: AppColors.bNormal,
@@ -278,43 +303,73 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                               ),
                                             ],
                                           ),
+                                          Image.asset(
+                                            (schedules[index].duration == null)
+                                                ? TrainingAssets.restDayIcon
+                                                : TrainingAssets
+                                                      .shapeTrainingDay1,
+                                          ),
                                         ],
                                       ),
-                                      SizedBox(height: 23),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: AppColors.bNormal,
-                                          minimumSize: Size(
-                                            double.infinity,
-                                            40,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              10,
-                                            ),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  TrainingDayDetailScreen(
-                                                    schedule: schedules[index],
-                                                    numberDay:
-                                                        'Ngày ${index + 1}',
+                                      SizedBox(height: 10),
+                                      (schedules[index].duration == null)
+                                          ? ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    AppColors.moreLighter,
+                                                minimumSize: Size(
+                                                  double.infinity,
+                                                  40,
+                                                ),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              onPressed: () {},
+                                              child: Text(
+                                                'Đã hoàn thành',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            )
+                                          : ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    AppColors.bNormal,
+                                                minimumSize: Size(
+                                                  double.infinity,
+                                                  40,
+                                                ),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        TrainingDayDetailScreen(
+                                                          schedule:
+                                                              schedules[index],
+                                                          numberDay:
+                                                              'Ngày ${index + 1}',
+                                                        ),
                                                   ),
+                                                );
+                                              },
+                                              child: Text(
+                                                'Bắt đầu',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
                                             ),
-                                          );
-                                        },
-                                        child: Text(
-                                          'Bắt đầu',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -347,6 +402,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                 ],
                               ),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     crossAxisAlignment:
@@ -370,13 +427,19 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                       ),
                                       SizedBox(height: 5),
                                       Text(
-                                        '${schedules[index].duration}',
+                                        schedules[index].duration ??
+                                            'Nghỉ ngơi, hồi phục',
                                         style: const TextStyle(
                                           fontSize: 14,
                                           color: AppColors.bNormal,
                                         ),
                                       ),
                                     ],
+                                  ),
+                                  Image.asset(
+                                    (schedules[index].duration == null)
+                                        ? TrainingAssets.restDayIcon
+                                        : TrainingAssets.shapeTrainingDay1,
                                   ),
                                 ],
                               ),

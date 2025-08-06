@@ -67,6 +67,11 @@ class _HomeRootState extends State<HomeRoot> {
             _selectedIndex = 4;
           });
         },
+        onNavigateToTraining: (){
+          setState(() {
+            _selectedIndex = 2;
+          });
+        },
         schedules: schedules,
       ),
       TrainingLibraryScreen(),

@@ -111,6 +111,10 @@ class TrainingAssets {
       'assets/icons/home_root/prize_active_icon.png';
   static const String prizeNotActiveIcon =
       'assets/icons/home_root/prize_not_active_icon.png';
+  static const String prizeTodayIcon =
+      'assets/icons/home_root/prize_today_icon.png';
+  static const String feedsIcon =
+      'assets/icons/home_root/feeds_icon.png';
 
   // Setting
   static const String personalInformationIcon =
@@ -146,8 +150,12 @@ class TrainingAssets {
       'assets/images/training/target_muscle_detail_1.png';
   static const String trainingDay1 =
       'assets/images/training/training_day_1.png';
+  static const String shapeTrainingDay1 =
+      'assets/images/training/shape_training_day_1.png';
   static const String trainingNoteIcon =
       'assets/icons/training/training_note_icon.png';
+  static const String restDayIcon =
+      'assets/icons/training/rest_day_icon.png';
 
 
   // Home

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/core/constants/app_dimension.dart';
+import 'package:hit_tech/model/response/user/user_profile_response.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/personal_health_selection_widget.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/personal_infor_selection_widget.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,6 +20,8 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  late UserProfileResponse userProfileResponse;
+
   String? linkAvatar;
 
   String? username;
@@ -45,6 +48,7 @@ class _SettingScreenState extends State<SettingScreen> {
           username = response.username;
           firstname = response.firstName;
           lastname = response.lastName;
+          userProfileResponse = response;
           _isLoading = false;
         });
         return;
@@ -317,7 +321,9 @@ class _SettingScreenState extends State<SettingScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PersonalInforSelectionWidget(),
+                  builder: (context) => PersonalInforSelectionWidget(
+                    userProfile: userProfileResponse,
+                  ),
                 ),
               );
             },

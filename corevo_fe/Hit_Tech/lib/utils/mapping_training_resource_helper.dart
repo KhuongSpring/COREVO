@@ -24,6 +24,19 @@ class MappingTrainingResourceHelper {
     return ids.map((id) => mappingTargetMuscle(id)).toList();
   }
 
+  static String mappingLevel(int id) {
+    const mapping = {
+      1: "Mới bắt đầu",
+      2: "Cơ bản",
+      3: "Nâng cao",
+    };
+    return mapping[id] ?? id.toString();
+  }
+
+  static List<String> mappingLevelList(List<int> ids) {
+    return ids.map((id) => mappingLevel(id)).toList();
+  }
+
   static String mappingEquipment(int id) {
     const mapping = {
       1: "Không",

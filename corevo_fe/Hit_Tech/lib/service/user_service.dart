@@ -42,6 +42,37 @@ class UserService {
     }
   }
 
+  static Future<DefaultResponse> updatePersonalInformation(
+      Map<String, dynamic> request,
+      ) async {
+    try {
+      final response = await DioClient.dio.put(
+        ApiEndpoint.updateProfile,
+        data: request,
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+      return DefaultResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.sendTimeout ||
+          e.type == DioExceptionType.receiveTimeout) {
+        print('Timeout: Không thể kết nối đến server.');
+      } else {
+        print('DIO EXCEPTION: ${e.message}');
+        print('RESPONSE: ${e.response?.data}');
+      }
+      rethrow;
+    } catch (e, stack) {
+      print('EXCEPTION: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
+  }
+
+
   static Future<UserProfileResponse> getProfile() async {
     try {
       final response = await DioClient.dio.get(

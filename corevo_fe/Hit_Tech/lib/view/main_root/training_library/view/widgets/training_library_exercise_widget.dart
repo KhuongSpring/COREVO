@@ -15,17 +15,24 @@ class TrainingLibraryExerciseWidget extends StatefulWidget {
   final String primaryMuscleToQuery;
   final String primaryMuscle;
 
+  final String typeToQuery;
+  final String type;
+
   const TrainingLibraryExerciseWidget({
     super.key,
     required this.primaryMuscleToQuery,
     required this.primaryMuscle,
+    required this.typeToQuery,
+    required this.type,
   });
 
   @override
-  State<TrainingLibraryExerciseWidget> createState() => _TrainingLibraryExerciseWidgetState();
+  State<TrainingLibraryExerciseWidget> createState() =>
+      _TrainingLibraryExerciseWidgetState();
 }
 
-class _TrainingLibraryExerciseWidgetState extends State<TrainingLibraryExerciseWidget> {
+class _TrainingLibraryExerciseWidgetState
+    extends State<TrainingLibraryExerciseWidget> {
   bool _showLoading = true;
 
   List<TrainingExercisePreviewResponse> exercises = [];
@@ -34,7 +41,11 @@ class _TrainingLibraryExerciseWidgetState extends State<TrainingLibraryExerciseW
   void initState() {
     super.initState();
 
-    _handleGetTrainingExerciseByTargetMuscle();
+    if (widget.primaryMuscleToQuery != '') {
+      _handleGetTrainingExerciseByTargetMuscle();
+    } else {
+      _handleGetTrainingExerciseByType();
+    }
 
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
@@ -56,7 +67,38 @@ class _TrainingLibraryExerciseWidgetState extends State<TrainingLibraryExerciseW
       if (response.status == 'SUCCESS') {
         final allExercises = response.data
             .expand(
-              (level) => (level.previewExercises as List<dynamic>).map(
+              (level) => (level.exercises as List<dynamic>).map(
+                (e) => e as TrainingExercisePreviewResponse,
+              ),
+            )
+            .toList();
+
+        setState(() {
+          exercises = allExercises;
+        });
+
+        return;
+      }
+    } catch (e, stackTrace) {
+      print(stackTrace);
+      setState(() {
+        _showLoading = true;
+      });
+    }
+  }
+
+  Future<void> _handleGetTrainingExerciseByType() async {
+    try {
+      final response = await TrainingService.getTrainingExerciseByType(
+        widget.typeToQuery,
+        1,
+        1000,
+      );
+
+      if (response.status == 'SUCCESS') {
+        final allExercises = response.data
+            .expand(
+              (level) => (level.exercises as List<dynamic>).map(
                 (e) => e as TrainingExercisePreviewResponse,
               ),
             )
@@ -123,7 +165,11 @@ class _TrainingLibraryExerciseWidgetState extends State<TrainingLibraryExerciseW
                       ),
                       SizedBox(height: 12.sp),
                       Text(
-                        convertDescriptionForTargetMuscle(widget.primaryMuscle),
+                        convertDescriptionForTargetMuscle(
+                          (widget.primaryMuscle == '')
+                              ? widget.type
+                              : widget.primaryMuscle,
+                        ),
                         style: TextStyle(height: 1.5, color: Colors.black),
                       ),
                       SizedBox(height: 20.sp),
