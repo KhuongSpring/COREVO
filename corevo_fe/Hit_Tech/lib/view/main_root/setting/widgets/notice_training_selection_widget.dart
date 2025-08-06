@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
+import 'package:hit_tech/view/main_root/setting/widgets/notice_training_creation_widget.dart';
 
 import '../../../../../core/constants/app_color.dart';
 import '../../../../../core/constants/app_dimension.dart';
@@ -22,7 +23,7 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 30.0,
+                left: 10.0,
                 right: 10.0,
                 top: 20.0,
               ),
@@ -37,9 +38,12 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
                         // Icon bên trái
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Icon(
-                            Icons.arrow_back_ios,
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_back_ios),
                             color: AppColors.bNormal,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                           ),
                         ),
 
@@ -101,7 +105,7 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
             // Button dưới cùng
             Positioned(
               left: 30,
-              right: 10,
+              right: 30,
               bottom: 30,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -114,7 +118,12 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // Thêm logic
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => NoticeTrainingCreationWidget(),
+                    ),
+                  );
                 },
                 child: Text(
                   "Thêm",

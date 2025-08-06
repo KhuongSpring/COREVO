@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/view/main_root/home/home_screen.dart';
@@ -68,8 +69,15 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           );
         }
-      } catch (e, stackTrace) {
-        print(stackTrace);
+      } on DioException catch (e) {
+        if (e.response?.statusCode == 401) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+          );
+        } else {
+          print('Lỗi khác: ${e.response?.data}');
+        }
       }
     } else {
       Navigator.push(

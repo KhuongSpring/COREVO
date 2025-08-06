@@ -6,8 +6,10 @@ import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/model/response/user/user_profile_response.dart';
+import 'package:hit_tech/view/main_root/setting/widgets/notice_training_selection_widget.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/personal_health_selection_widget.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/personal_infor_selection_widget.dart';
+import 'package:hit_tech/view/main_root/setting/widgets/remove_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../service/shared_preferences.dart';
@@ -125,10 +127,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                 radius: 40,
                                 backgroundImage: linkAvatar?.isNotEmpty ?? false
                                     ? NetworkImage(linkAvatar!)
-                                    : const AssetImage(
-                                            TrainingAssets.googleIcon,
-                                          )
-                                          as ImageProvider,
+                                    : const NetworkImage(
+                                        TrainingAssets.defaultImage,
+                                      ),
                               ),
                             ),
 
@@ -377,15 +378,23 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             onTap: () {},
           ),
-          _buildInnerTile(
-            TrainingAssets.noticeIcon,
-            'Nhắc nhở luyện tập',
-            () {},
-          ),
+          _buildInnerTile(TrainingAssets.noticeIcon, 'Nhắc nhở luyện tập', () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => NoticeTrainingSelectionWidget(),
+              ),
+            );
+          }),
           _buildInnerTile(
             TrainingAssets.trashIcon,
             'Xóa dữ liệu người dùng',
-            () {},
+            () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => RemoveScreen()),
+              );
+            },
           ),
         ],
       ),

@@ -20,7 +20,8 @@ class TrainingAssets {
       'assets/images/library_background_image2.png';
   static const String welcomeHandImage = 'assets/images/welcome_hand_image.png';
 
-  static const String defaultImage = '';
+  static const String defaultImage =
+      'https://th.bing.com/th/id/R.b1b463303db368fd76ad68356d1d4f0c?rik=lY2e9ubl6ESqZg&pid=ImgRaw&r=0';
 
   // Goal
   static const String goalDemo = 'assets/images/goal/goal-demo.png';
@@ -113,8 +114,7 @@ class TrainingAssets {
       'assets/icons/home_root/prize_not_active_icon.png';
   static const String prizeTodayIcon =
       'assets/icons/home_root/prize_today_icon.png';
-  static const String feedsIcon =
-      'assets/icons/home_root/feeds_icon.png';
+  static const String feedsIcon = 'assets/icons/home_root/feeds_icon.png';
 
   // Setting
   static const String personalInformationIcon =
@@ -154,9 +154,7 @@ class TrainingAssets {
       'assets/images/training/shape_training_day_1.png';
   static const String trainingNoteIcon =
       'assets/icons/training/training_note_icon.png';
-  static const String restDayIcon =
-      'assets/icons/training/rest_day_icon.png';
-
+  static const String restDayIcon = 'assets/icons/training/rest_day_icon.png';
 
   // Home
   static const String fireIcon = 'assets/icons/home/fire_icon.png';

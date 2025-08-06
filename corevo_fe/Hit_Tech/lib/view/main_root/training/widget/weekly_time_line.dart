@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 
 class WeeklyTimeline extends StatefulWidget {
   final int selectedIndex;
+  final Function(int index) onChanged;
 
-  const WeeklyTimeline({super.key, required this.selectedIndex});
+  const WeeklyTimeline({
+    super.key,
+    required this.selectedIndex,
+    required this.onChanged,
+  });
 
   @override
   State<WeeklyTimeline> createState() => _WeeklyTimelineState();
 }
 
 class _WeeklyTimelineState extends State<WeeklyTimeline> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,22 +25,26 @@ class _WeeklyTimelineState extends State<WeeklyTimeline> {
           final dotIndex = index ~/ 2;
           final isSelected = dotIndex == widget.selectedIndex;
 
-          return AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            height: isSelected ? 36 : 16,
-            width: 16,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: isSelected ? Colors.blue : Colors.grey.shade700,
-              boxShadow: isSelected
-                  ? [
-                      BoxShadow(
-                        color: Colors.blue.withOpacity(0.3),
-                        blurRadius: 12,
-                        spreadRadius: 4,
-                      ),
-                    ]
-                  : [],
+          return GestureDetector(
+            onTap: () => widget.onChanged(dotIndex),
+
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: isSelected ? 36 : 16,
+              width: 16,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isSelected ? Colors.blue : Colors.grey.shade700,
+                boxShadow: isSelected
+                    ? [
+                        BoxShadow(
+                          color: Colors.blue.withOpacity(0.3),
+                          blurRadius: 12,
+                          spreadRadius: 4,
+                        ),
+                      ]
+                    : [],
+              ),
             ),
           );
         } else {
@@ -42,7 +52,7 @@ class _WeeklyTimelineState extends State<WeeklyTimeline> {
           final isAboveSelected = aboveDot == widget.selectedIndex;
           return AnimatedContainer(
             duration: const Duration(milliseconds: 300),
-            height: isAboveSelected ? 250 : 100,
+            height: isAboveSelected ? 265 : 100,
             width: 2,
             color: Colors.grey.shade500,
           );

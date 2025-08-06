@@ -80,8 +80,7 @@ class _PersonalInforSelectionWidgetState
                           backgroundImage:
                               _userProfile.linkAvatar?.isNotEmpty ?? false
                               ? NetworkImage(_userProfile.linkAvatar!)
-                              : const AssetImage(TrainingAssets.googleIcon)
-                                    as ImageProvider,
+                              : NetworkImage(TrainingAssets.defaultImage),
                         ),
                       ),
                     ),

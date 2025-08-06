@@ -10,6 +10,8 @@ import 'package:hit_tech/service/shared_preferences.dart';
 import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
 import 'package:hit_tech/view/auth/login_screen.dart';
 import 'package:hit_tech/view/main_root/home/widget/calendar_widget.dart';
+import 'package:hit_tech/view/main_root/setting/widgets/notice_training_creation_widget.dart';
+import 'package:hit_tech/view/main_root/setting/widgets/notice_training_selection_widget.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../service/training_service.dart';
@@ -60,7 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     List<TrainingScheduleResponse> schedules = widget.schedules;
 
-    final String? linkAvatar = widget.userProfileResponse.linkAvatar;
+    final String? linkAvatar =
+        widget.userProfileResponse.linkAvatar ?? TrainingAssets.defaultImage;
     final String? fullName =
         '${widget.userProfileResponse.firstName} ${widget.userProfileResponse.lastName}';
     final TrainingPlanResponse? trainingPlanResponse =
@@ -302,31 +305,41 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(width: 20),
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: AppColors.bNormal,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        width: screenWidth * 0.25,
-                        child: Column(
-                          children: const [
-                            Text(
-                              'Tiếp theo',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => NoticeTrainingSelectionWidget(),
                             ),
-                            SizedBox(height: 8),
-                            Text(
-                              '17:00',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: AppColors.bNormal,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          width: screenWidth * 0.25,
+                          child: Column(
+                            children: const [
+                              Text(
+                                'Tiếp theo',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                ),
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 8),
+                              Text(
+                                '-- : --',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],

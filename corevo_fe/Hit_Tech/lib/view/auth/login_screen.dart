@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:hit_tech/model/request/auth/oauth2_google_request.dart';
 import 'package:hit_tech/service/user_service.dart';
 import 'package:hit_tech/utils/validator_util.dart';
 import 'package:hit_tech/view/auth/register_screen.dart';
+import 'package:hit_tech/view/auth/widgets/recover_account_popup.dart';
 import 'package:hit_tech/view/main_root/home/home_screen.dart';
 import 'package:hit_tech/view/main_root/home_root.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
@@ -123,6 +125,15 @@ class _LoginScreenState extends State<LoginScreen> {
           if (isDeleted ?? true) {
             if (canRecovery ?? true) {
               final dayRecoveryRemaining = response.dayRecoveryRemaining;
+
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => RecoverAccountPopUp(
+                  onCancel: () => Navigator.of(context).pop(),
+                  onSave: () {},
+                  dayRecoveryRemaining: dayRecoveryRemaining ?? 0,
+                ),
+              );
             } else {
               _showSnackBar(
                 UserMessage.errAccountAlreadyDeleted,
@@ -198,6 +209,15 @@ class _LoginScreenState extends State<LoginScreen> {
           if (response.isDeleted ?? true) {
             if (response.canRecovery ?? true) {
               final dayRecoveryRemaining = response.dayRecoveryRemaining;
+
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => RecoverAccountPopUp(
+                  onCancel: () => Navigator.of(context).pop(),
+                  onSave: () {},
+                  dayRecoveryRemaining: dayRecoveryRemaining ?? 0,
+                ),
+              );
             } else {
               _showSnackBar(
                 UserMessage.errAccountAlreadyDeleted,

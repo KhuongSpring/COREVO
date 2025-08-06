@@ -34,7 +34,15 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   int selectedIndex = 0;
 
-  int selectedIndex2 = DateTime.now().weekday - 1;
+  int selectedIndex2 = 0;
+
+  @override
+  void initState() {
+    setState(() {
+      selectedIndex2 = DateTime.now().weekday - 1;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +220,14 @@ class _TrainingScreenState extends State<TrainingScreen> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            WeeklyTimeline(selectedIndex: selectedIndex2),
+            WeeklyTimeline(
+              selectedIndex: selectedIndex2,
+              onChanged: (newIndex) {
+                setState(() {
+                  selectedIndex2 = newIndex;
+                });
+              },
+            ),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -312,7 +327,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                         ],
                                       ),
                                       SizedBox(height: 10),
-                                      (schedules[index].duration == null)
+                                      (selectedIndex2 < selectedDay)
                                           ? ElevatedButton(
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor:
@@ -335,10 +350,73 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                 ),
                                               ),
                                             )
+                                          : (selectedIndex2 == selectedDay)
+                                          ? ((schedules[index].duration == null)
+                                                ? ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor:
+                                                          AppColors.moreLighter,
+                                                      minimumSize: Size(
+                                                        double.infinity,
+                                                        40,
+                                                      ),
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              10,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {},
+                                                    child: Text(
+                                                      'Đã hoàn thành',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  )
+                                                : ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor:
+                                                          AppColors.bNormal,
+                                                      minimumSize: Size(
+                                                        double.infinity,
+                                                        40,
+                                                      ),
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                              10,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              TrainingDayDetailScreen(
+                                                                schedule:
+                                                                    schedules[index],
+                                                                numberDay:
+                                                                    'Ngày ${index + 1}',
+                                                              ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      'Bắt đầu',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ))
                                           : ElevatedButton(
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor:
-                                                    AppColors.bNormal,
+                                                    AppColors.bLightActive,
                                                 minimumSize: Size(
                                                   double.infinity,
                                                   40,
@@ -348,25 +426,12 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                       BorderRadius.circular(10),
                                                 ),
                                               ),
-                                              onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        TrainingDayDetailScreen(
-                                                          schedule:
-                                                              schedules[index],
-                                                          numberDay:
-                                                              'Ngày ${index + 1}',
-                                                        ),
-                                                  ),
-                                                );
-                                              },
+                                              onPressed: () {},
                                               child: Text(
-                                                'Bắt đầu',
+                                                'Chưa bắt đầu',
                                                 style: TextStyle(
                                                   fontSize: 14,
-                                                  color: Colors.white,
+                                                  color: AppColors.wWhite,
                                                 ),
                                               ),
                                             ),

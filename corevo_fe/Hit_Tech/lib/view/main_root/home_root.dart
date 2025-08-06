@@ -3,6 +3,7 @@ import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/model/response/training/training_schedule_response.dart';
 import 'package:hit_tech/model/response/user/user_profile_response.dart';
 import 'package:hit_tech/view/main_root/custom_bottom_nav_bar.dart';
+import 'package:hit_tech/view/main_root/feeds/feeds_screen.dart';
 import 'package:hit_tech/view/main_root/home/home_screen.dart';
 import 'package:hit_tech/view/main_root/setting/setting_screen.dart';
 import 'package:hit_tech/view/main_root/training/training_screen.dart';
@@ -78,8 +79,9 @@ class _HomeRootState extends State<HomeRoot> {
       TrainingScreen(
         userProfileResponse: widget.user,
         schedules: schedules,
+        key: _selectedIndex == 2 ? UniqueKey() : null,
       ),
-      SettingScreen(),
+      FeedsScreen(),
       SettingScreen(),
     ];
 
