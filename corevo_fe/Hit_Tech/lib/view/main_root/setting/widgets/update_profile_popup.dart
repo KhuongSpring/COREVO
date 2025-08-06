@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
+import 'package:intl/intl.dart';
 
 class UpdateProfilePopUp extends StatefulWidget {
   final TextEditingController controller;
@@ -83,14 +84,28 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
                     width: 1,
                   ),
                 ),
-                child: CupertinoTextField(
-                  focusNode: _focusNode,
-                  controller: widget.controller,
-                  placeholder: 'Nhập ${widget.type.toLowerCase()}',
-                  clearButtonMode: OverlayVisibilityMode.editing,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(),
-                ),
+                child: widget.type == 'Ngày sinh'
+                    ? GestureDetector(
+                        onTap: () async {
+                          final DateTime? picked = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime(2000, 1, 1),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime.now(),
+                          );
+
+                          if (picked != null) {
+                            final formatted = DateFormat(
+                              'yyyy-MM-dd',
+                            ).format(picked);
+                            setState(() {
+                              widget.controller.text = formatted;
+                            });
+                          }
+                        },
+                        child: AbsorbPointer(child: _buildTextField()),
+                      )
+                    : _buildTextField(),
               ),
               const SizedBox(height: 20),
               const Divider(height: 1, color: AppColors.bLightActive),
@@ -134,6 +149,17 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextField() {
+    return CupertinoTextField(
+      focusNode: _focusNode,
+      controller: widget.controller,
+      placeholder: 'Nhập ${widget.type.toLowerCase()}',
+      clearButtonMode: OverlayVisibilityMode.editing,
+      padding: const EdgeInsets.all(12),
+      decoration: const BoxDecoration(),
     );
   }
 }

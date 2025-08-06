@@ -326,14 +326,14 @@ public class UserServiceImpl implements UserService {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
         }
 
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_INCORRECT_PASSWORD_CONFIRMATION);
-        }
+//        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+//            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_INCORRECT_PASSWORD_CONFIRMATION);
+//        }
 
-        if (user.getPhone() == null || user.getBirth() == null ||
-                user.getNationality() == null || user.getAddress() == null) {
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_PERSONAL_INFORMATION_NOT_COMPLETED);
-        }
+//        if (user.getPhone() == null || user.getBirth() == null ||
+//                user.getNationality() == null || user.getAddress() == null) {
+//            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_PERSONAL_INFORMATION_NOT_COMPLETED);
+//        }
 
         if (request.getProfileData().getPersonalInformation() != null) {
 
@@ -401,9 +401,14 @@ public class UserServiceImpl implements UserService {
             userResponseDto.setUserHealth(response);
         }
 
+        if (!updatedUser.getTrainingPlans().isEmpty()) {
+            List<TrainingPlanResponseDto> listResponseDto = trainingPlanMapper.
+                    listTrainingPlanToListTrainingPlanResponseDto(user.getTrainingPlans());
+            userResponseDto.setTrainingPlans(listResponseDto);
+        }
+
         return userResponseDto;
     }
-
 
     private void calculateHealthData(UserHealth userHealth) {
 

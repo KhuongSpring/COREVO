@@ -10,8 +10,13 @@ import '../../../../service/user_service.dart';
 
 class PersonalInforSelectionWidget extends StatefulWidget {
   final UserProfileResponse userProfile;
+  final Future<void> Function() onReload;
 
-  const PersonalInforSelectionWidget({super.key, required this.userProfile});
+  const PersonalInforSelectionWidget({
+    super.key,
+    required this.userProfile,
+    required this.onReload,
+  });
 
   @override
   State<PersonalInforSelectionWidget> createState() =>
@@ -21,6 +26,14 @@ class PersonalInforSelectionWidget extends StatefulWidget {
 class _PersonalInforSelectionWidgetState
     extends State<PersonalInforSelectionWidget> {
   TextEditingController _controller = TextEditingController();
+
+  late UserProfileResponse _userProfile;
+
+  @override
+  void initState() {
+    super.initState();
+    _userProfile = widget.userProfile;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,20 +73,15 @@ class _PersonalInforSelectionWidgetState
                       child: Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.blue,
-                            width: 2,
-                          ),
+                          border: Border.all(color: Colors.blue, width: 2),
                         ),
                         child: CircleAvatar(
                           radius: 40,
-                          backgroundImage: widget.userProfile.linkAvatar
-                              ?.isNotEmpty ?? false
-                              ? NetworkImage(widget.userProfile.linkAvatar!)
-                              : const AssetImage(
-                            TrainingAssets.googleIcon,
-                          )
-                          as ImageProvider,
+                          backgroundImage:
+                              _userProfile.linkAvatar?.isNotEmpty ?? false
+                              ? NetworkImage(_userProfile.linkAvatar!)
+                              : const AssetImage(TrainingAssets.googleIcon)
+                                    as ImageProvider,
                         ),
                       ),
                     ),
@@ -84,7 +92,7 @@ class _PersonalInforSelectionWidgetState
                 children: [
                   const SizedBox(height: 10),
                   Text(
-                    '${widget.userProfile.firstName ?? ''} ${widget.userProfile.lastName ?? ''}',
+                    '${_userProfile.firstName ?? ''} ${_userProfile.lastName ?? ''}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -93,7 +101,7 @@ class _PersonalInforSelectionWidgetState
                   ),
                   SizedBox(height: 5),
                   Text(
-                    widget.userProfile.email ?? '',
+                    _userProfile.email ?? '',
                     style: TextStyle(
                       fontSize: 12,
                       color: AppColors.lightActive,
@@ -147,25 +155,37 @@ class _PersonalInforSelectionWidgetState
           _buildInnerTile(
             Icons.person_outline,
             'Tên đăng nhập',
-            widget.userProfile.username ?? '?',
+            _userProfile.username ?? '?',
           ),
           const Divider(height: 1, color: AppColors.bLightHover),
-          _buildInnerTile(Icons.favorite_border, 'Họ', widget.userProfile.firstName ?? '?'),
+          _buildInnerTile(
+            Icons.favorite_border,
+            'Họ',
+            _userProfile.firstName ?? '?',
+          ),
           const Divider(height: 1, color: AppColors.bLightHover),
-          _buildInnerTile(Icons.favorite_border, 'Tên', widget.userProfile.lastName ?? '?'),
+          _buildInnerTile(
+            Icons.favorite_border,
+            'Tên',
+            _userProfile.lastName ?? '?',
+          ),
           const Divider(height: 1, color: AppColors.bLightHover),
-          _buildInnerTile(Icons.favorite_border, 'Ngày sinh', widget.userProfile.birth ?? '?'),
+          _buildInnerTile(
+            Icons.favorite_border,
+            'Ngày sinh',
+            _userProfile.birth ?? '?',
+          ),
           const Divider(height: 1, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Số điện thoại',
-            widget.userProfile.phone ?? '?',
+            _userProfile.phone ?? '?',
           ),
           const Divider(height: 1, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Quốc tịch',
-            widget.userProfile.nationality ?? '?',
+            _userProfile.nationality ?? '?',
           ),
         ],
       ),
@@ -176,41 +196,59 @@ class _PersonalInforSelectionWidgetState
     _controller.clear();
     showCupertinoDialog(
       context: context,
-      builder: (context) =>
-          UpdateProfilePopUp(
-            controller: _controller,
-            onCancel: () => Navigator.of(context).pop(),
-            onSave: () {
-              final type = mappingField(label);
-              final Map<String, dynamic> requestBody = {
-                "password": 'GoogleLogin123@',
-                "profileData": {
-                  "personalInformation": {
-                    "firstName": (type == 'firstname') ? _controller.text.trim() : widget.userProfile.firstName,
-                    "lastName": (type == 'lastname') ? _controller.text.trim() : widget.userProfile.lastName,
-                    "phone": (type == 'phone') ? _controller.text.trim() : widget.userProfile.phone,
-                    "birth": widget.userProfile.birth,
-                    "nationality": widget.userProfile.nationality,
-                    "address": {
-                      "province": '',
-                      "district": ''
-                    }
-                  },
-                  "health": {
-                    "gender": widget.userProfile.userHealth?.gender,
-                    "height": widget.userProfile.userHealth?.height,
-                    "weight": widget.userProfile.userHealth?.weight,
-                    "age": widget.userProfile.userHealth?.age,
-                    "activityLevel": widget.userProfile.userHealth?.activityLevel
-                  }
-                }
-              };
-
-
-              Navigator.of(context).pop();
+      builder: (context) => UpdateProfilePopUp(
+        controller: _controller,
+        onCancel: () => Navigator.of(context).pop(),
+        onSave: () async {
+          final type = mappingField(label);
+          final Map<String, dynamic> requestBody = {
+            "password": 'GoogleLogin123@',
+            "profileData": {
+              "personalInformation": {
+                "firstName": (type == 'firstname')
+                    ? _controller.text.trim()
+                    : _userProfile.firstName,
+                "lastName": (type == 'lastname')
+                    ? _controller.text.trim()
+                    : _userProfile.lastName,
+                "phone": (type == 'phone')
+                    ? _controller.text.trim()
+                    : _userProfile.phone,
+                "birth": (type == 'birth')
+                    ? _controller.text.trim()
+                    : _userProfile.birth,
+                "nationality": (type == 'nationality')
+                    ? _controller.text.trim()
+                    : _userProfile.nationality,
+                "address": {"province": '', "district": ''},
+              },
+              "health": {
+                "gender": _userProfile.userHealth?.gender,
+                "height": _userProfile.userHealth?.height,
+                "weight": _userProfile.userHealth?.weight,
+                "age": _userProfile.userHealth!.age,
+                "activityLevel": _userProfile.userHealth?.activityLevel,
+              },
             },
-            type: label,
-          ),
+          };
+          try {
+            final response = await UserService.updatePersonalInformation(
+              requestBody,
+            );
+
+            if (response.status == 'SUCCESS') {
+              setState(() {
+                _userProfile = response;
+              });
+              await widget.onReload();
+              Navigator.pop(context);
+            }
+          } catch (e) {
+            print('Lỗi update: $e');
+          }
+        },
+        type: label,
+      ),
     );
   }
 

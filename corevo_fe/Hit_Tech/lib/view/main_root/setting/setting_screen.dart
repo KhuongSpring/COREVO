@@ -48,7 +48,9 @@ class _SettingScreenState extends State<SettingScreen> {
           username = response.username;
           firstname = response.firstName;
           lastname = response.lastName;
-          userProfileResponse = response;
+          setState(() {
+            userProfileResponse = response;
+          });
           _isLoading = false;
         });
         return;
@@ -323,6 +325,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 MaterialPageRoute(
                   builder: (context) => PersonalInforSelectionWidget(
                     userProfile: userProfileResponse,
+                    onReload: _handleGetProfile,
                   ),
                 ),
               );

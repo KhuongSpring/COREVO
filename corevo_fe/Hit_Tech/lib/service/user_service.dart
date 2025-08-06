@@ -42,7 +42,7 @@ class UserService {
     }
   }
 
-  static Future<DefaultResponse> updatePersonalInformation(
+  static Future<UserProfileResponse> updatePersonalInformation(
       Map<String, dynamic> request,
       ) async {
     try {
@@ -55,7 +55,7 @@ class UserService {
           receiveTimeout: Duration(seconds: 5),
         ),
       );
-      return DefaultResponse.fromJson(response.data);
+      return UserProfileResponse.fromJson(response.data);
     } on DioException catch (e) {
       if (e.type == DioExceptionType.sendTimeout ||
           e.type == DioExceptionType.receiveTimeout) {
