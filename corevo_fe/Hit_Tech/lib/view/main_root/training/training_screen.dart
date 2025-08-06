@@ -34,7 +34,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   int selectedIndex = 0;
 
-  int selectedIndex2 = DateTime.now().weekday - 1;
+  int selectedIndex2 = DateTime.now().weekday - 0;
 
   @override
   Widget build(BuildContext context) {

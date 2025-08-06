@@ -141,6 +141,11 @@ class MappingTrainingResourceHelper {
     return Result(sets: sets, repsPerSet: secondPart, durationPerSet: null);
   }
 
+  static String getSetOfExercise(String duration){
+    List<String> parts = duration.split('X');
+    return parts[0].trim().replaceAll('sets', '').trim();
+  }
+
   static String? normalizeLocation(String? raw) {
     return raw
         ?.split('/')

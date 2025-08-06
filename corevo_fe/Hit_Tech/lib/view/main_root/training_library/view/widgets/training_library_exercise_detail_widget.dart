@@ -143,8 +143,8 @@ class _TrainingLibraryExerciseDetailWidgetState
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 child: Container(
                                   width: (_imageHeight == 630.0)
-                                      ? screenWidth * 0.9.sp
-                                      : screenWidth * 0.7.sp,
+                                      ? screenWidth.sp
+                                      : screenWidth * 0.8.sp,
                                   height: (_imageHeight == 630.0)
                                       ? 200.sp
                                       : 280.sp,

@@ -216,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  SizedBox(height: 10.sp),
 
                   // Calendar placeholder
                   Container(
@@ -230,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  SizedBox(height: 10.sp),
 
                   // Streak + giờ tiếp theo
                   Row(
@@ -303,9 +303,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
 
-                  const SizedBox(height: 20),
-
-                  const SizedBox(height: 24),
+                  SizedBox(height: 50.sp),
                 ],
               ),
             ),

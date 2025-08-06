@@ -35,7 +35,8 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
   bool _showLoading = true;
   bool _isOn = true;
 
-  List<TrainingExercisePreviewResponse> exercises = [];
+  List<TrainingExercisePreviewResponse> previewExercises = [];
+  List<TrainingScheduleExerciseResponse> exercises = [];
   List<String> durations = [];
 
   @override
@@ -56,12 +57,13 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
   Future<void> _handleGetExercise() async {
     TrainingScheduleExerciseGroupResponse? g = widget.schedule.exerciseGroups;
     List<TrainingScheduleExerciseResponse>? l = g?.exercises;
-    for (int i = 0; i < l!.length; i++) {
+    exercises = l!;
+    for (int i = 0; i < l.length; i++) {
       try {
         final response = await TrainingService.getExerciseById(l[i].exerciseId);
 
         if (response.status == 'SUCCESS') {
-          exercises.add(
+          previewExercises.add(
             TrainingExercisePreviewResponse(
               id: l[i].exerciseId,
               name: response.data['name'],
@@ -101,8 +103,8 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
           ),
 
           DraggableScrollableSheet(
-            initialChildSize: 0.75.sp,
-            minChildSize: 0.75.sp,
+            initialChildSize: 0.8.sp,
+            minChildSize: 0.8.sp,
             maxChildSize: 1.0.sp,
             builder: (context, scrollController) {
               return Container(
@@ -298,9 +300,9 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                           ),
                           child: Column(
                             children: List.generate(
-                              exercises.length,
+                              previewExercises.length,
                               (index) => _buildExerciseItem(
-                                exercise: exercises[index],
+                                exercise: previewExercises[index],
                                 duration: durations[index],
                               ),
                             ),
@@ -327,6 +329,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                   MaterialPageRoute(
                     builder: (context) => TrainingDayStartTrainingScreen(
                       schedule: widget.schedule,
+                      previewExercises: previewExercises,
                       exercises: exercises,
                     ),
                   ),

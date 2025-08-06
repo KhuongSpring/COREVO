@@ -56,7 +56,7 @@ class _TrainingLibraryExerciseWidgetState extends State<TrainingLibraryExerciseW
       if (response.status == 'SUCCESS') {
         final allExercises = response.data
             .expand(
-              (level) => (level.exercises as List<dynamic>).map(
+              (level) => (level.previewExercises as List<dynamic>).map(
                 (e) => e as TrainingExercisePreviewResponse,
               ),
             )
