@@ -91,6 +91,7 @@ flutter:
     - assets/images/type/
     - assets/images/training_plan/
     - assets/images/training/
+    - assets/images/splash/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

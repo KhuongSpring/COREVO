@@ -159,4 +159,11 @@ class TrainingAssets {
   // Home
   static const String fireIcon = 'assets/icons/home/fire_icon.png';
   static const String fireNonIcon = 'assets/icons/home/fire_non_icon.png';
+
+  // Splash
+  static const String splashImage1 = 'assets/images/splash/splash_image_1.png';
+  static const String splashImage2 = 'assets/images/splash/splash_image_2.png';
+  static const String splashImage3 = 'assets/images/splash/splash_image_3.png';
+  static const String splashChildImage =
+      'assets/images/splash/splash_child_image.png';
 }
