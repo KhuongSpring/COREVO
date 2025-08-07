@@ -255,7 +255,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                                       ),
                                     ),
                                     Text(
-                                      '60 giây',
+                                      '30 giây',
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.black,

@@ -160,6 +160,16 @@ class MappingTrainingResourceHelper {
     return parts[0].trim().replaceAll('sets', '').trim();
   }
 
+  static String getRepOrSecOfExercise(String duration) {
+    List<String> parts = duration.split('X');
+    return parts[1]
+        .trim()
+        .replaceAll('reps', '')
+        .replaceAll('giây', '')
+        .replaceAll('phút', '')
+        .replaceAll('mỗi bên', '');
+  }
+
   static String? normalizeLocation(String? raw) {
     return raw
         ?.split('/')

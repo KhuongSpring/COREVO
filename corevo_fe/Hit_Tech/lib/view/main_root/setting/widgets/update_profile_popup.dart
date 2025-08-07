@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:intl/intl.dart';
+import 'package:country_picker/country_picker.dart';
 
 class UpdateProfilePopUp extends StatefulWidget {
   final TextEditingController controller;
@@ -102,6 +103,48 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
                               widget.controller.text = formatted;
                             });
                           }
+                        },
+                        child: AbsorbPointer(child: _buildTextField()),
+                      )
+                    : widget.type == 'Quốc tịch'
+                    ? GestureDetector(
+                        onTap: () {
+                          showCountryPicker(
+                            context: context,
+                            showPhoneCode: false,
+                            countryListTheme: CountryListThemeData(
+                              flagSize: 30,
+                              backgroundColor: Colors.white,
+                              textStyle: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                              searchTextStyle: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                              bottomSheetHeight: 500,
+                              inputDecoration: InputDecoration(
+                                prefixIconColor: AppColors.bNormal,
+                                prefixIcon: Icon(Icons.search),
+                                border: OutlineInputBorder(),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: AppColors.bNormal,
+                                  ),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white38),
+                                ),
+                                focusColor: AppColors.bNormal,
+                              ),
+                            ),
+                            onSelect: (Country country) {
+                              setState(() {
+                                widget.controller.text = country.name;
+                              });
+                            },
+                          );
                         },
                         child: AbsorbPointer(child: _buildTextField()),
                       )

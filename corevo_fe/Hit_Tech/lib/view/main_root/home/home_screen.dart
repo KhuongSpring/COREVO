@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final String? linkAvatar =
         widget.userProfileResponse.linkAvatar ?? TrainingAssets.defaultImage;
     final String? fullName =
-        '${widget.userProfileResponse.firstName} ${widget.userProfileResponse.lastName}';
+        '${widget.userProfileResponse.firstName ?? ''} ${widget.userProfileResponse.lastName ?? ''}';
     final TrainingPlanResponse? trainingPlanResponse =
         widget.userProfileResponse.trainingPlans?.first;
 

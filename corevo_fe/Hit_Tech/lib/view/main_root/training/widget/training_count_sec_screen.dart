@@ -1,17 +1,36 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 
+import '../../../../model/response/exercise_set_progress.dart';
 import '../../../../model/response/training/training_exercise_response.dart';
 import '../../../../service/training_service.dart';
 import '../../../../utils/mapping_training_resource_helper.dart';
 import '../../../../utils/training_exercise_image_helper.dart';
 
+enum TimerPhase { work, rest }
+
 class TrainingCountSecScreen extends StatefulWidget {
   final int exerciseId;
+  final ExerciseSetProgress exerciseSetProgress;
+  final int exerciseIndex;
+  final void Function(int exerciseIndex, int setIndex, bool value, int total)
+  onSetCompleted;
+  final int totalSet;
+  final int completedSet;
 
-  const TrainingCountSecScreen({super.key, required this.exerciseId});
+  const TrainingCountSecScreen({
+    super.key,
+    required this.exerciseId,
+    required this.onSetCompleted,
+    required this.exerciseSetProgress,
+    required this.exerciseIndex,
+    required this.totalSet,
+    required this.completedSet,
+  });
 
   @override
   State<TrainingCountSecScreen> createState() => _TrainingCountSecScreenState();
@@ -30,10 +49,19 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
   bool _isReady = false;
   bool _isMore = false;
 
+  TimerPhase _currentPhase = TimerPhase.work;
+  int _workDuration = 45;
+  int _restDuration = 30;
+  int _remainingSeconds = 45;
+  Timer? _timer;
+
+  int _setIndex = 0;
+
   @override
   void initState() {
     super.initState();
     _handleGetExercise();
+    _startTimer();
     _controller.addListener(() {
       if (_controller.size <= 0.3.sp) {
         setState(() {
@@ -41,11 +69,21 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
         });
       }
     });
+
+    for (int i = 0; i < widget.exerciseSetProgress.totalSets; i++) {
+      if (widget.exerciseSetProgress.setCompleted[i] == false) {
+        setState(() {
+          _setIndex = i;
+        });
+        break;
+      }
+    }
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -88,6 +126,55 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
         _isReady = true;
       });
     }
+  }
+
+  void _startTimer() {
+    _timer?.cancel();
+    _timer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (_remainingSeconds > 0) {
+        setState(() => _remainingSeconds--);
+      } else {
+        if (_currentPhase == TimerPhase.rest) {
+          _timer?.cancel();
+          if (mounted) {
+            widget.onSetCompleted(
+              widget.exerciseIndex,
+              _setIndex,
+              true,
+              _workDuration + _restDuration,
+            );
+            Navigator.pop(context);
+            return;
+          }
+        } else if (_currentPhase == TimerPhase.work) {
+          if (mounted) {
+            widget.onSetCompleted(
+              widget.exerciseIndex,
+              _setIndex,
+              true,
+              _workDuration + _remainingSeconds,
+            );
+          }
+        }
+        _switchPhase();
+      }
+    });
+  }
+
+  void _switchPhase() {
+    setState(() {
+      if (_currentPhase == TimerPhase.work) {
+        _currentPhase = TimerPhase.rest;
+        _remainingSeconds = _restDuration;
+      } else {
+        _currentPhase = TimerPhase.work;
+        _remainingSeconds = _workDuration;
+      }
+    });
+  }
+
+  void _add20Seconds() {
+    setState(() => _remainingSeconds += 20);
   }
 
   @override
@@ -138,7 +225,7 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Tập luyện',
+                  _currentPhase == TimerPhase.work ? 'Tập luyện' : 'Nghỉ ngơi',
                   style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
@@ -147,7 +234,7 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                 ),
                 SizedBox(height: 20.sp),
                 Text(
-                  '00:40',
+                  _formatTime(_remainingSeconds),
                   style: TextStyle(
                     fontSize: 54,
                     color: Colors.white,
@@ -159,10 +246,16 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: _currentPhase == TimerPhase.work
+                          ? () {}
+                          : _add20Seconds,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.bLightNotActive,
-                        foregroundColor: AppColors.wWhite,
+                        backgroundColor: _currentPhase == TimerPhase.work
+                            ? AppColors.bLightNotActive
+                            : AppColors.wWhite,
+                        foregroundColor: _currentPhase == TimerPhase.work
+                            ? AppColors.wWhite
+                            : AppColors.bNormal,
                         padding: EdgeInsets.symmetric(vertical: 10),
                         minimumSize: Size(100, 30),
                         shape: RoundedRectangleBorder(
@@ -173,16 +266,37 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                         '+20s',
                         style: TextStyle(
                           fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                     SizedBox(width: 20.sp),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed:
+                          (_currentPhase == TimerPhase.work &&
+                              _remainingSeconds > 19)
+                          ? () {}
+                          : () {
+                              widget.onSetCompleted(
+                                widget.exerciseIndex,
+                                _setIndex,
+                                true,
+                                _workDuration - _remainingSeconds
+                              );
+
+                              Navigator.pop(context);
+                            },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.wWhite,
-                        foregroundColor: AppColors.bNormal,
+                        backgroundColor:
+                            (_currentPhase == TimerPhase.work &&
+                                _remainingSeconds > 19)
+                            ? AppColors.bLightNotActive
+                            : AppColors.wWhite,
+                        foregroundColor:
+                            (_currentPhase == TimerPhase.work &&
+                                _remainingSeconds > 19)
+                            ? AppColors.wWhite
+                            : AppColors.bNormal,
                         padding: EdgeInsets.symmetric(vertical: 10),
                         minimumSize: Size(100, 30),
                         shape: RoundedRectangleBorder(
@@ -190,7 +304,7 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                         ),
                       ),
                       child: Text(
-                        'Skip',
+                        'Bỏ qua',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -201,6 +315,30 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                 ),
                 SizedBox(height: 150.sp),
               ],
+            ),
+          ),
+          Positioned(
+            bottom: 290,
+            left: 10,
+            child: Text(
+              'Tiếp theo ${widget.completedSet}/${widget.totalSet}',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 270,
+            left: 10,
+            child: Text(
+              '${exercise?.name} - Set ${_setIndex + 1}/${widget.exerciseSetProgress.totalSets}',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           Positioned.fill(
@@ -583,5 +721,11 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
         child: Center(child: Text(label)),
       ),
     );
+  }
+
+  String _formatTime(int seconds) {
+    final minutes = seconds ~/ 60;
+    final secs = seconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${secs.toString().padLeft(2, '0')}';
   }
 }
