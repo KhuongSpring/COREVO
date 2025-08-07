@@ -4,6 +4,7 @@ import 'package:hit_tech/model/response/list_default_response.dart';
 import 'package:hit_tech/model/response/training/training_exercise_preview_level_response.dart';
 import 'package:hit_tech/model/response/training/training_exercise_response.dart';
 import 'package:hit_tech/model/response/training/training_plan_result_response.dart';
+import 'package:hit_tech/model/response/training/training_progress_statistic_response.dart';
 import 'package:hit_tech/model/response/training/training_schedule_response.dart';
 import 'package:hit_tech/model/response/training/training_schedule_result_response.dart';
 import 'package:hit_tech/utils/dio_client.dart';
@@ -110,10 +111,10 @@ class TrainingService {
   }
 
   static Future<ListDefaultResponse> getTrainingExerciseByType(
-      String type,
-      int pageNum,
-      int pageSize,
-      ) async {
+    String type,
+    int pageNum,
+    int pageSize,
+  ) async {
     try {
       final response = await DioClient.dio.get(
         ApiEndpoint.getExerciseByType,
@@ -132,7 +133,7 @@ class TrainingService {
       final data = response.data;
       return ListDefaultResponse<TrainingExercisePreviewLevelResponse>.fromJson(
         data,
-            (json) => TrainingExercisePreviewLevelResponse.fromJson(json),
+        (json) => TrainingExercisePreviewLevelResponse.fromJson(json),
       );
     } on DioException catch (e) {
       print('DIO ERROR: ${e.message}');
@@ -198,6 +199,33 @@ class TrainingService {
     try {
       final response = await DioClient.dio.get(
         ApiEndpoint.getDailyProgress,
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+
+      return DefaultResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
+  }
+
+  static Future<DefaultResponse> getStatistic(
+    int year,
+    int month,
+  ) async {
+    try {
+      final response = await DioClient.dio.get(
+        ApiEndpoint.getStatistic,
+        queryParameters: {"year": year, "month": month},
         options: Options(
           contentType: Headers.jsonContentType,
           sendTimeout: Duration(seconds: 5),

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/model/response/training/training_plan_response.dart';
+import 'package:hit_tech/model/response/training/training_progress_statistic_response.dart';
 import 'package:hit_tech/model/response/training/training_schedule_response.dart';
 import 'package:hit_tech/model/response/user/user_profile_response.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
@@ -15,7 +16,6 @@ import 'package:hit_tech/view/main_root/setting/widgets/notice_training_selectio
 
 import '../../../core/constants/app_assets.dart';
 import '../../../service/training_service.dart';
-
 
 // Loi UI: percentage make screen extend height
 class HomeScreen extends StatefulWidget {
@@ -38,11 +38,28 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   double percentage = 0.0;
+  TrainingProgressStatisticResponse? progressStatistic;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _handleTrainingDailyProgress();
+    _initData();
+  }
+
+  Future<void> _initData() async {
+    try {
+      await Future.wait([
+        _handleTrainingDailyProgress(),
+        _handleGetProgressStatistic(),
+      ]);
+    } catch (e) {
+      print("Error during init: $e");
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   Future<void> _handleTrainingDailyProgress() async {
@@ -60,8 +77,29 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _handleGetProgressStatistic() async {
+    try {
+      final response = await TrainingService.getStatistic(2025, 8);
+
+      if (response.status == 'SUCCESS') {
+        setState(() {
+          progressStatistic = TrainingProgressStatisticResponse.fromJson(
+            response.data,
+          );
+        });
+        return;
+      }
+    } catch (e, stackTrace) {
+      print(stackTrace);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
     List<TrainingScheduleResponse> schedules = widget.schedules;
 
     final String? linkAvatar =
@@ -282,9 +320,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
+                                children: [
                                   Text(
-                                    '3 Ngày Streak',
+                                    '${progressStatistic?.currentStreak} Ngày Streak',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
@@ -293,7 +331,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   SizedBox(height: 5),
                                   Text(
-                                    'Kỉ lục dài nhất của bạn: 10',
+                                    'Kỉ lục dài nhất của bạn: ${progressStatistic?.longestStreak}',
                                     style: TextStyle(
                                       color: Colors.white70,
                                       fontSize: 12,
@@ -301,7 +339,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ],
                               ),
-                              Image.asset(TrainingAssets.fireIcon),
+                              Image.asset(
+                                (progressStatistic?.currentStreak == 0)
+                                    ? TrainingAssets.fireNonIcon
+                                    : TrainingAssets.fireIcon,
+                              ),
                             ],
                           ),
                         ),

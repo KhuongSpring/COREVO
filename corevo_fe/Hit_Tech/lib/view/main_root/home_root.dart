@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
+import 'package:hit_tech/model/response/training/training_progress_statistic_response.dart';
 import 'package:hit_tech/model/response/training/training_schedule_response.dart';
 import 'package:hit_tech/model/response/user/user_profile_response.dart';
 import 'package:hit_tech/view/main_root/custom_bottom_nav_bar.dart';
@@ -68,7 +69,7 @@ class _HomeRootState extends State<HomeRoot> {
             _selectedIndex = 4;
           });
         },
-        onNavigateToTraining: (){
+        onNavigateToTraining: () {
           setState(() {
             _selectedIndex = 2;
           });

@@ -145,6 +145,10 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
             throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         User user = userRepository.findByUsername(username);
+
+        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
+
         Long trainingPlanId = user.getTrainingPlans().getFirst().getId();
 
         if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())

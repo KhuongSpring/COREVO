@@ -158,4 +158,5 @@ class TrainingAssets {
 
   // Home
   static const String fireIcon = 'assets/icons/home/fire_icon.png';
+  static const String fireNonIcon = 'assets/icons/home/fire_non_icon.png';
 }

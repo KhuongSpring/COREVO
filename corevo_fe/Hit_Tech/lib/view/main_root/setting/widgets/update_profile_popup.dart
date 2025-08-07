@@ -107,7 +107,7 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
                       )
                     : _buildTextField(),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 25.sp),
               const Divider(height: 1, color: AppColors.bLightActive),
               Row(
                 children: [

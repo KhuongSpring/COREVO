@@ -65,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handleLogin() async {
+    await SharedPreferencesService.clearAll();
     if (_formKey.currentState!.validate()) {
       try {
         final request = LoginRequest(
@@ -150,6 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handleLoginWithGoogle() async {
+    await SharedPreferencesService.clearAll();
     try {
       final account = await _googleSignIn.signIn();
       final auth = await account?.authentication;
