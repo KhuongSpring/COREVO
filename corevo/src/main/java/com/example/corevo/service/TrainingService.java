@@ -31,6 +31,9 @@ public interface TrainingService {
     PaginationResponseDto<TrainingExercisePreviewResponseDto> searchExercise(TrainingExerciseSearchingRequestDto request,
                                                             PaginationRequestDto paginationRequestDto);
 
+    PaginationResponseDto<TrainingExerciseResponseDto> searchTrainingExercise(TrainingExerciseSearchingRequestDto request,
+                                                                             PaginationRequestDto paginationRequestDto);
+
     TrainingExerciseResponseDto getTrainingExerciseById(Long id);
 
     PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlans(PaginationRequestDto paginationRequestDto);
@@ -52,9 +55,4 @@ public interface TrainingService {
     PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlanByType(String type,
                                                                          PaginationRequestDto paginationRequestDto);
 
-    TrainingExerciseResponseDto creatTrainingExercise(CreateTrainingExerciseRequestDto request);
-
-    TrainingExerciseResponseDto updateTrainingExercise(Long exerciseId,UpdateTrainingExerciseRequestDto request);
-
-    CommonResponseDto deleteTrainingExercise(Long exerciseId);
 }

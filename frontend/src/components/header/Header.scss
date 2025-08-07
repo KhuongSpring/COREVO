@@ -1,0 +1,234 @@
+@import '../../pages/home/HomePage.scss'; // nếu muốn dùng chung biến & mixin đã định nghĩa
+
+// --- HEADER ---
+.header {
+  height: $header-height;
+  background-color: $bg-secondary;
+  border-bottom: 1px solid $border-color;
+  padding: 0 ($spacing-unit * 2);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+
+  &__content {
+    @include flex-center(space-between);
+    height: 100%;
+  }
+
+  &__left,
+  &__right {
+    @include flex-center();
+    gap: $spacing-unit;
+  }
+  
+  &__menu-btn {
+    @include flex-center();
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    &:hover {
+      background-color: $bg-primary;
+    }
+    &-icon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  &__search {
+    position: relative;
+    @include flex-center();
+
+    &-icon {
+      position: absolute;
+      left: $spacing-unit;
+      color: $text-secondary;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+    }
+
+    &-input {
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      padding: ($spacing-unit * 0.6) ($spacing-unit) ($spacing-unit * 0.6) ($spacing-unit * 2.5);
+      width: 250px;
+      font-size: 0.9rem;
+      transition: border-color $transition-speed $transition-ease, box-shadow $transition-speed $transition-ease;
+
+      &:focus {
+        outline: none;
+        border-color: $color-blue;
+        box-shadow: 0 0 0 3px lighten($color-blue, 35%);
+      }
+    }
+  }
+
+  &__btn {
+    @include flex-center();
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: $text-secondary;
+    position: relative;
+    transition: background-color $transition-speed $transition-ease, color $transition-speed $transition-ease;
+
+    &:hover {
+      background-color: $bg-primary;
+      color: $text-primary;
+    }
+
+    &-icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    &--notification {
+      .header__notification-dot {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 8px;
+        height: 8px;
+        background-color: $color-red;
+        border-radius: 50%;
+        border: 2px solid $bg-secondary;
+      }
+    }
+  }
+}
+
+// --- USER DROPDOWN ---
+.user-dropdown {
+  position: relative;
+
+  &__trigger {
+    @include flex-center();
+    padding: ($spacing-unit * 0.25) ($spacing-unit * 0.5);
+    border-radius: $border-radius;
+    gap: $spacing-unit * 0.75;
+    transition: background-color $transition-speed $transition-ease;
+
+    &:hover {
+      background-color: $bg-primary;
+    }
+  }
+
+  &__avatar {
+    @include flex-center();
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: lighten($color-blue, 30%);
+    color: $color-blue;
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    &--large {
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  &__name {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  &__role {
+    font-size: 0.8rem;
+    color: $text-secondary;
+  }
+
+  &__chevron {
+    color: $text-secondary;
+    transition: transform $transition-speed $transition-ease;
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 280px;
+    background-color: $bg-secondary;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    box-shadow: 0 10px 15px -3px $shadow-color, 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+    z-index: 101;
+    overflow: hidden;
+    padding: $spacing-unit * 0.5;
+  }
+
+  &__header {
+    @include flex-center(flex-start);
+    padding: $spacing-unit;
+    gap: $spacing-unit;
+  }
+
+  &__details {
+    line-height: 1.4;
+  }
+
+  &__email {
+    font-size: 0.9rem;
+    color: $text-secondary;
+  }
+
+  &__divider {
+    height: 1px;
+    background-color: $border-color;
+    margin: ($spacing-unit * 0.5) 0;
+  }
+  
+  &__items {
+    padding: ($spacing-unit * 0.5) 0;
+  }
+
+  &__item {
+    @include flex-center(flex-start);
+    padding: ($spacing-unit * 0.75) $spacing-unit;
+    border-radius: $border-radius * 0.75;
+    transition: background-color $transition-speed $transition-ease;
+    width: 100%;
+    text-align: left;
+    
+    &-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: $spacing-unit;
+      color: $text-secondary;
+    }
+    
+    &:hover {
+      background-color: $bg-primary;
+    }
+
+    &--logout {
+      color: $color-red;
+      &:hover {
+        background-color: lighten($color-red, 38%);
+        .user-dropdown__item-icon {
+          color: $color-red;
+        }
+      }
+    }
+  }
+}

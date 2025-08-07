@@ -1,258 +1,281 @@
-  import React, { useState, useEffect } from 'react';
-  import axios from 'axios';
-  import {
-    BarChart3, DollarSign, Users, TrendingUp, TrendingDown,
-    Activity, Bell, Search, Settings, Menu, LogOut, User, ChevronDown
-  } from 'lucide-react';
-  import { useNavigate } from 'react-router-dom';
-  import Sidebar from "../../components/sidebar/Sideb";
-  import Exercise from "../exercise/ExercisePage";
-  import { Dumbbell } from 'lucide-react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import {
+  BarChart3, Users, Dumbbell, Activity
+} from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import Sidebar from "../../components/sidebar/Sideb";
+import Header from "../../components/header/Header";
+import './HomePage.scss';
+import { AuthContext } from '../../context/AuthContext';
+import ApexCharts from 'apexcharts';
 
-  import './HomePage.scss';
+const ToggleSwitch = ({ isMonthMode, onToggle }) => {
+  return (
+    <div
+      style={{
+        cursor: 'pointer',
+        width: '100px',
+        height: '40px',
+        backgroundColor: '#1d9bf0',
+        borderRadius: '999px',
+        position: 'relative',
+        userSelect: 'none'
+      }}
+      onClick={onToggle}
+    >
+      <span
+        style={{
+          position: 'absolute',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          left: isMonthMode ? '50px' : '10px',
+          fontSize: '12px',
+          fontWeight: 'bold',
+          color: 'white',
+          zIndex: 1,
+          transition: 'left 0.3s'
+        }}
+      >
+        {isMonthMode ? 'MONTH' : 'DAY'}
+      </span>
+      <div
+        style={{
+          width: '34px',
+          height: '34px',
+          backgroundColor: 'white',
+          borderRadius: '50%',
+          position: 'absolute',
+          top: '3px',
+          left: isMonthMode ? '3px' : '63px',
+          transition: 'left 0.3s'
+        }}
+      />
+    </div>
+  );
+};
 
-  const HomePage = () => {
-    const navigate = useNavigate();
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-    const [currentUser, setCurrentUser] = useState(null);
+const HomePage = () => {
+  const navigate = useNavigate();
+  const { logout, api } = useContext(AuthContext);
 
-    useEffect(() => {
-      const token = localStorage.getItem('token');
-      const fetchProfile = async () => {
-        try {
-          const res = await axios.get('http://localhost:8080/api/v1/user/profile', {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          setCurrentUser(res.data.data);
-        } catch (error) {
-          console.error('Lỗi khi lấy thông tin người dùng:', error);
-        }
-      };
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userCount, setUserCount] = useState(0);
+  const [exerciseCount, setExerciseCount] = useState(0);
+  const [chartMode, setChartMode] = useState('day');
 
-      fetchProfile();
-    }, []);
+  const chartRef = useRef(null);
+  const chartInstanceRef = useRef(null);
 
-    const handleLogout = () => {
-      if (window.confirm('Are you sure you want to logout?')) {
-        localStorage.removeItem('token');
-        setUserDropdownOpen(false);
-        navigate('/', { replace: true });
-        window.location.reload();
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await api.get('/user/profile');
+        setCurrentUser(res.data.data);
+      } catch (error) {
+        console.error('Lỗi khi lấy thông tin người dùng:', error);
       }
     };
 
-    const dashboardData = [
-      {
-        title: currentUser?.name,
-        subtitle: "Today",
-        value: "145",
-        change: "+12%",
-        isPositive: true,
-        icon: BarChart3,
-        color: "emerald"
-      },
-      {
-        title: "Revenue",
-        subtitle: "This Month",
-        value: "$3,264",
-        change: "+8%",
-        isPositive: true,
-        icon: DollarSign,
-        color: "blue"
-      },
-      {
-        title: "Customers",
-        subtitle: "This Year",
-        value: "1,244",
-        change: "-12%",
-        isPositive: false,
-        icon: Users,
-        color: "purple"
+    const fetchUserCount = async () => {
+      try {
+        const res = await api.get('admin/users', { params: { pageNum: 1, pageSize: 1 } });
+        const total = res.data?.data?.meta?.totalElement || 0;
+        setUserCount(total);
+      } catch (err) {
+        console.error('Lỗi khi lấy số lượng user:', err);
       }
-    ];
+    };
 
-    const activities = [
-      { time: "32 min", text: "Quia quae rerum", highlight: "explicabo officiis" },
-      { time: "2 hrs", text: "Voluptates corrupti molestias voluptatem", highlight: "" },
-      { time: "1 day", text: "Tempore autem saepe", highlight: "occaecati voluptatem" }
-    ];
+    const fetchExerciseCount = async () => {
+      try {
+        const res = await api.get('admin/exercises', { params: { pageNum: 1, pageSize: 1 } });
+        const total = res.data?.data?.meta?.totalElement || 0;
+        setExerciseCount(total);
+      } catch (err) {
+        console.error('Lỗi khi lấy số lượng bài tập:', err);
+      }
+    };
 
-    const navigationItems = [
-      { name: 'Dashboard', icon: BarChart3, path: '/home' },
-      { name: 'Users', icon: User, path: '/users' },
-      { name: 'Exercise', icon: Dumbbell, path: '/exercise'}
-    ];
+    fetchProfile();
+    fetchUserCount();
+    fetchExerciseCount();
+  }, [api]);
 
-    return (
-      <div className="dashboard">
-        <Sidebar
-          sidebarOpen={sidebarOpen}
-          setSidebarOpen={setSidebarOpen}
-          navigationItems={navigationItems}
-        />
+  useEffect(() => {
+    let timeoutId;
 
-        {userDropdownOpen && (
-          <div className="dropdown-overlay" onClick={() => setUserDropdownOpen(false)} />
-        )}
+    const fetchAndRenderChart = async () => {
+      try {
+        const endpoint = chartMode === 'day' ? '/admin/user-day' : '/admin/user-month';
+        const res = await api.post(endpoint);
+        const data = res.data?.data || [];
 
-        <div className="main-container">
-          <main className="main">
-            <header className="header">
-              <div className="header__content">
-                <div className="header__left">
-                  <button className="header__menu-btn" onClick={() => setSidebarOpen(true)}>
-                    <Menu className="header__menu-icon" />
-                  </button>
-                  <h1 className="header__title">Dashboard</h1>
-                </div>
+        const categories = data.map(d => d.day || d.month);
+        const seriesData = [];
+        let cumulative = 0;
+        data.forEach(d => {
+          cumulative += d.count;
+          seriesData.push(cumulative);
+        });
 
-                <div className="header__right">
-                  <div className="header__search">
-                    <Search className="header__search-icon" />
-                    <input
-                      type="search"
-                      placeholder="Search..."
-                      className="header__search-input"
-                    />
-                  </div>
-                  <button className="header__btn header__btn--notification">
-                    <Bell className="header__btn-icon" />
-                    <span className="header__notification-dot"></span>
-                  </button>
-                  <button className="header__btn">
-                    <Settings className="header__btn-icon" />
-                  </button>
+        if (chartInstanceRef.current) {
+          chartInstanceRef.current.destroy();
+        }
 
-                  <div className="user-dropdown">
-                    <button
-                      className="user-dropdown__trigger"
-                      onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                    >
-                      {currentUser?.linkAvatar ? (
-                        <img src={currentUser.linkAvatar} alt="avatar" className="user-dropdown__avatar" />
-                      ) : (
-                        <div className="user-dropdown__avatar">
-                          {currentUser?.firstName?.charAt(0) || 'A'}
-                        </div>
-                      )}
-                      <div className="user-dropdown__info">
-                        <span className="user-dropdown__name">{currentUser?.firstName} {currentUser?.lastName}</span>
-                        <span className="user-dropdown__role">{currentUser?.role}</span>
-                      </div>
-                      <ChevronDown className={`user-dropdown__chevron ${userDropdownOpen ? 'user-dropdown__chevron--open' : ''}`} />
-                    </button>
+        const options = {
+          series: [{
+            name: "Tổng người dùng tích lũy",
+            data: seriesData
+          }],
+          chart: {
+            height: 350,
+            type: 'line',
+            zoom: { enabled: false }
+          },
+          dataLabels: { enabled: false },
+          stroke: { curve: 'smooth', width: 3 },
+          grid: {
+            row: {
+              colors: ['#f3f3f3', 'transparent'],
+              opacity: 0.5
+            }
+          },
+          xaxis: { categories }
+        };
 
-                    {userDropdownOpen && (
-                      <div className="user-dropdown__menu">
-                        <div className="user-dropdown__header">
-                          {currentUser?.linkAvatar ? (
-                            <img src={currentUser.linkAvatar} alt="avatar" className="user-dropdown__avatar user-dropdown__avatar--large" />
-                          ) : (
-                            <div className="user-dropdown__avatar user-dropdown__avatar--large">
-                              {currentUser?.firstName?.charAt(0) || 'A'}
-                            </div>
-                          )}
-                          <div className="user-dropdown__details">
-                            <p className="user-dropdown__name">{currentUser?.firstName} {currentUser?.lastName}</p>
-                            <p className="user-dropdown__email">{currentUser?.email}</p>
-                          </div>
-                        </div>
+        if (chartRef.current) {
+          chartInstanceRef.current = new ApexCharts(chartRef.current, options);
+          chartInstanceRef.current.render();
+        }
+      } catch (err) {
+        console.error('Lỗi khi fetch biểu đồ:', err);
+      }
+    };
 
-                        <div className="user-dropdown__divider"></div>
+    const waitForChartEl = () => {
+      if (chartRef.current) {
+        fetchAndRenderChart();
+      } else {
+        timeoutId = setTimeout(waitForChartEl, 100);
+      }
+    };
 
-                        <div className="user-dropdown__items">
-                          <a href="#" className="user-dropdown__item">
-                            <User className="user-dropdown__item-icon" />
-                            <span>Profile Settings</span>
-                          </a>
-                          <a href="#" className="user-dropdown__item">
-                            <Settings className="user-dropdown__item-icon" />
-                            <span>Account Settings</span>
-                          </a>
-                        </div>
+    waitForChartEl();
 
-                        <div className="user-dropdown__divider"></div>
+    return () => {
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.destroy();
+        chartInstanceRef.current = null;
+      }
+      clearTimeout(timeoutId);
+    };
+  }, [api, chartMode]);
 
-                        <button
-                          className="user-dropdown__item user-dropdown__item--logout"
-                          onClick={handleLogout}
-                        >
-                          <LogOut className="user-dropdown__item-icon" />
-                          <span>Logout</span>
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </header>
-
-            <div className="content">
-              <div className="stats">
-                {dashboardData.map((item, index) => (
-                  <div key={index} className={`card card--${item.color}`}>
-                    <div className="card__content">
-                      <div className="card__header">
-                        <div className={`card__icon card__icon--${item.color}`}>
-                          <item.icon className="card__icon-svg" />
-                        </div>
-                        <div className={`card__change ${item.isPositive ? 'card__change--positive' : 'card__change--negative'}`}>
-                          {item.isPositive ? <TrendingUp className="card__change-icon" /> : <TrendingDown className="card__change-icon" />}
-                          {item.change}
-                        </div>
-                      </div>
-                      <div className="card__body">
-                        <h3 className="card__subtitle">{item.title} | {item.subtitle}</h3>
-                        <p className="card__value">{item.value}</p>
-                      </div>
-                    </div>
-                    <div className={`card__accent card__accent--${item.color}`}></div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="activity">
-                <div className="activity__header">
-                  <div className="activity__title-wrapper">
-                    <Activity className="activity__title-icon" />
-                    <h2 className="activity__title">Recent Activity</h2>
-                    <span className="activity__subtitle">Today</span>
-                  </div>
-                </div>
-
-                <div className="activity__content">
-                  <div className="activity__list">
-                    {activities.map((activity, index) => (
-                      <div key={index} className="activity__item">
-                        <div className="activity__dot"></div>
-                        <div className="activity__details">
-                          <div className="activity__time-wrapper">
-                            <span className="activity__time">{activity.time}</span>
-                          </div>
-                          <p className="activity__text">
-                            {activity.text}{' '}
-                            {activity.highlight && (
-                              <span className="activity__highlight">{activity.highlight}</span>
-                            )}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="activity__footer">
-                    <button className="activity__view-all">View All Activities</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    );
+  const handleLogout = () => {
+    if (window.confirm('Are you sure you want to logout?')) {
+      logout();
+      setUserDropdownOpen(false);
+      navigate('/', { replace: true });
+    }
   };
 
-  export default HomePage;
+  const dashboardData = [
+    {
+      title: "Total Users",
+      subtitle: "All Time",
+      value: userCount,
+      isPositive: true,
+      icon: Users,
+      color: "emerald"
+    },
+    {
+      title: "Total Exercises",
+      subtitle: "All Time",
+      value: exerciseCount,
+      isPositive: true,
+      icon: Dumbbell,
+      color: "blue"
+    }
+  ];
+
+  const navigationItems = [
+    { name: 'Dashboard', icon: BarChart3, path: '/home' },
+    { name: 'Users', icon: Users, path: '/users' },
+    { name: 'Exercise', icon: Dumbbell, path: '/exercise' }
+  ];
+
+  if (!currentUser) {
+    return <div className="loading">Đang tải thông tin người dùng...</div>;
+  }
+
+  return (
+    <div className="dashboard">
+      <Sidebar
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+        navigationItems={navigationItems}
+      />
+
+      {userDropdownOpen && (
+        <div className="dropdown-overlay" onClick={() => setUserDropdownOpen(false)} />
+      )}
+
+      <div className="main-container">
+        <main className="main">
+          <Header
+            currentUser={currentUser}
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+            userDropdownOpen={userDropdownOpen}
+            setUserDropdownOpen={setUserDropdownOpen}
+            handleLogout={handleLogout}
+            pageTitle="Dashboard"
+          />
+
+          <div className="content">
+            <div className="stats">
+              {dashboardData.map((item, index) => (
+                <div key={index} className={`card card--${item.color}`}>
+                  <div className="card__content">
+                    <div className="card__header">
+                      <div className={`card__icon card__icon--${item.color}`}>
+                        <item.icon className="card__icon-svg" />
+                      </div>
+                      {/* ✅ Icon TrendingUp/TrendingDown đã được xóa tại đây */}
+                    </div>
+                    <div className="card__body">
+                      <h3 className="card__subtitle">{item.title} | {item.subtitle}</h3>
+                      <p className="card__value">{item.value}</p>
+                    </div>
+                  </div>
+                  <div className={`card__accent card__accent--${item.color}`}></div>
+                </div>
+              ))}
+            </div>
+
+            <div className="activity">
+              <div className="activity__header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="activity__title-wrapper" style={{ display: 'flex', alignItems: 'center' }}>
+                  <Activity className="activity__title-icon" />
+                  <h2 className="activity__title">User Registration Chart</h2>
+                </div>
+                <ToggleSwitch
+                  isMonthMode={chartMode === 'month'}
+                  onToggle={() => setChartMode(chartMode === 'day' ? 'month' : 'day')}
+                />
+              </div>
+
+              <div className="activity__content">
+                <div ref={chartRef} style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}></div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default HomePage;

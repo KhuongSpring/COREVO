@@ -1,21 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
-import {
-  BarChart3, User, Menu, Search, Bell, Settings, ChevronDown,
-  LogOut, Plus, Edit3, Trash2, Eye, Lock, Unlock
-} from 'lucide-react';
+import { BarChart3, User, Dumbbell, Plus, Edit3, Trash2, Eye, Lock, Unlock, Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import './UserPage.scss';
 import { AuthContext } from '../../context/AuthContext';
 import AddUserModal from '../../components/user/AddUserModal';
 import UpdateUserModal from '../../components/user/UpdateUserModal';
 import ViewUserModal from '../../components/user/ViewUserModal';
 import Sidebar from '../../components/sidebar/Sideb';
-import { Dumbbell } from 'lucide-react';
+import Header from '../../components/header/Header';
 
 const UserPage = () => {
   const navigate = useNavigate();
-  const { profile, logout } = useContext(AuthContext);
+  const { profile, logout, api } = useContext(AuthContext);
+  
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [users, setUsers] = useState([]);
@@ -27,43 +24,62 @@ const UserPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
   const [totalPages, setTotalPages] = useState(1);
-  const [userCount, setUserCount] = useState(0);
-
-  const fetchUserCount = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:8080/api/v1/admin/users-count', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const count = res.data?.data;
-      setUserCount(count);
-    } catch (err) {
-      console.error('Lỗi khi lấy tổng số user:', err);
-    }
-  };
+  const [searchQuery, setSearchQuery] = useState('');
+  const [goToPage, setGoToPage] = useState(''); // <== THÊM MỚI
 
   const fetchUsers = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:8080/api/v1/admin/users', {
-        headers: { Authorization: `Bearer ${token}` },
-        params: { pageNum: currentPage, pageSize: pageSize }
+      const res = await api.get('admin/users', {
+        params: { pageNum: currentPage, pageSize }
       });
       const responseData = res.data?.data;
+      const totalElement = responseData?.meta?.totalElement || 0;
+      
       setUsers(Array.isArray(responseData?.items) ? responseData.items : []);
-      const calculatedTotalPages = Math.max(1, Math.ceil(userCount / pageSize));
-      setTotalPages(calculatedTotalPages);
+      setTotalPages(Math.max(1, Math.ceil(totalElement / pageSize)));
     } catch (err) {
       console.error('Lỗi khi lấy danh sách user:', err);
     }
   };
 
+  const searchUsers = async () => {
+    if (!searchQuery.trim()) {
+      fetchUsers();
+      return;
+    }
+
+    try {
+      let res;
+      if (searchQuery.includes('@')) {
+        res = await api.post('admin/search-user-by-email',
+          { searchSentence: searchQuery },
+          { params: { pageNum: currentPage, pageSize } }
+        );
+      } else if (/^\d+$/.test(searchQuery)) {
+        res = await api.post('admin/search-user-by-phone',
+          { searchSentence: searchQuery },
+          { params: { pageNum: currentPage, pageSize } }
+        );
+      } else {
+        res = await api.post('admin/search-user-by-username',
+          { searchSentence: searchQuery },
+          { params: { pageNum: currentPage, pageSize } }
+        );
+      }
+
+      const responseData = res.data?.data;
+      const totalElement = responseData?.meta?.totalElement || 0;
+      setUsers(Array.isArray(responseData?.items) ? responseData.items : []);
+      setTotalPages(Math.max(1, Math.ceil(totalElement / pageSize)));
+
+    } catch (err) {
+      console.error('Lỗi khi tìm kiếm user:', err);
+    }
+  };
+
   const handleViewUser = async (userId) => {
     try {
-      const token = localStorage.getItem('token');
-      const res = await axios.get(`http://localhost:8080/api/v1/admin/users/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await api.get(`admin/users/${userId}`);
       const user = res.data?.data;
       if (user) {
         setViewUser({ personalInfo: user, healthInfo: user.userHealth || {} });
@@ -79,10 +95,7 @@ const UserPage = () => {
 
   const handleAddUser = async (data) => {
     try {
-      const token = localStorage.getItem('token');
-      await axios.post('http://localhost:8080/api/v1/admin/create-user', data, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await api.post('admin/create-user', data);
       alert('Tạo user thành công');
       fetchUsers();
     } catch (err) {
@@ -94,10 +107,7 @@ const UserPage = () => {
 
   const handleUpdateUser = async (updatedData) => {
     try {
-      const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:8080/api/v1/admin/update-user/${updatedData.id}`, updatedData, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await api.put(`admin/update-user/${updatedData.id}`, updatedData);
       alert('Cập nhật thành công');
       fetchUsers();
     } catch (err) {
@@ -109,17 +119,13 @@ const UserPage = () => {
 
   const handleLockUser = async (userId) => {
     try {
-      const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:8080/api/v1/admin/lock-user/${userId}`, {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await api.put(`admin/lock-user/${userId}`);
       alert('Khóa tài khoản thành công');
       setUsers(prevUsers =>
-      prevUsers.map(user =>
-        user.id === userId ? { ...user, locked: true } : user
-      )
-    );
-      //fetchUsers();
+        prevUsers.map(user =>
+          user.id === userId ? { ...user, locked: true } : user
+        )
+      );
     } catch (err) {
       console.error('Lỗi khi khóa user:', err);
       alert('Khóa tài khoản thất bại');
@@ -128,10 +134,7 @@ const UserPage = () => {
 
   const handleUnlockUser = async (userId) => {
     try {
-      const token = localStorage.getItem('token');
-      await axios.put(`http://localhost:8080/api/v1/admin/unlock-user/${userId}`, {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      await api.put(`admin/unlock-user/${userId}`);
       alert('Mở khóa tài khoản thành công');
       fetchUsers();
     } catch (err) {
@@ -141,33 +144,23 @@ const UserPage = () => {
   };
 
   const handleDeleteUser = async (userId) => {
-  if (!window.confirm('Bạn có chắc chắn muốn xóa người dùng này?')) return;
-
-  try {
-    const token = localStorage.getItem('token');
-    await axios.delete(`http://localhost:8080/api/v1/admin/delete-user/${userId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    alert('Xóa user thành công');
-    fetchUsers(); // refresh lại danh sách
-  } catch (err) {
-    console.error('Lỗi khi xóa user:', err);
-    alert('Xóa user thất bại');
-  }
-};
+    if (!window.confirm('Bạn có chắc chắn muốn xóa người dùng này?')) return;
+    try {
+      await api.delete(`admin/delete-user/${userId}`);
+      alert('Xóa user thành công');
+      fetchUsers();
+    } catch (err) {
+      console.error('Lỗi khi xóa user:', err);
+      alert('Xóa user thất bại');
+    }
+  };
 
   useEffect(() => {
-    fetchUserCount();
-  }, []);
-
-  useEffect(() => {
-    if (userCount > 0) {
+    if (searchQuery.trim()) {
+      searchUsers();
+    } else {
       fetchUsers();
     }
-  }, [userCount]);
-
-  useEffect(() => {
-    fetchUsers();
   }, [currentPage]);
 
   const handleLogout = () => {
@@ -177,13 +170,10 @@ const UserPage = () => {
     }
   };
 
-  const avatar = (profile?.firstName?.[0] || '') + (profile?.lastName?.[0] || '');
-  const pathname = window.location.pathname;
-
   const navigationItems = [
     { name: 'Dashboard', icon: BarChart3, path: '/home' },
     { name: 'Users', icon: User, path: '/users' },
-    { name: 'Exercise', icon: Dumbbell, path: '/exercise'}
+    { name: 'Exercise', icon: Dumbbell, path: '/exercise' }
   ];
 
   if (!profile) return <div className="loading">Đang tải thông tin người dùng...</div>;
@@ -204,71 +194,67 @@ const UserPage = () => {
 
       <div className="main-container">
         <main className="main">
-          <header className="header">
-            <div className="header__content">
-              <div className="header__left">
-                <button className="header__menu-btn" onClick={() => setSidebarOpen(true)}>
-                  <Menu className="header__menu-icon" />
-                </button>
-                <h1 className="header__title">User Management</h1>
-              </div>
-              <div className="header__right">
-                <div className="header__search">
-                  <Search className="header__search-icon" />
-                  <input type="search" placeholder="Search..." className="header__search-input" />
-                </div>
-                <button className="header__btn header__btn--notification">
-                  <Bell className="header__btn-icon" />
-                  <span className="header__notification-dot"></span>
-                </button>
-                <button className="header__btn">
-                  <Settings className="header__btn-icon" />
-                </button>
-                <div className="user-dropdown">
-                  <button className="user-dropdown__trigger" onClick={() => setUserDropdownOpen(!userDropdownOpen)}>
-                    <div className="user-dropdown__avatar">{avatar}</div>
-                    <div className="user-dropdown__info">
-                      <span className="user-dropdown__name">{profile.firstName} {profile.lastName}</span>
-                      <span className="user-dropdown__role">{profile.role}</span>
-                    </div>
-                    <ChevronDown className={`user-dropdown__chevron ${userDropdownOpen ? 'user-dropdown__chevron--open' : ''}`} />
-                  </button>
-                  {userDropdownOpen && (
-                    <div className="user-dropdown__menu">
-                      <div className="user-dropdown__header">
-                        <div className="user-dropdown__avatar user-dropdown__avatar--large">{avatar}</div>
-                        <div className="user-dropdown__details">
-                          <p className="user-dropdown__name">{profile.firstName} {profile.lastName}</p>
-                          <p className="user-dropdown__email">{profile.email}</p>
-                        </div>
-                      </div>
-                      <div className="user-dropdown__divider"></div>
-                      <div className="user-dropdown__items">
-                        <a href="#" className="user-dropdown__item">
-                          <User className="user-dropdown__item-icon" />
-                          <span>Profile Settings</span>
-                        </a>
-                        <a href="#" className="user-dropdown__item">
-                          <Settings className="user-dropdown__item-icon" />
-                          <span>Account Settings</span>
-                        </a>
-                      </div>
-                      <div className="user-dropdown__divider"></div>
-                      <button className="user-dropdown__item user-dropdown__item--logout" onClick={handleLogout}>
-                        <LogOut className="user-dropdown__item-icon" />
-                        <span>Logout</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </header>
+          <Header
+            currentUser={profile}
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+            userDropdownOpen={userDropdownOpen}
+            setUserDropdownOpen={setUserDropdownOpen}
+            handleLogout={handleLogout}
+            pageTitle="User Management"
+          />
 
           <div className="content">
-            <button className="add-user-button" onClick={() => setShowAddModal(true)}>
-              <Plus size={16} /> Add User
-            </button>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
+              <button 
+                className="add-user-button" 
+                onClick={() => setShowAddModal(true)}
+                style={{
+                  height: 40,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6
+                }}
+              >
+                <Plus size={16} /> Add User
+              </button>
+
+              <div style={{ display: 'flex', gap: 8 }}>
+                <input
+                  type="text"
+                  placeholder="Search by name, email, phone..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{
+                    padding: '6px 10px',
+                    borderRadius: 6,
+                    border: '1px solid #ccc',
+                    minWidth: 300,
+                    height: 40
+                  }}
+                />
+                <button
+                  onClick={() => {
+                    setCurrentPage(1);
+                    searchUsers();
+                  }}
+                  style={{
+                    background: '#1e3a8a',
+                    color: '#fff',
+                    padding: '0 16px',
+                    border: 'none',
+                    borderRadius: 6,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    cursor: 'pointer',
+                    height: 40
+                  }}
+                >
+                  <Search size={16} /> Search
+                </button>
+              </div>
+            </div>
 
             <table className="user-table">
               <thead>
@@ -320,9 +306,33 @@ const UserPage = () => {
             </table>
 
             <div className="pagination">
-              <button onClick={() => setCurrentPage(p => Math.max(p - 1, 1))} disabled={currentPage === 1} className={currentPage === 1 ? 'disabled' : ''}>Previous</button>
+              <button onClick={() => setCurrentPage(p => Math.max(p - 1, 1))} disabled={currentPage === 1}>
+                Previous
+              </button>
               <span>Page {currentPage} of {totalPages}</span>
-              <button onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))} disabled={currentPage >= totalPages} className={currentPage >= totalPages ? 'disabled' : ''}>Next</button>
+              <input
+                type="number"
+                value={goToPage}
+                min={1}
+                max={totalPages}
+                onChange={(e) => setGoToPage(e.target.value)}
+                style={{ width: 60, textAlign: 'center', marginLeft: 8 }}
+              />
+              <button
+                onClick={() => {
+                  const pageNum = parseInt(goToPage);
+                  if (!isNaN(pageNum) && pageNum >= 1 && pageNum <= totalPages) {
+                    setCurrentPage(pageNum);
+                  } else {
+                    alert(`Vui lòng nhập số trang từ 1 đến ${totalPages}`);
+                  }
+                }}
+              >
+                Go
+              </button>
+              <button onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))} disabled={currentPage >= totalPages}>
+                Next
+              </button>
             </div>
           </div>
         </main>

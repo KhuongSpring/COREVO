@@ -9,8 +9,10 @@ import com.example.corevo.constant.UrlConstant;
 import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.request.admin.CreateUserRequestDto;
 import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
+import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
 import com.example.corevo.domain.dto.request.user.profile.ConfirmPasswordRequestDto;
+import com.example.corevo.domain.dto.request.user.sreach.UserSearchingRequestDto;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,6 +25,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -194,13 +197,69 @@ public class UserController {
 
     @Tag(name = "admin-controller")
     @Operation(
-            summary = "Đếm số lượng User",
-            description = "Dùng để tính tổng user và admin",
+            summary = "Tìm kiếm user bằng tên",
+            description = "Dùng để admin tìm kiếm người dùng bằng tên",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @GetMapping(UrlConstant.Admin.GET_ALL_USER)
-    public ResponseEntity<?> countAllUsers() {
-        return VsResponseUtil.success(userService.countAllUser());
+    @PostMapping(UrlConstant.Admin.SEARCH_USER_BY_USERNAME)
+    public ResponseEntity<?> searchUserByUsername(
+            @Valid @RequestBody UserSearchingRequestDto searchRequest,
+            @RequestParam(name = "pageNum", defaultValue = "1") int PageNum,
+            @RequestParam(name = "pageSize", defaultValue = "1") int PageSize){
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(userService.searchUserByUsername(searchRequest, request));
+    }
+
+    @Tag(name = "admin-controller")
+    @Operation(
+            summary = "Tìm kiếm user bằng email",
+            description = "Dùng để admin tìm kiếm người dùng bằng email",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PostMapping(UrlConstant.Admin.SEARCH_USER_BY_EMAIL)
+    public ResponseEntity<?> searchUserByEmail(
+            @Valid @RequestBody UserSearchingRequestDto searchRequest,
+            @RequestParam(name = "pageNum", defaultValue = "1") int PageNum,
+            @RequestParam(name = "pageSize", defaultValue = "1") int PageSize){
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(userService.searchUserByEmail(searchRequest, request));
+    }
+
+    @Tag(name = "admin-controller")
+    @Operation(
+            summary = "Tìm kiếm user bằng số điện thoại",
+            description = "Dùng để admin tìm kiếm người dùng bằng số điện thoại",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PostMapping(UrlConstant.Admin.SEARCH_USER_BY_PHONE)
+    public ResponseEntity<?> searchUserByPhone(
+            @Valid @RequestBody UserSearchingRequestDto searchRequest,
+            @RequestParam(name = "pageNum", defaultValue = "1") int PageNum,
+            @RequestParam(name = "pageSize", defaultValue = "1") int PageSize){
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(userService.searchUserByPhone(searchRequest, request));
+    }
+
+    @Tag(name = "admin-controller")
+    @Operation(
+            summary = "Số lượng user tăng theo ngày",
+            description = "Dùng để tính số lượng User đăng ký thêm trong 7 ngày",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PostMapping(UrlConstant.Admin.GET_USER_DAY)
+    public ResponseEntity<?> getUserDayCounts(){
+        return VsResponseUtil.success(userService.getUserDayCounts());
+    }
+
+    @Tag(name = "admin-controller")
+    @Operation(
+            summary = "Số lượng user tăng theo tháng",
+            description = "Dùng để tính số lượng User đăng ký thêm trong 12 tháng gần nhất",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PostMapping(UrlConstant.Admin.GET_USER_MONTH)
+    public ResponseEntity<?> getUserMonthCounts(){
+        return VsResponseUtil.success(userService.getUserMonthCounts());
     }
 
 }

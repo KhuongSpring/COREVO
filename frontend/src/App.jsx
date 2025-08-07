@@ -8,7 +8,7 @@ import { AuthContext } from "./context/AuthContext";
 
 const App = () => {
   const { isLoggedIn } = useContext(AuthContext);
-  console.log('isLogged', isLoggedIn);
+  console.log("isLogged", isLoggedIn);
 
   return (
     <BrowserRouter>
@@ -21,21 +21,15 @@ const App = () => {
         />
         <Route
           path="/home"
-          element={
-            isLoggedIn ? <HomePage /> : <Navigate to="/" replace />
-          }
+          element={isLoggedIn ? <HomePage /> : <Navigate to="/" replace />}
         />
         <Route
           path="/users"
-          element={
-            isLoggedIn ? <UserManagement /> : <Navigate to="/" replace />
-          }
+          element={isLoggedIn ? <UserManagement /> : <Navigate to="/" replace />}
         />
         <Route
           path="/exercise"
-          element={
-            isLoggedIn ? <ExercisePage /> : <Navigate to="/" replace />
-          }
+          element={isLoggedIn ? <ExercisePage /> : <Navigate to="/" replace />}
         />
       </Routes>
     </BrowserRouter>

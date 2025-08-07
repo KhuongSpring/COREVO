@@ -163,6 +163,7 @@ public class TrainingController {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.getPreviewExerciseByPrimaryMuscle(primaryMuscle, request));
     }
+
     @Tag(name = "admin-controller")
     @Operation(
             summary = "Lấy tất cả bài tập ",
@@ -237,6 +238,23 @@ public class TrainingController {
         return VsResponseUtil.success(trainingService.searchExercise(searchRequest, request));
     }
 
+    @Tag(name = "admin-controller")
+    @Operation(
+            summary = "Tìm kiếm bài tập",
+            description = "Dùng để tìm kiếm tất cả bài tập theo từ khóa tìm kiếm",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PostMapping(UrlConstant.Admin.SEARCH_TRAINING_EXERCISE)
+    public ResponseEntity<?> searchTrainingExercise(
+            @Valid @RequestBody TrainingExerciseSearchingRequestDto searchRequest,
+            @RequestParam(name = "pageNum", defaultValue = "1") int PageNum,
+            @RequestParam(name = "pageSize", defaultValue = "1") int PageSize
+    ) {
+        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
+        return VsResponseUtil.success(trainingService.searchTrainingExercise(searchRequest, request));
+    }
+
+
     @Tag(name = "training-controller-schedule")
     @Operation(
             summary = "Lấy lịch tập theo kế hoạch tập luyện",
@@ -246,42 +264,6 @@ public class TrainingController {
     @GetMapping(UrlConstant.Training.GET_TRAINING_SCHEDULE)
     public ResponseEntity<?> getTrainingSchedule(@RequestParam(name = "plan id") Long planId){
         return VsResponseUtil.success(trainingService.getTrainingSchedule(planId));
-    }
-
-    @Tag(name = "admin-controller")
-    @Operation(
-            summary = "Tạo bài tập",
-            description = "Dùng để admin tạo bài tập mới",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
-    @PostMapping(UrlConstant.Admin.CREATE_TRAINING_EXERCISE)
-    public ResponseEntity<?> createTrainingExercise(@Valid @RequestBody CreateTrainingExerciseRequestDto request) {
-        return VsResponseUtil.success(trainingService.creatTrainingExercise(request));
-    }
-
-    @Tag(name = "admin-controller")
-    @Operation(
-            summary = "Cập nhập thông tin bài tập",
-            description = "Dùng để admin cập nhập thông tin của bài tập",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
-    @PutMapping(UrlConstant.Admin.UPDATE_EXERCISE)
-    public ResponseEntity<?> updateExercise(
-            @PathVariable Long exerciseId,
-            @Valid @RequestBody UpdateTrainingExerciseRequestDto request) {
-        return VsResponseUtil.success(trainingService.updateTrainingExercise(exerciseId,request));
-    }
-
-    @Tag(name = "admin-controller")
-    @Operation(
-            summary = "Xóa bài tập",
-            description = "Dùng để admin xóa bài tập",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
-    @DeleteMapping(UrlConstant.Admin.DELETE_EXERCISE)
-    public ResponseEntity<?> deleteExercise(
-            @PathVariable Long exerciseId) {
-        return VsResponseUtil.success(trainingService.deleteTrainingExercise(exerciseId));
     }
 
 }

@@ -113,7 +113,6 @@ const AddUserModal = ({ onClose, onSubmit, editData, viewOnly = false }) => {
             onChange={e => setPersonalInfo({ ...personalInfo, phone: e.target.value })}
             disabled={viewOnly}
           />
-          <p>Nationality</p>
           <input
             placeholder="Nationality"
             value={personalInfo.nationality}

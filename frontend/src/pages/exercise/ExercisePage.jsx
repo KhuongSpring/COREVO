@@ -1,16 +1,10 @@
-// ExercisePage.jsx
 import React, { useState, useEffect, useContext } from 'react';
-import {
-  BarChart3, User, Dumbbell, Menu, Search, Bell, Settings,
-  ChevronDown, LogOut, Plus, Edit3, Trash2, Eye
-} from 'lucide-react';
+import { BarChart3, User, Dumbbell, Eye, Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import './ExercisePage.scss';
 import Sidebar from '../../components/sidebar/Sideb';
+import Header from '../../components/header/Header';
 import { AuthContext } from '../../context/AuthContext';
-import AddExerciseModal from '../../components/exercise/AddExerciseModal';
-import UpdateExerciseModal from '../../components/exercise/UpdateExerciseModal';
 import {
   levelMap,
   muscleMap,
@@ -22,7 +16,7 @@ import {
 
 const ExercisePage = () => {
   const navigate = useNavigate();
-  const { profile, logout } = useContext(AuthContext);
+  const { profile, logout, api } = useContext(AuthContext);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
@@ -34,10 +28,7 @@ const ExercisePage = () => {
   const [goToPage, setGoToPage] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [viewExercise, setViewExercise] = useState(null);
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [editExercise, setEditExercise] = useState(null);
-
-  const avatar = (profile?.firstName?.[0] || '') + (profile?.lastName?.[0] || '');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const navigationItems = [
     { name: 'Dashboard', icon: BarChart3, path: '/home' },
@@ -47,15 +38,11 @@ const ExercisePage = () => {
 
   const fetchExercises = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:8080/api/v1/admin/exercises', {
-        headers: { Authorization: `Bearer ${token}` },
+      const res = await api.get('/admin/exercises', {
         params: { pageNum: currentPage, pageSize }
       });
-
       const responseData = res.data?.data;
       const totalElement = responseData?.meta?.totalElement || 0;
-
       setExerciseCount(totalElement);
       setExercises(Array.isArray(responseData?.items) ? responseData.items : []);
       setTotalPages(Math.max(1, Math.ceil(totalElement / pageSize)));
@@ -64,25 +51,33 @@ const ExercisePage = () => {
     }
   };
 
-  // API xoá bài tập
-  const handleDeleteExercise = async (exerciseId) => {
-    if (!window.confirm('Bạn có chắc chắn muốn xóa bài tập này?')) return;
-
+  const searchExercises = async () => {
+    if (!searchTerm.trim()) {
+      fetchExercises();
+      return;
+    }
     try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:8080/api/v1/admin/delete-exercise/${exerciseId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      alert('Xóa bài tập thành công');
-      fetchExercises(); // load lại danh sách
+      const res = await api.post(
+        '/admin/search-training-exercise',
+        { searchSentence: searchTerm },
+        { params: { pageNum: currentPage, pageSize } }
+      );
+      const responseData = res.data?.data;
+      const totalElement = responseData?.meta?.totalElement || 0;
+      setExerciseCount(totalElement);
+      setExercises(Array.isArray(responseData?.items) ? responseData.items : []);
+      setTotalPages(Math.max(1, Math.ceil(totalElement / pageSize)));
     } catch (err) {
-      console.error('Lỗi khi xóa bài tập:', err);
-      alert('Xóa bài tập thất bại');
+      console.error('Lỗi khi tìm kiếm bài tập:', err);
     }
   };
 
   useEffect(() => {
-    fetchExercises();
+    if (searchTerm.trim()) {
+      searchExercises();
+    } else {
+      fetchExercises();
+    }
   }, [currentPage]);
 
   const handleLogout = () => {
@@ -119,75 +114,51 @@ const ExercisePage = () => {
 
       <div className="main-container">
         <main className="main">
-          <header className="header">
-            <div className="header__content">
-              <div className="header__left">
-                <button className="header__menu-btn" onClick={() => setSidebarOpen(true)}>
-                  <Menu className="header__menu-icon" />
-                </button>
-                <h1 className="header__title">
-                  Exercise Management <span style={{ fontSize: '0.8rem', color: '#666' }}>({exerciseCount} exercises)</span>
-                </h1>
-              </div>
-
-              <div className="header__right">
-                <div className="header__search">
-                  <Search className="header__search-icon" />
-                  <input type="search" placeholder="Search..." className="header__search-input" />
-                </div>
-                <button className="header__btn header__btn--notification">
-                  <Bell className="header__btn-icon" />
-                  <span className="header__notification-dot"></span>
-                </button>
-                <button className="header__btn">
-                  <Settings className="header__btn-icon" />
-                </button>
-                <div className="user-dropdown">
-                  <button className="user-dropdown__trigger" onClick={() => setUserDropdownOpen(!userDropdownOpen)}>
-                    <div className="user-dropdown__avatar">{avatar}</div>
-                    <div className="user-dropdown__info">
-                      <span className="user-dropdown__name">{profile.firstName} {profile.lastName}</span>
-                      <span className="user-dropdown__role">{profile.role}</span>
-                    </div>
-                    <ChevronDown className={`user-dropdown__chevron ${userDropdownOpen ? 'user-dropdown__chevron--open' : ''}`} />
-                  </button>
-
-                  {userDropdownOpen && (
-                    <div className="user-dropdown__menu">
-                      <div className="user-dropdown__header">
-                        <div className="user-dropdown__avatar user-dropdown__avatar--large">{avatar}</div>
-                        <div className="user-dropdown__details">
-                          <p className="user-dropdown__name">{profile.firstName} {profile.lastName}</p>
-                          <p className="user-dropdown__email">{profile.email}</p>
-                        </div>
-                      </div>
-                      <div className="user-dropdown__divider"></div>
-                      <div className="user-dropdown__items">
-                        <a href="#" className="user-dropdown__item">
-                          <User className="user-dropdown__item-icon" />
-                          <span>Profile Settings</span>
-                        </a>
-                        <a href="#" className="user-dropdown__item">
-                          <Settings className="user-dropdown__item-icon" />
-                          <span>Account Settings</span>
-                        </a>
-                      </div>
-                      <div className="user-dropdown__divider"></div>
-                      <button className="user-dropdown__item user-dropdown__item--logout" onClick={handleLogout}>
-                        <LogOut className="user-dropdown__item-icon" />
-                        <span>Logout</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </header>
+          <Header
+            currentUser={profile}
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+            userDropdownOpen={userDropdownOpen}
+            setUserDropdownOpen={setUserDropdownOpen}
+            handleLogout={handleLogout}
+            pageTitle="Exercise Management"
+          />
 
           <div className="content">
-            <button className="add-user-button" onClick={() => setShowAddModal(true)}>
-              <Plus size={16} /> Add Exercise
-            </button>
+            {/* Thanh tìm kiếm */}
+            <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+              <input
+                type="text"
+                placeholder="Nhập tên bài tập..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{
+                  padding: '6px 10px',
+                  borderRadius: 6,
+                  border: '1px solid #ccc',
+                  flex: '1'
+                }}
+              />
+              <button
+                onClick={() => {
+                  setCurrentPage(1);
+                  searchExercises();
+                }}
+                style={{
+                  background: '#1e3a8a',
+                  color: '#fff',
+                  padding: '6px 12px',
+                  border: 'none',
+                  borderRadius: 6,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  cursor: 'pointer'
+                }}
+              >
+                <Search size={16} /> Search
+              </button>
+            </div>
 
             <table className="user-table">
               <thead>
@@ -235,17 +206,9 @@ const ExercisePage = () => {
                         : ex.description}
                     </td>
                     <td>
-                      <div style={{ display: 'flex', gap: 8 }}>
-                        <button className="view" onClick={() => setViewExercise(ex)}>
-                          <Eye size={16} />
-                        </button>
-                        <button className="edit" onClick={() => setEditExercise(ex)}>
-                          <Edit3 size={16} />
-                        </button>
-                        <button className="delete" onClick={() => handleDeleteExercise(ex.id)}>
-                          <Trash2 size={16} />
-                        </button>
-                      </div>
+                      <button className="view" onClick={() => setViewExercise(ex)}>
+                        <Eye size={16} />
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -327,24 +290,6 @@ const ExercisePage = () => {
             </div>
           </div>
         </div>
-      )}
-
-      {showAddModal && (
-        <AddExerciseModal
-          onClose={() => setShowAddModal(false)}
-          onSuccess={fetchExercises}
-        />
-      )}
-
-      {editExercise && (
-        <UpdateExerciseModal
-          exercise={editExercise}
-          onClose={() => setEditExercise(null)}
-          onSuccess={() => {
-            fetchExercises();
-            setEditExercise(null);
-          }}
-        />
       )}
     </div>
   );

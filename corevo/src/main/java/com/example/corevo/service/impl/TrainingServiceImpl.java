@@ -346,6 +346,40 @@ public class TrainingServiceImpl implements TrainingService {
         }
 
         @Override
+        public PaginationResponseDto<TrainingExerciseResponseDto> searchTrainingExercise(
+                TrainingExerciseSearchingRequestDto request,
+                PaginationRequestDto paginationRequestDto) {
+
+                List<TrainingExerciseResponseDto> result;
+
+                Pageable pageable = PageRequest.of(
+                        paginationRequestDto.getPageNum(),
+                        paginationRequestDto.getPageSize());
+
+                Page<TrainingExercise> trainingExercisesPage = trainingExerciseRepository
+                        .findByNameContainingIgnoreCase(
+                                request.getSearchSentence(),
+                                pageable);
+
+                result = trainingExercisesPage.getContent()
+                        .stream()
+                        .map(trainingExerciseMapper::trainingExerciseToTrainingExerciseResponseDto )
+                        .filter(Objects::nonNull)
+                        .toList();
+
+                PagingMeta pagingMeta = new PagingMeta(
+                        trainingExercisesPage.getTotalElements(),
+                        trainingExercisesPage.getTotalPages(),
+                        paginationRequestDto.getPageNum() + 1,
+                        paginationRequestDto.getPageSize(),
+                        null,
+                        null);
+
+                return new PaginationResponseDto<>(pagingMeta, result);
+
+        }
+
+        @Override
         public TrainingExerciseResponseDto getTrainingExerciseById(Long id) {
                 TrainingExercise trainingExercise = trainingExerciseRepository.findById(id)
                                 .orElseThrow(() -> new VsException(
@@ -555,37 +589,4 @@ public class TrainingServiceImpl implements TrainingService {
                 return new PaginationResponseDto<>(pagingMeta, trainingPlanResponseDtos);
         }
 
-        @Override
-        public TrainingExerciseResponseDto creatTrainingExercise(CreateTrainingExerciseRequestDto request){
-                if(trainingExerciseRepository.existsTrainingExercisesByName(request.getName())){
-                        throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS);
-                }
-
-                TrainingExercise trainingExercise = trainingExerciseMapper.createTrainingExercise(request);
-                return trainingExerciseMapper.trainingExerciseToTrainingExerciseResponseDto(trainingExerciseRepository.save(trainingExercise));
-        }
-
-        @Override
-        public TrainingExerciseResponseDto updateTrainingExercise(Long exerciseId,UpdateTrainingExerciseRequestDto request) {
-
-                TrainingExercise trainingExercise = trainingExerciseRepository.findById(exerciseId)
-                                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS));
-
-                trainingExerciseMapper.updateTrainingExerciseFromDto(request,trainingExercise);
-
-                TrainingExercise updatedTrainingExercise = trainingExerciseRepository.save(trainingExercise);
-
-                return trainingExerciseMapper.trainingExerciseToTrainingExerciseResponseDto(updatedTrainingExercise);
-
-        }
-
-        @Override
-        public CommonResponseDto deleteTrainingExercise(Long exerciseId) {
-                TrainingExercise trainingExercise = trainingExerciseRepository.findById(exerciseId)
-                        .orElseThrow(() -> new  VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS));
-
-                trainingExerciseRepository.delete(trainingExercise);
-
-                return new CommonResponseDto(HttpStatus.OK, SuccessMessage.TrainingExercise.DELETE_TRAINING_EXERCISE_SUCCESS);
-        }
 }

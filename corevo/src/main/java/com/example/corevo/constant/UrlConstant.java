@@ -47,6 +47,11 @@ public class UrlConstant {
         public static final String CREATE_USER = PRE_FIX + "/create-user";
         public static final String UPDATE_USER = PRE_FIX + "/update-user/{userId}";
         public static final String DELETE_USER = PRE_FIX + "/delete-user/{userId}";
+        public static final String SEARCH_USER_BY_USERNAME = PRE_FIX + "/search-user-by-username";
+        public static final String SEARCH_USER_BY_EMAIL = PRE_FIX + "/search-user-by-email";
+        public static final String SEARCH_USER_BY_PHONE = PRE_FIX + "/search-user-by-phone";
+
+        public static final String SEARCH_TRAINING_EXERCISE = PRE_FIX + "/search-training-exercise";
 
         public static final String LOCK_USER = PRE_FIX + "/lock-user/{userId}";
         public static final String UNLOCK_USER = PRE_FIX + "/unlock-user/{userId}";
@@ -54,9 +59,9 @@ public class UrlConstant {
         public static final String GET_ALL_USER = PRE_FIX + "/users-count";
 
         public static final String GET_ALL_EXERCISE = PRE_FIX + "/exercises";
-        public static final String CREATE_TRAINING_EXERCISE = PRE_FIX + "/create-training-exercises";
-        public static final String UPDATE_EXERCISE = PRE_FIX + "/update-exercise/{exerciseId}";
-        public static final String DELETE_EXERCISE = PRE_FIX + "/delete-exercise/{exerciseId}";
+
+        public static final String GET_USER_DAY = PRE_FIX + "/user-day";
+        public static final String GET_USER_MONTH = PRE_FIX + "/user-month";
 
         private Admin() {
         }

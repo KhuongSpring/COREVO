@@ -24,35 +24,25 @@ const LoginPage = () => {
           password: form.password,
         },
         {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
         }
       );
 
-      const { accessToken } = response.data.data;
+      const { accessToken, refreshToken } = response.data.data;
 
-      if (!accessToken) {
-        alert('No access token received.');
+      if (!accessToken || !refreshToken) {
+        alert('No token received.');
         return;
       }
-      
-      // Decode JWT payload
-      const base64Url = accessToken.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split('')
-          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-          .join('')
-      );
-      const payload = JSON.parse(jsonPayload);
 
+      // Giải mã JWT để lấy quyền
+      const payload = JSON.parse(atob(accessToken.split('.')[1]));
       const authorities = payload.authorities || [];
       const isAdmin = authorities.includes('ROLE_ADMIN');
 
       if (isAdmin) {
-        login(accessToken);
+        // Gọi AuthContext login để lưu token đúng chỗ
+        login(accessToken, refreshToken);
       } else {
         alert('You do not have admin privileges.');
       }
@@ -68,7 +58,6 @@ const LoginPage = () => {
     }
   };
 
-  // Tự điều hướng khi đã login xong
   useEffect(() => {
     if (isLoggedIn) {
       navigate('/home');
