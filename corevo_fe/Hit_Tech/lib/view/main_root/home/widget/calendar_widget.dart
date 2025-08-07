@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -9,12 +10,13 @@ class CalendarWidget extends StatefulWidget {
   final Function(DateTime)? onDaySelected;
   final DateTime? selectedDay;
   List<TrainingScheduleResponse> schedules = [];
+  final List<bool> currentMonthCompletions;
 
   CalendarWidget({
     super.key,
     this.onDaySelected,
     this.selectedDay,
-    required this.schedules,
+    required this.schedules, required this.currentMonthCompletions,
   });
 
   @override
@@ -45,6 +47,17 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           DateTime.now().year,
           DateTime.now().month,
         );
+
+    final DateTime now = DateTime.now();
+    final int year = now.year;
+    final int month = now.month;
+
+    final Set<DateTime> completedDays = {};
+    for (int i = 0; i < widget.currentMonthCompletions.length; i++) {
+      if (widget.currentMonthCompletions[i]) {
+        completedDays.add(DateTime(year, month, i + 1));
+      }
+    }
 
     return TableCalendar(
       firstDay: _firstDay,
@@ -78,7 +91,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         rightChevronIcon: Icon(Icons.chevron_right, color: Colors.black),
       ),
       calendarBuilders: CalendarBuilders(
-        markerBuilder: (context, day, events) {
+        markerBuilder: (context, day, focusDay) {
           final bool isMarked = _underlinedDays.any(
             (d) =>
                 d.year == day.year && d.month == day.month && d.day == day.day,
@@ -100,6 +113,31 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             );
           }
           return const SizedBox.shrink();
+        },
+        defaultBuilder: (context, day, _) {
+          final int dayIndex = day.day - 1;
+          final bool isInCurrentMonth = day.month == month && day.year == year;
+
+          if (isInCurrentMonth &&
+              dayIndex >= 0 &&
+              dayIndex < widget.currentMonthCompletions.length &&
+              widget.currentMonthCompletions[dayIndex]) {
+            return Container(
+              height: 45.sp,
+              width: 45.sp,
+              decoration: BoxDecoration(
+                color: Colors.greenAccent,
+                shape: BoxShape.circle,
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                '${day.day}',
+                style: const TextStyle(color: Colors.white),
+              ),
+            );
+          }
+
+          return null;
         },
       ),
     );

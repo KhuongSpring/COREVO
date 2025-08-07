@@ -1,17 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/model/response/exercise_set_progress.dart';
 import 'package:hit_tech/model/response/training/training_schedule_exercise_response.dart';
 import 'package:hit_tech/model/response/training/training_schedule_response.dart';
+import 'package:hit_tech/view/main_root/training/widget/active_dialog.dart';
 import 'package:hit_tech/view/main_root/training/widget/training_count_sec_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_color.dart';
 import '../../../model/response/training/training_exercise_preview_response.dart';
 import '../../../model/response/training/training_exercise_response.dart';
 import '../../../service/training_service.dart';
+import '../../../utils/change_notifier.dart';
 import '../../../utils/mapping_training_resource_helper.dart';
 import '../training_library/view/widgets/training_library_exercise_detail_widget.dart';
 
@@ -80,6 +84,16 @@ class _TrainingDayStartTrainingScreenState
     }
   }
 
+  Future<void> _handleCompleteExercise(int id) async {
+    try {
+      final response = await TrainingService.completeExercise(id);
+
+      if (response.status == 'SUCCESS') {}
+    } catch (e, stackTrace) {
+      print(stackTrace);
+    }
+  }
+
   List<ExerciseSetProgress> buildExerciseProgressList(
     List<TrainingScheduleExerciseResponse> exercises,
     Map<String, dynamic> completions,
@@ -141,69 +155,71 @@ class _TrainingDayStartTrainingScreenState
             ),
           ),
 
-          SafeArea(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {
+          Column(
+            children: [
+              SizedBox(height: 30.sp),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        ActiveDialog().showPauseDialog(context, () {
                           Navigator.pop(context);
-                        },
-                        icon: Icon(Icons.arrow_back_ios),
+                          Navigator.pop(context);
+                        });
+                      },
+                      icon: Icon(Icons.arrow_back_ios),
+                    ),
+                    Text(
+                      widget.schedule.name,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
                       ),
-                      Text(
-                        widget.schedule.name,
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    ),
+                    Text(
+                      formatSecondsToTime(totalTime),
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
                       ),
-                      Text(
-                        formatSecondsToTime(totalTime),
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(20),
-                    itemCount: widget.previewExercises.length,
-                    itemBuilder: (context, index) {
-                      final previewExercise = widget.previewExercises[index];
-                      final exercise = widget.exercises[index];
-                      final completedCount = exerciseProgressList[index]
-                          .setCompleted
-                          .where((c) => c)
-                          .length;
+              ),
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(20),
+                  itemCount: widget.previewExercises.length,
+                  itemBuilder: (context, index) {
+                    final previewExercise = widget.previewExercises[index];
+                    final exercise = widget.exercises[index];
+                    final completedCount = exerciseProgressList[index]
+                        .setCompleted
+                        .where((c) => c)
+                        .length;
 
-                      return _buildExerciseItem(
-                        previewExercise: previewExercise,
-                        exercise: exercise,
-                        isExpanded: _isExpandedList[index],
-                        onToggleExpand: () {
-                          setState(() {
-                            _isExpandedList[index] = !_isExpandedList[index];
-                          });
-                        },
-                        exerciseIndex: index,
-                        completedCount: completedCount,
-                      );
-                    },
-                  ),
+                    return _buildExerciseItem(
+                      previewExercise: previewExercise,
+                      exercise: exercise,
+                      isExpanded: _isExpandedList[index],
+                      onToggleExpand: () {
+                        setState(() {
+                          _isExpandedList[index] = !_isExpandedList[index];
+                        });
+                      },
+                      exerciseIndex: index,
+                      completedCount: completedCount,
+                    );
+                  },
                 ),
-                SizedBox(height: 40.sp),
-              ],
-            ),
+              ),
+              SizedBox(height: 40.sp),
+            ],
           ),
           Positioned(
             left: 16,
@@ -245,7 +261,22 @@ class _TrainingDayStartTrainingScreenState
                             int setIndex,
                             bool value,
                             int total,
-                          ) {
+                          ) async {
+                            if (setIndex ==
+                                exerciseProgressList[exerciseIndex].totalSets -
+                                    1) {
+                              int exerciseId =
+                                  exerciseProgressList[exerciseIndex]
+                                      .exerciseId;
+
+                              await _handleCompleteExercise(exerciseId);
+
+                              Provider.of<TrainingProgressNotifier>(
+                                context,
+                                listen: false,
+                              ).markNeedsRefresh();
+                            }
+
                             setState(() {
                               exerciseProgressList[exerciseIndex]
                                       .setCompleted[setIndex] =

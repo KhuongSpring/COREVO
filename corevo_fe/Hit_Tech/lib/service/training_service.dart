@@ -195,6 +195,30 @@ class TrainingService {
     }
   }
 
+  static Future<DefaultResponse> completeExercise(int id) async {
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.completeExercise,
+        data: {"exerciseId": id},
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+
+      return DefaultResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
+  }
+
   static Future<DefaultResponse> getDailyProgress() async {
     try {
       final response = await DioClient.dio.get(
@@ -218,10 +242,7 @@ class TrainingService {
     }
   }
 
-  static Future<DefaultResponse> getStatistic(
-    int year,
-    int month,
-  ) async {
+  static Future<DefaultResponse> getStatistic(int year, int month) async {
     try {
       final response = await DioClient.dio.get(
         ApiEndpoint.getStatistic,

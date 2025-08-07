@@ -253,7 +253,14 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 10),
                                   child: Text(
-                                    'Hôm nay',
+                                    (selectedIndex2 != selectedDay)
+                                        ? ((selectedDay - selectedIndex2)
+                                                          .abs() ==
+                                                      1 &&
+                                                  selectedIndex2 > selectedDay)
+                                              ? 'Tiếp theo'
+                                              : '${(selectedDay - selectedIndex2).abs()} ngày ${(selectedIndex2 < selectedDay) ? 'trước' : 'tới'}'
+                                        : 'Hôm nay',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
@@ -441,7 +448,13 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                 const SizedBox(height: 30),
                                 if (index != 6)
                                   Text(
-                                    'Tiếp theo',
+                                    (selectedIndex2 != selectedDay)
+                                        ? (selectedDay - selectedIndex2 - 1)
+                                                      .abs() ==
+                                                  0
+                                              ? 'Hôm nay'
+                                              : '${(selectedDay - selectedIndex2 - 1).abs()} ngày ${(selectedIndex2 < selectedDay) ? 'trước' : 'tới'}'
+                                        : 'Tiếp theo',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,

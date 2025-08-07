@@ -13,9 +13,11 @@ import 'package:hit_tech/view/auth/login_screen.dart';
 import 'package:hit_tech/view/main_root/home/widget/calendar_widget.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/notice_training_creation_widget.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/notice_training_selection_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../service/training_service.dart';
+import '../../../utils/change_notifier.dart';
 
 // Loi UI: percentage make screen extend height
 class HomeScreen extends StatefulWidget {
@@ -79,7 +81,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _handleGetProgressStatistic() async {
     try {
-      final response = await TrainingService.getStatistic(2025, 8);
+      final response = await TrainingService.getStatistic(
+        DateTime.now().year,
+        DateTime.now().month,
+      );
 
       if (response.status == 'SUCCESS') {
         setState(() {
@@ -91,6 +96,17 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     } catch (e, stackTrace) {
       print(stackTrace);
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final notifier = Provider.of<TrainingProgressNotifier>(context);
+    if (notifier.needRefresh) {
+      _handleTrainingDailyProgress();
+      _handleGetProgressStatistic();
+      notifier.resetRefreshFlag();
     }
   }
 
@@ -298,7 +314,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     child: IgnorePointer(
                       ignoring: true,
-                      child: CalendarWidget(schedules: schedules),
+                      child: CalendarWidget(
+                        schedules: schedules,
+                        currentMonthCompletions:
+                            progressStatistic!.currentMonthCompletions,
+                      ),
                     ),
                   ),
 

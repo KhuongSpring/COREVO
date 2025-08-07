@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hit_tech/utils/change_notifier.dart';
+import 'package:provider/provider.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/view/main_root/home/home_screen.dart';
@@ -18,7 +20,14 @@ import 'package:hit_tech/view/welcome_screen.dart';
 import 'view/main_root/home_root.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TrainingProgressNotifier()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
