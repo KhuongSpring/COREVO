@@ -158,15 +158,19 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
             Long totalExercisesForDay = completionRepository.countTotalExercisesByDay(trainingPlanId, checkDayOfWeek);
 
             if(totalExercisesForDay == 0){
-                completedDays++;
+                if (checkDate.isBefore(today) || checkDate.isEqual(today)) {
+                    completedDays++;
+                }
                 continue;
             }
 
-            List<TrainingExerciseCompletion> dayCompletions = completionRepository
-                    .findByUser_IdAndTrainingPlanIdAndCompletionDate(user.getId(), trainingPlanId, checkDate);
+            if (checkDate.isBefore(today) || checkDate.isEqual(today)) {
+                List<TrainingExerciseCompletion> dayCompletions = completionRepository
+                        .findByUser_IdAndTrainingPlanIdAndCompletionDate(user.getId(), trainingPlanId, checkDate);
 
-            if (dayCompletions.size() == totalExercisesForDay.intValue()) {
-                completedDays++;
+                if (dayCompletions.size() == totalExercisesForDay.intValue()) {
+                    completedDays++;
+                }
             }
         }
         double weeklyPercentage = (completedDays * 100.0) / 7;
