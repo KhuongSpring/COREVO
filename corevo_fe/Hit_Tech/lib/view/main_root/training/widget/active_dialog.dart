@@ -7,7 +7,6 @@ import '../../../../core/constants/app_color.dart';
 
 class ActiveDialog {
   void showPauseDialog(BuildContext context, VoidCallback exit) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     showDialog(
       context: context,
       barrierDismissible: true,
@@ -49,9 +48,7 @@ class ActiveDialog {
           ),
         );
       },
-    ).then((_) {
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    });
+    );
   }
 
   Widget _buildDialogButton({

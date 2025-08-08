@@ -218,7 +218,7 @@ class _TrainingDayStartTrainingScreenState
                   },
                 ),
               ),
-              SizedBox(height: 40.sp),
+              SizedBox(height: 80.sp),
             ],
           ),
           Positioned(

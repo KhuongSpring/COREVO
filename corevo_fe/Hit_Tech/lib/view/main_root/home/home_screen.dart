@@ -43,6 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
   TrainingProgressStatisticResponse? progressStatistic;
   bool _isLoading = true;
 
+  bool _isHaveNotice = false;
+
   @override
   void initState() {
     super.initState();
@@ -342,7 +344,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '${progressStatistic?.currentStreak} Ngày Streak',
+                                    'Chuỗi ${progressStatistic?.currentStreak} ngày',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
@@ -379,29 +381,40 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
                         child: Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: AppColors.bNormal,
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           width: screenWidth * 0.25,
                           child: Column(
-                            children: const [
-                              Text(
-                                'Tiếp theo',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                              ),
+                            children: [
+                              _isHaveNotice
+                                  ? Text(
+                                      'Tiếp theo',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  : Icon(Icons.alarm, color: Colors.white, size: 22,),
                               SizedBox(height: 8),
-                              Text(
-                                '-- : --',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              _isHaveNotice
+                                  ? Text(
+                                      '-- : --',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  : Text(
+                                      'Tạo lời nhắc',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                             ],
                           ),
                         ),

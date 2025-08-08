@@ -16,7 +16,8 @@ class CalendarWidget extends StatefulWidget {
     super.key,
     this.onDaySelected,
     this.selectedDay,
-    required this.schedules, required this.currentMonthCompletions,
+    required this.schedules,
+    required this.currentMonthCompletions,
   });
 
   @override
@@ -60,28 +61,14 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     }
 
     return TableCalendar(
+      rowHeight: 45,
       firstDay: _firstDay,
       lastDay: _lastDay,
       focusedDay: _focusedDay,
       selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
-      onDaySelected: (selected, focused) {
-        setState(() {
-          _selectedDay = selected;
-        });
-        widget.onDaySelected?.call(selected);
-      },
-      calendarStyle: const CalendarStyle(
-        defaultTextStyle: TextStyle(color: Colors.black),
-        todayTextStyle: TextStyle(color: Colors.white),
-        selectedTextStyle: TextStyle(color: Colors.white),
-        todayDecoration: BoxDecoration(
-          color: AppColors.bNormal,
-          shape: BoxShape.circle,
-        ),
-        selectedDecoration: BoxDecoration(
-          color: AppColors.bNormal,
-          shape: BoxShape.circle,
-        ),
+      calendarStyle: CalendarStyle(
+        defaultTextStyle: const TextStyle(color: Colors.black),
+        todayTextStyle: const TextStyle(color: Colors.white),
       ),
       headerStyle: const HeaderStyle(
         titleTextStyle: TextStyle(color: Colors.black),
@@ -92,54 +79,67 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       ),
       calendarBuilders: CalendarBuilders(
         markerBuilder: (context, day, focusDay) {
+          final DateTime today = DateTime.now();
           final bool isMarked = _underlinedDays.any(
-            (d) =>
-                d.year == day.year && d.month == day.month && d.day == day.day,
+                (d) => d.year == day.year && d.month == day.month && d.day == day.day,
           );
+
+          final int dayIndex = day.day - 1;
+          final bool isCompleted = day.month == today.month &&
+              day.year == today.year &&
+              dayIndex >= 0 &&
+              dayIndex < widget.currentMonthCompletions.length &&
+              widget.currentMonthCompletions[dayIndex];
+
+          if (isMarked && day.isBefore(DateTime(today.year, today.month, today.day)) && !isCompleted) {
+            return Positioned(
+              bottom: 6,
+              child: Container(
+                width: 6,
+                height: 6,
+                decoration: const BoxDecoration(
+                  color: Colors.red,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            );
+          }
 
           if (isMarked) {
             final bool isToday = isSameDay(day, DateTime.now());
-
             return Positioned(
-              bottom: 12,
+              bottom: 6,
               child: Container(
                 width: 5,
                 height: 5,
                 decoration: BoxDecoration(
                   color: isToday ? Colors.white : AppColors.bNormal,
-                  shape: BoxShape.circle,
+                  shape: BoxShape.circle
                 ),
               ),
             );
           }
           return const SizedBox.shrink();
         },
-        defaultBuilder: (context, day, _) {
-          final int dayIndex = day.day - 1;
-          final bool isInCurrentMonth = day.month == month && day.year == year;
-
-          if (isInCurrentMonth &&
-              dayIndex >= 0 &&
-              dayIndex < widget.currentMonthCompletions.length &&
-              widget.currentMonthCompletions[dayIndex]) {
-            return Container(
-              height: 45.sp,
-              width: 45.sp,
-              decoration: BoxDecoration(
-                color: Colors.greenAccent,
-                shape: BoxShape.circle,
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                '${day.day}',
-                style: const TextStyle(color: Colors.white),
-              ),
-            );
-          }
-
-          return null;
+        todayBuilder: (context, day, focusedDay) {
+          return Container(
+            height: 45.sp,
+            width: 45.sp,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: AppColors.bNormal,
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              '${day.day}',
+              style: const TextStyle(color: Colors.white),
+            ),
+          );
         },
       ),
     );
+
+
   }
 }

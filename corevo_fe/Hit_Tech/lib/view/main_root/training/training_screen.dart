@@ -116,14 +116,21 @@ class _TrainingScreenState extends State<TrainingScreen> {
                       children: List.generate(days.length, (index) {
                         int status;
                         if (index < selectedDay &&
-                            progressStatistic!.currentMonthCompletions[index]) {
+                            progressStatistic!
+                                .currentMonthCompletions[days[index].day - 1]) {
                           status = 1;
                         } else if (index < selectedDay &&
                             !progressStatistic!
-                                .currentMonthCompletions[index]) {
+                                .currentMonthCompletions[days[index].day - 1]) {
                           status = 3;
-                        } else if (index == selectedDay) {
+                        } else if (index == selectedDay &&
+                            !progressStatistic!
+                                .currentMonthCompletions[days[index].day - 1]) {
                           status = 2;
+                        } else if (index == selectedDay &&
+                            progressStatistic!
+                                .currentMonthCompletions[days[index].day - 1]) {
+                          status = 4;
                         } else {
                           status = 3;
                         }
@@ -144,6 +151,15 @@ class _TrainingScreenState extends State<TrainingScreen> {
                             textColor = AppColors.bNormal;
                             break;
                           case 3:
+                            bgColor = Colors.transparent;
+                            iconAsset = TrainingAssets.prizeNotActiveIcon;
+                            textColor = const Color(0xffb6abab);
+                            break;
+                          case 4:
+                            bgColor = AppColors.prizeSelected;
+                            iconAsset = TrainingAssets.prizeActiveIcon;
+                            textColor = AppColors.bNormal;
+                            break;
                           default:
                             bgColor = Colors.transparent;
                             iconAsset = TrainingAssets.prizeNotActiveIcon;
@@ -595,19 +611,32 @@ class _TrainingScreenState extends State<TrainingScreen> {
             style: TextStyle(fontSize: 14, color: Colors.black),
           ),
           SizedBox(height: 20.sp),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.bNormal,
-              foregroundColor: AppColors.wWhite,
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 15),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+          Container(
+            width: 145.sp,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.bNormal,
+                foregroundColor: AppColors.wWhite,
+                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
               ),
-            ),
-            child: Text(
-              'Thêm mới    +',
-              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Thêm mới',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(Icons.add, color: Colors.white, size: 20),
+                ],
+              ),
             ),
           ),
         ],

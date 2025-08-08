@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:intl/intl.dart';
@@ -104,7 +105,7 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
                             });
                           }
                         },
-                        child: AbsorbPointer(child: _buildTextField()),
+                        child: AbsorbPointer(child: _buildTextField(false)),
                       )
                     : widget.type == 'Quốc tịch'
                     ? GestureDetector(
@@ -146,9 +147,11 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
                             },
                           );
                         },
-                        child: AbsorbPointer(child: _buildTextField()),
+                        child: AbsorbPointer(child: _buildTextField(false)),
                       )
-                    : _buildTextField(),
+                    : widget.type == 'Số điện thoại'
+                    ? _buildTextField(true)
+                    : _buildTextField(false),
               ),
               SizedBox(height: 25.sp),
               const Divider(height: 1, color: AppColors.bLightActive),
@@ -195,14 +198,18 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
     );
   }
 
-  Widget _buildTextField() {
+  Widget _buildTextField(bool isPhone) {
     return CupertinoTextField(
       focusNode: _focusNode,
       controller: widget.controller,
       placeholder: 'Nhập ${widget.type.toLowerCase()}',
       clearButtonMode: OverlayVisibilityMode.editing,
       padding: const EdgeInsets.all(12),
+      keyboardType: isPhone ? TextInputType.number : TextInputType.text,
       decoration: const BoxDecoration(),
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+      ],
     );
   }
 }

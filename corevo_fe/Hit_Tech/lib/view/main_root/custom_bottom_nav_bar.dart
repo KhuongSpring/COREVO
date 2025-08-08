@@ -41,7 +41,7 @@ class CustomBottomNavBar extends StatelessWidget {
       "Tổng quan",
       "Thư viện",
       "Luyện tập",
-      "Feeds",
+      "Cộng đồng",
       "Cá nhân",
     ];
 

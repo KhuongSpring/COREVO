@@ -153,11 +153,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _handleLoginWithGoogle() async {
     await SharedPreferencesService.clearAll();
+
     try {
+      await _googleSignIn.signOut();
+
       final account = await _googleSignIn.signIn();
       final auth = await account?.authentication;
 
       final idToken = auth?.idToken;
+
       if (idToken != null) {
         final response = await AuthService.loginWithGoogle(
           Oauth2GoogleRequest(idToken: idToken),

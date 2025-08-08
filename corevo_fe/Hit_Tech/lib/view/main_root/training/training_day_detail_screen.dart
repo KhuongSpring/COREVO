@@ -222,11 +222,13 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                                 SizedBox(width: 10.sp),
                                 SizedBox(
                                   width: 250.sp,
-                                  child: Text(
-                                    widget.schedule.exerciseGroups!.note ?? '',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black,
+                                  child: Center(
+                                    child: Text(
+                                      widget.schedule.exerciseGroups!.note ?? '',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ),
                                 ),

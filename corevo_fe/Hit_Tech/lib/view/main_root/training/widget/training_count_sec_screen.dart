@@ -17,7 +17,7 @@ class TrainingCountSecScreen extends StatefulWidget {
   final int exerciseId;
   final ExerciseSetProgress exerciseSetProgress;
   final int exerciseIndex;
-  final void Function(int exerciseIndex, int setIndex, bool value, int total)
+  final Future<void> Function(int exerciseIndex, int setIndex, bool value, int total)
   onSetCompleted;
   final int totalSet;
   final int completedSet;
@@ -130,20 +130,20 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
 
   void _startTimer() {
     _timer?.cancel();
-    _timer = Timer.periodic(Duration(seconds: 1), (_) {
+    _timer = Timer.periodic(Duration(seconds: 1), (_) async {
       if (_remainingSeconds > 0) {
         setState(() => _remainingSeconds--);
       } else {
         if (_currentPhase == TimerPhase.rest) {
           _timer?.cancel();
-          if (mounted) {
-            widget.onSetCompleted(
+          if (mounted){
+            await widget.onSetCompleted(
               widget.exerciseIndex,
               _setIndex,
               true,
               _workDuration + _restDuration,
             );
-            Navigator.pop(context);
+            if (mounted) Navigator.pop(context);
             return;
           }
         } else if (_currentPhase == TimerPhase.work) {

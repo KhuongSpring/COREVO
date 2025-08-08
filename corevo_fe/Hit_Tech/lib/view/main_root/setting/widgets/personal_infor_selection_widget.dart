@@ -200,6 +200,15 @@ class _PersonalInforSelectionWidgetState
         onCancel: () => Navigator.of(context).pop(),
         onSave: () async {
           final type = mappingField(label);
+          if (type == 'phone') {
+            final phone = _controller.text.trim();
+
+            if (!isValidVietnamPhone(phone)) {
+              _showSnackBar('Số điện thoại không hợp lệ', isError: true);
+              return;
+            }
+          }
+
           final Map<String, dynamic> requestBody = {
             "password": 'GoogleLogin123@',
             "profileData": {
@@ -261,5 +270,27 @@ class _PersonalInforSelectionWidgetState
       'Quốc tịch': 'nationality',
     };
     return mapping[title] ?? title;
+  }
+
+  bool isValidVietnamPhone(String phone) {
+    phone = phone.trim();
+
+    if (phone.startsWith('+84')) {
+      phone = '0${phone.substring(3)}';
+    }
+
+    final regex = RegExp(r'^(03|05|07|08|09)\d{8}$');
+
+    return regex.hasMatch(phone);
+  }
+
+  void _showSnackBar(String message, {bool isError = false}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: isError ? Colors.red : Colors.green,
+        duration: Duration(seconds: 3),
+      ),
+    );
   }
 }

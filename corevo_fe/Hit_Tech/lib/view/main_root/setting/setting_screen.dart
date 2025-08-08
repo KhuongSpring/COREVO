@@ -12,6 +12,7 @@ import 'package:hit_tech/view/main_root/setting/widgets/personal_infor_selection
 import 'package:hit_tech/view/main_root/setting/widgets/privacy_and_terms_screen.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/remove_screen.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 import '../../../service/auth_service.dart';
 import '../../../service/shared_preferences.dart';
@@ -68,7 +69,12 @@ class _SettingScreenState extends State<SettingScreen> {
 
   Future<void> _pickImage(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile = await picker.pickImage(source: source);
+    final XFile? pickedFile = await picker.pickImage(
+      source: source,
+      imageQuality: 75,
+      maxWidth: 800,
+      maxHeight: 800,
+    );
 
     if (pickedFile != null) {
       final file = File(pickedFile.path);
