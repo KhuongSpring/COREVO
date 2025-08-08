@@ -11,12 +11,15 @@ import com.example.corevo.domain.dto.response.user.AccountDeletionResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 import com.example.corevo.domain.entity.user.User;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface UserService {
 
     UserResponseDto personalInformation(Authentication authentication, PersonalInformationRequestDto request);
 
-    UserResponseDto uploadAvatar(Authentication authentication, String url);
+    UserResponseDto uploadAvatar(Authentication authentication, MultipartFile file) throws IOException;
 
     AccountDeletionResponseDto deleteMyAccount(Authentication authentication);
 

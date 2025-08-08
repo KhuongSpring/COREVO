@@ -22,10 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.time.temporal.TemporalAdjusters;
 
 @Service
@@ -255,17 +252,26 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         return monthName[month - 1];
     }
 
-    private Integer calculateCurrentStreak(List<LocalDate> allCompletionDates, LocalDate today){
-        if(allCompletionDates.isEmpty()) return 0;
+    private Integer calculateCurrentStreak(List<LocalDate> allCompletionDates, LocalDate today) {
+        if (allCompletionDates.isEmpty()) return 0;
+
+        Set<LocalDate> completionSet = new HashSet<>(allCompletionDates);
 
         int streak = 0;
         LocalDate checkDate = today;
-        while(allCompletionDates.contains(checkDate)){
+
+        if (!completionSet.contains(today)) {
+            checkDate = today.minusDays(1);
+        }
+
+        while (completionSet.contains(checkDate)) {
             streak++;
             checkDate = checkDate.minusDays(1);
         }
+
         return streak;
     }
+
 
     private Integer calculateLongestStreak(List<LocalDate> allCompletionDates){
         if (allCompletionDates.isEmpty()) return 0;

@@ -1,5 +1,7 @@
 package com.example.corevo.service.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.example.corevo.constant.*;
 import com.example.corevo.domain.dto.pagination.*;
 import com.example.corevo.domain.dto.request.admin.*;
@@ -26,8 +28,10 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -39,6 +43,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @AllArgsConstructor
@@ -62,6 +67,9 @@ public class UserServiceImpl implements UserService {
     HealthCalculationService healthCalculationService;
 
     PersonalInformationHelper stringPersonalInformationHelper;
+
+    Cloudinary cloudinary;
+
 
     @Override
     public UserResponseDto personalInformation(
@@ -111,15 +119,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto uploadAvatar(
             Authentication authentication,
-            String url
-    ) {
-
+            MultipartFile file
+    ) throws IOException {
         if (!userRepository.existsUserByUsername(authentication.getName()))
             throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         User user = userRepository.findByUsername(authentication.getName());
 
-        user.setLinkAvatar(url);
+        if (user.getAvatarPublicId() != null) {
+            cloudinary.uploader().destroy(user.getAvatarPublicId(), ObjectUtils.emptyMap());
+        }
+
+        String imageUrl;
+        String publicId;
+        try {
+            Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+            imageUrl = (String) result.get("secure_url");
+            publicId = (String) result.get("public_id");
+        } catch (Exception e) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
+        }
+
+        if (!userRepository.existsUserByUsername(authentication.getName()))
+            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+
+        user.setLinkAvatar(imageUrl);
+        user.setAvatarPublicId(publicId);
 
         userRepository.save(user);
 

@@ -11,6 +11,7 @@ import com.example.corevo.domain.dto.request.admin.CreateUserRequestDto;
 import com.example.corevo.domain.dto.request.admin.UpdateUserRequestDto;
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.PersonalInformationRequestDto;
 import com.example.corevo.domain.dto.request.user.profile.ConfirmPasswordRequestDto;
+import com.example.corevo.domain.entity.user.User;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,7 +38,6 @@ import java.util.Map;
 public class UserController {
 
     UserService userService;
-    Cloudinary cloudinary;
 
     @Operation(
             summary = "Điền thông tin cá nhân",
@@ -61,15 +61,8 @@ public class UserController {
     public ResponseEntity<?> uploadAvatar(
             @RequestParam("file") MultipartFile file,
             Authentication authentication
-    ) {
-        try {
-            Map<?, ?> result = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
-            String imageUrl = (String) result.get("secure_url");
-
-            return VsResponseUtil.success(userService.uploadAvatar(authentication, imageUrl));
-        } catch (Exception e) {
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
-        }
+    ) throws IOException {
+            return VsResponseUtil.success(userService.uploadAvatar(authentication, file));
     }
 
     @Operation(
