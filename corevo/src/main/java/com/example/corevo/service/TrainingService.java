@@ -2,7 +2,10 @@ package com.example.corevo.service;
 
 import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.pagination.PaginationResponseDto;
+import com.example.corevo.domain.dto.request.admin.CreateTrainingExerciseRequestDto;
+import com.example.corevo.domain.dto.request.admin.UpdateTrainingExerciseRequestDto;
 import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
+import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.training.*;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseLevelPreviewResponseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExercisePreviewResponseDto;
@@ -23,8 +26,13 @@ public interface TrainingService {
     List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByGoal(String goal,
                                                                            PaginationRequestDto paginationRequestDto);
 
+    PaginationResponseDto<TrainingExerciseResponseDto> getAllExercise(PaginationRequestDto paginationRequestDto);
+
     PaginationResponseDto<TrainingExercisePreviewResponseDto> searchExercise(TrainingExerciseSearchingRequestDto request,
                                                             PaginationRequestDto paginationRequestDto);
+
+    PaginationResponseDto<TrainingExerciseResponseDto> searchTrainingExercise(TrainingExerciseSearchingRequestDto request,
+                                                                             PaginationRequestDto paginationRequestDto);
 
     TrainingExerciseResponseDto getTrainingExerciseById(Long id);
 
@@ -46,4 +54,5 @@ public interface TrainingService {
 
     PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlanByType(String type,
                                                                          PaginationRequestDto paginationRequestDto);
+
 }

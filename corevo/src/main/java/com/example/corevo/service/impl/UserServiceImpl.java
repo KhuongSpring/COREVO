@@ -10,7 +10,10 @@ import com.example.corevo.domain.dto.request.user.enter_personal_infomation.Upda
 import com.example.corevo.domain.dto.request.user.health.UpdateHealthRequestDto;
 import com.example.corevo.domain.dto.request.user.health.UserHealthRequestDto;
 import com.example.corevo.domain.dto.request.user.profile.ConfirmPasswordRequestDto;
+import com.example.corevo.domain.dto.request.user.sreach.UserSearchingRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
+import com.example.corevo.domain.dto.response.admin.DayCountResponseDto;
+import com.example.corevo.domain.dto.response.admin.MonthCountResponseDto;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
 import com.example.corevo.domain.dto.response.user.*;
 import com.example.corevo.domain.dto.response.user.health.UserHealthResponseDto;
@@ -34,6 +37,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.time.YearMonth;
+import java.time.format.TextStyle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -435,6 +441,7 @@ public class UserServiceImpl implements UserService {
         return userResponseDto;
     }
 
+
     private void calculateHealthData(UserHealth userHealth) {
 
         UserHealthRequestDto healthRequest = new UserHealthRequestDto();
@@ -474,9 +481,157 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public long countAllUser(){
-        long count = userRepository.count();
-        return count;
+    public PaginationResponseDto<UserResponseDto> searchUserByUsername(
+            UserSearchingRequestDto request,
+            PaginationRequestDto paginationRequestDto){
+
+        List<UserResponseDto> result;
+
+        Pageable pageable = PageRequest.of(
+                paginationRequestDto.getPageNum(),
+                paginationRequestDto.getPageSize()
+        );
+
+        Page<User> userPage = userRepository.
+                findUserByUsernameContainingIgnoreCase(
+                    request.getSearchSentence(),
+                    pageable);
+
+        result = userPage.getContent()
+                .stream()
+                .map(userMapper::userToUserResponseDto)
+                .filter(Objects::nonNull)
+                .toList();
+
+        PagingMeta pagingMeta = new PagingMeta(
+                userPage.getTotalElements(),
+                userPage.getTotalPages(),
+                paginationRequestDto.getPageNum()+1,
+                paginationRequestDto.getPageSize(),
+                null,
+                null);
+
+        return new PaginationResponseDto<>(pagingMeta,result);
+    }
+
+    @Override
+    public PaginationResponseDto<UserResponseDto> searchUserByEmail(
+            UserSearchingRequestDto request,
+            PaginationRequestDto paginationRequestDto){
+
+        List<UserResponseDto> result;
+
+        Pageable pageable = PageRequest.of(
+                paginationRequestDto.getPageNum(),
+                paginationRequestDto.getPageSize()
+        );
+
+        Page<User> userPage = userRepository.
+                findUserByEmailContainingIgnoreCase(
+                        request.getSearchSentence(),
+                        pageable);
+
+        result = userPage.getContent()
+                .stream()
+                .map(userMapper::userToUserResponseDto)
+                .filter(Objects::nonNull)
+                .toList();
+
+        PagingMeta pagingMeta = new PagingMeta(
+                userPage.getTotalElements(),
+                userPage.getTotalPages(),
+                paginationRequestDto.getPageNum()+1,
+                paginationRequestDto.getPageSize(),
+                null,
+                null);
+
+        return new PaginationResponseDto<>(pagingMeta,result);
+    }
+
+    @Override
+    public PaginationResponseDto<UserResponseDto> searchUserByPhone(
+            UserSearchingRequestDto request,
+            PaginationRequestDto paginationRequestDto){
+
+        List<UserResponseDto> result;
+
+        Pageable pageable = PageRequest.of(
+                paginationRequestDto.getPageNum(),
+                paginationRequestDto.getPageSize()
+        );
+
+        Page<User> userPage = userRepository.
+                findUserByPhoneContaining(
+                        request.getSearchSentence(),
+                        pageable);
+
+        result = userPage.getContent()
+                .stream()
+                .map(userMapper::userToUserResponseDto)
+                .filter(Objects::nonNull)
+                .toList();
+
+        PagingMeta pagingMeta = new PagingMeta(
+                userPage.getTotalElements(),
+                userPage.getTotalPages(),
+                paginationRequestDto.getPageNum()+1,
+                paginationRequestDto.getPageSize(),
+                null,
+                null);
+
+        return new PaginationResponseDto<>(pagingMeta,result);
+    }
+
+    @Override
+    public List<DayCountResponseDto> getUserDayCounts() {
+        LocalDate today = LocalDate.now();
+        LocalDate startDate = today.minusDays(6);
+
+        List<Object[]> results = userRepository.countUserByDay(startDate);
+
+        Map<LocalDate, Long> countMap = new HashMap<LocalDate, Long>();
+        for (Object[] row : results) {
+            LocalDate day = ((java.sql.Date) row[0]).toLocalDate();
+            Long count = (Long) row[1];
+            countMap.put(day, count);
+        }
+
+        List<DayCountResponseDto> result = new ArrayList<>();
+        for(int i = 0; i < 7; i++){
+            LocalDate day = startDate.plusDays(i);
+            String dayName = day.getDayOfWeek().toString();
+            Long count = countMap.getOrDefault(day,0L);
+            result.add(new DayCountResponseDto(dayName,count));
+        }
+        return result;
+    }
+
+    @Override
+    public List<MonthCountResponseDto> getUserMonthCounts() {
+        LocalDate today = LocalDate.now();
+        LocalDate startDate = today.minusMonths(11).withDayOfMonth(1);
+
+        List<Object[]> results = userRepository.countUserByMonth(startDate);
+
+        Map<YearMonth, Long> countMap = new HashMap<>();
+        for (Object[] row : results) {
+            YearMonth month = YearMonth.parse((String) row[0]); // "2025-08"
+            Long count = (Long) row[1];
+            countMap.put(month, count);
+        }
+
+        List<MonthCountResponseDto> result = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            YearMonth month = YearMonth.from(startDate.plusMonths(i));
+            Long count = countMap.getOrDefault(month, 0L);
+
+            String formattedMonth = month.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH)
+                    + " " + month.getYear(); // e.g., "August 2025"
+
+            result.add(new MonthCountResponseDto(formattedMonth, count));
+        }
+
+        return result;
     }
 
 }

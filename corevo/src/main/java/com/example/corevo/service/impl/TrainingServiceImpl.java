@@ -1,10 +1,14 @@
 package com.example.corevo.service.impl;
 
 import com.example.corevo.constant.ErrorMessage;
+import com.example.corevo.constant.SuccessMessage;
 import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.pagination.PaginationResponseDto;
 import com.example.corevo.domain.dto.pagination.PagingMeta;
+import com.example.corevo.domain.dto.request.admin.CreateTrainingExerciseRequestDto;
+import com.example.corevo.domain.dto.request.admin.UpdateTrainingExerciseRequestDto;
 import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
+import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.training.*;
 import com.example.corevo.domain.dto.response.training_exercise.*;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
@@ -285,6 +289,29 @@ public class TrainingServiceImpl implements TrainingService {
         }
 
         @Override
+        public PaginationResponseDto<TrainingExerciseResponseDto> getAllExercise(PaginationRequestDto paginationRequestDto) {
+
+                Pageable pageable = PageRequest.of(paginationRequestDto.getPageNum(),paginationRequestDto.getPageSize());
+
+                Page<TrainingExercise> exercisesPage = trainingExerciseRepository.findAll(pageable);
+
+                List<TrainingExerciseResponseDto> exercises = exercisesPage.getContent()
+                        .stream()
+                        .map(trainingExerciseMapper::trainingExerciseToTrainingExerciseResponseDto)
+                        .collect(Collectors.toList());
+
+                PagingMeta pagingMeta = new PagingMeta(
+                        exercisesPage.getTotalElements(),
+                        exercisesPage.getTotalPages(),
+                        paginationRequestDto.getPageNum() + 1,
+                        paginationRequestDto.getPageSize(),
+                        null,
+                        null);
+
+                return new PaginationResponseDto<>(pagingMeta, exercises);
+        }
+
+        @Override
         public PaginationResponseDto<TrainingExercisePreviewResponseDto> searchExercise(
                         TrainingExerciseSearchingRequestDto request,
                         PaginationRequestDto paginationRequestDto) {
@@ -313,6 +340,40 @@ public class TrainingServiceImpl implements TrainingService {
                                 paginationRequestDto.getPageSize(),
                                 null,
                                 null);
+
+                return new PaginationResponseDto<>(pagingMeta, result);
+
+        }
+
+        @Override
+        public PaginationResponseDto<TrainingExerciseResponseDto> searchTrainingExercise(
+                TrainingExerciseSearchingRequestDto request,
+                PaginationRequestDto paginationRequestDto) {
+
+                List<TrainingExerciseResponseDto> result;
+
+                Pageable pageable = PageRequest.of(
+                        paginationRequestDto.getPageNum(),
+                        paginationRequestDto.getPageSize());
+
+                Page<TrainingExercise> trainingExercisesPage = trainingExerciseRepository
+                        .findByNameContainingIgnoreCase(
+                                request.getSearchSentence(),
+                                pageable);
+
+                result = trainingExercisesPage.getContent()
+                        .stream()
+                        .map(trainingExerciseMapper::trainingExerciseToTrainingExerciseResponseDto )
+                        .filter(Objects::nonNull)
+                        .toList();
+
+                PagingMeta pagingMeta = new PagingMeta(
+                        trainingExercisesPage.getTotalElements(),
+                        trainingExercisesPage.getTotalPages(),
+                        paginationRequestDto.getPageNum() + 1,
+                        paginationRequestDto.getPageSize(),
+                        null,
+                        null);
 
                 return new PaginationResponseDto<>(pagingMeta, result);
 
