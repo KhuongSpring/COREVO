@@ -1,12 +1,10 @@
-// AddUserModal.scss
-
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(30, 58, 138, 0.2);
+  background: rgba(30, 58, 138, 0.3); /* Sửa độ mờ của background */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,6 +25,7 @@
     color: #1e3a8a;
     margin-bottom: 1.5rem;
     text-align: center;
+    font-weight: 600;
   }
 
   .form-step {
@@ -42,6 +41,8 @@
       font-size: 1rem;
       outline: none;
       transition: border 0.2s ease;
+      margin-bottom: 0.75rem; /* Tạo khoảng cách giữa các input */
+      width: 100%; /* Đảm bảo các input có chiều rộng đầy đủ */
 
       &:focus {
         border-color: #1e3a8a;
@@ -64,6 +65,8 @@
       font-size: 1rem;
       cursor: pointer;
       transition: background-color 0.2s ease;
+      width: 48%; /* Điều chỉnh nút có cùng chiều rộng */
+      text-align: center;
 
       &.confirm {
         background-color: #1e3a8a;

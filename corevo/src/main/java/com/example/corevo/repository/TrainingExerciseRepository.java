@@ -23,6 +23,8 @@ public interface TrainingExerciseRepository extends JpaRepository<TrainingExerci
 
     List<TrainingExercise> findByLevels_IdAndGoals_Id(Long levelsId, Optional<Long> goalsId);
 
+    boolean existsTrainingExercisesByName(String name);
+
     @Query("""
            SELECT DISTINCT te FROM TrainingExercise te
            WHERE (:name IS NULL OR LOWER(te.name) LIKE LOWER(CONCAT('%', :name, '%')))

@@ -8,9 +8,9 @@
   font-weight: 600;
   border-radius: 0.65rem;
   font-size: 1rem;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   margin-bottom: 1.5rem;
   box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 
   svg {
     width: 18px;
@@ -33,7 +33,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-
   margin-bottom: 2rem;
 
   input,
@@ -103,100 +102,66 @@
     font-size: 0.95rem;
   }
 
-  button.edit,
-  button.delete {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f3f4f6;
-    border-radius: 0.375rem;
-    padding: 0.4rem 0.55rem;
-    margin: 0 0.2rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+  button {
+    &.edit,
+    &.delete,
+    &.view,
+    &.lock,
+    &.unlock {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f3f4f6;
+      border-radius: 0.375rem;
+      padding: 0.4rem 0.55rem;
+      margin: 0 0.2rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background-color 0.2s ease, transform 0.1s ease;
 
-    svg {
-      width: 16px;
-      height: 16px;
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      &:active {
+        transform: scale(0.96);
+      }
     }
-  }
 
-  button.edit {
-    &:hover {
+    &.edit:hover {
       background-color: #dbeafe;
     }
-  }
 
-  button.delete {
-    &:hover {
+    &.delete:hover {
       background-color: #fee2e2;
     }
-  }
 
-  button.view {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f3f4f6;
-    border-radius: 0.375rem;
-    padding: 0.4rem 0.55rem;
-    margin: 0 0.2rem;
-    border: none;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-
-    &:hover {
+    &.view:hover {
       background-color: #e0f2fe;
     }
 
-    &:active {
-      transform: scale(0.96);
-    }
-  }
-
-  button.lock {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f3f4f6;
-    border-radius: 0.375rem;
-    padding: 0.4rem 0.55rem;
-    margin: 0 0.2rem;
-    border: none;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-
-    &:hover {
+    &.lock:hover {
       background-color: #fef3c7;
     }
 
-    &:active {
-      transform: scale(0.96);
-    }
-  }
-
-  button.unlock {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f3f4f6;
-    border-radius: 0.375rem;
-    padding: 0.4rem 0.55rem;
-    margin: 0 0.2rem;
-    border: none;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-
-    &:hover {
+    &.unlock:hover {
       background-color: #dcfce7;
     }
 
-    &:active {
-      transform: scale(0.96);
+    &.lock.locked {
+      background-color: #fee2e2;
+      color: #b91c1c;
+      font-weight: 600;
+
+      svg {
+        stroke: #b91c1c;
+      }
+
+      &:hover {
+        background-color: #fecaca;
+      }
     }
   }
 
@@ -205,6 +170,7 @@
     transition: background-color 0.3s ease;
   }
 }
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -237,24 +203,9 @@
     }
   }
 
-
-  
   span {
     font-size: 1rem;
     font-weight: 500;
     color: #1e293b;
-  }
-}
-.user-table button.lock.locked {
-  background-color: #fee2e2; /* đỏ nhạt */
-  color: #b91c1c; /* đỏ chữ */
-  font-weight: 600;
-
-  &:hover {
-    background-color: #fecaca;
-  }
-
-  svg {
-    stroke: #b91c1c;
   }
 }

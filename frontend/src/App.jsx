@@ -3,10 +3,12 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/Auth/LoginPage";
 import HomePage from "./pages/home/HomePage";
 import UserManagement from "./pages/home/UserPage";
-import { AuthContext } from "./context/AuthContext"; // Đã sửa lại cho đúng với .jsx
+import ExercisePage from "./pages/exercise/ExercisePage";
+import { AuthContext } from "./context/AuthContext";
 
 const App = () => {
   const { isLoggedIn } = useContext(AuthContext);
+  console.log("isLogged", isLoggedIn);
 
   return (
     <BrowserRouter>
@@ -19,15 +21,15 @@ const App = () => {
         />
         <Route
           path="/home"
-          element={
-            isLoggedIn ? <HomePage /> : <Navigate to="/" replace />
-          }
+          element={isLoggedIn ? <HomePage /> : <Navigate to="/" replace />}
         />
         <Route
           path="/users"
-          element={
-            isLoggedIn ? <UserManagement /> : <Navigate to="/" replace />
-          }
+          element={isLoggedIn ? <UserManagement /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/exercise"
+          element={isLoggedIn ? <ExercisePage /> : <Navigate to="/" replace />}
         />
       </Routes>
     </BrowserRouter>
