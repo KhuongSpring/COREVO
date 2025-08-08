@@ -55,7 +55,7 @@ class MappingTrainingResourceHelper {
       "Lose fat": "Giảm cân / Giảm mỡ",
       "Gain weight": "Tăng cân",
       "Gain muscle": "Tăng cơ",
-      "Maintain body": "Duy trì vóc dáng",
+      "Maintain Body": "Duy trì vóc dáng",
       "Increase endurance": "Tăng sức bền",
       "Improve cardiovascular": "Cải thiện tim mạch",
       "Stress relief/relaxation": "Giảm stress, thư giãn",

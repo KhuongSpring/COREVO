@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_message.dart';
 import 'package:hit_tech/service/auth_service.dart';
 import 'package:hit_tech/view/auth/reset_password_screen.dart';
@@ -207,222 +208,224 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               fit: BoxFit.cover,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 20),
-                SizedBox(
-                  height: 70,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back_ios,
-                            color: AppColors.bNormal,
-                            size: 28,
-                          ),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ),
-
-                      if (widget.isRegister == false)
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Text(
-                              "Quên mật khẩu",
-                              style: TextStyle(
-                                fontSize: 32,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.dark,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: List.generate(3, (index) {
-                                return Container(
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 4,
-                                  ),
-                                  width: 32,
-                                  height: 6,
-                                  decoration: BoxDecoration(
-                                    color: index == 0 || index == 1
-                                        ? AppColors.bNormal
-                                        : Colors.grey[400],
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                );
-                              }),
-                            ),
-                          ],
-                        ),
-                    ],
-                  ),
-                ),
-
-                SizedBox(height: 15),
-
-                // Icon
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.blue.shade50,
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Icon(
-                    Icons.email_outlined,
-                    size: 40,
-                    color: Colors.blue.shade600,
-                  ),
-                ),
-
-                const SizedBox(height: 32),
-
-                // Title
-                const Text(
-                  'Xác thực OTP',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Description
-                Text(
-                  'Chúng tôi đã gửi mã xác thực 6 chữ số đến\n${widget.email}',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey.shade600,
-                    height: 1.5,
-                  ),
-                ),
-
-                const SizedBox(height: 48),
-
-                // OTP Input Fields
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List.generate(6, (index) {
-                    return Container(
-                      width: 48,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: _controllers[index].text.isNotEmpty
-                              ? Colors.blue.shade600
-                              : Colors.grey.shade300,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child:
-                          TextField(
-                            controller: _controllers[index],
-                            focusNode: _focusNodes[index],
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            maxLength: 1,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.sp),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20.sp),
+                  SizedBox(
+                    height: 70.sp,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back_ios,
                               color: AppColors.bNormal,
+                              size: 28,
                             ),
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              counterText: '',
-                              contentPadding: EdgeInsets.only(left: 3),
-                            ),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            onChanged: (value) =>
-                                _onOtpDigitChanged(value, index),
-                            onTap: () {
-                              _controllers[index].selection =
-                                  TextSelection.fromPosition(
-                                    TextPosition(
-                                      offset: _controllers[index].text.length,
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ),
+            
+                        if (widget.isRegister == false)
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Quên mật khẩu",
+                                style: TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.dark,
+                                ),
+                              ),
+                              SizedBox(height: 12.sp),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: List.generate(3, (index) {
+                                  return Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 4,
+                                    ),
+                                    width: 32,
+                                    height: 6,
+                                    decoration: BoxDecoration(
+                                      color: index == 0 || index == 1
+                                          ? AppColors.bNormal
+                                          : Colors.grey[400],
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
                                   );
-                            },
-                          ).onKeyEvent(
-                            onKey: (node, event) {
-                              if (event is KeyUpEvent &&
-                                  event.logicalKey ==
-                                      LogicalKeyboardKey.backspace) {
-                                _onOtpDigitBackspace(index);
-                              }
-                              return KeyEventResult.ignored;
-                            },
+                                }),
+                              ),
+                            ],
                           ),
-                    );
-                  }),
-                ),
-
-                const SizedBox(height: 32),
-
-                // Timer and Resend
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Gửi lại mã sau ',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey.shade600,
-                      ),
+                      ],
                     ),
-                    Text(
-                      _formattedTime,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue.shade600,
-                      ),
+                  ),
+            
+                  SizedBox(height: 15),
+            
+                  // Icon
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: Colors.blue.shade50,
+                      borderRadius: BorderRadius.circular(40),
                     ),
-                  ],
-                ),
-
-                const SizedBox(height: 16),
-
-                // Resend Button
-                TextButton(
-                  onPressed: _remainingTime == 0 && !_isResending
-                      ? _resendOtp
-                      : null,
-                  child: _isResending
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : Text(
-                          'Gửi lại mã OTP',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: _remainingTime == 0
+                    child: Icon(
+                      Icons.email_outlined,
+                      size: 40,
+                      color: Colors.blue.shade600,
+                    ),
+                  ),
+            
+                  const SizedBox(height: 32),
+            
+                  // Title
+                  const Text(
+                    'Xác thực OTP',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+            
+                  const SizedBox(height: 16),
+            
+                  // Description
+                  Text(
+                    'Chúng tôi đã gửi mã xác thực 6 chữ số đến\n${widget.email}',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey.shade600,
+                      height: 1.5,
+                    ),
+                  ),
+            
+                  const SizedBox(height: 48),
+            
+                  // OTP Input Fields
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: List.generate(6, (index) {
+                      return Container(
+                        width: 48,
+                        height: 56,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: _controllers[index].text.isNotEmpty
                                 ? Colors.blue.shade600
-                                : Colors.grey.shade400,
+                                : Colors.grey.shade300,
+                            width: 2,
                           ),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                ),
-
-                const SizedBox(height: 32),
-              ],
+                        child:
+                            TextField(
+                              controller: _controllers[index],
+                              focusNode: _focusNodes[index],
+                              textAlign: TextAlign.center,
+                              keyboardType: TextInputType.number,
+                              maxLength: 1,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.bNormal,
+                              ),
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                counterText: '',
+                                contentPadding: EdgeInsets.only(left: 3),
+                              ),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              onChanged: (value) =>
+                                  _onOtpDigitChanged(value, index),
+                              onTap: () {
+                                _controllers[index].selection =
+                                    TextSelection.fromPosition(
+                                      TextPosition(
+                                        offset: _controllers[index].text.length,
+                                      ),
+                                    );
+                              },
+                            ).onKeyEvent(
+                              onKey: (node, event) {
+                                if (event is KeyUpEvent &&
+                                    event.logicalKey ==
+                                        LogicalKeyboardKey.backspace) {
+                                  _onOtpDigitBackspace(index);
+                                }
+                                return KeyEventResult.ignored;
+                              },
+                            ),
+                      );
+                    }),
+                  ),
+            
+                  const SizedBox(height: 32),
+            
+                  // Timer and Resend
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Gửi lại mã sau ',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                      Text(
+                        _formattedTime,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade600,
+                        ),
+                      ),
+                    ],
+                  ),
+            
+                  const SizedBox(height: 16),
+            
+                  // Resend Button
+                  TextButton(
+                    onPressed: _remainingTime == 0 && !_isResending
+                        ? _resendOtp
+                        : null,
+                    child: _isResending
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : Text(
+                            'Gửi lại mã OTP',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: _remainingTime == 0
+                                  ? Colors.blue.shade600
+                                  : Colors.grey.shade400,
+                            ),
+                          ),
+                  ),
+            
+                  const SizedBox(height: 32),
+                ],
+              ),
             ),
           ),
         ],

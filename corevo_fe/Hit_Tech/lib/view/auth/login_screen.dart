@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hit_tech/core/constants/api_endpoint.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
@@ -264,25 +265,15 @@ class _LoginScreenState extends State<LoginScreen> {
               key: _formKey,
               child: Column(
                 children: [
-                  SizedBox(height: 30),
+                  SizedBox(height: 80.sp),
                   // Header
-                  Container(
-                    width: screenWidth,
-                    height: 83,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(24),
-                        bottomRight: Radius.circular(24),
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        AppStrings.login,
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.dark,
-                        ),
+                  Center(
+                    child: Text(
+                      AppStrings.login,
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.dark,
                       ),
                     ),
                   ),
@@ -292,8 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.all(24.0),
                     child: Column(
                       children: [
-                        const SizedBox(height: 22),
-
+                        SizedBox(height: 30.sp),
                         // Username Field
                         CustomInputField(
                           isPassword: true,
@@ -413,7 +403,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
 
-                        const SizedBox(height: 40),
+                        SizedBox(height: 40.sp),
 
                         // Login Button
                         AuthCustomButton(
@@ -426,31 +416,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         // Divider
                         DividerWithText(text: AppStrings.orLoginWith),
 
-                        const SizedBox(height: 24),
+                        SizedBox(height: 40.sp),
 
                         // Social Login Buttons
                         ButtonGgFbAuth(
                           image: Image(
                             image: AssetImage(TrainingAssets.googleIcon),
                           ),
-                          width: screenWidth * .9,
+                          width: screenWidth * 0.7.sp,
                           text: 'Tiếp tục với Google',
                           onPressed: _handleLoginWithGoogle,
                         ),
-                        const SizedBox(height: 18),
+                        SizedBox(height: 18.sp),
                         ButtonGgFbAuth(
                           image: Image(
                             image: AssetImage(TrainingAssets.facebookIcon),
                           ),
-                          width: screenWidth * .9,
-                          text: 'Tiếp tục với acebook',
+                          width: screenWidth * 0.7.sp,
+                          text: 'Tiếp tục với Facebook',
                           onPressed: () {
                             // Handle Facebook login
                             _handleSocialLogin('facebook');
                           },
                         ),
 
-                        const SizedBox(height: 140),
+                        SizedBox(height: 30.sp),
 
                         // Register Link
                         Row(

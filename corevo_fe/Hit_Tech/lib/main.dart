@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hit_tech/utils/change_notifier.dart';
+import 'package:hit_tech/view/auth/forgot_password_screen.dart';
+import 'package:hit_tech/view/auth/otp_verification_screen.dart';
+import 'package:hit_tech/view/auth/reset_password_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';

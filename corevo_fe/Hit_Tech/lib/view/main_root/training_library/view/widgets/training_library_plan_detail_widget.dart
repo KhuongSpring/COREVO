@@ -185,8 +185,8 @@ class _TrainingLibraryPlanDetailWidgetState
                       SizedBox(height: 12.sp),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: const Text(
-                          'Các bài tập',
+                        child: Text(
+                          'Các bài tập (${previewExercises.length})',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,

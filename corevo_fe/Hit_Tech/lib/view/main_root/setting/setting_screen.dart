@@ -9,9 +9,11 @@ import 'package:hit_tech/model/response/user/user_profile_response.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/notice_training_selection_widget.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/personal_health_selection_widget.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/personal_infor_selection_widget.dart';
+import 'package:hit_tech/view/main_root/setting/widgets/privacy_and_terms_screen.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/remove_screen.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../service/auth_service.dart';
 import '../../../service/shared_preferences.dart';
 import '../../../service/user_service.dart';
 import '../../auth/login_screen.dart';
@@ -89,6 +91,31 @@ class _SettingScreenState extends State<SettingScreen> {
       context,
       MaterialPageRoute(builder: (context) => LoginScreen()),
     );
+  }
+
+  Future<String> getPrivacyAndTerms() async {
+    String res = "";
+    try {
+      final response = await AuthService.getPrivacy();
+
+      if (response.status == 'SUCCESS') {
+        res += response.data['content'];
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    try {
+      final response = await AuthService.getTerms();
+
+      if (response.status == 'SUCCESS') {
+        res += response.data['content'];
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    return res;
   }
 
   @override
@@ -414,7 +441,16 @@ class _SettingScreenState extends State<SettingScreen> {
           _buildInnerTile(
             TrainingAssets.policyIcon,
             'Chính sách và điều khoản',
-            () {},
+            () async {
+              String res = await getPrivacyAndTerms();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      PrivacyAndTermsScreen(privacyAndTerms: res),
+                ),
+              );
+            },
           ),
         ],
       ),

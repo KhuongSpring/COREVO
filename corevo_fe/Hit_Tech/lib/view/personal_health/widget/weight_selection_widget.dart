@@ -42,6 +42,7 @@ class _WeightSelectionWidgetState extends State<WeightSelectionWidget> {
           ),
           Column(
             children: [
+              SizedBox(height: 4),
               Container(
                 padding: EdgeInsets.only(top: 50, right: 70),
                 child: Row(
@@ -166,7 +167,7 @@ class _WeightSelectionWidgetState extends State<WeightSelectionWidget> {
 
               SizedBox(height: 20),
               Padding(
-                padding: EdgeInsets.only(left: 24, bottom: 70, right: 24),
+                padding: EdgeInsets.only(left: 24, bottom: 47, right: 24),
                 child: SizedBox(
                   width: AppDimensions.normal,
                   height: AppDimensions.heightButton,

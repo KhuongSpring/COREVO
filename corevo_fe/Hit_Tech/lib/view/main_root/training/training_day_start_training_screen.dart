@@ -224,7 +224,7 @@ class _TrainingDayStartTrainingScreenState
           Positioned(
             left: 16,
             right: 16,
-            bottom: 16,
+            bottom: 25,
             child: ElevatedButton(
               onPressed: () {
                 final currentProgress = exerciseProgressList[currentIndex];
@@ -265,11 +265,9 @@ class _TrainingDayStartTrainingScreenState
                             if (setIndex ==
                                 exerciseProgressList[exerciseIndex].totalSets -
                                     1) {
-                              int exerciseId =
-                                  exerciseProgressList[exerciseIndex]
-                                      .exerciseId;
-
-                              await _handleCompleteExercise(exerciseId);
+                              await _handleCompleteExercise(
+                                exerciseProgressList[exerciseIndex].exerciseId,
+                              );
 
                               Provider.of<TrainingProgressNotifier>(
                                 context,

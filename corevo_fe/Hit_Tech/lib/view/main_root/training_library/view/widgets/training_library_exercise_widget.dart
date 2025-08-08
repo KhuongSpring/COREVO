@@ -177,9 +177,9 @@ class _TrainingLibraryExerciseWidgetState
                       SizedBox(height: 12.sp),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: const Text(
-                          'Các bài tập',
-                          style: TextStyle(
+                        child: Text(
+                          'Các bài tập (${exercises.length})',
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
                             color: Colors.black,

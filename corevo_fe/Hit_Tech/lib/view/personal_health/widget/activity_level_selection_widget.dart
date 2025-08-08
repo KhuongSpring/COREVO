@@ -205,162 +205,173 @@ class _ActivityLevelSelectionWidgetState
               fit: BoxFit.cover,
             ),
           ),
-          Column(
-            children: [
-              Container(
-                padding: EdgeInsets.only(top: 50, right: 70),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: Icon(
-                        Icons.arrow_back_ios_new,
-                        color: AppColors.bNormal,
+          SafeArea(
+            child: SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height.sp,
+                ),
+                child: IntrinsicHeight(
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 30.sp, right: 70.sp),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () => Navigator.pop(context),
+                              icon: Icon(
+                                Icons.arrow_back_ios_new,
+                                color: AppColors.bNormal,
+                              ),
+                            ),
+                            SizedBox(width: 35.sp),
+                            Expanded(
+                              child: Container(
+                                height: 7,
+                                decoration: BoxDecoration(
+                                  color: AppColors.moreLighter,
+                                  borderRadius: BorderRadius.circular(
+                                    AppDimensions.borderRadius,
+                                  ),
+                                ),
+                                child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                    final progress = 5 / 5;
+                                    return Stack(
+                                      children: [
+                                        Container(
+                                          width: constraints.maxWidth * progress,
+                                          decoration: BoxDecoration(
+                                            color: AppColors.bNormal,
+                                            borderRadius: BorderRadius.circular(
+                                              AppDimensions.borderRadius,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 35),
-                    Expanded(
-                      child: Container(
-                        height: 7,
+                      SizedBox(height: 32.sp),
+                      Container(
+                        width: screenWidth.sp * 0.9.sp,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 24,
+                          horizontal: 20,
+                        ),
                         decoration: BoxDecoration(
-                          color: AppColors.moreLighter,
+                          color: AppColors.bLightNotActive2,
                           borderRadius: BorderRadius.circular(
                             AppDimensions.borderRadius,
                           ),
                         ),
-                        child: LayoutBuilder(
-                          builder: (context, constraints) {
-                            final progress = 5 / 5;
-                            return Stack(
-                              children: [
-                                Container(
-                                  width: constraints.maxWidth * progress,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.bNormal,
-                                    borderRadius: BorderRadius.circular(
-                                      AppDimensions.borderRadius,
+                        child: Column(
+                          children: const [
+                            Text(
+                              'Mức độ hoạt động',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.dark,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'Chọn mức độ vận động hàng ngày của bạn để giúp đề xuất kế hoạch phù hợp.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 16, color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Expanded(
+                        flex: 4,
+                        child: FadeTransition(
+                          opacity: _fadeAnimation,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 230.sp,
+                                height: 230.sp,
+                                child: currentActivity['image'] != null
+                                    ? Image.asset(
+                                        currentActivity['image'],
+                                        width: 200.w,
+                                        height: 200.w,
+                                        fit: BoxFit.contain,
+                                      )
+                                    : Icon(
+                                        Icons.fitness_center,
+                                        size: 100,
+                                        color: Colors.blue[400],
+                                      ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                child: Text(
+                                  currentActivity['description'],
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      Expanded(
+                        flex: 4,
+                        child: Column(
+                          children: [
+                            _buildSlider(),
+                            SizedBox(height: 134),
+                            Padding(
+                              padding: EdgeInsets.only(left: 24, bottom: 70, right: 24),
+                              child: SizedBox(
+                                width: AppDimensions.normal,
+                                height: AppDimensions.heightButton,
+                                child: ElevatedButton(
+                                  onPressed: _handleFillPersonalInformation,
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        AppColors.buttonBGBottomGenderfocus,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        AppDimensions.circularM,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    AppStrings.genderSelectionContinue,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: AppColors.wWhite,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 32),
-              Container(
-                width: screenWidth * 0.9,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 24,
-                  horizontal: 20,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.bLightNotActive2,
-                  borderRadius: BorderRadius.circular(
-                    AppDimensions.borderRadius,
-                  ),
-                ),
-                child: Column(
-                  children: const [
-                    Text(
-                      'Mức độ hoạt động',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.dark,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Chọn mức độ vận động hàng ngày của bạn để giúp đề xuất kế hoạch phù hợp.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16, color: Colors.black),
-                    ),
-                  ],
-                ),
-              ),
-
-              Expanded(
-                flex: 4,
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 230.sp,
-                        height: 230.sp,
-                        child: currentActivity['image'] != null
-                            ? Image.asset(
-                                currentActivity['image'],
-                                width: 200.w,
-                                height: 200.w,
-                                fit: BoxFit.contain,
-                              )
-                            : Icon(
-                                Icons.fitness_center,
-                                size: 100,
-                                color: Colors.blue[400],
                               ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Text(
-                          currentActivity['description'],
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w500,
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-
-              Expanded(
-                flex: 4,
-                child: Column(
-                  children: [
-                    _buildSlider(),
-                    SizedBox(height: 120),
-                    Padding(
-                      padding: EdgeInsets.only(left: 24, bottom: 70, right: 24),
-                      child: SizedBox(
-                        width: AppDimensions.normal,
-                        height: AppDimensions.heightButton,
-                        child: ElevatedButton(
-                          onPressed: _handleFillPersonalInformation,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                AppColors.buttonBGBottomGenderfocus,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppDimensions.circularM,
-                              ),
-                            ),
-                          ),
-                          child: Text(
-                            AppStrings.genderSelectionContinue,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppColors.wWhite,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
         ],
       ),

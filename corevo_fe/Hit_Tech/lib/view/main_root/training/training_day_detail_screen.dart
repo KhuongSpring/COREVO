@@ -294,9 +294,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                             color: AppColors.wWhite,
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20),
-                            ),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           child: Column(
                             children: List.generate(
@@ -321,7 +319,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
           Positioned(
             left: 16,
             right: 16,
-            bottom: 16,
+            bottom: 25,
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(

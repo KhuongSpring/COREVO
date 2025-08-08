@@ -155,6 +155,8 @@ class TrainingAssets {
   static const String trainingNoteIcon =
       'assets/icons/training/training_note_icon.png';
   static const String restDayIcon = 'assets/icons/training/rest_day_icon.png';
+  static const String personalTraining =
+      'assets/images/training/personal_training_image.png';
 
   // Home
   static const String fireIcon = 'assets/icons/home/fire_icon.png';

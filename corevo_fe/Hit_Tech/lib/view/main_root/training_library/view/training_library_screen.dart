@@ -128,7 +128,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    TrainingAssets.libraryBackground2,
+                    TrainingAssets.libraryBackground,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -146,167 +146,106 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                     const SizedBox(height: 24),
                     _buildSearchBar(),
                     const SizedBox(height: 20),
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(horizontal: 16),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       _buildFilterButton("Gym"),
-                    //       _buildFilterButton("Cardio"),
-                    //       _buildFilterButton("Yoga"),
-                    //       _buildFilterButton("Calisthenic", isCalis: true),
-                    //     ],
-                    //   ),
-                    // ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 10),
                     (selectedIndex == 0)
                         ? Expanded(
                             child: SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 80),
-                                child: selectedFilter != null
-                                    ? Padding(
-                                        padding: const EdgeInsets.only(
-                                          left: 16,
-                                        ),
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.vertical,
-                                          child: Column(
-                                            children: [
-                                              ...trainingPlanByType
-                                                  .map(
-                                                    (plan) =>
-                                                        _buildTrainingPlanItem2(
-                                                          plan,
-                                                        ),
-                                                  )
-                                                  .toList(),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    : Column(
-                                        children: [
-                                          buildTrainingPlanSection(
-                                            title: normalizePlanName(
-                                              trainingPlanLoseFat.first.goals,
-                                            ),
-                                            plans: (trainingPlanLoseFat).map((
-                                              plan,
-                                            ) {
-                                              return _buildTrainingPlanItem(
-                                                plan,
-                                              );
-                                            }).toList(),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          buildTrainingPlanSection(
-                                            title: normalizePlanName(
-                                              trainingPlanGainWeight
-                                                  .first
-                                                  .goals,
-                                            ),
-                                            plans: (trainingPlanGainWeight).map(
-                                              (plan) {
-                                                return _buildTrainingPlanItem(
-                                                  plan,
-                                                );
-                                              },
-                                            ).toList(),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          buildTrainingPlanSection(
-                                            title: normalizePlanName(
-                                              trainingPlanGainMuscle
-                                                  .first
-                                                  .goals,
-                                            ),
-                                            plans: (trainingPlanGainMuscle).map(
-                                              (plan) {
-                                                return _buildTrainingPlanItem(
-                                                  plan,
-                                                );
-                                              },
-                                            ).toList(),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          buildTrainingPlanSection(
-                                            title: normalizePlanName(
-                                              trainingPlanMaintainBody
-                                                  .first
-                                                  .goals,
-                                            ),
-                                            plans: (trainingPlanMaintainBody)
-                                                .map((plan) {
-                                                  return _buildTrainingPlanItem(
-                                                    plan,
-                                                  );
-                                                })
-                                                .toList(),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          buildTrainingPlanSection(
-                                            title: normalizePlanName(
-                                              trainingPlanIncreaseEndurance
-                                                  .first
-                                                  .goals,
-                                            ),
-                                            plans: (trainingPlanIncreaseEndurance)
-                                                .map((plan) {
-                                                  return _buildTrainingPlanItem(
-                                                    plan,
-                                                  );
-                                                })
-                                                .toList(),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          buildTrainingPlanSection(
-                                            title: normalizePlanName(
-                                              trainingPlanImproveCardiovascular
-                                                  .first
-                                                  .goals,
-                                            ),
-                                            plans: (trainingPlanImproveCardiovascular)
-                                                .map((plan) {
-                                                  return _buildTrainingPlanItem(
-                                                    plan,
-                                                  );
-                                                })
-                                                .toList(),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          buildTrainingPlanSection(
-                                            title: normalizePlanName(
-                                              trainingPlanStressRelief
-                                                  .first
-                                                  .goals,
-                                            ),
-                                            plans: (trainingPlanStressRelief)
-                                                .map((plan) {
-                                                  return _buildTrainingPlanItem(
-                                                    plan,
-                                                  );
-                                                })
-                                                .toList(),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          buildTrainingPlanSection(
-                                            title: normalizePlanName(
-                                              trainingPlanIncreaseHeight
-                                                  .first
-                                                  .goals,
-                                            ),
-                                            plans: (trainingPlanIncreaseHeight)
-                                                .map((plan) {
-                                                  return _buildTrainingPlanItem(
-                                                    plan,
-                                                  );
-                                                })
-                                                .toList(),
-                                          ),
-                                        ],
+                                child: Column(
+                                  children: [
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanLoseFat.first.goals,
                                       ),
+                                      plans: (trainingPlanLoseFat).map((plan) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanGainWeight.first.goals,
+                                      ),
+                                      plans: (trainingPlanGainWeight).map((
+                                        plan,
+                                      ) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanGainMuscle.first.goals,
+                                      ),
+                                      plans: (trainingPlanGainMuscle).map((
+                                        plan,
+                                      ) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanMaintainBody.first.goals,
+                                      ),
+                                      plans: (trainingPlanMaintainBody).map((
+                                        plan,
+                                      ) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanIncreaseEndurance
+                                            .first
+                                            .goals,
+                                      ),
+                                      plans: (trainingPlanIncreaseEndurance)
+                                          .map((plan) {
+                                            return _buildTrainingPlanItem(plan);
+                                          })
+                                          .toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanImproveCardiovascular
+                                            .first
+                                            .goals,
+                                      ),
+                                      plans: (trainingPlanImproveCardiovascular)
+                                          .map((plan) {
+                                            return _buildTrainingPlanItem(plan);
+                                          })
+                                          .toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanStressRelief.first.goals,
+                                      ),
+                                      plans: (trainingPlanStressRelief).map((
+                                        plan,
+                                      ) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    buildTrainingPlanSection(
+                                      title: normalizePlanName(
+                                        trainingPlanIncreaseHeight.first.goals,
+                                      ),
+                                      plans: (trainingPlanIncreaseHeight).map((
+                                        plan,
+                                      ) {
+                                        return _buildTrainingPlanItem(plan);
+                                      }).toList(),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           )

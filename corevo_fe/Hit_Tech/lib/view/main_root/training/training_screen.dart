@@ -6,8 +6,10 @@ import 'package:hit_tech/view/main_root/training/widget/weekly_time_line.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_color.dart';
+import '../../../model/response/training/training_progress_statistic_response.dart';
 import '../../../model/response/training/training_schedule_response.dart';
 import '../../../model/response/user/user_profile_response.dart';
+import '../../../service/training_service.dart';
 
 class TrainingScreen extends StatefulWidget {
   final UserProfileResponse userProfileResponse;
@@ -36,12 +38,43 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   int selectedIndex2 = 0;
 
+  TrainingProgressStatisticResponse? progressStatistic;
+
+  bool _isLoading = true;
+
   @override
   void initState() {
+    _handleGetProgressStatistic();
     setState(() {
       selectedIndex2 = DateTime.now().weekday - 1;
     });
+    Future.delayed(Duration(seconds: 1), () {
+      if (!mounted) return;
+      setState(() {
+        _isLoading = false;
+      });
+    });
     super.initState();
+  }
+
+  Future<void> _handleGetProgressStatistic() async {
+    try {
+      final response = await TrainingService.getStatistic(
+        DateTime.now().year,
+        DateTime.now().month,
+      );
+
+      if (response.status == 'SUCCESS') {
+        setState(() {
+          progressStatistic = TrainingProgressStatisticResponse.fromJson(
+            response.data,
+          );
+        });
+        return;
+      }
+    } catch (e, stackTrace) {
+      print(stackTrace);
+    }
   }
 
   @override
@@ -50,6 +83,10 @@ class _TrainingScreenState extends State<TrainingScreen> {
     final UserProfileResponse user = widget.userProfileResponse;
     final List<TrainingScheduleResponse> schedules = widget.schedules;
     final List<DateTime> days = getWeekDates(DateTime.now());
+
+    if (_isLoading) {
+      return Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
 
     return Scaffold(
       body: Stack(
@@ -78,8 +115,13 @@ class _TrainingScreenState extends State<TrainingScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: List.generate(days.length, (index) {
                         int status;
-                        if (index < selectedDay) {
+                        if (index < selectedDay &&
+                            progressStatistic!.currentMonthCompletions[index]) {
                           status = 1;
+                        } else if (index < selectedDay &&
+                            !progressStatistic!
+                                .currentMonthCompletions[index]) {
+                          status = 3;
                         } else if (index == selectedDay) {
                           status = 2;
                         } else {
@@ -463,63 +505,70 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                   ),
                               ],
                             )
-                          : Container(
-                              key: ValueKey('unselected_$index'),
-                              padding: const EdgeInsets.all(12),
-                              height: 100,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '${days[index].day}/${days[index].month}',
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: AppColors.bNormal,
+                          : GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedIndex2 = index;
+                                });
+                              },
+                              child: Container(
+                                key: ValueKey('unselected_$index'),
+                                padding: const EdgeInsets.all(12),
+                                height: 100,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.05),
+                                      blurRadius: 8,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${days[index].day}/${days[index].month}',
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: AppColors.bNormal,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Text(
-                                        'Ngày ${index + 1}',
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
+                                        SizedBox(height: 5),
+                                        Text(
+                                          'Ngày ${index + 1}',
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Text(
-                                        schedules[index].duration ??
-                                            'Nghỉ ngơi, hồi phục',
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: AppColors.bNormal,
+                                        SizedBox(height: 5),
+                                        Text(
+                                          schedules[index].duration ??
+                                              'Nghỉ ngơi, hồi phục',
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: AppColors.bNormal,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Image.asset(
-                                    (schedules[index].duration == null)
-                                        ? TrainingAssets.restDayIcon
-                                        : TrainingAssets.shapeTrainingDay1,
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                    Image.asset(
+                                      (schedules[index].duration == null)
+                                          ? TrainingAssets.restDayIcon
+                                          : TrainingAssets.shapeTrainingDay1,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                     ),
@@ -534,6 +583,35 @@ class _TrainingScreenState extends State<TrainingScreen> {
   }
 
   Widget _buildTab2() {
-    return Container();
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(TrainingAssets.personalTraining),
+          SizedBox(height: 20.sp),
+          Text(
+            'Bạn chưa có kế hoạch tập luyện nào...',
+            style: TextStyle(fontSize: 14, color: Colors.black),
+          ),
+          SizedBox(height: 20.sp),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.bNormal,
+              foregroundColor: AppColors.wWhite,
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 15),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+            child: Text(
+              'Thêm mới    +',
+              style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

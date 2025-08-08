@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/view/personal_health/widget/age_selection_widget.dart';
 
 import '../../../core/constants/app_assets.dart';
@@ -31,163 +32,173 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
             ),
           ),
 
-          Column(
-            children: [
-              Container(
-                padding: EdgeInsets.only(top: 50, right: 70),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: Icon(
-                        Icons.arrow_back_ios_new,
-                        color: AppColors.bNormal,
-                      ),
-                    ),
-                    SizedBox(width: 35),
-                    Expanded(
-                      child: Container(
-                        height: 7,
-                        decoration: BoxDecoration(
-                          color: AppColors.moreLighter,
-                          borderRadius: BorderRadius.circular(
-                            AppDimensions.borderRadius,
-                          ),
-                        ),
-                        child: LayoutBuilder(
-                          builder: (context, constraints) {
-                            final progress = 1 / 5;
-                            return Stack(
-                              children: [
-                                Container(
-                                  width: constraints.maxWidth * progress,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.bNormal,
-                                    borderRadius: BorderRadius.circular(
-                                      AppDimensions.borderRadius,
-                                    ),
+          SafeArea(
+            child: SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height.sp,
+                ),
+                child: IntrinsicHeight(
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 30.sp, right: 70.sp),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () => Navigator.pop(context),
+                              icon: Icon(
+                                Icons.arrow_back_ios_new,
+                                color: AppColors.bNormal,
+                              ),
+                            ),
+                            SizedBox(width: 35.sp),
+                            Expanded(
+                              child: Container(
+                                height: 7,
+                                decoration: BoxDecoration(
+                                  color: AppColors.moreLighter,
+                                  borderRadius: BorderRadius.circular(
+                                    AppDimensions.borderRadius,
                                   ),
                                 ),
-                              ],
-                            );
-                          },
+                                child: LayoutBuilder(
+                                  builder: (context, constraints) {
+                                    final progress = 1 / 5;
+                                    return Stack(
+                                      children: [
+                                        Container(
+                                          width: constraints.maxWidth * progress,
+                                          decoration: BoxDecoration(
+                                            color: AppColors.bNormal,
+                                            borderRadius: BorderRadius.circular(
+                                              AppDimensions.borderRadius,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 32),
-              // Header Section
-              Container(
-                width: screenWidth * 0.9,
-                padding: EdgeInsets.symmetric(
-                  vertical: AppDimensions.paddingHorizontal,
-                  horizontal: AppDimensions.spaceML,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.bLightNotActive2,
-                  borderRadius: BorderRadius.circular(AppDimensions.circularXS),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      AppStrings.genderSelectionTitle,
-                      style: TextStyle(
-                        fontSize: AppDimensions.textSizeXL,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.textGenderSelection,
+                      SizedBox(height: 32.sp),
+                      // Header Section
+                      Container(
+                        width: screenWidth.sp * 0.9.sp,
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppDimensions.paddingHorizontal,
+                          horizontal: AppDimensions.spaceML,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.bLightNotActive2,
+                          borderRadius: BorderRadius.circular(AppDimensions.circularXS),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              AppStrings.genderSelectionTitle,
+                              style: TextStyle(
+                                fontSize: AppDimensions.textSizeXL,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textGenderSelection,
+                              ),
+                            ),
+                            SizedBox(height: AppDimensions.spaceXS),
+                            Text(
+                              AppStrings.genderSelectionDescription,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: AppDimensions.textSizeS,
+                                color: AppColors.dark,
+                                height: 1.3,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: AppDimensions.spaceXS),
-                    Text(
-                      AppStrings.genderSelectionDescription,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: AppDimensions.textSizeS,
-                        color: AppColors.dark,
-                        height: 1.3,
+                      SizedBox(height: 32.sp),
+                      // Gender Options
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildGenderOption(
+                            context,
+                            gender: 'Male',
+                            label: AppStrings.genderSelectionBoy,
+                            imagePath: TrainingAssets.imageGenderBoy,
+                            isSelected: selectedGender == 'Male',
+                            ontap: () {
+                              setState(() {
+                                selectedGender = 'Male';
+                              });
+                            },
+                          ),
+                          SizedBox(width: 16),
+                          _buildGenderOption(
+                            context,
+                            gender: 'Female',
+                            label: AppStrings.genderSelectionGirl,
+                            imagePath: TrainingAssets.imageGenderGirl,
+                            isSelected: selectedGender == 'Female',
+                            ontap: () {
+                              setState(() {
+                                selectedGender = 'Female';
+                              });
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              // Gender Options
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildGenderOption(
-                      context,
-                      gender: 'Male',
-                      label: AppStrings.genderSelectionBoy,
-                      imagePath: TrainingAssets.imageGenderBoy,
-                      isSelected: selectedGender == 'Male',
-                      ontap: () {
-                        setState(() {
-                          selectedGender = 'Male';
-                        });
-                      },
-                    ),
-                    SizedBox(width: 16),
-                    _buildGenderOption(
-                      context,
-                      gender: 'Female',
-                      label: AppStrings.genderSelectionGirl,
-                      imagePath: TrainingAssets.imageGenderGirl,
-                      isSelected: selectedGender == 'Female',
-                      ontap: () {
-                        setState(() {
-                          selectedGender = 'Female';
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: AppDimensions.space24),
-              // Continue Button
-              Padding(
-                padding: EdgeInsets.only(left: 24, bottom: 70, right: 24),
-                child: SizedBox(
-                  width: AppDimensions.normal,
-                  height: AppDimensions.heightButton,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AgeSelectionWidget(
-                            gender: selectedGender ?? 'Male',
+                      SizedBox(height: 168.sp),
+                      // Continue Button
+                      Padding(
+                        padding: EdgeInsets.only(left: 24, bottom: 70, right: 24),
+                        child: SizedBox(
+                          width: AppDimensions.normal,
+                          height: AppDimensions.heightButton,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AgeSelectionWidget(
+                                    gender: selectedGender ?? 'Male',
+                                  ),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: selectedGender != null
+                                  ? AppColors.buttonBGBottomGenderfocus
+                                  : AppColors.bLightNotActive,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppDimensions.circularM,
+                                ),
+                              ),
+                              // elevation: formState.gender != null ? 2 : 0,
+                            ),
+                            child: Text(
+                              AppStrings.genderSelectionContinue,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: selectedGender != null
+                                    ? AppColors.buttonTextGenderfocus
+                                    : AppColors.wWhite,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
                         ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: selectedGender != null
-                          ? AppColors.buttonBGBottomGenderfocus
-                          : AppColors.bLightNotActive,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          AppDimensions.circularM,
-                        ),
                       ),
-                      // elevation: formState.gender != null ? 2 : 0,
-                    ),
-                    child: Text(
-                      AppStrings.genderSelectionContinue,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: selectedGender != null
-                            ? AppColors.buttonTextGenderfocus
-                            : AppColors.wWhite,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    ],
                   ),
                 ),
               ),
-            ],
+            ),
           ),
         ],
       ),
