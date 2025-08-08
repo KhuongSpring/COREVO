@@ -1,33 +1,41 @@
 package com.example.corevo.service.impl;
 
 import com.example.corevo.constant.ErrorMessage;
+import com.example.corevo.constant.SuccessMessage;
 import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.pagination.PaginationResponseDto;
 import com.example.corevo.domain.dto.pagination.PagingMeta;
+import com.example.corevo.domain.dto.request.training.ExerciseCompletionRequestDto;
+import com.example.corevo.domain.dto.request.training.PersonalTrainingPlanCreationRequestDto;
 import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
+import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.training.*;
 import com.example.corevo.domain.dto.response.training_exercise.*;
+import com.example.corevo.domain.dto.response.training_plan.PersonalTrainingDayResponseDto;
+import com.example.corevo.domain.dto.response.training_plan.PersonalTrainingPlanResponseDto;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
-import com.example.corevo.domain.dto.response.training_schedule.TrainingScheduleResponseDto;
+import com.example.corevo.domain.dto.response.training_schedule.*;
 import com.example.corevo.domain.entity.training.*;
+import com.example.corevo.domain.entity.training.training_personal.*;
+import com.example.corevo.domain.entity.user.User;
 import com.example.corevo.domain.mapper.*;
 import com.example.corevo.exception.VsException;
 import com.example.corevo.helper.StringToTrainingIDHelper;
 import com.example.corevo.repository.*;
+import com.example.corevo.service.TrainingProgressService;
 import com.example.corevo.service.TrainingService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -53,6 +61,16 @@ public class TrainingServiceImpl implements TrainingService {
 
         TypeRepository typeRepository;
 
+        UserRepository userRepository;
+
+        PersonalTrainingPlanRepository personalTrainingPlanRepository;
+
+        PersonalTrainingDayRepository personalTrainingDayRepository;
+
+        PersonalTrainingExerciseRepository personalTrainingExerciseRepository;
+
+        TrainingProgressService trainingProgressService;
+
         TrainingExerciseMapper trainingExerciseMapper;
 
         TrainingPlanMapper trainingPlanMapper;
@@ -70,6 +88,8 @@ public class TrainingServiceImpl implements TrainingService {
         TargetMuscleMapper targetMuscleMapper;
 
         TypeMapper typeMapper;
+
+        PersonalTrainingMapper personalTrainingMapper;
 
         @Override
         public List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByPrimaryMuscle(
@@ -526,6 +546,208 @@ public class TrainingServiceImpl implements TrainingService {
                                 null);
 
                 return new PaginationResponseDto<>(pagingMeta, trainingPlanResponseDtos);
+        }
+
+        @Override
+        public PersonalTrainingPlanResponseDto createPersonalTrainingPlan(
+                        PersonalTrainingPlanCreationRequestDto request,
+                        Authentication authentication) {
+
+                String username = authentication.getName();
+
+                if (!userRepository.existsUserByUsername(username))
+                        throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+
+                User user = userRepository.findByUsername(username);
+
+                if (personalTrainingPlanRepository.existsByUserAndPlanName(user, request.getPlanName())) {
+                        throw new VsException(HttpStatus.BAD_REQUEST,
+                                        ErrorMessage.Training.ERR_TRAINING_PLAN_NAME_EXISTED);
+                }
+
+                Goal goal = goalRepository.findById(request.getGoalId())
+                                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND,
+                                                ErrorMessage.Training.ERR_GOAL_NOT_FOUND));
+
+                Type type = typeRepository.findById(request.getTypeId())
+                                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND,
+                                                ErrorMessage.Training.ERR_TYPE_NOT_FOUND));
+
+                PersonalTrainingPlan plan = PersonalTrainingPlan.builder()
+                                .planName(request.getPlanName())
+                                .description(request.getDescription())
+                                .goal(goal)
+                                .type(type)
+                                .user(user)
+                                .build();
+
+                PersonalTrainingPlan savedPlan = personalTrainingPlanRepository.save(plan);
+
+                return PersonalTrainingPlanResponseDto.builder()
+                                .planId(savedPlan.getId())
+                                .planName(savedPlan.getPlanName())
+                                .description(savedPlan.getDescription())
+                                .goalName(savedPlan.getGoal().getGoalName())
+                                .typeName(savedPlan.getType().getTypeName())
+                                .userId(user.getId())
+                                .build();
+        }
+
+        @Override
+        public List<TrainingExerciseResponseDto> getAvailableExercisesForPlan(Long planId,
+                        Authentication authentication) {
+                PersonalTrainingPlan plan = validatePersonalTrainingPlanOwner(planId, authentication);
+
+                return trainingExerciseRepository.findByGoalIdAndTypeId(
+                                plan.getGoal().getId(),
+                                plan.getType().getId())
+                                .stream()
+                                .map(trainingExerciseMapper::trainingExerciseToTrainingExerciseResponseDto)
+                                .toList();
+        }
+
+        @Override
+        public List<PersonalTrainingDayResponseDto> getPersonalTrainingDays(Long planId,
+                        Authentication authentication) {
+
+                PersonalTrainingPlan plan = validatePersonalTrainingPlanOwner(planId, authentication);
+
+                List<PersonalTrainingDay> days = personalTrainingDayRepository
+                                .findByPersonalTrainingPlanOrderByActualDateDesc(plan);
+
+                return days.stream()
+                                .map(day -> {
+                                        List<TrainingExerciseResponseDto> exercises = personalTrainingExerciseRepository
+                                                        .findByPersonalTrainingDayOrderByCompletedAtDesc(day)
+                                                        .stream()
+                                                        .map(pe -> trainingExerciseMapper
+                                                                        .trainingExerciseToTrainingExerciseResponseDto(
+                                                                                        pe.getTrainingExercise()))
+                                                        .toList();
+
+                                        PersonalTrainingDayResponseDto dto = personalTrainingMapper
+                                                        .personalTrainingDayToPersonalTrainingDayResponseDto(day);
+                                        dto.setCompletedExercises(exercises);
+
+                                        return dto;
+                                })
+                                .toList();
+        }
+
+        @Override
+        public CommonResponseDto completeExerciseForPersonalPlan(
+                        Long planId,
+                        ExerciseCompletionRequestDto request,
+                        Authentication authentication) {
+
+                PersonalTrainingPlan plan = validatePersonalTrainingPlanOwner(planId, authentication);
+
+                trackExerciseInPersonalPlan(plan, request);
+
+                return new CommonResponseDto(
+                                HttpStatus.OK,
+                                SuccessMessage.Exercise.COMPLETE_EXERCISE_SUCCESS);
+        }
+
+        private void trackExerciseInPersonalPlan(PersonalTrainingPlan plan, ExerciseCompletionRequestDto request) {
+                LocalDate today = LocalDate.now();
+
+                PersonalTrainingDay trainingDay = personalTrainingDayRepository
+                                .findByPersonalTrainingPlanAndActualDate(plan, today)
+                                .orElseGet(() -> {
+                                        int dayNumber = personalTrainingDayRepository.countByPersonalTrainingPlan(plan)
+                                                        + 1;
+
+                                        PersonalTrainingDay newDay = PersonalTrainingDay.builder()
+                                                        .personalTrainingPlan(plan)
+                                                        .dayNumber(dayNumber)
+                                                        .actualDate(today)
+                                                        .isRestDay(false)
+                                                        .build();
+
+                                        return personalTrainingDayRepository.save(newDay);
+                                });
+
+                TrainingExercise exercise = trainingExerciseRepository.findById(request.getExerciseId())
+                                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND,
+                                                ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS));
+
+                boolean alreadyCompleted = personalTrainingExerciseRepository
+                                .findByPersonalTrainingDay(trainingDay)
+                                .stream()
+                                .anyMatch(pe
+                                        -> pe.getTrainingExercise().getId().equals(request.getExerciseId()));
+
+                if (alreadyCompleted) {
+                        throw new VsException(HttpStatus.BAD_REQUEST,
+                                        ErrorMessage.Training.ERR_EXERCISE_HAS_BEEN_COMPLETED);
+                }
+
+                PersonalTrainingExercise personalExercise = PersonalTrainingExercise.builder()
+                                .personalTrainingDay(trainingDay)
+                                .trainingExercise(exercise)
+                                .completedAt(LocalDate.now())
+                                .build();
+
+                personalTrainingExerciseRepository.save(personalExercise);
+
+                trainingDay.setIsRestDay(false);
+
+                personalTrainingDayRepository.save(trainingDay);
+        }
+
+        @Override
+        public List<PersonalTrainingPlanResponseDto> getUserPersonalTrainingPlans(Authentication authentication) {
+                String username = authentication.getName();
+
+                if (!userRepository.existsUserByUsername(username))
+                        throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+
+                User user = userRepository.findByUsername(username);
+
+                List<PersonalTrainingPlan> plans = personalTrainingPlanRepository.findByUserOrderByIdDesc(user);
+
+                return plans
+                                .stream()
+                                .map(plan -> PersonalTrainingPlanResponseDto
+                                                .builder()
+                                                .planId(plan.getId())
+                                                .planName(plan.getPlanName())
+                                                .description(plan.getDescription())
+                                                .goalName(plan.getGoal().getGoalName())
+                                                .typeName(plan.getType().getTypeName())
+                                                .userId(user.getId())
+                                                .build())
+                                .toList();
+        }
+
+        @Override
+        public CommonResponseDto deletePersonalTrainingPlan(Long planId, Authentication authentication) {
+                PersonalTrainingPlan plan = validatePersonalTrainingPlanOwner(planId, authentication);
+
+                String username = authentication.getName();
+                User user = userRepository.findByUsername(username);
+
+                if (!plan.getUser().getId().equals(user.getId())) {
+                        throw new VsException(HttpStatus.FORBIDDEN, ErrorMessage.FORBIDDEN_UPDATE_DELETE);
+                }
+
+                personalTrainingPlanRepository.delete(plan);
+
+                return new CommonResponseDto(HttpStatus.OK, SuccessMessage.TrainingPlan.DELETE_TRAINING_PLAN_SUCCESS);
+        }
+
+        private PersonalTrainingPlan validatePersonalTrainingPlanOwner(Long planId, Authentication authentication) {
+                String username = authentication.getName();
+
+                if (!userRepository.existsUserByUsername(username))
+                        throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+
+                PersonalTrainingPlan plan = personalTrainingPlanRepository.findById(planId)
+                                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND,
+                                                ErrorMessage.Training.ERR_TRAINING_PLAN_NOT_EXISTS));
+
+                return plan;
         }
 
 }

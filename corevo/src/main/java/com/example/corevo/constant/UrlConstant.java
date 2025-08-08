@@ -68,9 +68,19 @@ public class UrlConstant {
 
     public static class TrainingPlan {
         private static final String PRE_FIX = "/training-plan";
+        private static final String PERSONAL_PLAN_PREFIX = PRE_FIX + "/personal-plans";
+
         public static final String FLOW_STEP = PRE_FIX + "/step";
         public static final String RESET = PRE_FIX + "/reset";
         public static final String GET_BY_TYPE = PRE_FIX;
+
+        public static final String PERSONAL_PLANS = PERSONAL_PLAN_PREFIX;
+        public static final String PERSONAL_PLANS_BY_ID = PERSONAL_PLAN_PREFIX + "/{planId}";
+        public static final String PERSONAL_PLAN_EXERCISES = PERSONAL_PLANS_BY_ID + "/exercises";
+        public static final String PERSONAL_PLAN_COMPLETE_EXERCISE = PERSONAL_PLANS_BY_ID + "/complete-exercise";
+        public static final String PERSONAL_PLAN_DAYS = PERSONAL_PLANS_BY_ID + "/days";
+        public static final String USER_PERSONAL_PLANS = PERSONAL_PLAN_PREFIX + "/user";
+
         private TrainingPlan() {
 
         }

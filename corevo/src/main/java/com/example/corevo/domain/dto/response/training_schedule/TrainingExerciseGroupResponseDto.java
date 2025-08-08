@@ -9,6 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TrainingExerciseGroupResponseDto {
 

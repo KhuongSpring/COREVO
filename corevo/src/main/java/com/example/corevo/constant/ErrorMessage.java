@@ -74,6 +74,9 @@ public class ErrorMessage {
         public static final String ERR_USER_NOT_IN_TRAINING_PLAN = "exception.user.not.in.training.plan";
         public static final String ERR_EXERCISE_NOT_EXISTS_DAY = "exception.exercise.not.exists.today";
         public static final String ERR_EXERCISE_HAS_BEEN_COMPLETED = "exception.exercise.has.been.completed";
+        public static final String ERR_GOAL_NOT_FOUND = "exception.goal.not.exists";
+        public static final String ERR_TYPE_NOT_FOUND = "exception.type.not.exists";
+        public static final String ERR_TRAINING_PLAN_NAME_EXISTED = "exception.training.plan.name.existed";
     }
 
     public static class Admin {

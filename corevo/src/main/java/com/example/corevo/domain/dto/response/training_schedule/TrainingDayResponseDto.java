@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TrainingDayResponseDto {
 
@@ -23,4 +24,6 @@ public class TrainingDayResponseDto {
     String description;
 
     TrainingExerciseGroupResponseDto exerciseGroups;
+
+    Boolean isRestDay;
 }

@@ -4,6 +4,8 @@ import com.example.corevo.base.RestApiV1;
 import com.example.corevo.base.VsResponseUtil;
 import com.example.corevo.constant.UrlConstant;
 import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
+import com.example.corevo.domain.dto.request.training.ExerciseCompletionRequestDto;
+import com.example.corevo.domain.dto.request.training.PersonalTrainingPlanCreationRequestDto;
 import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
 import com.example.corevo.service.TrainingService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +16,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -230,6 +233,89 @@ public class TrainingController {
     @GetMapping(UrlConstant.Training.GET_TRAINING_SCHEDULE)
     public ResponseEntity<?> getTrainingSchedule(@RequestParam(name = "plan id") Long planId){
         return VsResponseUtil.success(trainingService.getTrainingSchedule(planId));
+    }
+
+    @Tag(name = "personal-training-plan")
+    @Operation(
+            summary = "Tạo kế hoạch tập luyện cá nhân",
+            description = "Người dùng tự tạo kế hoạch tập luyện riêng",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PostMapping(UrlConstant.TrainingPlan.PERSONAL_PLANS)
+    public ResponseEntity<?> createPersonalTrainingPlan(
+            @Valid @RequestBody PersonalTrainingPlanCreationRequestDto request,
+            Authentication authentication
+    ) {
+        return VsResponseUtil.success(trainingService.createPersonalTrainingPlan(request, authentication));
+    }
+
+    @Tag(name = "personal-training-plan")
+    @Operation(
+            summary = "Xóa kế hoạch tập luyện cá nhân",
+            description = "Xóa kế hoạch tập luyện cá nhân của người dùng",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @DeleteMapping(UrlConstant.TrainingPlan.PERSONAL_PLANS_BY_ID)
+    public ResponseEntity<?> deletePersonalTrainingPlan(
+            @PathVariable Long planId,
+            Authentication authentication
+    ) {
+        return VsResponseUtil.success(trainingService.deletePersonalTrainingPlan(planId, authentication));
+    }
+
+    @Tag(name = "personal-training-plan")
+    @Operation(
+            summary = "Lấy danh sách kế hoạch tập luyện cá nhân",
+            description = "Lấy tất cả kế hoạch tập luyện cá nhân của người dùng hiện tại",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.TrainingPlan.PERSONAL_PLANS)
+    public ResponseEntity<?> getUserPersonalTrainingPlans(Authentication authentication) {
+        return VsResponseUtil.success(trainingService.getUserPersonalTrainingPlans(authentication));
+    }
+
+
+    @Tag(name = "personal-training-plan")
+    @Operation(
+            summary = "Lấy bài tập có thể thêm vào training day",
+            description = "Lấy danh sách bài tập có thể thêm vào ngày tập luyện",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.TrainingPlan.PERSONAL_PLAN_EXERCISES)
+    public ResponseEntity<?> getAvailableExercisesForPlan(
+            @PathVariable Long planId,
+            Authentication authentication
+    ) {
+        return VsResponseUtil.success(trainingService.getAvailableExercisesForPlan(planId, authentication));
+    }
+
+    @Tag(name = "personal-training-plan")
+    @Operation(
+            summary = "Hoàn thành bài tập trong kế hoạch",
+            description = "Đánh dấu hoàn thành một bài tập trong kế hoạch tập luyện cá nhân",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PostMapping(UrlConstant.TrainingPlan.PERSONAL_PLAN_COMPLETE_EXERCISE)
+    public ResponseEntity<?> completeExerciseForPersonalPlan(
+            @PathVariable Long planId,
+            @Valid @RequestBody ExerciseCompletionRequestDto request,
+            Authentication authentication
+    ) {
+        return VsResponseUtil.success(trainingService.completeExerciseForPersonalPlan(planId, request, authentication));
+    }
+
+    @Tag(name = "personal-training-plan")
+    @Operation(
+            summary = "Lấy các ngày tập trong kế hoạch",
+            description = "Lấy danh sách các ngày tập và tiến độ trong kế hoạch tập luyện cá nhân",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.TrainingPlan.PERSONAL_PLAN_DAYS)
+    public ResponseEntity<?> getPersonalTrainingDays(
+            @PathVariable Long planId,
+            Authentication authentication
+    ) {
+        return VsResponseUtil.success(trainingService.getPersonalTrainingDays(planId, authentication));
     }
 
 }

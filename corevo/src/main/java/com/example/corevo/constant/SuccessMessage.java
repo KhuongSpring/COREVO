@@ -17,6 +17,7 @@ public class SuccessMessage {
 
     public static class TrainingPlan {
         public static final String RESET_TRAINING_PLAN_SUCCESS = "Reset training plan successfully";
+        public static final String DELETE_TRAINING_PLAN_SUCCESS = "Personal training plan deleted successfully ";
     }
 
     public static class Exercise {
