@@ -25,7 +25,7 @@ const UserPage = () => {
   const pageSize = 10;
   const [totalPages, setTotalPages] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
-  const [goToPage, setGoToPage] = useState(''); // <== THÊM MỚI
+  const [goToPage, setGoToPage] = useState('');
 
   const fetchUsers = async () => {
     try {
@@ -121,11 +121,7 @@ const UserPage = () => {
     try {
       await api.put(`admin/lock-user/${userId}`);
       alert('Khóa tài khoản thành công');
-      setUsers(prevUsers =>
-        prevUsers.map(user =>
-          user.id === userId ? { ...user, locked: true } : user
-        )
-      );
+      fetchUsers();
     } catch (err) {
       console.error('Lỗi khi khóa user:', err);
       alert('Khóa tài khoản thất bại');
@@ -209,12 +205,7 @@ const UserPage = () => {
               <button 
                 className="add-user-button" 
                 onClick={() => setShowAddModal(true)}
-                style={{
-                  height: 40,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6
-                }}
+                style={{ height: 40, display: 'flex', alignItems: 'center', gap: 6 }}
               >
                 <Plus size={16} /> Add User
               </button>
@@ -225,31 +216,14 @@ const UserPage = () => {
                   placeholder="Search by name, email, phone..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  style={{
-                    padding: '6px 10px',
-                    borderRadius: 6,
-                    border: '1px solid #ccc',
-                    minWidth: 300,
-                    height: 40
-                  }}
+                  style={{ padding: '6px 10px', borderRadius: 6, border: '1px solid #ccc', minWidth: 300, height: 40 }}
                 />
                 <button
                   onClick={() => {
                     setCurrentPage(1);
                     searchUsers();
                   }}
-                  style={{
-                    background: '#1e3a8a',
-                    color: '#fff',
-                    padding: '0 16px',
-                    border: 'none',
-                    borderRadius: 6,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 4,
-                    cursor: 'pointer',
-                    height: 40
-                  }}
+                  style={{ background: '#1e3a8a', color: '#fff', padding: '0 16px', border: 'none', borderRadius: 6, display: 'flex', alignItems: 'center', gap: 4, cursor: 'pointer', height: 40 }}
                 >
                   <Search size={16} /> Search
                 </button>
@@ -276,29 +250,32 @@ const UserPage = () => {
                     <td>{u.phone}</td>
                     <td>{u.nationality}</td>
                     <td>
-                      <button className="edit" onClick={() => {
-                        setEditUser({ personalInfo: u, healthInfo: u.health || {} });
-                        setShowEditModal(true);
-                      }}><Edit3 size={16} /></button>
-
-                      <button className="delete" onClick={() => handleDeleteUser(u.id)}>
-                        <Trash2 size={16} />
-                      </button>
-
                       <button className="view" onClick={() => handleViewUser(u.id)}>
                         <Eye size={16} />
                       </button>
 
-                      <button
-                        className={`lock ${u.locked ? 'locked' : ''}`}
-                        onClick={() => handleLockUser(u.id)}
-                      >
-                        <Lock size={16} />
+                      <button className="edit" onClick={() => {
+                        setEditUser({ personalInfo: u, healthInfo: u.health || {} });
+                        setShowEditModal(true);
+                      }}>
+                        <Edit3 size={16} />
                       </button>
 
-                      <button className="unlock" onClick={() => handleUnlockUser(u.id)}>
-                        <Unlock size={16} />
-                      </button>
+                      {u.id !== profile.id && (
+                        <>
+                          <button className={`lock ${u.locked ? 'locked' : ''}`} onClick={() => handleLockUser(u.id)}>
+                            <Lock size={16} />
+                          </button>
+
+                          <button className="unlock" onClick={() => handleUnlockUser(u.id)}>
+                            <Unlock size={16} />
+                          </button>
+
+                          <button className="delete" onClick={() => handleDeleteUser(u.id)}>
+                            <Trash2 size={16} />
+                          </button>
+                        </>
+                      )}
                     </td>
                   </tr>
                 ))}

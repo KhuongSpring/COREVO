@@ -35,13 +35,11 @@ const LoginPage = () => {
         return;
       }
 
-      // Giải mã JWT để lấy quyền
       const payload = JSON.parse(atob(accessToken.split('.')[1]));
       const authorities = payload.authorities || [];
       const isAdmin = authorities.includes('ROLE_ADMIN');
 
       if (isAdmin) {
-        // Gọi AuthContext login để lưu token đúng chỗ
         login(accessToken, refreshToken);
       } else {
         alert('You do not have admin privileges.');
@@ -103,10 +101,6 @@ const LoginPage = () => {
             </div>
 
             <button type="submit">Login</button>
-
-            <p className="register">
-              Don't have an account? <a href="/register">Create an account</a>
-            </p>
           </form>
         </div>
       </div>
