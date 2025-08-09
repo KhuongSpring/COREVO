@@ -98,8 +98,8 @@ public class AuthServiceImpl implements AuthService {
 
         if (Boolean.TRUE.equals(user.getIsDeleted())) {
             LocalDate expiredDate = user.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
-            if (LocalDate.now().isBefore(expiredDate)) {
-                long daysSinceDeleted = ChronoUnit.DAYS.between(user.getDeletedAt(), LocalDate.now());
+            if (LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).isBefore(expiredDate)) {
+                long daysSinceDeleted = ChronoUnit.DAYS.between(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")), expiredDate);
 
                 return LoginResponseDto.builder()
                         .status(HttpStatus.UNAUTHORIZED)
@@ -177,10 +177,40 @@ public class AuthServiceImpl implements AuthService {
                 newUser.setProvider("GOOGLE");
                 newUser.setRole(Role.USER);
                 newUser.setIsLocked(false);
-                newUser.setCreatedAt(LocalDate.now());
+                newUser.setCreatedAt(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
 
                 return userRepository.save(newUser);
             });
+
+            if (Boolean.TRUE.equals(user.getIsDeleted())) {
+                LocalDate expiredDate = user.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
+                if (LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).isBefore(expiredDate)) {
+                    long daysSinceDeleted = ChronoUnit.DAYS.between(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")), expiredDate);
+
+                    return LoginResponseDto.builder()
+                            .status(HttpStatus.UNAUTHORIZED)
+                            .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
+                            .isDeleted(CommonConstant.TRUE)
+                            .canRecovery(CommonConstant.TRUE)
+                            .dayRecoveryRemaining(daysSinceDeleted)
+                            .build();
+                } else {
+                    return LoginResponseDto.builder()
+                            .status(HttpStatus.UNAUTHORIZED)
+                            .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
+                            .isDeleted(CommonConstant.TRUE)
+                            .canRecovery(CommonConstant.FALSE)
+                            .dayRecoveryRemaining(0)
+                            .build();
+                }
+            }
+
+            if (Boolean.TRUE.equals(user.getIsLocked())) {
+                return LoginResponseDto.builder()
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .message(ErrorMessage.Auth.ERR_ACCOUNT_LOCKED)
+                        .build();
+            }
 
             String accessToken = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
             String refreshToken = jwtService.generateToken(user, REFRESH_TOKEN_EXPIRATION);
@@ -263,7 +293,7 @@ public class AuthServiceImpl implements AuthService {
 
         pending.setRequest(request);
         pending.setOtp(otp);
-        pending.setExpireAt(LocalDateTime.now().plusMinutes(5));
+        pending.setExpireAt(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh")).plusMinutes(5));
 
         pendingRegisterMap.put(request.getEmail(), pending);
 
@@ -292,9 +322,9 @@ public class AuthServiceImpl implements AuthService {
 
         user.setPassword(passwordEncoder.encode(req.getPassword()));
         user.setRole(Role.USER);
-        user.setCreatedAt(LocalDate.now());
+        user.setCreatedAt(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
         user.setIsLocked(false);
-        user.setCreatedAt(LocalDate.now());
+        user.setCreatedAt(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
 
         userRepository.save(user);
 
@@ -315,7 +345,7 @@ public class AuthServiceImpl implements AuthService {
 
         pending.setRequest(request);
         pending.setOtp(otp);
-        pending.setExpireAt(LocalDateTime.now().plusMinutes(5));
+        pending.setExpireAt(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh")).plusMinutes(5));
 
         pendingResetPasswordMap.put(request.getEmail(), pending);
 
@@ -374,7 +404,7 @@ public class AuthServiceImpl implements AuthService {
 
         LocalDate expiredDate = deletedUser.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
 
-        if (LocalDate.now().isAfter(expiredDate)) {
+        if (LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).isAfter(expiredDate)) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_RECOVERY_EXPIRED);
         }
 
@@ -384,7 +414,7 @@ public class AuthServiceImpl implements AuthService {
 
         pendingRecoveryRequest.setRequest(request);
         pendingRecoveryRequest.setOtp(otp);
-        pendingRecoveryRequest.setExpireAt(LocalDateTime.now().plusMinutes(5));
+        pendingRecoveryRequest.setExpireAt(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh")).plusMinutes(5));
 
         pendingRecoveryMap.put(request.getEmail(), pendingRecoveryRequest);
 
@@ -422,7 +452,7 @@ public class AuthServiceImpl implements AuthService {
 
         LocalDate expiredDate = deletedUser.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
 
-        if (LocalDate.now().isAfter(expiredDate)) {
+        if (LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).isAfter(expiredDate)) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_RECOVERY_EXPIRED);
         }
 

@@ -54,6 +54,8 @@ public class User {
 
     String linkAvatar;
 
+    String avatarPublicId;
+
     String provider;
 
     @Column(nullable = false)

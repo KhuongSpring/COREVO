@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_dimension.dart';
+import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
 import 'package:hit_tech/view/training_flow/widget/training_level_selection_widget.dart';
 
 import '../../../../core/constants/app_assets.dart';
@@ -27,6 +28,17 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
   ];
 
   Map<String, List<String>> selectedValues = {};
+
+  List<String> goalImage = [
+    TrainingAssets.goal1,
+    TrainingAssets.goal2,
+    TrainingAssets.goal3,
+    TrainingAssets.goal4,
+    TrainingAssets.goal5,
+    TrainingAssets.goal6,
+    TrainingAssets.goal7,
+    TrainingAssets.goal8,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +187,7 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: Image.asset(
-                                TrainingAssets.goalDemo,
+                                goalImage[index],
                                 width: 90,
                                 height: 90,
                                 fit: BoxFit.cover,
@@ -225,7 +237,10 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
               onPressed: selectedIndex != null
                   ? () async {
                       var selectedGoal = goals[selectedIndex!];
-                      selectedGoal = normalizeGoal(selectedGoal);
+                      selectedGoal =
+                          MappingTrainingResourceHelper.mappingGoalToEnglish(
+                            selectedGoal,
+                          );
 
                       final request = TrainingFlowRequest(
                         currentStep: 'goals',
@@ -328,20 +343,5 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
         ],
       ),
     );
-  }
-
-  String normalizeGoal(String vietnameseGoal) {
-    const mapping = {
-      "Giảm cân / Giảm mỡ": "Lose fat",
-      "Tăng cân": "Gain weight",
-      "Tăng cơ": "Gain muscle",
-      "Duy trì vóc dáng": "Maintain body",
-      "Tăng sức bền": "Increase endurance",
-      "Cải thiện tim mạch": "Improve cardiovascular",
-      "Giảm stress, thư giãn": "Stress relief/relaxation",
-      "Tăng chiều cao": "Increase height",
-    };
-
-    return mapping[vietnameseGoal] ?? vietnameseGoal;
   }
 }

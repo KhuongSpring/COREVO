@@ -2,13 +2,15 @@ abstract class ApiEndpoint {
   // static const String baseUrl = 'http://192.168.184.103:8080';
 
   // Máy Khương
-  static const String baseUrl = 'http://10.0.2.2:8080';
+  // static const String baseUrl = 'http://10.0.2.2:8080';
   // static const String baseUrl = 'http://192.168.50.240:8080';
+  static const String baseUrl = 'http://146.190.101.127:8080';
 
   // Base Endpoints
   static const String version = '$baseUrl/api/v1';
   static const String userEndpoint = '$version/user';
   static const String userHealthEndpoint = '$version/user-health';
+  static const String trainingProgress = '$version/training/progress';
   static const String trainingExercise = '$version/training/exercise';
   static const String trainingPlanFlow = '$version/training-plan';
   static const String auth = '$version/auth';
@@ -22,11 +24,22 @@ abstract class ApiEndpoint {
   static const String fillPersonalInformation =
       '$userEndpoint/personal-information';
   static const String getProfile = '$userEndpoint/profile';
-  static const String deleteMyAccount = '$userEndpoint/delete-account';
+  static const String deleteMyAccount = '$userEndpoint/delete-my-account';
 
   // User-health Endpoint
   static const String fillHeathInformation =
       '$userHealthEndpoint/health-information';
+
+  // Training Controller Progress
+  static const String completeExercise =
+      '$trainingProgress/complete';
+  static const String getWeeklyProgress =
+      '$trainingProgress/weekly';
+  static const String getStatistic =
+      '$trainingProgress/statistic';
+  static const String getDailyProgress =
+      '$trainingProgress/daily';
+
 
   // Training-exercise-search
   static const String searchExercise = '$trainingExercise/search';
@@ -50,6 +63,7 @@ abstract class ApiEndpoint {
   static const String register = '$auth/register';
   static const String refreshToken = '$auth/refresh';
   static const String recoverAccount = '$auth/recover-account';
+  static const String accountRecover = '$auth/account-recovery';
   static const String logout = '$auth/logout';
   static const String login = '$auth/login';
   static const String sendEmailToForgotPassword = '$auth/forgot-password';

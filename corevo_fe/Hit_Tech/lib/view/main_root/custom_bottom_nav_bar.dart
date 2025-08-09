@@ -33,7 +33,7 @@ class CustomBottomNavBar extends StatelessWidget {
       TrainingAssets.homeIcon,
       TrainingAssets.libraryIcon,
       TrainingAssets.chartIcon,
-      TrainingAssets.notificationIcon,
+      TrainingAssets.feedsIcon,
       TrainingAssets.profileIcon,
     ];
 
@@ -41,7 +41,7 @@ class CustomBottomNavBar extends StatelessWidget {
       "Tổng quan",
       "Thư viện",
       "Luyện tập",
-      "Thông báo",
+      "Cộng đồng",
       "Cá nhân",
     ];
 

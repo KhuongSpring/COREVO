@@ -132,10 +132,7 @@ class _PersonalHealthSelectionWidgetState
                                 radius: 40,
                                 backgroundImage: linkAvatar?.isNotEmpty ?? false
                                     ? NetworkImage(linkAvatar!)
-                                    : const AssetImage(
-                                  TrainingAssets.googleIcon,
-                                )
-                                as ImageProvider,
+                                    : NetworkImage(TrainingAssets.defaultImage),
                               ),
                             ),
                           ),

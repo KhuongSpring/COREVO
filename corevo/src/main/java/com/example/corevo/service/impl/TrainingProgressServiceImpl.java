@@ -22,10 +22,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.ZoneId;
+import java.util.*;
 import java.time.temporal.TemporalAdjusters;
 
 @Service
@@ -45,7 +43,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
             throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         User user = userRepository.findByUsername(username);
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(today.getDayOfWeek().toString());
 
         if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
@@ -83,7 +81,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
     @Override
     public DailyProgressResponseDto getDailyProgress(Authentication authentication) {
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(today.getDayOfWeek().toString());
 
         String username = authentication.getName();
@@ -136,7 +134,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
     @Override
     public WeeklyProgressResponseDto getWeeklyProgress(Authentication authentication) {
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         LocalDate weekStart = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
 
         String username = authentication.getName();
@@ -145,6 +143,10 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
             throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         User user = userRepository.findByUsername(username);
+
+        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
+
         Long trainingPlanId = user.getTrainingPlans().getFirst().getId();
 
         if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
@@ -196,7 +198,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         int targetYear = (year == null) ? today.getYear() : year;
         int targetMonth = (month == null) ? today.getMonthValue() : month;
 
@@ -251,17 +253,26 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         return monthName[month - 1];
     }
 
-    private Integer calculateCurrentStreak(List<LocalDate> allCompletionDates, LocalDate today){
-        if(allCompletionDates.isEmpty()) return 0;
+    private Integer calculateCurrentStreak(List<LocalDate> allCompletionDates, LocalDate today) {
+        if (allCompletionDates.isEmpty()) return 0;
+
+        Set<LocalDate> completionSet = new HashSet<>(allCompletionDates);
 
         int streak = 0;
         LocalDate checkDate = today;
-        while(allCompletionDates.contains(checkDate)){
+
+        if (!completionSet.contains(today)) {
+            checkDate = today.minusDays(1);
+        }
+
+        while (completionSet.contains(checkDate)) {
             streak++;
             checkDate = checkDate.minusDays(1);
         }
+
         return streak;
     }
+
 
     private Integer calculateLongestStreak(List<LocalDate> allCompletionDates){
         if (allCompletionDates.isEmpty()) return 0;

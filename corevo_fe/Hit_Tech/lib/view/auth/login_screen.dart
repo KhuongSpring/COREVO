@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hit_tech/core/constants/api_endpoint.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
@@ -11,7 +13,9 @@ import 'package:hit_tech/core/constants/app_string.dart';
 import 'package:hit_tech/model/request/auth/oauth2_google_request.dart';
 import 'package:hit_tech/service/user_service.dart';
 import 'package:hit_tech/utils/validator_util.dart';
+import 'package:hit_tech/view/auth/recovery_account_screen.dart';
 import 'package:hit_tech/view/auth/register_screen.dart';
+import 'package:hit_tech/view/auth/widgets/recover_account_popup.dart';
 import 'package:hit_tech/view/main_root/home/home_screen.dart';
 import 'package:hit_tech/view/main_root/home_root.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
@@ -19,7 +23,9 @@ import 'package:hit_tech/view/auth/widgets/auth_custom_button.dart';
 import 'package:hit_tech/view/auth/widgets/button_gg_fb_auth.dart';
 import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
 import 'package:hit_tech/view/auth/widgets/text_bottom_auth.dart';
-import 'package:hit_tech/view/personal_health/gender_selection_screen.dart';
+import 'package:hit_tech/view/personal_health/widget/gender_selection_widget.dart';
+import 'package:hit_tech/view/training_flow/training_flow_start_page.dart';
+import 'package:hit_tech/view/welcome_screen.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../core/constants/app_assets.dart';
@@ -61,6 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handleLogin() async {
+    await SharedPreferencesService.clearAll();
     if (_formKey.currentState!.validate()) {
       try {
         final request = LoginRequest(
@@ -91,9 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
               if (subResponse.userHealth == null) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => GenderSelectionScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
                 );
                 return;
               }
@@ -103,24 +108,47 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TrainingGoalSelectionWidget(),
+                    builder: (context) => TrainingFlowStartPage(),
                   ),
                 );
                 return;
               }
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeRoot(user: subResponse),
+                ),
+              );
             }
           } catch (e, stackTrace) {
             print(stackTrace);
           }
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeRoot()),
-          );
         } else {
           if (isDeleted ?? true) {
             if (canRecovery ?? true) {
               final dayRecoveryRemaining = response.dayRecoveryRemaining;
+
+              showCupertinoDialog(
+                context: context,
+                builder: (diaLogContext) => RecoverAccountPopUp(
+                  onCancel: () {
+                    Navigator.of(diaLogContext).pop();
+                  },
+                  onSave: () {
+                    Navigator.of(diaLogContext).pop();
+                    Future.microtask(() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => RecoveryAccountScreen(),
+                        ),
+                      );
+                    });
+                  },
+                  dayRecoveryRemaining: dayRecoveryRemaining ?? 0,
+                ),
+              );
             } else {
               _showSnackBar(
                 UserMessage.errAccountAlreadyDeleted,
@@ -137,16 +165,54 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handleLoginWithGoogle() async {
+    await SharedPreferencesService.clearAll();
+
     try {
+      await _googleSignIn.signOut();
+
       final account = await _googleSignIn.signIn();
       final auth = await account?.authentication;
 
       final idToken = auth?.idToken;
+
       if (idToken != null) {
         final response = await AuthService.loginWithGoogle(
           Oauth2GoogleRequest(idToken: idToken),
         );
-        if (response.status == 'OK') {
+        if (response.status == 'UNAUTHORIZED') {
+          if (response.isDeleted ?? true) {
+            if (response.canRecovery ?? true) {
+              final dayRecoveryRemaining = response.dayRecoveryRemaining;
+
+              showCupertinoDialog(
+                context: context,
+                builder: (diaLogContext) => RecoverAccountPopUp(
+                  onCancel: () {
+                    Navigator.of(diaLogContext).pop();
+                  },
+                  onSave: () {
+                    Navigator.of(diaLogContext).pop();
+                    Future.microtask(() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => RecoveryAccountScreen(),
+                        ),
+                      );
+                    });
+                  },
+                  dayRecoveryRemaining: dayRecoveryRemaining ?? 0,
+                ),
+              );
+            } else {
+              _showSnackBar(
+                UserMessage.errAccountAlreadyDeleted,
+                isError: true,
+              );
+              return;
+            }
+          }
+        } else {
           await SharedPreferencesService.saveAccessToken(
             response.accessToken ?? '',
           );
@@ -164,9 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
               if (subResponse.userHealth == null) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => GenderSelectionScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
                 );
 
                 return;
@@ -177,34 +241,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TrainingGoalSelectionWidget(),
+                    builder: (context) => TrainingFlowStartPage(),
                   ),
                 );
 
                 return;
               }
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeRoot(user: subResponse),
+                ),
+              );
             }
           } catch (e, stackTrace) {
             print(stackTrace);
           }
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomeRoot()),
-          );
-        } else {
-          if (response.isDeleted ?? true) {
-            if (response.canRecovery ?? true) {
-              final dayRecoveryRemaining = response.dayRecoveryRemaining;
-            } else {
-              _showSnackBar(
-                UserMessage.errAccountAlreadyDeleted,
-                isError: true,
-              );
-              return;
-            }
-          }
-
         }
       }
     } catch (e) {
@@ -241,25 +294,15 @@ class _LoginScreenState extends State<LoginScreen> {
               key: _formKey,
               child: Column(
                 children: [
-                  SizedBox(height: 30),
+                  SizedBox(height: 80.sp),
                   // Header
-                  Container(
-                    width: screenWidth,
-                    height: 83,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(24),
-                        bottomRight: Radius.circular(24),
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        AppStrings.login,
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.dark,
-                        ),
+                  Center(
+                    child: Text(
+                      AppStrings.login,
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.dark,
                       ),
                     ),
                   ),
@@ -269,8 +312,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.all(24.0),
                     child: Column(
                       children: [
-                        const SizedBox(height: 22),
-
+                        SizedBox(height: 30.sp),
                         // Username Field
                         CustomInputField(
                           isPassword: true,
@@ -390,7 +432,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
 
-                        const SizedBox(height: 40),
+                        SizedBox(height: 40.sp),
 
                         // Login Button
                         AuthCustomButton(
@@ -403,31 +445,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         // Divider
                         DividerWithText(text: AppStrings.orLoginWith),
 
-                        const SizedBox(height: 24),
+                        SizedBox(height: 40.sp),
 
                         // Social Login Buttons
                         ButtonGgFbAuth(
                           image: Image(
                             image: AssetImage(TrainingAssets.googleIcon),
                           ),
-                          width: screenWidth * .9,
+                          width: screenWidth * 0.7.sp,
                           text: 'Tiếp tục với Google',
                           onPressed: _handleLoginWithGoogle,
                         ),
-                        const SizedBox(height: 18),
+                        SizedBox(height: 18.sp),
                         ButtonGgFbAuth(
                           image: Image(
                             image: AssetImage(TrainingAssets.facebookIcon),
                           ),
-                          width: screenWidth * .9,
-                          text: 'Tiếp tục với acebook',
+                          width: screenWidth * 0.7.sp,
+                          text: 'Tiếp tục với Facebook',
                           onPressed: () {
                             // Handle Facebook login
                             _handleSocialLogin('facebook');
                           },
                         ),
 
-                        const SizedBox(height: 140),
+                        SizedBox(height: 30.sp),
 
                         // Register Link
                         Row(
