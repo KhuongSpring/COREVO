@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/core/constants/app_message.dart';
@@ -7,12 +10,20 @@ import 'package:hit_tech/core/constants/app_string.dart';
 import 'package:hit_tech/view/auth/widgets/auth_custom_button.dart';
 import 'package:hit_tech/view/auth/widgets/button_gg_fb_auth.dart';
 import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
+import 'package:hit_tech/view/auth/widgets/recover_account_popup.dart';
+import 'package:hit_tech/view/main_root/setting/widgets/privacy_and_terms_screen.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../service/auth_service.dart';
 import '../../../utils/validator_util.dart';
+import '../../model/request/auth/oauth2_google_request.dart';
 import '../../model/request/auth/register_request.dart';
 import '../../model/response/auth/register_response.dart';
+import '../../service/shared_preferences.dart';
+import '../../service/user_service.dart';
+import '../main_root/home_root.dart';
+import '../training_flow/training_flow_start_page.dart';
+import '../welcome_screen.dart';
 import 'login_screen.dart';
 import 'otp_verification_screen.dart';
 
@@ -34,6 +45,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _agree = false;
   bool isLoading = false;
 
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: ['email', 'profile'],
+    serverClientId:
+        '42141829092-b08uu2gskgp6tks7q92k6ap5g5gdh0k9.apps.googleusercontent.com',
+  );
+
   void _showSnackBar(String message, {bool isError = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -44,74 +61,179 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  Future<String> getPrivacyAndTerms() async {
+    String res = "";
+    try {
+      final response = await AuthService.getPrivacy();
+
+      if (response.status == 'SUCCESS') {
+        res += response.data['content'];
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    try {
+      final response = await AuthService.getTerms();
+
+      if (response.status == 'SUCCESS') {
+        res += response.data['content'];
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    return res;
+  }
+
+  Future<void> _handleLoginWithGoogle() async {
+    if (!_agree) {
+      _showSnackBar(
+        'Vui lòng đồng ý với các điều khoản và chính sách',
+        isError: true,
+      );
+      return;
+    }
+
+    await SharedPreferencesService.clearAll();
+    try {
+      final account = await _googleSignIn.signIn();
+      final auth = await account?.authentication;
+
+      final idToken = auth?.idToken;
+      if (idToken != null) {
+        final response = await AuthService.loginWithGoogle(
+          Oauth2GoogleRequest(idToken: idToken),
+        );
+        if (response.status == 'UNAUTHORIZED') {
+          if (response.isDeleted ?? true) {
+            if (response.canRecovery ?? true) {
+              final dayRecoveryRemaining = response.dayRecoveryRemaining;
+
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => RecoverAccountPopUp(
+                  onCancel: () => Navigator.of(context).pop(),
+                  onSave: () {},
+                  dayRecoveryRemaining: dayRecoveryRemaining ?? 0,
+                ),
+              );
+            } else {
+              _showSnackBar(
+                UserMessage.errAccountAlreadyDeleted,
+                isError: true,
+              );
+              return;
+            }
+          }
+        } else {
+          await SharedPreferencesService.saveAccessToken(
+            response.accessToken ?? '',
+          );
+          await SharedPreferencesService.saveRefreshToken(
+            response.refreshToken ?? '',
+          );
+          await SharedPreferencesService.saveUserData(response.userId ?? '');
+
+          print(await SharedPreferencesService.getAccessToken());
+
+          try {
+            final subResponse = await UserService.getProfile();
+
+            if (subResponse.status == "SUCCESS") {
+              if (subResponse.userHealth == null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                );
+
+                return;
+              }
+
+              if (subResponse.trainingPlans == null ||
+                  subResponse.trainingPlans!.isEmpty) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TrainingFlowStartPage(),
+                  ),
+                );
+
+                return;
+              }
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeRoot(user: subResponse),
+                ),
+              );
+            }
+          } catch (e, stackTrace) {
+            print(stackTrace);
+          }
+        }
+      }
+    } catch (e) {
+      print("❌ Google login failed: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: AppColors.wLight,
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: Image.asset(
-                  TrainingAssets.authBackground,
-                  fit: BoxFit.cover,
-                ),
+      body: Form(
+        key: _formKey,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                TrainingAssets.authBackground,
+                fit: BoxFit.cover,
               ),
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(height: 20),
-
-                    // Header
-                    Container(
-                      width: screenWidth,
-                      height: 83,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(24),
-                          bottomRight: Radius.circular(24),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          AppStrings.register,
-                          style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.dark,
-                          ),
-                        ),
+            ),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 80.sp),
+                  // Header
+                  Center(
+                    child: Text(
+                      AppStrings.register,
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.dark,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: AppDimensions.spaceXL),
-                          _buildFormFields(),
-                          const SizedBox(height: AppDimensions.spaceM),
-                          _buildAgreeRow(),
-                          const SizedBox(height: AppDimensions.spaceXL),
-                          _buildRegisterButton(),
-                          const SizedBox(height: 40),
-                          _buildDivider(),
-                          const SizedBox(height: AppDimensions.spaceM),
-                          _buildSocialButtons(),
-                          const SizedBox(height: AppDimensions.spaceXXL),
-                          _buildLogInLink(),
-                          const SizedBox(height: 20),
-                        ],
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: AppDimensions.spaceXL),
+                        _buildFormFields(),
+                        SizedBox(height: 16.sp),
+                        _buildAgreeRow(),
+                        SizedBox(height: 40.sp),
+                        _buildRegisterButton(),
+                        const SizedBox(height: 40),
+                        _buildDivider(),
+                        const SizedBox(height: AppDimensions.spaceM),
+                        _buildSocialButtons(),
+                        const SizedBox(height: AppDimensions.spaceXXL),
+                        _buildLogInLink(),
+                        SizedBox(height: 18.sp),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -227,19 +349,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     const TextSpan(text: 'Tôi đồng ý với '),
                     TextSpan(
                       text: 'Chính sách',
-                      style: const TextStyle(color: Color(0xFF0D5BFF)),
+                      style: const TextStyle(color: AppColors.bNormal),
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          // TODO: mở link chính sách
+                        ..onTap = () async {
+                          String res = await getPrivacyAndTerms();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  PrivacyAndTermsScreen(privacyAndTerms: res),
+                            ),
+                          );
                         },
                     ),
                     const TextSpan(text: ' và '),
                     TextSpan(
                       text: 'Điều khoản sử dụng',
-                      style: const TextStyle(color: Color(0xFF0D5BFF)),
+                      style: const TextStyle(color: AppColors.bNormal),
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          // TODO: mở link điều khoản
+                        ..onTap = () async {
+                          String res = await getPrivacyAndTerms();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  PrivacyAndTermsScreen(privacyAndTerms: res),
+                            ),
+                          );
                         },
                     ),
                   ],
@@ -287,7 +423,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ButtonGgFbAuth(
-          onPressed: _handleGoogleRegister,
+          onPressed: _handleLoginWithGoogle,
           image: Image(image: AssetImage(TrainingAssets.googleIcon)),
           text: 'Google',
           width: screenWidth * 0.4,
@@ -303,28 +439,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildLogInLink() {
-    return Center(
-      child: TextButton(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          AppStrings.alreadyHaveAccount,
+          style: TextStyle(color: Colors.grey[600], fontSize: 16),
         ),
-        child: const Text.rich(
-          TextSpan(
-            text: 'Đã có tài khoản? ',
-            style: TextStyle(color: Colors.black, fontSize: 16),
-            children: [
-              TextSpan(
-                text: AppStrings.login,
-                style: TextStyle(
-                  color: AppColors.bNormal,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
+        SizedBox(width: 4),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginScreen()),
+            );
+          },
+          child: Text(
+            AppStrings.login,
+            style: TextStyle(
+              color: AppColors.bNormal,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 
@@ -356,8 +495,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                OtpVerificationScreen(email: request.email, isRegister: true),
+            builder: (context) => OtpVerificationScreen(
+              email: request.email,
+              isRegister: true,
+              isRecovery: false,
+            ),
           ),
         );
       } else {
@@ -367,10 +509,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       print(stackStrace);
       _showSnackBar(AuthMessage.errRegisterFail, isError: false);
     }
-  }
-
-  void _handleGoogleRegister() {
-    // TODO dang phat trien
   }
 
   void _handleFacebookRegister() {

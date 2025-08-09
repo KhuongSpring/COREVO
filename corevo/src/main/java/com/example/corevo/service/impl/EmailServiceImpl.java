@@ -23,7 +23,7 @@ public class EmailServiceImpl implements EmailService {
         message.setTo(email);
         message.setSubject("Xác thực OTP");
         message.setText("Mã OTP của bạn là: " + otp);
-        message.setFrom("boyzsno1@gmail.com");
+        message.setFrom("noreply@corevo.online");
 
         mailSender.send(message);
     }

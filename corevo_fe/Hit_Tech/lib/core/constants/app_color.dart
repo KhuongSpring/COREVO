@@ -50,4 +50,5 @@ class AppColors {
   static const Color buttonBGBottomGender = Color(0xFFE0E0E0);
   static const Color buttonTextGenderfocus = Color(0xFFFFFFFF);
   static const Color buttonTextGender = Color(0xFF9E9E9E);
+  static const Color prizeSelected = Color(0xFFE5E8FF);
 }

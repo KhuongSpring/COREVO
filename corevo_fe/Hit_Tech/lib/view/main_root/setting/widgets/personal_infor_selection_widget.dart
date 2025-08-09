@@ -1,11 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
+import 'package:hit_tech/model/response/user/user_profile_response.dart';
+import 'package:hit_tech/view/main_root/setting/widgets/update_profile_popup.dart';
 
 import '../../../../../core/constants/app_color.dart';
 import '../../../../../core/constants/app_dimension.dart';
 import '../../../../service/user_service.dart';
 
 class PersonalInforSelectionWidget extends StatefulWidget {
+  final UserProfileResponse userProfile;
+  final Future<void> Function() onReload;
+
+  const PersonalInforSelectionWidget({
+    super.key,
+    required this.userProfile,
+    required this.onReload,
+  });
+
   @override
   State<PersonalInforSelectionWidget> createState() =>
       _PersonalInforSelectionWidgetState();
@@ -13,149 +25,103 @@ class PersonalInforSelectionWidget extends StatefulWidget {
 
 class _PersonalInforSelectionWidgetState
     extends State<PersonalInforSelectionWidget> {
-  String? linkAvatar;
+  TextEditingController _controller = TextEditingController();
 
-  String? username;
-
-  String? firstname;
-
-  String? lastname;
-
-  String? email;
-
-  String? birth;
-
-  String? phoneNumber;
-
-  String? nationality;
-
-  bool _isLoading = true;
+  late UserProfileResponse _userProfile;
 
   @override
   void initState() {
     super.initState();
-    _handleGetProfile();
-  }
-
-  Future<void> _handleGetProfile() async {
-    try {
-      final response = await UserService.getProfile();
-
-      if (response.status == 'SUCCESS') {
-        setState(() {
-          linkAvatar = response.linkAvatar;
-          username = response.username;
-          firstname = response.firstName;
-          lastname = response.lastName;
-          email = response.email;
-          birth = response.birth;
-          phoneNumber = response.phone;
-          nationality = response.nationality;
-          _isLoading = false;
-        });
-        return;
-      }
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+    _userProfile = widget.userProfile;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bLight,
-      body: _isLoading
-          ? Center(child: CircularProgressIndicator())
-          : Stack(
-              children: [
-                Positioned.fill(
-                  child: Image.asset(
-                    TrainingAssets.mainBackground,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Column(
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              TrainingAssets.mainBackground,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Column(
+            children: [
+              const SizedBox(height: 50),
+              // Header + Avatar
+              SizedBox(
+                height: 110,
+                child: Stack(
                   children: [
-                    const SizedBox(height: 50),
-                    // Header + Avatar
-                    SizedBox(
-                      height: 110,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            left: 20,
-                            top: 0,
-                            bottom: 70,
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(Icons.arrow_back_ios),
-                              color: AppColors.bNormal,
-                            ),
-                          ),
-
-                          Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.blue,
-                                  width: 2,
-                                ),
-                              ),
-                              child: CircleAvatar(
-                                radius: 40,
-                                backgroundImage: linkAvatar?.isNotEmpty ?? false
-                                    ? NetworkImage(linkAvatar!)
-                                    : const AssetImage(
-                                            TrainingAssets.googleIcon,
-                                          )
-                                          as ImageProvider,
-                              ),
-                            ),
-                          ),
-                        ],
+                    Positioned(
+                      left: 20,
+                      top: 0,
+                      bottom: 70,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.arrow_back_ios),
+                        color: AppColors.bNormal,
                       ),
                     ),
-                    Column(
-                      children: [
-                        const SizedBox(height: 10),
-                        Text(
-                          '${firstname ?? ''} ${lastname ?? ''}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: AppColors.normal,
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          email ?? '',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: AppColors.lightActive,
-                          ),
-                        ),
-                      ],
-                    ),
 
-                    const SizedBox(height: 40),
-
-                    // Các mục
-                    Expanded(
-                      child: ListView(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        children: [_buildProfileSection()],
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.blue, width: 2),
+                        ),
+                        child: CircleAvatar(
+                          radius: 40,
+                          backgroundImage:
+                              _userProfile.linkAvatar?.isNotEmpty ?? false
+                              ? NetworkImage(_userProfile.linkAvatar!)
+                              : NetworkImage(TrainingAssets.defaultImage),
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Text(
+                    '${_userProfile.firstName ?? ''} ${_userProfile.lastName ?? ''}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: AppColors.normal,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    _userProfile.email ?? '',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: AppColors.lightActive,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 40),
+
+              // Các mục
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  children: [_buildProfileSection()],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -171,7 +137,9 @@ class _PersonalInforSelectionWidgetState
           fontWeight: FontWeight.w500,
         ),
       ),
-      onTap: () {},
+      onTap: (title != 'Tên đăng nhập')
+          ? () => _showUsernamePopup(context, (title))
+          : () {},
     );
   }
 
@@ -186,27 +154,142 @@ class _PersonalInforSelectionWidgetState
           _buildInnerTile(
             Icons.person_outline,
             'Tên đăng nhập',
-            username ?? '',
+            _userProfile.username ?? '?',
           ),
           const Divider(height: 1, color: AppColors.bLightHover),
-          _buildInnerTile(Icons.favorite_border, 'Họ', firstname ?? ''),
+          _buildInnerTile(
+            Icons.favorite_border,
+            'Họ',
+            _userProfile.firstName ?? '?',
+          ),
           const Divider(height: 1, color: AppColors.bLightHover),
-          _buildInnerTile(Icons.favorite_border, 'Tên', lastname ?? ''),
+          _buildInnerTile(
+            Icons.favorite_border,
+            'Tên',
+            _userProfile.lastName ?? '?',
+          ),
           const Divider(height: 1, color: AppColors.bLightHover),
-          _buildInnerTile(Icons.favorite_border, 'Ngày sinh', birth ?? ''),
+          _buildInnerTile(
+            Icons.favorite_border,
+            'Ngày sinh',
+            _userProfile.birth ?? '?',
+          ),
           const Divider(height: 1, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Số điện thoại',
-            phoneNumber ?? '',
+            _userProfile.phone ?? '?',
           ),
           const Divider(height: 1, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Quốc tịch',
-            nationality ?? '',
+            _userProfile.nationality ?? '?',
           ),
         ],
+      ),
+    );
+  }
+
+  void _showUsernamePopup(BuildContext context, String label) {
+    _controller.clear();
+    showCupertinoDialog(
+      context: context,
+      builder: (context) => UpdateProfilePopUp(
+        controller: _controller,
+        onCancel: () => Navigator.of(context).pop(),
+        onSave: () async {
+          final type = mappingField(label);
+          if (type == 'phone') {
+            final phone = _controller.text.trim();
+
+            if (!isValidVietnamPhone(phone)) {
+              _showSnackBar('Số điện thoại không hợp lệ', isError: true);
+              return;
+            }
+          }
+
+          final Map<String, dynamic> requestBody = {
+            "password": 'GoogleLogin123@',
+            "profileData": {
+              "personalInformation": {
+                "firstName": (type == 'firstname')
+                    ? _controller.text.trim()
+                    : _userProfile.firstName,
+                "lastName": (type == 'lastname')
+                    ? _controller.text.trim()
+                    : _userProfile.lastName,
+                "phone": (type == 'phone')
+                    ? _controller.text.trim()
+                    : _userProfile.phone,
+                "birth": (type == 'birth')
+                    ? _controller.text.trim()
+                    : _userProfile.birth,
+                "nationality": (type == 'nationality')
+                    ? _controller.text.trim()
+                    : _userProfile.nationality,
+                "address": {"province": '', "district": ''},
+              },
+              "health": {
+                "gender": _userProfile.userHealth?.gender,
+                "height": _userProfile.userHealth?.height,
+                "weight": _userProfile.userHealth?.weight,
+                "age": _userProfile.userHealth!.age,
+                "activityLevel": _userProfile.userHealth?.activityLevel,
+              },
+            },
+          };
+          try {
+            final response = await UserService.updatePersonalInformation(
+              requestBody,
+            );
+
+            if (response.status == 'SUCCESS') {
+              setState(() {
+                _userProfile = response;
+              });
+              await widget.onReload();
+              Navigator.pop(context);
+            }
+          } catch (e) {
+            print('Lỗi update: $e');
+          }
+        },
+        type: label,
+      ),
+    );
+  }
+
+  String mappingField(String title) {
+    const mapping = {
+      'Tên đăng nhập': 'username',
+      'Họ': 'firstname',
+      'Tên': 'lastname',
+      'Ngày sinh': 'birth',
+      'Số điện thoại': 'phone',
+      'Quốc tịch': 'nationality',
+    };
+    return mapping[title] ?? title;
+  }
+
+  bool isValidVietnamPhone(String phone) {
+    phone = phone.trim();
+
+    if (phone.startsWith('+84')) {
+      phone = '0${phone.substring(3)}';
+    }
+
+    final regex = RegExp(r'^(03|05|07|08|09)\d{8}$');
+
+    return regex.hasMatch(phone);
+  }
+
+  void _showSnackBar(String message, {bool isError = false}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: isError ? Colors.red : Colors.green,
+        duration: Duration(seconds: 3),
       ),
     );
   }

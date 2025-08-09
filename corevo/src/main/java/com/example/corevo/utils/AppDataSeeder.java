@@ -279,13 +279,13 @@ public class AppDataSeeder implements ApplicationRunner {
             });
 
             if (trainingPlansFromDB.isEmpty()) {
-                List<TrainingPlan> trainingPlans = trainingPlanMapper.listTrainingPlanResponseDtoToListTrainingPlan(trainingPlansFromJson);
+                List<TrainingPlan> trainingPlans = trainingPlanMapper.listTrainingPlanResponseDtoToListTrainingPlanWithoutId(trainingPlansFromJson);
                 trainingPlanRepository.saveAll(trainingPlans);
             } else {
                 if (trainingPlansFromJson.size() > trainingPlansFromDB.size()) {
                     for (TrainingPlanResponseDto x : trainingPlansFromJson) {
                         if (!trainingPlanRepository.existsByNameAndType(x.getName(), x.getType())) {
-                            trainingPlanRepository.save(trainingPlanMapper.trainingPlanResponseDtoToTrainingPlan(x));
+                            trainingPlanRepository.save(trainingPlanMapper.trainingPlanResponseDtoToTrainingPlanWithoutId(x));
                         }
                     }
                 }
@@ -299,19 +299,7 @@ public class AppDataSeeder implements ApplicationRunner {
     }
 
     void seedTrainingExercise() {
-        List<String> jsonFiles = List.of(
-                "/data/training_exercise_data/abs_training_exercise.json",
-                "/data/training_exercise_data/back_training_exercise.json",
-                "/data/training_exercise_data/biceps_training_exercise.json",
-                "/data/training_exercise_data/chest_training_exercise.json",
-                "/data/training_exercise_data/glute_training_exercise.json",
-                "/data/training_exercise_data/hamstring_training_exercise.json",
-                "/data/training_exercise_data/quads_training_exercise.json",
-                "/data/training_exercise_data/shoulders_training_exercise.json",
-                "/data/training_exercise_data/triceps_training_exercise.json",
-                "/data/training_exercise_data/cardio_training_exercise.json",
-                "/data/training_exercise_data/yoga_training_exercise.json"
-        );
+        List<String> jsonFiles = List.of("/data/training_exercise_data/abs_training_exercise.json", "/data/training_exercise_data/back_training_exercise.json", "/data/training_exercise_data/biceps_training_exercise.json", "/data/training_exercise_data/chest_training_exercise.json", "/data/training_exercise_data/glute_training_exercise.json", "/data/training_exercise_data/hamstring_training_exercise.json", "/data/training_exercise_data/quads_training_exercise.json", "/data/training_exercise_data/shoulders_training_exercise.json", "/data/training_exercise_data/triceps_training_exercise.json", "/data/training_exercise_data/cardio_training_exercise.json", "/data/training_exercise_data/yoga_training_exercise.json");
 
         log.info("Start seeding training exercise from JSON...");
 
@@ -425,8 +413,7 @@ public class AppDataSeeder implements ApplicationRunner {
                         TrainingExerciseGroupResponseDto groupResponseDto = dto.getDays().get(i).getExerciseGroups();
 
                         if (groupResponseDto != null) {
-                            TrainingExerciseGroup group = trainingExerciseGroupMapper.
-                                    trainingExerciseGroupResponseDtoToTrainingExerciseGroup(groupResponseDto);
+                            TrainingExerciseGroup group = trainingExerciseGroupMapper.trainingExerciseGroupResponseDtoToTrainingExerciseGroup(groupResponseDto);
 
                             List<TrainingExerciseGroupDetail> exerciseDetails = new ArrayList<>();
 
@@ -435,18 +422,13 @@ public class AppDataSeeder implements ApplicationRunner {
 
                                     TrainingExerciseGroupDetail detail = new TrainingExerciseGroupDetail();
 
-                                    TrainingExerciseGroupDetailParserHelper.Result result =
-                                            TrainingExerciseGroupDetailParserHelper.parse(detailDto.getDuration());
+                                    TrainingExerciseGroupDetailParserHelper.Result result = TrainingExerciseGroupDetailParserHelper.parse(detailDto.getDuration());
 
                                     detail.setSets(result.getSets());
                                     detail.setRepsPerSet(result.getRepsPerSet());
                                     detail.setDurationPerSet(result.getDurationPerSet());
 
-                                    TrainingExercise exercise = trainingExerciseRepository.findById(detailDto.getExerciseId())
-                                            .orElseThrow(() -> new VsException(
-                                                    HttpStatus.NOT_FOUND,
-                                                    "Exercise not found: " + detailDto.getExerciseId()
-                                            ));
+                                    TrainingExercise exercise = trainingExerciseRepository.findById(detailDto.getExerciseId()).orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, "Exercise not found: " + detailDto.getExerciseId()));
 
                                     detail.setExercise(exercise);
                                     detail.setExerciseGroup(group);

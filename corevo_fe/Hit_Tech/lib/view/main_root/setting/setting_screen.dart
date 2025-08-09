@@ -5,10 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/core/constants/app_dimension.dart';
+import 'package:hit_tech/model/response/user/user_profile_response.dart';
+import 'package:hit_tech/view/main_root/setting/widgets/notice_training_selection_widget.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/personal_health_selection_widget.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/personal_infor_selection_widget.dart';
+import 'package:hit_tech/view/main_root/setting/widgets/privacy_and_terms_screen.dart';
+import 'package:hit_tech/view/main_root/setting/widgets/remove_screen.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
+import '../../../service/auth_service.dart';
 import '../../../service/shared_preferences.dart';
 import '../../../service/user_service.dart';
 import '../../auth/login_screen.dart';
@@ -19,6 +25,8 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  late UserProfileResponse userProfileResponse;
+
   String? linkAvatar;
 
   String? username;
@@ -45,6 +53,9 @@ class _SettingScreenState extends State<SettingScreen> {
           username = response.username;
           firstname = response.firstName;
           lastname = response.lastName;
+          setState(() {
+            userProfileResponse = response;
+          });
           _isLoading = false;
         });
         return;
@@ -58,7 +69,12 @@ class _SettingScreenState extends State<SettingScreen> {
 
   Future<void> _pickImage(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile = await picker.pickImage(source: source);
+    final XFile? pickedFile = await picker.pickImage(
+      source: source,
+      imageQuality: 75,
+      maxWidth: 800,
+      maxHeight: 800,
+    );
 
     if (pickedFile != null) {
       final file = File(pickedFile.path);
@@ -81,6 +97,31 @@ class _SettingScreenState extends State<SettingScreen> {
       context,
       MaterialPageRoute(builder: (context) => LoginScreen()),
     );
+  }
+
+  Future<String> getPrivacyAndTerms() async {
+    String res = "";
+    try {
+      final response = await AuthService.getPrivacy();
+
+      if (response.status == 'SUCCESS') {
+        res += response.data['content'];
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    try {
+      final response = await AuthService.getTerms();
+
+      if (response.status == 'SUCCESS') {
+        res += response.data['content'];
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    return res;
   }
 
   @override
@@ -119,10 +160,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                 radius: 40,
                                 backgroundImage: linkAvatar?.isNotEmpty ?? false
                                     ? NetworkImage(linkAvatar!)
-                                    : const AssetImage(
-                                            TrainingAssets.googleIcon,
-                                          )
-                                          as ImageProvider,
+                                    : const NetworkImage(
+                                        TrainingAssets.defaultImage,
+                                      ),
                               ),
                             ),
 
@@ -317,7 +357,10 @@ class _SettingScreenState extends State<SettingScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PersonalInforSelectionWidget(),
+                  builder: (context) => PersonalInforSelectionWidget(
+                    userProfile: userProfileResponse,
+                    onReload: _handleGetProfile,
+                  ),
                 ),
               );
             },
@@ -368,15 +411,23 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             onTap: () {},
           ),
-          _buildInnerTile(
-            TrainingAssets.noticeIcon,
-            'Nhắc nhở luyện tập',
-            () {},
-          ),
+          _buildInnerTile(TrainingAssets.noticeIcon, 'Nhắc nhở luyện tập', () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => NoticeTrainingSelectionWidget(),
+              ),
+            );
+          }),
           _buildInnerTile(
             TrainingAssets.trashIcon,
             'Xóa dữ liệu người dùng',
-            () {},
+            () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => RemoveScreen()),
+              );
+            },
           ),
         ],
       ),
@@ -396,7 +447,16 @@ class _SettingScreenState extends State<SettingScreen> {
           _buildInnerTile(
             TrainingAssets.policyIcon,
             'Chính sách và điều khoản',
-            () {},
+            () async {
+              String res = await getPrivacyAndTerms();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      PrivacyAndTermsScreen(privacyAndTerms: res),
+                ),
+              );
+            },
           ),
         ],
       ),

@@ -6,6 +6,7 @@ import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_color.dart';
 import '../../../model/request/training/training_flow_request.dart';
 import '../../../service/training_flow_service.dart';
+import '../../../service/user_service.dart';
 
 class TrainingEquipmentSelectionWidget extends StatefulWidget {
   final String? nextStep;
@@ -263,12 +264,21 @@ class _TrainingEquipmentSelectionState
                         print(selectedValues);
                         print(response.trainingPlans);
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeRoot()
-                          ),
-                        );
+                        try {
+                          final subResponse = await UserService.getProfile();
+
+                          if (subResponse.status == "SUCCESS") {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    HomeRoot(user: subResponse),
+                              ),
+                            );
+                          }
+                        } catch (e, stackTrace) {
+                          print(stackTrace);
+                        }
                       } catch (e) {
                         print("Error: $e");
                       }

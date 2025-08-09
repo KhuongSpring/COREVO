@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
 import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
 
@@ -80,16 +81,31 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 51),
             child: Column(
               children: [
-                const Text(
-                  "Quên mật khẩu",
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.dark,
-                  ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        color: AppColors.bNormal,
+                        size: 28,
+                      ),
+                    ),
+                    const SizedBox(width: 30),
+                    const Text(
+                      "Quên mật khẩu",
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.dark,
+                      ),
+                    ),
+                  ],
                 ),
 
-                const SizedBox(height: 16),
+                SizedBox(height: 12.sp),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

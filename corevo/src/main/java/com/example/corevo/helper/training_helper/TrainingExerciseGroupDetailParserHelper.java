@@ -31,6 +31,8 @@ public class TrainingExerciseGroupDetailParserHelper {
             return new Result(sets, null, secondPart);
         }
 
-        return new Result(sets, secondPart, null);
+        String reps = secondPart.replace("reps", "").replace("rep", "").trim();
+
+        return new Result(sets, reps, null);
     }
 }

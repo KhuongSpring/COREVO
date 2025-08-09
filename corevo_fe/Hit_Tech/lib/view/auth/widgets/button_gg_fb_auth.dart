@@ -18,7 +18,7 @@ class ButtonGgFbAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: 64,
+      height: 50,
       decoration: BoxDecoration(
         border: Border.all(color: Color(0xFF989DA1), width: 1),
         color: AppColors.wWhite,
