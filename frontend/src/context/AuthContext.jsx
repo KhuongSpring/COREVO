@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const api = axios.create({
-    baseURL: "http://localhost:8080/api/v1",
+    baseURL: "http://146.190.101.127:8080/api/v1/",
   });
 
   api.interceptors.request.use(
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
           if (refreshToken) {
             try {
-              const res = await axios.post("http://localhost:8080/api/v1/auth/refresh-token", {
+              const res = await axios.post("http://146.190.101.127:8080/api/v1/auth/refresh-token", {
                 refreshToken,
               });
 
