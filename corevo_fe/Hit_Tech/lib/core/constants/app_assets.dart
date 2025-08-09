@@ -14,15 +14,24 @@ class TrainingAssets {
       'assets/images/main_background_image.png';
   static const String authBackground =
       'assets/images/auth_background_image.png';
-  static const String libraryBackground =
-      'assets/images/library_background_image.png';
+  static const String libraryBackground1 =
+      'assets/images/library_background_image_1.png';
   static const String libraryBackground2 =
-      'assets/images/library_background_image2.png';
+      'assets/images/library_background_image_2.png';
+  static const String welcomeHandImage = 'assets/images/welcome_hand_image.png';
 
-  static const String defaultImage = '';
+  static const String defaultImage =
+      'https://th.bing.com/th/id/R.b1b463303db368fd76ad68356d1d4f0c?rik=lY2e9ubl6ESqZg&pid=ImgRaw&r=0';
 
   // Goal
-  static const String goalDemo = 'assets/images/goal/goal-demo.png';
+  static const String goal1 = 'assets/images/goal/goal_1.png';
+  static const String goal2 = 'assets/images/goal/goal_2.png';
+  static const String goal3 = 'assets/images/goal/goal_3.png';
+  static const String goal4 = 'assets/images/goal/goal_4.png';
+  static const String goal5 = 'assets/images/goal/goal_5.png';
+  static const String goal6 = 'assets/images/goal/goal_6.png';
+  static const String goal7 = 'assets/images/goal/goal_7.png';
+  static const String goal8 = 'assets/images/goal/goal_8.png';
 
   // Level
   static const String beginner = 'assets/images/level/level2.png';
@@ -83,6 +92,54 @@ class TrainingAssets {
   static const String locationAnywhereSelected =
       'assets/images/location/location_anywhere_selected.png';
 
+  // Target muscle
+  static const String targetMuscleAbs = 'assets/images/target_muscle/abs.png';
+  static const String targetMuscleBack = 'assets/images/target_muscle/back.png';
+  static const String targetMuscleBicep =
+      'assets/images/target_muscle/bicep.png';
+  static const String targetMuscleCalisthenic =
+      'assets/images/target_muscle/calisthenic.png';
+  static const String targetMuscleCardio =
+      'assets/images/target_muscle/cardio.png';
+  static const String targetMuscleChest =
+      'assets/images/target_muscle/chest.png';
+  static const String targetMuscleGlute =
+      'assets/images/target_muscle/glute.png';
+  static const String targetMuscleHamstring =
+      'assets/images/target_muscle/hamstring.png';
+  static const String targetMuscleQuad =
+      'assets/images/target_muscle/quads.png';
+  static const String targetMuscleShoulders =
+      'assets/images/target_muscle/shoulders.png';
+  static const String targetMuscleTricep =
+      'assets/images/target_muscle/tricep.png';
+  static const String targetMuscleYoga = 'assets/images/target_muscle/yoga.png';
+
+  static const String absCategory =
+      'assets/images/target_muscle/abs_category.png';
+  static const String backCategory =
+      'assets/images/target_muscle/back_category.png';
+  static const String bicepCategory =
+      'assets/images/target_muscle/bicep_category.png';
+  static const String calisthenicCategory =
+      'assets/images/target_muscle/calisthenic_category.png';
+  static const String cardioCategory =
+      'assets/images/target_muscle/cardio_category.png';
+  static const String chestCategory =
+      'assets/images/target_muscle/chest_category.png';
+  static const String gluteCategory =
+      'assets/images/target_muscle/glute_category.png';
+  static const String hamstringCategory =
+      'assets/images/target_muscle/hamstring_category.png';
+  static const String quadsCategory =
+      'assets/images/target_muscle/quads_category.png';
+  static const String shouldersCategory =
+      'assets/images/target_muscle/shoulders_category.png';
+  static const String tricepCategory =
+      'assets/images/target_muscle/tricep_category.png';
+  static const String yogaCategory =
+      'assets/images/target_muscle/yoga_category.png';
+
   // health information
   static const String imageGenderBoy = 'assets/images/health_infor/boy.png';
   static const String imageGenderGirl = 'assets/images/health_infor/girl.png';
@@ -106,6 +163,13 @@ class TrainingAssets {
   static const String notificationIcon =
       'assets/icons/home_root/notification_icon.png';
   static const String profileIcon = 'assets/icons/home_root/profile_icon.png';
+  static const String prizeActiveIcon =
+      'assets/icons/home_root/prize_active_icon.png';
+  static const String prizeNotActiveIcon =
+      'assets/icons/home_root/prize_not_active_icon.png';
+  static const String prizeTodayIcon =
+      'assets/icons/home_root/prize_today_icon.png';
+  static const String feedsIcon = 'assets/icons/home_root/feeds_icon.png';
 
   // Setting
   static const String personalInformationIcon =
@@ -135,8 +199,20 @@ class TrainingAssets {
       'assets/images/training_plan/training_plan_6.png';
 
   // Training
-  static const String targetMuscleCategory1 =
-      'assets/images/training/target_muscle_category_1.png';
-  static const String targetMuscleDetail1 =
-      'assets/images/training/target_muscle_detail_1.png';
+  static const String trainingNoteIcon =
+      'assets/icons/training/training_note_icon.png';
+  static const String restDayIcon = 'assets/icons/training/rest_day_icon.png';
+  static const String personalTraining =
+      'assets/images/training/personal_training_image.png';
+
+  // Home
+  static const String fireIcon = 'assets/icons/home/fire_icon.png';
+  static const String fireNonIcon = 'assets/icons/home/fire_non_icon.png';
+
+  // Splash
+  static const String splashImage1 = 'assets/images/splash/splash_image_1.png';
+  static const String splashImage2 = 'assets/images/splash/splash_image_2.png';
+  static const String splashImage3 = 'assets/images/splash/splash_image_3.png';
+  static const String splashChildImage =
+      'assets/images/splash/splash_child_image.png';
 }

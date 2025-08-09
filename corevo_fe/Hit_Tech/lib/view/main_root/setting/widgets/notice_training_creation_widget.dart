@@ -20,8 +20,8 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 20.0,
-                right: 20.0,
+                left: 10.0,
+                right: 10.0,
                 top: 20.0,
               ),
               child: Column(
@@ -34,9 +34,12 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
                       children: [
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Icon(
-                            Icons.arrow_back_ios,
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_back_ios),
                             color: AppColors.bNormal,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                           ),
                         ),
 
@@ -231,7 +234,7 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
                     child: Text(
                       day,
                       style: const TextStyle(
-                        color: AppColors.wWhite ,
+                        color: AppColors.wWhite,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

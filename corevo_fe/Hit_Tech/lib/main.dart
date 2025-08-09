@@ -1,22 +1,36 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hit_tech/utils/change_notifier.dart';
+import 'package:hit_tech/view/auth/forgot_password_screen.dart';
+import 'package:hit_tech/view/auth/otp_verification_screen.dart';
+import 'package:hit_tech/view/auth/reset_password_screen.dart';
+import 'package:provider/provider.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/view/main_root/home/home_screen.dart';
 import 'package:hit_tech/view/auth/login_screen.dart';
 import 'package:hit_tech/view/splash_screen.dart';
-import 'package:hit_tech/view/personal_health/activity_level_selection_screen.dart';
-import 'package:hit_tech/view/personal_health/age_selection_screen.dart';
-import 'package:hit_tech/view/personal_health/gender_selection_screen.dart';
-import 'package:hit_tech/view/personal_health/height_selection_screen.dart';
-import 'package:hit_tech/view/personal_health/weight_selection_screen.dart';
+import 'package:hit_tech/view/personal_health/widget/activity_level_selection_widget.dart';
+import 'package:hit_tech/view/personal_health/widget/age_selection_widget.dart';
+import 'package:hit_tech/view/personal_health/widget/gender_selection_widget.dart';
+import 'package:hit_tech/view/personal_health/widget/height_selection_widget.dart';
+import 'package:hit_tech/view/personal_health/widget/weight_selection_widget.dart';
+import 'package:hit_tech/view/training_flow/training_flow_start_page.dart';
 import 'package:hit_tech/view/training_flow/widget/training_goal_selection_widget.dart';
+import 'package:hit_tech/view/welcome_screen.dart';
 
 import 'view/main_root/home_root.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TrainingProgressNotifier()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

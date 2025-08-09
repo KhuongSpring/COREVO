@@ -15,6 +15,9 @@ SELECT * FROM target_muscle;
 SELECT * FROM training_day;
 
 SELECT * FROM training_exercise;
+
+SELECT * FROM training_exercise_completion;
+
 SELECT * FROM training_exercise_equipments;
 SELECT * FROM training_exercise_goals;
 SELECT * FROM training_exercise_levels;

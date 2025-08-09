@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
 import 'package:hit_tech/model/request/auth/forgot_password_request.dart';
 import 'package:hit_tech/model/response/auth/forgot_password_response.dart';
@@ -35,8 +36,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                OtpVerificationScreen(email: request.email, isRegister: false),
+            builder: (context) => OtpVerificationScreen(
+              email: request.email,
+              isRegister: false,
+              isRecovery: false,
+            ),
           ),
         );
       } else {
@@ -102,7 +106,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 12.sp),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(3, (index) {

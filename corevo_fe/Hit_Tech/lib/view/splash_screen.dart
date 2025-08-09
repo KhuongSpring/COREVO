@@ -1,9 +1,17 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/view/main_root/home/home_screen.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
 import 'package:hit_tech/view/auth/login_screen.dart';
 import 'package:hit_tech/view/main_root/home_root.dart';
+import 'package:hit_tech/view/on_boarding/on_boarding_screen_1.dart';
+import 'package:hit_tech/view/on_boarding/splash_on_boarding.dart';
+import 'package:hit_tech/view/training_flow/training_flow_start_page.dart';
+import 'package:hit_tech/view/welcome_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../service/user_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -25,6 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(Duration(seconds: 3));
 
     final isLoggedIn = await SharedPreferencesService.isLoggedIn();
+    final prefs = await SharedPreferences.getInstance();
+    final seenOnBoarding = prefs.getBool('seenOnboarding') ?? false;
 
     setState(() {
       _isChecking = false;
@@ -33,11 +43,55 @@ class _SplashScreenState extends State<SplashScreen> {
     // delay
     await Future.delayed(Duration(milliseconds: 100));
 
-    if (isLoggedIn) {
+    if (!seenOnBoarding) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomeRoot()),
+        MaterialPageRoute(builder: (context) => SplashOnboarding()),
       );
+      return;
+    }
+
+    if (isLoggedIn) {
+      try {
+        final subResponse = await UserService.getProfile();
+
+        if (subResponse.status == "SUCCESS") {
+          if (subResponse.userHealth == null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => WelcomeScreen()),
+            );
+
+            return;
+          }
+
+          if (subResponse.trainingPlans == null ||
+              subResponse.trainingPlans!.isEmpty) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TrainingFlowStartPage()),
+            );
+
+            return;
+          }
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeRoot(user: subResponse),
+            ),
+          );
+        }
+      } on DioException catch (e) {
+        if (e.response?.statusCode == 401) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+          );
+        } else {
+          print('Lỗi khác: ${e.response?.data}');
+        }
+      }
     } else {
       Navigator.push(
         context,

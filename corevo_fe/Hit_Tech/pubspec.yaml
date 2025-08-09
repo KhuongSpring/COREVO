@@ -44,6 +44,12 @@ dependencies:
   path_provider: ^2.0.15
   jwt_decoder: ^2.0.1
   google_sign_in: ^6.1.5
+  table_calendar: ^3.2.0
+  flutter_launcher_icons: ^0.14.4
+  country_picker: ^2.0.27
+  provider: ^6.1.5
+  flutter_image_compress: ^2.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -55,6 +61,10 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/logo_corevo.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -71,6 +81,8 @@ flutter:
     - assets/icons/home_root/
     - assets/icons/setting/
     - assets/icons/setting/notice_training/
+    - assets/icons/home/
+    - assets/icons/training/
     - assets/images/
     - assets/images/auth/
     - assets/images/duration/
@@ -80,8 +92,26 @@ flutter:
     - assets/images/level/
     - assets/images/location/
     - assets/images/type/
+    - assets/images/target_muscle/
     - assets/images/training_plan/
     - assets/images/training/
+    - assets/images/training/training_day/gain_muscle/
+    - assets/images/training/training_day/gain_weight/
+    - assets/images/training/training_day/improve_cardiovascular/
+    - assets/images/training/training_day/increase_endurance/
+    - assets/images/training/training_day/increase_height/
+    - assets/images/training/training_day/lose_fat/
+    - assets/images/training/training_day/maintain_body/
+    - assets/images/training/training_day/stress_relief/
+    - assets/images/training/training_day_shape/gain_muscle/
+    - assets/images/training/training_day_shape/gain_weight/
+    - assets/images/training/training_day_shape/improve_cardiovascular/
+    - assets/images/training/training_day_shape/increase_endurance/
+    - assets/images/training/training_day_shape/increase_height/
+    - assets/images/training/training_day_shape/lose_fat/
+    - assets/images/training/training_day_shape/maintain_body/
+    - assets/images/training/training_day_shape/stress_relief/
+    - assets/images/splash/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
