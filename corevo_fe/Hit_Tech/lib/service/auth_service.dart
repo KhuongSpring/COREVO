@@ -293,4 +293,58 @@ class AuthService {
     }
   }
 
+  static Future<DefaultResponse> sendEmailToRecoveryAccount(
+      String email,
+      ) async {
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.accountRecover,
+        data: {
+          "email": email
+        },
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+
+      return DefaultResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
+  }
+
+  static Future<VerifyOtpResponse> verifyOtpToRecover(
+      VerifyOtpRequest request,
+      ) async {
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.recoverAccount,
+        data: request.toJson(),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+
+      return VerifyOtpResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
+  }
+
 }

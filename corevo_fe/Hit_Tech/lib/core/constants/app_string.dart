@@ -45,6 +45,8 @@ class AppStrings {
   static const String alreadyHaveAccount = 'Đã có tài khoản?';
   static const String fillEmailToResetPassword =
       'Nhập email của bạn để lấy lại mật khẩu';
+  static const String fillEmailToRecoveryAccount =
+      'Nhập email của bạn để khôi phục tài khoản';
   static const String fillOtp =
       'Nhập mã OTP được gửi về email của bạn';
   static const String resetYourPassword =

@@ -207,9 +207,7 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
       padding: const EdgeInsets.all(12),
       keyboardType: isPhone ? TextInputType.number : TextInputType.text,
       decoration: const BoxDecoration(),
-      inputFormatters: [
-        FilteringTextInputFormatter.digitsOnly,
-      ],
+      inputFormatters: isPhone ? [FilteringTextInputFormatter.digitsOnly] : [],
     );
   }
 }

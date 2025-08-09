@@ -120,11 +120,77 @@ class _TrainingLibraryExerciseWidgetState
 
   @override
   Widget build(BuildContext context) {
+    String imageBG = TrainingAssets.targetMuscleChest;
+    Color colorArrowBack = Colors.black;
+    switch (widget.primaryMuscleToQuery) {
+      case "Chest":
+        {
+          imageBG = TrainingAssets.targetMuscleChest;
+        }
+      case "Back":
+        {
+          imageBG = TrainingAssets.targetMuscleBack;
+          colorArrowBack = Colors.white;
+        }
+      case "Shoulders":
+        {
+          imageBG = TrainingAssets.targetMuscleShoulders;
+          colorArrowBack = Colors.white;
+        }
+      case "Biceps":
+        {
+          imageBG = TrainingAssets.targetMuscleBicep;
+          colorArrowBack = Colors.white;
+        }
+      case "Triceps":
+        {
+          imageBG = TrainingAssets.targetMuscleTricep;
+          colorArrowBack = Colors.white;
+        }
+      case "Abs":
+        {
+          imageBG = TrainingAssets.targetMuscleAbs;
+          colorArrowBack = Colors.white;
+        }
+      case "Glutes":
+        {
+          imageBG = TrainingAssets.targetMuscleGlute;
+        }
+      case "Quads":
+        {
+          imageBG = TrainingAssets.targetMuscleQuad;
+          colorArrowBack = Colors.white;
+        }
+      case "Hamstrings":
+        {
+          imageBG = TrainingAssets.targetMuscleHamstring;
+          colorArrowBack = Colors.white;
+        }
+      case '':
+        {
+          switch (widget.typeToQuery) {
+            case "Cardio":
+              {
+                imageBG = TrainingAssets.targetMuscleCardio;
+                colorArrowBack = Colors.white;
+              }
+            case "Yoga":
+              {
+                imageBG = TrainingAssets.targetMuscleYoga;
+              }
+            case "Calisthenic":
+              {
+                imageBG = TrainingAssets.targetMuscleCalisthenic;
+              }
+          }
+        }
+    }
+
     return Scaffold(
       body: Stack(
         children: [
           // Ảnh nền
-          Image.asset(TrainingAssets.targetMuscleDetail1, fit: BoxFit.cover),
+          Image.asset(imageBG, fit: BoxFit.cover),
 
           Padding(
             padding: const EdgeInsets.only(top: 30, left: 10),
@@ -133,7 +199,7 @@ class _TrainingLibraryExerciseWidgetState
                 Navigator.pop(context);
               },
               icon: Icon(Icons.arrow_back_ios),
-              color: Colors.black,
+              color: colorArrowBack,
             ),
           ),
 

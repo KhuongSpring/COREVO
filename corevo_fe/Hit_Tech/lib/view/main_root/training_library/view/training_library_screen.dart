@@ -34,6 +34,20 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
   List<TrainingPlanResponse> trainingPlanIncreaseHeight = [];
 
   List<TrainingPlanResponse> trainingPlanByType = [];
+  List<String> targetMuscleCategory = [
+    TrainingAssets.chestCategory,
+    TrainingAssets.backCategory,
+    TrainingAssets.shouldersCategory,
+    TrainingAssets.bicepCategory,
+    TrainingAssets.tricepCategory,
+    TrainingAssets.absCategory,
+    TrainingAssets.gluteCategory,
+    TrainingAssets.quadsCategory,
+    TrainingAssets.hamstringCategory,
+    TrainingAssets.cardioCategory,
+    TrainingAssets.yogaCategory,
+    TrainingAssets.calisthenicCategory,
+  ];
 
   @override
   void initState() {
@@ -128,7 +142,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    TrainingAssets.libraryBackground,
+                    TrainingAssets.libraryBackground1,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -258,35 +272,45 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                                   padding: EdgeInsets.symmetric(horizontal: 16),
                                   child: Column(
                                     children: [
-                                      _buildTargetMuscleCategory('Ngực', 20),
+                                      _buildTargetMuscleCategory('Ngực', 20, 0),
                                       SizedBox(height: 20.sp),
-                                      _buildTargetMuscleCategory('Lưng', 20),
+                                      _buildTargetMuscleCategory('Lưng', 20, 1),
                                       SizedBox(height: 20.sp),
-                                      _buildTargetMuscleCategory('Vai', 20),
+                                      _buildTargetMuscleCategory('Vai', 20, 2),
                                       SizedBox(height: 20.sp),
                                       _buildTargetMuscleCategory(
                                         'Tay trước',
                                         20,
+                                        3,
                                       ),
                                       SizedBox(height: 20.sp),
-                                      _buildTargetMuscleCategory('Tay sau', 20),
+                                      _buildTargetMuscleCategory(
+                                        'Tay sau',
+                                        20,
+                                        4,
+                                      ),
                                       SizedBox(height: 20.sp),
-                                      _buildTargetMuscleCategory('Bụng', 20),
+                                      _buildTargetMuscleCategory('Bụng', 20, 5),
                                       SizedBox(height: 20.sp),
-                                      _buildTargetMuscleCategory('Mông', 20),
+                                      _buildTargetMuscleCategory('Mông', 20, 6),
                                       SizedBox(height: 20.sp),
                                       _buildTargetMuscleCategory(
                                         'Đùi trước',
                                         20,
+                                        7,
                                       ),
                                       SizedBox(height: 20.sp),
-                                      _buildTargetMuscleCategory('Đùi sau', 20),
+                                      _buildTargetMuscleCategory(
+                                        'Đùi sau',
+                                        20,
+                                        8,
+                                      ),
                                       SizedBox(height: 20.sp),
-                                      _buildTypeCategory('Cardio', 20),
+                                      _buildTypeCategory('Cardio', 20, 9),
                                       SizedBox(height: 20.sp),
-                                      _buildTypeCategory('Yoga', 20),
+                                      _buildTypeCategory('Yoga', 20, 10),
                                       SizedBox(height: 20.sp),
-                                      _buildTypeCategory('Calisthenic', 20),
+                                      _buildTypeCategory('Calisthenic', 20, 11),
                                     ],
                                   ),
                                 ),
@@ -365,51 +389,6 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildFilterButton(String label, {bool isCalis = false}) {
-    final bool selected = selectedFilter == label;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          if (selectedFilter == label) {
-            selectedFilter = null;
-          } else {
-            selectedFilter = label;
-            (selectedIndex == 0) ? _handleGetTrainingPlanByType() : null;
-          }
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
-        curve: Curves.easeInOut,
-        padding: EdgeInsets.symmetric(
-          horizontal: isCalis ? 10 : 25,
-          vertical: 10,
-        ),
-        decoration: BoxDecoration(
-          color: selected ? AppColors.bNormal : Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 6,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: AnimatedDefaultTextStyle(
-          duration: const Duration(milliseconds: 250),
-          style: TextStyle(
-            fontSize: selected ? 14 : 12,
-            fontWeight: FontWeight.w600,
-            color: selected ? Colors.white : Colors.black,
-          ),
-          child: Text(label),
-        ),
       ),
     );
   }
@@ -506,92 +485,6 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
     );
   }
 
-  Widget _buildTrainingPlanItem2(TrainingPlanResponse plan) {
-    return Container(
-      width: 380.sp,
-      height: 200,
-      margin: const EdgeInsets.only(right: 16, bottom: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        image: DecorationImage(
-          image: AssetImage(TrainingAssets.trainingPlan1),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Stack(
-        children: [
-          // Lớp overlay gradient để dễ đọc chữ
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                gradient: LinearGradient(
-                  colors: [Colors.transparent, Colors.black.withOpacity(0.4)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-            ),
-          ),
-          // Nội dung
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Stack(
-              children: [
-                // Bên dưới (nút ở góc phải)
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // xử lý khi nhấn "Bắt đầu"
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.lightHover.withOpacity(0.6),
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                    ),
-                    child: const Text(
-                      'Bắt đầu',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-                // Bên trái (2 dòng text)
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        plan.name,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      SizedBox(
-                        width: 250.sp,
-                        child: Text(
-                          plan.description,
-                          style: TextStyle(fontSize: 12, color: Colors.white70),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget buildTrainingPlanSection({
     required String title,
     required List<Widget> plans,
@@ -622,7 +515,11 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
     );
   }
 
-  Widget _buildTargetMuscleCategory(String categoryName, int numberOfExercise) {
+  Widget _buildTargetMuscleCategory(
+    String categoryName,
+    int numberOfExercise,
+    int index,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -639,7 +536,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
       },
       child: Stack(
         children: [
-          Image.asset(TrainingAssets.targetMuscleCategory1, fit: BoxFit.cover),
+          Image.asset(targetMuscleCategory[index], fit: BoxFit.cover),
 
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 30),
@@ -662,7 +559,11 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
     );
   }
 
-  Widget _buildTypeCategory(String categoryName, int numberOfExercise) {
+  Widget _buildTypeCategory(
+    String categoryName,
+    int numberOfExercise,
+    int index,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -679,7 +580,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
       },
       child: Stack(
         children: [
-          Image.asset(TrainingAssets.targetMuscleCategory1, fit: BoxFit.cover),
+          Image.asset(targetMuscleCategory[index], fit: BoxFit.cover),
 
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 30),

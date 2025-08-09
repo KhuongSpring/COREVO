@@ -20,8 +20,7 @@ class _TrainingFlowStartPageState extends State<TrainingFlowStartPage> {
   void initState() {
     super.initState();
 
-    // Auto chuyển trang sau 5 giây
-    _timer = Timer(const Duration(seconds: 5), () {
+    _timer = Timer(const Duration(seconds: 1), () {
       if (_pageController.hasClients) {
         _pageController.animateToPage(
           1,

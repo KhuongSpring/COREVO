@@ -14,11 +14,13 @@ import 'login_screen.dart';
 class OtpVerificationScreen extends StatefulWidget {
   final String email;
   final bool isRegister;
+  final bool isRecovery;
 
   const OtpVerificationScreen({
     super.key,
     required this.email,
     required this.isRegister,
+    required this.isRecovery,
   });
 
   @override
@@ -116,7 +118,21 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     try {
       final request = VerifyOtpRequest(email: widget.email, otp: _getOtpCode());
 
-      if (widget.isRegister) {
+      if (!widget.isRegister && !widget.isRecovery) {
+        final response = await AuthService.verifyOtpToResetPassword(request);
+
+        if (response.status) {
+          _showMessage(AuthMessage.sucVerifyOtp);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ResetPasswordScreen(email: widget.email),
+            ),
+          );
+        } else {
+          _showMessage(response.message ?? '', isError: true);
+        }
+      } else if (widget.isRegister) {
         final response = await AuthService.verifyOtpToRegister(request);
         if (response.status) {
           _showMessage(AuthMessage.sucVerifyOtp);
@@ -128,16 +144,14 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           _showMessage(response.message ?? '', isError: true);
           _clearOtp();
         }
-      } else {
-        final response = await AuthService.verifyOtpToResetPassword(request);
+      } else if (widget.isRecovery) {
+        final response = await AuthService.verifyOtpToRecover(request);
 
         if (response.status) {
           _showMessage(AuthMessage.sucVerifyOtp);
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => ResetPasswordScreen(email: widget.email),
-            ),
+            MaterialPageRoute(builder: (context) => LoginScreen()),
           );
         } else {
           _showMessage(response.message ?? '', isError: true);
@@ -232,7 +246,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             onPressed: () => Navigator.pop(context),
                           ),
                         ),
-            
+
                         if (widget.isRegister == false)
                           Column(
                             mainAxisSize: MainAxisSize.min,
@@ -269,9 +283,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       ],
                     ),
                   ),
-            
+
                   SizedBox(height: 15),
-            
+
                   // Icon
                   Container(
                     width: 80,
@@ -286,9 +300,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       color: Colors.blue.shade600,
                     ),
                   ),
-            
+
                   const SizedBox(height: 32),
-            
+
                   // Title
                   const Text(
                     'Xác thực OTP',
@@ -298,9 +312,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       color: Colors.black,
                     ),
                   ),
-            
+
                   const SizedBox(height: 16),
-            
+
                   // Description
                   Text(
                     'Chúng tôi đã gửi mã xác thực 6 chữ số đến\n${widget.email}',
@@ -311,9 +325,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       height: 1.5,
                     ),
                   ),
-            
+
                   const SizedBox(height: 48),
-            
+
                   // OTP Input Fields
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -373,9 +387,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       );
                     }),
                   ),
-            
+
                   const SizedBox(height: 32),
-            
+
                   // Timer and Resend
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -397,9 +411,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       ),
                     ],
                   ),
-            
+
                   const SizedBox(height: 16),
-            
+
                   // Resend Button
                   TextButton(
                     onPressed: _remainingTime == 0 && !_isResending
@@ -422,7 +436,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             ),
                           ),
                   ),
-            
+
                   const SizedBox(height: 32),
                 ],
               ),

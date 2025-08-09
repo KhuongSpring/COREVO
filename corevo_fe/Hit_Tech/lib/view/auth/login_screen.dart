@@ -13,6 +13,7 @@ import 'package:hit_tech/core/constants/app_string.dart';
 import 'package:hit_tech/model/request/auth/oauth2_google_request.dart';
 import 'package:hit_tech/service/user_service.dart';
 import 'package:hit_tech/utils/validator_util.dart';
+import 'package:hit_tech/view/auth/recovery_account_screen.dart';
 import 'package:hit_tech/view/auth/register_screen.dart';
 import 'package:hit_tech/view/auth/widgets/recover_account_popup.dart';
 import 'package:hit_tech/view/main_root/home/home_screen.dart';
@@ -130,9 +131,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
               showCupertinoDialog(
                 context: context,
-                builder: (context) => RecoverAccountPopUp(
-                  onCancel: () => Navigator.of(context).pop(),
-                  onSave: () {},
+                builder: (diaLogContext) => RecoverAccountPopUp(
+                  onCancel: () {
+                    Navigator.of(diaLogContext).pop();
+                  },
+                  onSave: () {
+                    Navigator.of(diaLogContext).pop();
+                    Future.microtask(() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => RecoveryAccountScreen(),
+                        ),
+                      );
+                    });
+                  },
                   dayRecoveryRemaining: dayRecoveryRemaining ?? 0,
                 ),
               );
@@ -173,9 +186,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
               showCupertinoDialog(
                 context: context,
-                builder: (context) => RecoverAccountPopUp(
-                  onCancel: () => Navigator.of(context).pop(),
-                  onSave: () {},
+                builder: (diaLogContext) => RecoverAccountPopUp(
+                  onCancel: () {
+                    Navigator.of(diaLogContext).pop();
+                  },
+                  onSave: () {
+                    Navigator.of(diaLogContext).pop();
+                    Future.microtask(() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => RecoveryAccountScreen(),
+                        ),
+                      );
+                    });
+                  },
                   dayRecoveryRemaining: dayRecoveryRemaining ?? 0,
                 ),
               );

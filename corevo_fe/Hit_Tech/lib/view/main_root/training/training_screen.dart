@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
+import 'package:hit_tech/utils/training_day_image_data.dart';
 import 'package:hit_tech/view/main_root/training/training_day_detail_screen.dart';
 import 'package:hit_tech/view/main_root/training/widget/weekly_time_line.dart';
 
@@ -87,6 +88,16 @@ class _TrainingScreenState extends State<TrainingScreen> {
     if (_isLoading) {
       return Scaffold(body: Center(child: CircularProgressIndicator()));
     }
+
+    List<String> trainingDayImage = TrainingDayImageData.getListImage(
+      user.trainingPlans!.first.name,
+      user.trainingPlans!.first.goals,
+    );
+
+    List<String> trainingDayShapeImage = TrainingDayImageData.getListShape(
+      user.trainingPlans!.first.name,
+      user.trainingPlans!.first.goals,
+    );
 
     return Scaffold(
       body: Stack(
@@ -203,7 +214,13 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
                   const SizedBox(height: 25),
                   selectedIndex == 0
-                      ? _buildTab1(user, schedules, days)
+                      ? _buildTab1(
+                          user,
+                          schedules,
+                          days,
+                          trainingDayImage,
+                          trainingDayShapeImage,
+                        )
                       : _buildTab2(),
                   SizedBox(height: 150),
                 ],
@@ -251,6 +268,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
     UserProfileResponse user,
     List<TrainingScheduleResponse> schedules,
     List<DateTime> days,
+    List<String> trainingDayImage,
+    List<String> trainingDayShapeImage,
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -384,10 +403,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                             ],
                                           ),
                                           Image.asset(
-                                            (schedules[index].duration == null)
-                                                ? TrainingAssets.restDayIcon
-                                                : TrainingAssets
-                                                      .shapeTrainingDay1,
+                                            trainingDayShapeImage[index],
                                           ),
                                         ],
                                       ),
@@ -466,6 +482,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                                     schedules[index],
                                                                 numberDay:
                                                                     'Ngày ${index + 1}',
+                                                                imageBG:
+                                                                    trainingDayImage[index],
                                                               ),
                                                         ),
                                                       );
@@ -578,11 +596,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                         ),
                                       ],
                                     ),
-                                    Image.asset(
-                                      (schedules[index].duration == null)
-                                          ? TrainingAssets.restDayIcon
-                                          : TrainingAssets.shapeTrainingDay1,
-                                    ),
+                                    Image.asset(trainingDayShapeImage[index]),
                                   ],
                                 ),
                               ),

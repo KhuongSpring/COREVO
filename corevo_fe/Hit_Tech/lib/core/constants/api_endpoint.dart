@@ -3,8 +3,8 @@ abstract class ApiEndpoint {
 
   // Máy Khương
   // static const String baseUrl = 'http://10.0.2.2:8080';
-  static const String baseUrl = 'http://192.168.50.240:8080';
-  // static const String baseUrl = 'http://146.190.101.127:8080';
+  // static const String baseUrl = 'http://192.168.50.240:8080';
+  static const String baseUrl = 'http://146.190.101.127:8080';
 
   // Base Endpoints
   static const String version = '$baseUrl/api/v1';
@@ -63,6 +63,7 @@ abstract class ApiEndpoint {
   static const String register = '$auth/register';
   static const String refreshToken = '$auth/refresh';
   static const String recoverAccount = '$auth/recover-account';
+  static const String accountRecover = '$auth/account-recovery';
   static const String logout = '$auth/logout';
   static const String login = '$auth/login';
   static const String sendEmailToForgotPassword = '$auth/forgot-password';

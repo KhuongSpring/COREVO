@@ -38,11 +38,11 @@ class _RecoverAccountPopUpState extends State<RecoverAccountPopUp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Tài khoản đã bị xóa.',
+                'Tài khoản đã bị xóa !',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.red,
                 ),
               ),
               SizedBox(height: 10),

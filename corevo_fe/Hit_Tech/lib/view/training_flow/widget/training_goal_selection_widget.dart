@@ -29,6 +29,17 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
 
   Map<String, List<String>> selectedValues = {};
 
+  List<String> goalImage = [
+    TrainingAssets.goal1,
+    TrainingAssets.goal2,
+    TrainingAssets.goal3,
+    TrainingAssets.goal4,
+    TrainingAssets.goal5,
+    TrainingAssets.goal6,
+    TrainingAssets.goal7,
+    TrainingAssets.goal8,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,7 +187,7 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: Image.asset(
-                                TrainingAssets.goalDemo,
+                                goalImage[index],
                                 width: 90,
                                 height: 90,
                                 fit: BoxFit.cover,

@@ -42,23 +42,23 @@ public interface TrainingExerciseMapper {
 
     List<TrainingExercisePreviewResponseDto> listTrainingExerciseToListTrainingExercisePreviewResponseDto(List<TrainingExercise> exercises);
 
-    @Mapping(target = "levels", source = "levelIds")
-    @Mapping(target = "types", source = "typeIds")
-    @Mapping(target = "primaryMuscles", source = "primaryMuscleIds")
-    @Mapping(target = "secondaryMuscles", source = "secondaryMuscleIds")
-    @Mapping(target = "equipments", source = "equipmentIds")
-    @Mapping(target = "locations", source = "locationIds")
-    @Mapping(target = "goals", source = "goalIds")
+    @Mapping(target = "levels", source = "levelIds", qualifiedByName = "mapLevelToEntity")
+    @Mapping(target = "types", source = "typeIds", qualifiedByName = "mapTypeToEntity")
+    @Mapping(target = "primaryMuscles", source = "primaryMuscleIds", qualifiedByName = "mapTargetMuscleToEntity")
+    @Mapping(target = "secondaryMuscles", source = "secondaryMuscleIds", qualifiedByName = "mapTargetMuscleToEntity")
+    @Mapping(target = "equipments", source = "equipmentIds", qualifiedByName = "mapEquipmentToEntity")
+    @Mapping(target = "locations", source = "locationIds", qualifiedByName = "mapLocationToEntity")
+    @Mapping(target = "goals", source = "goalIds", qualifiedByName = "mapGoalToEntity")
     TrainingExercise createTrainingExercise(CreateTrainingExerciseRequestDto requestDto);
 
 
-    @Mapping(target = "levels", source = "levelIds")
-    @Mapping(target = "types", source = "typeIds")
-    @Mapping(target = "primaryMuscles", source = "primaryMuscleIds")
-    @Mapping(target = "secondaryMuscles", source = "secondaryMuscleIds")
-    @Mapping(target = "equipments", source = "equipmentIds")
-    @Mapping(target = "locations", source = "locationIds")
-    @Mapping(target = "goals", source = "goalIds")
+    @Mapping(target = "levels", source = "levelIds", qualifiedByName = "mapLevelToEntity")
+    @Mapping(target = "types", source = "typeIds", qualifiedByName = "mapTypeToEntity")
+    @Mapping(target = "primaryMuscles", source = "primaryMuscleIds", qualifiedByName = "mapTargetMuscleToEntity")
+    @Mapping(target = "secondaryMuscles", source = "secondaryMuscleIds", qualifiedByName = "mapTargetMuscleToEntity")
+    @Mapping(target = "equipments", source = "equipmentIds", qualifiedByName = "mapEquipmentToEntity")
+    @Mapping(target = "locations", source = "locationIds", qualifiedByName = "mapLocationToEntity")
+    @Mapping(target = "goals", source = "goalIds", qualifiedByName = "mapGoalToEntity")
     void updateTrainingExerciseFromDto(UpdateTrainingExerciseRequestDto requestDto,@MappingTarget TrainingExercise trainingExercise);
 
 }

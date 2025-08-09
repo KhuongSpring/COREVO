@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.time.temporal.TemporalAdjusters;
 
@@ -42,7 +43,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
             throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         User user = userRepository.findByUsername(username);
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(today.getDayOfWeek().toString());
 
         if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
@@ -80,7 +81,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
     @Override
     public DailyProgressResponseDto getDailyProgress(Authentication authentication) {
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(today.getDayOfWeek().toString());
 
         String username = authentication.getName();
@@ -133,7 +134,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
     @Override
     public WeeklyProgressResponseDto getWeeklyProgress(Authentication authentication) {
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         LocalDate weekStart = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
 
         String username = authentication.getName();
@@ -197,7 +198,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         int targetYear = (year == null) ? today.getYear() : year;
         int targetMonth = (month == null) ? today.getMonthValue() : month;
 

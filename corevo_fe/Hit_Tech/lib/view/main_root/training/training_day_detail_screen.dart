@@ -19,11 +19,13 @@ import '../../../../../service/training_service.dart';
 class TrainingDayDetailScreen extends StatefulWidget {
   final TrainingScheduleResponse schedule;
   final String numberDay;
+  final String imageBG;
 
   const TrainingDayDetailScreen({
     super.key,
     required this.schedule,
     required this.numberDay,
+    required this.imageBG,
   });
 
   @override
@@ -89,7 +91,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
       body: Stack(
         children: [
           // Ảnh nền
-          Image.asset(TrainingAssets.trainingDay1, fit: BoxFit.cover),
+          Image.asset(widget.imageBG, fit: BoxFit.cover),
 
           Padding(
             padding: const EdgeInsets.only(top: 30, left: 10),
@@ -103,8 +105,8 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
           ),
 
           DraggableScrollableSheet(
-            initialChildSize: 0.8.sp,
-            minChildSize: 0.8.sp,
+            initialChildSize: 0.7.sp,
+            minChildSize: 0.7.sp,
             maxChildSize: 1.0.sp,
             builder: (context, scrollController) {
               return Container(
@@ -224,7 +226,8 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                                   width: 250.sp,
                                   child: Center(
                                     child: Text(
-                                      widget.schedule.exerciseGroups!.note ?? '',
+                                      widget.schedule.exerciseGroups!.note ??
+                                          '',
                                       style: TextStyle(
                                         fontSize: 14,
                                         color: Colors.black,

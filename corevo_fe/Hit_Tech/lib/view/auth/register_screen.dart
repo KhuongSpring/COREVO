@@ -495,8 +495,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                OtpVerificationScreen(email: request.email, isRegister: true),
+            builder: (context) => OtpVerificationScreen(
+              email: request.email,
+              isRegister: true,
+              isRecovery: false,
+            ),
           ),
         );
       } else {

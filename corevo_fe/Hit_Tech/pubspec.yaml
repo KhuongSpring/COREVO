@@ -92,8 +92,25 @@ flutter:
     - assets/images/level/
     - assets/images/location/
     - assets/images/type/
+    - assets/images/target_muscle/
     - assets/images/training_plan/
     - assets/images/training/
+    - assets/images/training/training_day/gain_muscle/
+    - assets/images/training/training_day/gain_weight/
+    - assets/images/training/training_day/improve_cardiovascular/
+    - assets/images/training/training_day/increase_endurance/
+    - assets/images/training/training_day/increase_height/
+    - assets/images/training/training_day/lose_fat/
+    - assets/images/training/training_day/maintain_body/
+    - assets/images/training/training_day/stress_relief/
+    - assets/images/training/training_day_shape/gain_muscle/
+    - assets/images/training/training_day_shape/gain_weight/
+    - assets/images/training/training_day_shape/improve_cardiovascular/
+    - assets/images/training/training_day_shape/increase_endurance/
+    - assets/images/training/training_day_shape/increase_height/
+    - assets/images/training/training_day_shape/lose_fat/
+    - assets/images/training/training_day_shape/maintain_body/
+    - assets/images/training/training_day_shape/stress_relief/
     - assets/images/splash/
 
   # An image asset can refer to one or more resolution-specific "variants", see
