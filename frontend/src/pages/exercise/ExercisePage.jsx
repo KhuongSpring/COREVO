@@ -180,16 +180,19 @@ const ExercisePage = () => {
                         alt={ex.name}
                         onClick={() => setSelectedImage(ex.imageURL)}
                         style={{
-                          width: 100,
-                          height: 70,
-                          objectFit: 'cover',
+                          width: '100%',  // Lấp đầy không gian cột
+                          maxWidth: 180,  // Giới hạn chiều rộng ảnh tối đa
+                          height: 120,    // Giới hạn chiều cao ảnh tối đa
+                          objectFit: 'contain',  // Đảm bảo ảnh không bị cắt và không bị méo
                           borderRadius: 4,
                           border: '1px solid #ccc',
                           cursor: 'pointer'
                         }}
                       />
                     </td>
-                    <td><strong>{ex.name}</strong></td>
+                    <td style={{ paddingLeft: '15px' }}>  {/* Dịch cột name sang phải một chút */}
+                      <strong>{ex.name}</strong>
+                    </td>
                     <td>
                       <div style={{ whiteSpace: 'pre-line' }}>
                         {ex.primaryMuscleIds?.map(muscleId => `• ${muscleMap[muscleId] || 'Unknown'}`).join('\n')}
@@ -269,7 +272,7 @@ const ExercisePage = () => {
           }}>
             <h2>{viewExercise.name}</h2>
             <img src={viewExercise.imageURL} alt={viewExercise.name} style={{
-              width: '100%', maxHeight: 250, objectFit: 'cover', borderRadius: 8, marginBottom: 16
+              width: '100%', maxHeight: 250, objectFit: 'contain', borderRadius: 8, marginBottom: 16
             }} />
             <p><strong>Description:</strong> {viewExercise.description}</p>
             <p><strong>Sets:</strong> {viewExercise.minSet} - {viewExercise.maxSet}</p>

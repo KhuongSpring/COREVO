@@ -18,7 +18,7 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/v1/auth/login',
+        'http://146.190.101.127:8080/api/v1/auth/login',
         {
           username: form.username,
           password: form.password,
