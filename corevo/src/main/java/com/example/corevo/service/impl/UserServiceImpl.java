@@ -33,6 +33,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -205,7 +206,7 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.createUserRequestDtoToUser(request);
 
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setCreatedAt(LocalDate.now());
+        user.setCreatedAt(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
         user.setIsLocked(CommonConstant.FALSE);
 
         return userMapper.userToUserResponseDto(userRepository.save(user));
@@ -309,7 +310,7 @@ public class UserServiceImpl implements UserService {
         Integer gracePeriodDays = CommonConstant.ACCOUNT_RECOVERY_DAYS;
 
         user.setIsDeleted(CommonConstant.TRUE);
-        user.setDeletedAt(LocalDate.now());
+        user.setDeletedAt(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
 
         userRepository.save(user);
 
@@ -584,7 +585,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<DayCountResponseDto> getUserDayCounts() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         LocalDate startDate = today.minusDays(6);
 
         List<Object[]> results = userRepository.countUserByDay(startDate);
@@ -608,7 +609,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<MonthCountResponseDto> getUserMonthCounts() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         LocalDate startDate = today.minusMonths(11).withDayOfMonth(1);
 
         List<Object[]> results = userRepository.countUserByMonth(startDate);
