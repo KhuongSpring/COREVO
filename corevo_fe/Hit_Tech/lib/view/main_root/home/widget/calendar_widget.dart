@@ -113,7 +113,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 width: 5,
                 height: 5,
                 decoration: BoxDecoration(
-                  color: isToday ? Colors.white : AppColors.bNormal,
+                  color: isToday ? Colors.white : AppColors.lightActive,
                   shape: BoxShape.circle
                 ),
               ),
