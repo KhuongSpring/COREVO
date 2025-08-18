@@ -6,6 +6,7 @@ import com.example.corevo.constant.UrlConstant;
 import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.request.admin.CreateTrainingExerciseRequestDto;
 import com.example.corevo.domain.dto.request.admin.UpdateTrainingExerciseRequestDto;
+import com.example.corevo.domain.dto.request.training.TrainingDynamicSearchingRequestDto;
 import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
 import com.example.corevo.service.TrainingService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -164,21 +165,6 @@ public class TrainingController {
         return VsResponseUtil.success(trainingService.getPreviewExerciseByPrimaryMuscle(primaryMuscle, request));
     }
 
-    @Tag(name = "admin-controller")
-    @Operation(
-            summary = "Lấy tất cả bài tập ",
-            description = "Dùng để lấy tất cả bài tập",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
-    @GetMapping(UrlConstant.Admin.GET_ALL_EXERCISE)
-    public ResponseEntity<?> getAllExercises(
-            @RequestParam(name = "pageNum", defaultValue = "1") int PageNum,
-            @RequestParam(name = "pageSize", defaultValue = "1") int PageSize
-    ){
-        PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
-        return VsResponseUtil.success(trainingService.getAllExercise(request));
-    }
-
     @Tag(name = "training-controller-exercise-search")
     @Operation(
             summary = "Lấy tất cả bài tập theo loại hình luyện tập",
@@ -224,18 +210,58 @@ public class TrainingController {
 
     @Tag(name = "training-controller-exercise-search")
     @Operation(
-            summary = "Tìm kiếm bài tập",
-            description = "Dùng để tìm kiếm tất cả bài tập theo loại và tìm kiếm bài tập",
+            summary = "Tìm kiếm kế hoạch luyện tập",
+            description = "Dùng để tìm kiếm tất cả kế hoạch luyện tập theo mong muốn",
             security = @SecurityRequirement(name = "Bearer Token")
     )
-    @PostMapping(UrlConstant.Training.SEARCH_TRAINING_EXERCISE)
-    public ResponseEntity<?> searchExercise(
-            @Valid @RequestBody TrainingExerciseSearchingRequestDto searchRequest,
-            @RequestParam(name = "page num", defaultValue = "1") int PageNum,
-            @RequestParam(name = "page size", defaultValue = "1") int PageSize
+    @PostMapping(UrlConstant.Training.SEARCH_TRAINING_PLAN_DYNAMIC)
+    public ResponseEntity<?> searchTrainingPlanDynamic(
+            @Valid @RequestBody TrainingDynamicSearchingRequestDto request
     ) {
+        return VsResponseUtil.success(trainingService.searchTrainingPlanDynamic(request));
+    }
+
+    @Tag(name = "training-controller-exercise-search")
+    @Operation(
+            summary = "Tìm kiếm bài tập",
+            description = "Dùng để tìm kiếm tất cả bài tập theo mong muốn",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @PostMapping(UrlConstant.Training.SEARCH_TRAINING_EXERCISE_DYNAMIC)
+    public ResponseEntity<?> searchTrainingExerciseDynamic(
+            @Valid @RequestBody TrainingDynamicSearchingRequestDto request
+    ) {
+        return VsResponseUtil.success(trainingService.searchTrainingExerciseDynamic(request));
+    }
+
+    @Tag(name = "training-controller-schedule")
+    @Operation(
+            summary = "Lấy lịch tập theo kế hoạch tập luyện",
+            description = "Dùng để lấy lịch tập theo kế hoạch tập luyện",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.Training.GET_TRAINING_SCHEDULE)
+    public ResponseEntity<?> getTrainingSchedule(@RequestParam(name = "plan id") Long planId){
+        return VsResponseUtil.success(trainingService.getTrainingSchedule(planId));
+    }
+
+    //                                  //
+    //          Methods for ADMIN       //
+    //                                  //
+
+    @Tag(name = "admin-controller")
+    @Operation(
+            summary = "Lấy tất cả bài tập ",
+            description = "Dùng để lấy tất cả bài tập",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.Admin.GET_ALL_EXERCISE)
+    public ResponseEntity<?> getAllExercises(
+            @RequestParam(name = "pageNum", defaultValue = "1") int PageNum,
+            @RequestParam(name = "pageSize", defaultValue = "1") int PageSize
+    ){
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
-        return VsResponseUtil.success(trainingService.searchExercise(searchRequest, request));
+        return VsResponseUtil.success(trainingService.getAllExercise(request));
     }
 
     @Tag(name = "admin-controller")
@@ -253,17 +279,4 @@ public class TrainingController {
         PaginationRequestDto request = new PaginationRequestDto(PageNum, PageSize);
         return VsResponseUtil.success(trainingService.searchTrainingExercise(searchRequest, request));
     }
-
-
-    @Tag(name = "training-controller-schedule")
-    @Operation(
-            summary = "Lấy lịch tập theo kế hoạch tập luyện",
-            description = "Dùng để lấy lịch tập theo kế hoạch tập luyện",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
-    @GetMapping(UrlConstant.Training.GET_TRAINING_SCHEDULE)
-    public ResponseEntity<?> getTrainingSchedule(@RequestParam(name = "plan id") Long planId){
-        return VsResponseUtil.success(trainingService.getTrainingSchedule(planId));
-    }
-
 }

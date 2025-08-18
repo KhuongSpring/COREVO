@@ -100,6 +100,9 @@ public class UrlConstant {
         public static final String GET_EXERCISE_BY_TYPE = PRE_FIX_EXERCISE + "/type";
         public static final String GET_EXERCISE_BY_GOAL = PRE_FIX_EXERCISE + "/goal";
 
+        public static final String SEARCH_TRAINING_PLAN_DYNAMIC = SEARCH_TRAINING_EXERCISE + "/training-plan";
+        public static final String SEARCH_TRAINING_EXERCISE_DYNAMIC = SEARCH_TRAINING_EXERCISE + "/training-exercise";
+
         public static final String GET_TRAINING_PLAN = PRE_FIX_RESOURCE + "/plans";
         public static final String GET_EQUIPMENT = PRE_FIX_RESOURCE + "/equipments";
         public static final String GET_GOAL = PRE_FIX_RESOURCE + "/goals";
