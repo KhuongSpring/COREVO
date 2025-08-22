@@ -32,6 +32,38 @@ class TrainingAssets {
   static const String goal6 = 'assets/images/goal/goal_6.png';
   static const String goal7 = 'assets/images/goal/goal_7.png';
   static const String goal8 = 'assets/images/goal/goal_8.png';
+  static const String goalCategoryActive1 =
+      'assets/images/goal/goal_category_active_1.png';
+  static const String goalCategoryActive2 =
+      'assets/images/goal/goal_category_active_2.png';
+  static const String goalCategoryActive3 =
+      'assets/images/goal/goal_category_active_3.png';
+  static const String goalCategoryActive4 =
+      'assets/images/goal/goal_category_active_4.png';
+  static const String goalCategoryActive5 =
+      'assets/images/goal/goal_category_active_5.png';
+  static const String goalCategoryActive6 =
+      'assets/images/goal/goal_category_active_6.png';
+  static const String goalCategoryActive7 =
+      'assets/images/goal/goal_category_active_7.png';
+  static const String goalCategoryActive8 =
+      'assets/images/goal/goal_category_active_8.png';
+  static const String goalCategoryNoActive1 =
+      'assets/images/goal/goal_category_no_active_1.png';
+  static const String goalCategoryNoActive2 =
+      'assets/images/goal/goal_category_no_active_2.png';
+  static const String goalCategoryNoActive3 =
+      'assets/images/goal/goal_category_no_active_3.png';
+  static const String goalCategoryNoActive4 =
+      'assets/images/goal/goal_category_no_active_4.png';
+  static const String goalCategoryNoActive5 =
+      'assets/images/goal/goal_category_no_active_5.png';
+  static const String goalCategoryNoActive6 =
+      'assets/images/goal/goal_category_no_active_6.png';
+  static const String goalCategoryNoActive7 =
+      'assets/images/goal/goal_category_no_active_7.png';
+  static const String goalCategoryNoActive8 =
+      'assets/images/goal/goal_category_no_active_8.png';
 
   // Level
   static const String beginner = 'assets/images/level/level2.png';
@@ -43,6 +75,12 @@ class TrainingAssets {
       'assets/images/level/levelSelected2.png';
   static const String advancedSelected =
       'assets/images/level/levelSelected3.png';
+  static const String levelHorizontal1 =
+      'assets/images/level/level_horizontal_1.png';
+  static const String levelHorizontal2 =
+      'assets/images/level/level_horizontal_2.png';
+  static const String levelHorizontal3 =
+      'assets/images/level/level_horizontal_3.png';
 
   // Duration
   static const String duration1 = 'assets/images/duration/duration_1.png';
@@ -204,6 +242,7 @@ class TrainingAssets {
   static const String restDayIcon = 'assets/icons/training/rest_day_icon.png';
   static const String personalTraining =
       'assets/images/training/personal_training_image.png';
+  static const String backIcon = 'assets/icons/training/back_icon.png';
 
   // Home
   static const String fireIcon = 'assets/icons/home/fire_icon.png';

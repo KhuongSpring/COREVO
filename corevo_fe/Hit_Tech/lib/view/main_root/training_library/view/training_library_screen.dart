@@ -7,6 +7,7 @@ import 'package:hit_tech/model/response/training/training_plan_response.dart';
 import 'package:hit_tech/service/training_service.dart';
 import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_exercise_widget.dart';
 import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_plan_detail_widget.dart';
+import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_search.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_color.dart';
@@ -363,32 +364,43 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
   }
 
   Widget _buildSearchBar() {
-    return Container(
-      height: 48,
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: const Color(0xFFD3EDFF),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.search, color: AppColors.lightHover, size: 20),
-          const SizedBox(width: 8),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Tìm kiếm bài tập, kế hoạch...',
-                hintStyle: const TextStyle(color: AppColors.lightHover),
-                border: InputBorder.none,
-              ),
-              style: const TextStyle(fontSize: 14, color: AppColors.dark),
-              onChanged: (value) {
-                // TODO: search logic
-              },
+    return Hero(
+      tag: 'searchBar',
+      child: Material(
+        color: Colors.transparent,
+        child: Container(
+          height: 48,
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: const Color(0xFFD3EDFF),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(30),
+            onTap: () {
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (_, __, ___) => TrainingLibrarySearch(),
+                  transitionsBuilder: (_, animation, __, child) {
+                    return FadeTransition(opacity: animation, child: child);
+                  },
+                ),
+              );
+            },
+            child: Row(
+              children: const [
+                Icon(Icons.search, color: AppColors.lightHover, size: 20),
+                SizedBox(width: 8),
+                Text(
+                  'Tìm kiếm bài tập, kế hoạch...',
+                  style: TextStyle(fontSize: 14, color: AppColors.lightHover),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

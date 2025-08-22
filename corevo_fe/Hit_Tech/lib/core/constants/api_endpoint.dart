@@ -3,8 +3,9 @@ abstract class ApiEndpoint {
 
   // Máy Khương
   // static const String baseUrl = 'http://10.0.2.2:8080';
-  // static const String baseUrl = 'http://192.168.50.240:8080';
-  static const String baseUrl = 'http://146.190.101.127:8080';
+  static const String baseUrl = 'http://192.168.50.240:8080';
+
+  // static const String baseUrl = 'http://146.190.101.127:8080';
 
   // Base Endpoints
   static const String version = '$baseUrl/api/v1';
@@ -31,24 +32,24 @@ abstract class ApiEndpoint {
       '$userHealthEndpoint/health-information';
 
   // Training Controller Progress
-  static const String completeExercise =
-      '$trainingProgress/complete';
-  static const String getWeeklyProgress =
-      '$trainingProgress/weekly';
-  static const String getStatistic =
-      '$trainingProgress/statistic';
-  static const String getDailyProgress =
-      '$trainingProgress/daily';
-
+  static const String completeExercise = '$trainingProgress/complete';
+  static const String getWeeklyProgress = '$trainingProgress/weekly';
+  static const String getStatistic = '$trainingProgress/statistic';
+  static const String getDailyProgress = '$trainingProgress/daily';
 
   // Training-exercise-search
   static const String searchExercise = '$trainingExercise/search';
+
   static String getExercise(int id) => '$trainingExercise/$id';
   static const String getExerciseByType = '$trainingExercise/type';
   static const String getExerciseByPrimaryMuscle =
       '$trainingExercise/target-muscle';
   static const String getExerciseByGoal = '$trainingExercise/goal';
   static const String getTrainingPlanByType = trainingPlanFlow;
+  static const String searchDynamicTrainingPlan =
+      '$searchExercise/training-plan';
+  static const String searchDynamicTrainingExercise =
+      '$searchExercise/training-exercise';
 
   // Training-plan-flow
   static const String flowStep = '$trainingPlanFlow/step';

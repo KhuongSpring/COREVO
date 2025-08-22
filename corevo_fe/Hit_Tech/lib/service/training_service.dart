@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hit_tech/model/request/training/training_dynamic_search_request.dart';
 import 'package:hit_tech/model/response/default_response.dart';
 import 'package:hit_tech/model/response/list_default_response.dart';
 import 'package:hit_tech/model/response/training/training_exercise_preview_level_response.dart';
@@ -247,6 +248,58 @@ class TrainingService {
       final response = await DioClient.dio.get(
         ApiEndpoint.getStatistic,
         queryParameters: {"year": year, "month": month},
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+
+      return DefaultResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
+  }
+
+  static Future<DefaultResponse> searchDynamicTrainingPlan(
+    TrainingDynamicSearchRequest request,
+  ) async {
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.searchDynamicTrainingPlan,
+        data: request.toJson(),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+
+      return DefaultResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
+  }
+
+  static Future<DefaultResponse> searchDynamicTrainingExercise(
+      TrainingDynamicSearchRequest request,
+      ) async {
+    try {
+      final response = await DioClient.dio.post(
+        ApiEndpoint.searchDynamicTrainingExercise,
+        data: request.toJson(),
         options: Options(
           contentType: Headers.jsonContentType,
           sendTimeout: Duration(seconds: 5),
