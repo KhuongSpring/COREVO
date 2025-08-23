@@ -170,6 +170,29 @@ class TrainingService {
     }
   }
 
+  static Future<DefaultResponse> getTrainingPlanById(int id) async {
+    try {
+      final response = await DioClient.dio.get(
+        ApiEndpoint.getTrainingPlanById(id),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          sendTimeout: Duration(seconds: 5),
+          receiveTimeout: Duration(seconds: 5),
+        ),
+      );
+
+      return DefaultResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      print('DIO ERROR: ${e.message}');
+      print('RESPONSE: ${e.response?.data}');
+      rethrow;
+    } catch (e, stack) {
+      print('ERROR: $e');
+      print('STACKTRACE: $stack');
+      rethrow;
+    }
+  }
+
   static Future<TrainingScheduleResultResponse> getTrainingScheduleById(
     int id,
   ) async {

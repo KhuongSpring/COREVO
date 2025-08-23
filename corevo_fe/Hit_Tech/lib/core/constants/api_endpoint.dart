@@ -84,6 +84,21 @@ abstract class ApiEndpoint {
   static const String getAllTrainingGoal = '$trainingResource/goals';
   static const String getAllTrainingEquipment = '$trainingResource/equipments';
 
+  static String getTypeById(int id) => '$getAllTrainingType/$id';
+
+  static String getTargetMuscleById(int id) =>
+      '$getAllTrainingTargetMuscle/$id';
+
+  static String getTrainingPlanById(int id) => '$getAllTrainingPlan/$id';
+
+  static String getLocationById(int id) => '$getAllTrainingLocation/$id';
+
+  static String getLevelById(int id) => '$getAllTrainingLevel/$id';
+
+  static String getGoalById(int id) => '$getAllTrainingGoal/$id';
+
+  static String getEquipmentById(int id) => '$getAllTrainingEquipment/$id';
+
   // Policy
   static const String getPolicyTerms = '$policy/terms';
   static const String getPolicyPrivacy = '$policy/privacy';

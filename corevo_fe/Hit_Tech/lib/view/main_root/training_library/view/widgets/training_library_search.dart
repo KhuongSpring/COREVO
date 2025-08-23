@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,11 +6,13 @@ import 'package:hit_tech/model/request/training/training_dynamic_search_request.
 import 'package:hit_tech/model/response/training/training_exercise_preview_response.dart';
 import 'package:hit_tech/service/training_service.dart';
 import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
+import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_exercise_detail_widget.dart';
 import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_plan_detail_widget.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/constants/app_color.dart';
+import '../../../../../model/response/training/training_exercise_response.dart';
 import '../../../../../model/response/training/training_plan_response.dart';
 import '../../../../../service/shared_preferences.dart';
 
@@ -49,6 +52,9 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
     TrainingAssets.goalCategoryActive7,
     TrainingAssets.goalCategoryActive8,
   ];
+
+  List<TrainingPlanResponse> trainingPlanResponses = [];
+  List<TrainingExercisePreviewResponse> trainingExercisePreviewResponses = [];
 
   @override
   void initState() {
@@ -130,8 +136,22 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                   .map((e) => TrainingExercisePreviewResponse.fromJson(e))
                   .toList();
 
-          for (final c in result1) print('Plan: $c');
-          for (final c in result2) print('Exercise: ${c.id}');
+          trainingPlanResponses.clear();
+          trainingExercisePreviewResponses.clear();
+
+          for (final c in result1) {
+            final response = await TrainingService.getTrainingPlanById(c);
+
+            if (response.status == "SUCCESS") {
+              trainingPlanResponses.add(
+                TrainingPlanResponse.fromJson(response.data),
+              );
+            }
+          }
+
+          setState(() {
+            trainingExercisePreviewResponses = result2;
+          });
         }
       } catch (e, stackTrace) {
         print(stackTrace);
@@ -227,7 +247,11 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                           ),
                         ),
                         if (!_isSearched) ..._buildBeforeSearch(),
-                        if (_isSearched) ..._buildAfterSearch(),
+                        if (_isSearched)
+                          ..._buildAfterSearch(
+                            trainingPlanResponses,
+                            trainingExercisePreviewResponses,
+                          ),
                       ],
                     ),
                   ],
@@ -570,8 +594,46 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
     ];
   }
 
-  List<Widget> _buildAfterSearch() {
-    return [];
+  List<Widget> _buildAfterSearch(
+    List<TrainingPlanResponse> t,
+    List<TrainingExercisePreviewResponse> e,
+  ) {
+    return [
+      Padding(
+        padding: EdgeInsets.only(top: 35.sp, left: 16.sp, right: 16.sp),
+        child: Column(
+          children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  for (TrainingPlanResponse x in t) _buildTrainingPlanResult(x),
+                ],
+              ),
+            ),
+            SizedBox(height: 20.sp,),
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.wWhite,
+                  borderRadius: BorderRadius.circular(30.sp)
+                ),
+                padding: EdgeInsets.all(12.sp),
+                child: Column(
+                  children: [
+                    ...List.generate(e.length, (index) {
+                      return _buildExerciseItem(exercise: e[index]);
+                    }),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 100.sp,)
+          ],
+        ),
+      ),
+    ];
   }
 
   Widget _buildEquipmentCategory(String text) {
@@ -871,6 +933,87 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildExerciseItem({
+    required TrainingExercisePreviewResponse exercise,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: GestureDetector(
+        onTap: () async {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => const Center(child: CircularProgressIndicator()),
+          );
+          try {
+            final response = await TrainingService.getExerciseById(exercise.id);
+
+            if (response.status == 'SUCCESS') {
+              Navigator.of(context).pop();
+
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                builder: (context) => TrainingLibraryExerciseDetailWidget(
+                  exercise: TrainingExerciseResponse.fromJson(response.data),
+                ),
+              );
+            } else {
+              Navigator.of(context).pop();
+            }
+          } catch (e) {
+            Navigator.of(context).pop();
+          }
+        },
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(color: Colors.transparent),
+          child: Row(
+            children: [
+              Container(
+                height: 60,
+                width: 110,
+                color: Colors.grey.shade300,
+                child: exercise.imageURL == null
+                    ? const Icon(Icons.image, color: Colors.grey)
+                    : CachedNetworkImage(
+                        imageUrl: exercise.imageURL,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.broken_image, color: Colors.red),
+                      ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      exercise.name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                    SizedBox(height: 10.sp),
+                    Text(
+                      exercise.levelName,
+                      style: const TextStyle(color: AppColors.bNormal),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
