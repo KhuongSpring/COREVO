@@ -100,6 +100,9 @@ public class UrlConstant {
         public static final String GET_EXERCISE_BY_TYPE = PRE_FIX_EXERCISE + "/type";
         public static final String GET_EXERCISE_BY_GOAL = PRE_FIX_EXERCISE + "/goal";
 
+        public static final String SEARCH_TRAINING_PLAN_DYNAMIC = SEARCH_TRAINING_EXERCISE + "/training-plan";
+        public static final String SEARCH_TRAINING_EXERCISE_DYNAMIC = SEARCH_TRAINING_EXERCISE + "/training-exercise";
+
         public static final String GET_TRAINING_PLAN = PRE_FIX_RESOURCE + "/plans";
         public static final String GET_EQUIPMENT = PRE_FIX_RESOURCE + "/equipments";
         public static final String GET_GOAL = PRE_FIX_RESOURCE + "/goals";
@@ -107,6 +110,14 @@ public class UrlConstant {
         public static final String GET_LOCATION = PRE_FIX_RESOURCE + "/locations";
         public static final String GET_TARGET_MUSCLE = PRE_FIX_RESOURCE + "/target-muscles";
         public static final String GET_TYPE = PRE_FIX_RESOURCE + "/types";
+
+        public static final String GET_TYPE_BY_ID = GET_TYPE + "/{id}";
+        public static final String GET_TARGET_MUSCLE_BY_ID = GET_TARGET_MUSCLE + "/{id}";
+        public static final String GET_TRAINING_PLAN_BY_ID = GET_TRAINING_PLAN + "/{id}";
+        public static final String GET_LOCATION_BY_ID = GET_LOCATION + "/{id}";
+        public static final String GET_LEVEL_BY_ID = GET_LEVEL + "/{id}";
+        public static final String GET_GOAL_BY_ID = GET_GOAL + "/{id}";
+        public static final String GET_EQUIPMENT_BY_ID = GET_EQUIPMENT + "/{id}";
 
         public static final String GET_TRAINING_SCHEDULE = PRE_FIX + "/schedule";
 

@@ -4,6 +4,7 @@ import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.pagination.PaginationResponseDto;
 import com.example.corevo.domain.dto.request.admin.CreateTrainingExerciseRequestDto;
 import com.example.corevo.domain.dto.request.admin.UpdateTrainingExerciseRequestDto;
+import com.example.corevo.domain.dto.request.training.TrainingDynamicSearchingRequestDto;
 import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.training.*;
@@ -28,8 +29,9 @@ public interface TrainingService {
 
     PaginationResponseDto<TrainingExerciseResponseDto> getAllExercise(PaginationRequestDto paginationRequestDto);
 
-    PaginationResponseDto<TrainingExercisePreviewResponseDto> searchExercise(TrainingExerciseSearchingRequestDto request,
-                                                            PaginationRequestDto paginationRequestDto);
+    List<Long> searchTrainingPlanDynamic(TrainingDynamicSearchingRequestDto request);
+
+    List<TrainingExercisePreviewResponseDto> searchTrainingExerciseDynamic(TrainingDynamicSearchingRequestDto request);
 
     PaginationResponseDto<TrainingExerciseResponseDto> searchTrainingExercise(TrainingExerciseSearchingRequestDto request,
                                                                              PaginationRequestDto paginationRequestDto);
@@ -49,6 +51,20 @@ public interface TrainingService {
     PaginationResponseDto<TargetMuscleResponseDto> getTargetMuscles(PaginationRequestDto paginationRequestDto);
 
     PaginationResponseDto<TypeResponseDto> getTypes(PaginationRequestDto paginationRequestDto);
+
+    TypeResponseDto getTypeById(Long id);
+
+    TargetMuscleResponseDto getTargetMuscleById(Long id);
+
+    TrainingPlanResponseDto getTrainingPlanById(Long id);
+
+    LocationResponseDto getLocationById(Long id);
+
+    LevelResponseDto getLevelById(Long id);
+
+    GoalResponseDto getGoalById(Long id);
+
+    EquipmentResponseDto getEquipmentById(Long id);
 
     TrainingScheduleResponseDto getTrainingSchedule(Long planId);
 

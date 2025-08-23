@@ -10,6 +10,7 @@ class SharedPreferencesService {
   static const String _accessTokenKey = 'auth_access_token';
   static const String _refreshTokenKey = 'auth_refresh_token';
   static const String _userKey = 'user_data';
+  static const String _searchKey = 'search_history';
 
   // Token methods
   static Future<void> saveAccessToken(String token) async {
@@ -163,4 +164,35 @@ class SharedPreferencesService {
     return JwtDecoder.isExpired(token);
   }
 
+  static Future<List<String>> getHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList(_searchKey) ?? [];
+  }
+
+  static Future<void> addHistory(String query) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> history = prefs.getStringList(_searchKey) ?? [];
+
+    history.remove(query);
+    history.insert(0, query);
+
+    if (history.length > 5) {
+      history = history.sublist(0, 5);
+    }
+
+    await prefs.setStringList(_searchKey, history);
+  }
+
+  static Future<void> removeHistory(String query) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> history = prefs.getStringList(_searchKey) ?? [];
+
+    history.remove(query);
+    await prefs.setStringList(_searchKey, history);
+  }
+
+  static Future<void> clearHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_searchKey);
+  }
 }

@@ -81,28 +81,45 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         markerBuilder: (context, day, focusDay) {
           final DateTime today = DateTime.now();
           final bool isMarked = _underlinedDays.any(
-                (d) => d.year == day.year && d.month == day.month && d.day == day.day,
+            (d) =>
+                d.year == day.year && d.month == day.month && d.day == day.day,
           );
 
           final int dayIndex = day.day - 1;
-          final bool isCompleted = day.month == today.month &&
+          final bool isCompleted =
+              day.month == today.month &&
               day.year == today.year &&
               dayIndex >= 0 &&
               dayIndex < widget.currentMonthCompletions.length &&
               widget.currentMonthCompletions[dayIndex];
 
-          if (isMarked && day.isBefore(DateTime(today.year, today.month, today.day)) && !isCompleted) {
-            return Positioned(
-              bottom: 6,
-              child: Container(
-                width: 6,
-                height: 6,
-                decoration: const BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
+          if (isMarked &&
+              day.isBefore(DateTime(today.year, today.month, today.day))) {
+            if (!isCompleted) {
+              return Positioned(
+                bottom: 6,
+                child: Container(
+                  width: 6,
+                  height: 6,
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
                 ),
-              ),
-            );
+              );
+            } else {
+              return Positioned(
+                bottom: 6,
+                child: Container(
+                  width: 6,
+                  height: 6,
+                  decoration: const BoxDecoration(
+                    color: AppColors.bNormal,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              );
+            }
           }
 
           if (isMarked) {
@@ -113,8 +130,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 width: 5,
                 height: 5,
                 decoration: BoxDecoration(
-                  color: isToday ? Colors.white : AppColors.bNormal,
-                  shape: BoxShape.circle
+                  color: isToday ? Colors.white : AppColors.lightActive,
+                  shape: BoxShape.circle,
                 ),
               ),
             );
@@ -139,7 +156,5 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         },
       ),
     );
-
-
   }
 }

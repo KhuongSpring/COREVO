@@ -69,12 +69,19 @@ public class ErrorMessage {
 
     public static class Training {
         public static final String ERR_EXERCISE_NOT_EXISTS = "exception.exercise.not.exists";
-        public static final String ERR_TRAINING_PLAN_NOT_EXISTS = "exception.training.plan.not.exists";
         public static final String ERR_TRAINING_SCHEDULE_NOT_EXISTS = "exception.training.schedule.not.exists";
         public static final String ERR_NAME_EXERCISE_EXISTS = "exception.name.exercise.exists";
         public static final String ERR_USER_NOT_IN_TRAINING_PLAN = "exception.user.not.in.training.plan";
         public static final String ERR_EXERCISE_NOT_EXISTS_DAY = "exception.exercise.not.exists.today";
         public static final String ERR_EXERCISE_HAS_BEEN_COMPLETED = "exception.exercise.has.been.completed";
+
+        public static final String ERR_TYPE_NOT_EXISTS = "exception.type.not.exists";
+        public static final String ERR_TARGET_MUSCLE_NOT_EXISTS = "exception.target.muscle.not.exists";
+        public static final String ERR_TRAINING_PLAN_NOT_EXISTS = "exception.training.plan.not.exists";
+        public static final String ERR_LOCATION_NOT_EXISTS = "exception.location.not.exists";
+        public static final String ERR_LEVEL_NOT_EXISTS = "exception.level.not.exists";
+        public static final String ERR_GOAL_NOT_EXISTS = "exception.goal.not.exists";
+        public static final String ERR_EQUIPMENT_NOT_EXISTS = "exception.equipment.not.exists";
     }
 
     public static class Admin {

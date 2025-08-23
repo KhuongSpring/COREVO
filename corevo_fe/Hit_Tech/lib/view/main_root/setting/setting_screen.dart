@@ -83,6 +83,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
         setState(() {
           linkAvatar = response?.linkAvatar;
+          userProfileResponse.linkAvatar = response?.linkAvatar;
         });
       } catch (e) {
         print(e);

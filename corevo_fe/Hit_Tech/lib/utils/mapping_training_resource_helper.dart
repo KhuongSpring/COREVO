@@ -80,6 +80,42 @@ class MappingTrainingResourceHelper {
     return mapping[vietnameseGoal] ?? vietnameseGoal;
   }
 
+  static int mappingLevelToId(String level) {
+    const mapping = {"Mới bắt đầu": 1, "Cơ bản": 2, "Nâng cao": 3};
+    return mapping[level] ?? 0;
+  }
+
+  static int mappingGoalToId(String goal) {
+    const mapping = {
+      "Giảm cân": 1,
+      "Tăng cân": 2,
+      "Tăng cơ": 3,
+      "Duy trì vóc dáng": 4,
+      "Tăng sức bền": 5,
+      "Cải thiện tim mạch": 6,
+      "Giảm stress/thư giãn": 7,
+      "Tăng chiều cao": 8,
+    };
+    return mapping[goal] ?? 0;
+  }
+
+  static int mappingLocationToId(String location) {
+    const mapping = {"Tại nhà": 1, "Phòng gym": 2, "Ngoài trời": 3, "Mọi nơi": 4};
+    return mapping[location] ?? 0;
+  }
+
+  static int mappingEquipmentToId(String equipment) {
+    const mapping = {
+      "Không có": 1,
+      "Thảm tập": 2,
+      "Máy chạy bộ": 3,
+      "Dây kháng lực": 4,
+      "Đầy đủ thiết bị gym" : 5,
+      "Xà đơn": 6,
+      "Xà kép": 7,};
+    return mapping[equipment] ?? 0;
+  }
+
   static String getThuTiengViet(int weekday) {
     switch (weekday) {
       case 1:
