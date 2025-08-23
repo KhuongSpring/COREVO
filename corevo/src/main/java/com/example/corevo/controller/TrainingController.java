@@ -149,6 +149,83 @@ public class TrainingController {
         return VsResponseUtil.success(trainingService.getTypes(request));
     }
 
+    @Tag(name = "training-controller-resource")
+    @Operation(
+            summary = "Lấy loại hình luyện tập theo id",
+            description = "Dùng để lấy loại hình luyện tập theo id",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.Training.GET_TYPE_BY_ID)
+    public ResponseEntity<?> getTypeById(@PathVariable Long id){
+        return VsResponseUtil.success(trainingService.getTypeById(id));
+    }
+
+    @Tag(name = "training-controller-resource")
+    @Operation(
+            summary = "Lấy nhóm cơ theo id",
+            description = "Dùng để lấy nhóm cơ theo id",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.Training.GET_TARGET_MUSCLE_BY_ID)
+    public ResponseEntity<?> getTargetMuscleById(@PathVariable Long id){
+        return VsResponseUtil.success(trainingService.getTargetMuscleById(id));
+    }
+
+    @Tag(name = "training-controller-resource")
+    @Operation(
+            summary = "Lấy kế hoạch luyện tập theo id",
+            description = "Dùng để lấy kế hoạch luyện tập theo id",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.Training.GET_TRAINING_PLAN_BY_ID)
+    public ResponseEntity<?> getTrainingPlanById(@PathVariable Long id){
+        return VsResponseUtil.success(trainingService.getTrainingPlanById(id));
+    }
+
+    @Tag(name = "training-controller-resource")
+    @Operation(
+            summary = "Lấy địa điểm luyện tập theo id",
+            description = "Dùng để lấy địa điểm luyện tập theo id",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.Training.GET_LOCATION_BY_ID)
+    public ResponseEntity<?> getLocationById(@PathVariable Long id){
+        return VsResponseUtil.success(trainingService.getLocationById(id));
+    }
+
+    @Tag(name = "training-controller-resource")
+    @Operation(
+            summary = "Lấy mức độ kinh nghiệm luyện tập theo id",
+            description = "Dùng để lấy mức độ kinh nghiệm luyện tập theo id",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.Training.GET_LEVEL_BY_ID)
+    public ResponseEntity<?> getLevelById(@PathVariable Long id){
+        return VsResponseUtil.success(trainingService.getLevelById(id));
+    }
+
+    @Tag(name = "training-controller-resource")
+    @Operation(
+            summary = "Lấy mục tiêu luyện tập theo id",
+            description = "Dùng để lấy mục tiêu luyện tập theo id",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.Training.GET_GOAL_BY_ID)
+    public ResponseEntity<?> getGoalById(@PathVariable Long id){
+        return VsResponseUtil.success(trainingService.getGoalById(id));
+    }
+
+    @Tag(name = "training-controller-resource")
+    @Operation(
+            summary = "Lấy dụng cụ luyện tập theo id",
+            description = "Dùng để lấy dụng cụ luyện tập theo id",
+            security = @SecurityRequirement(name = "Bearer Token")
+    )
+    @GetMapping(UrlConstant.Training.GET_EQUIPMENT_BY_ID)
+    public ResponseEntity<?> getEquipmentById(@PathVariable Long id){
+        return VsResponseUtil.success(trainingService.getEquipmentById(id));
+    }
+
     @Tag(name = "training-controller-exercise-search")
     @Operation(
             summary = "Lấy tất cả bài tập theo nhóm cơ chính",

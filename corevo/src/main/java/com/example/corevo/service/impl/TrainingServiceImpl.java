@@ -583,6 +583,55 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
+    public TypeResponseDto getTypeById(Long id) {
+        Type type = typeRepository.findById(id)
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_TYPE_NOT_EXISTS));
+        return typeMapper.typeToTypeResponseDto(type);
+    }
+
+    @Override
+    public TargetMuscleResponseDto getTargetMuscleById(Long id) {
+        TargetMuscle targetMuscle = targetMuscleRepository.findById(id)
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_TARGET_MUSCLE_NOT_EXISTS));
+        return targetMuscleMapper.targetMuscleToTargetMuscleResponseDto(targetMuscle);
+    }
+
+    @Override
+    public TrainingPlanResponseDto getTrainingPlanById(Long id) {
+        TrainingPlan trainingPlan = trainingPlanRepository.findById(id)
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_TRAINING_PLAN_NOT_EXISTS));
+        return trainingPlanMapper.trainingPlanToTrainingPlanResponseDto(trainingPlan);
+    }
+
+    @Override
+    public LocationResponseDto getLocationById(Long id) {
+        Location location = locationRepository.findById(id)
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_LOCATION_NOT_EXISTS));
+        return locationMapper.locationToLocationResponseDto(location);
+    }
+
+    @Override
+    public LevelResponseDto getLevelById(Long id) {
+        Level level = levelRepository.findById(id)
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_LEVEL_NOT_EXISTS));
+        return levelMapper.levelToLevelResponseDto(level);
+    }
+
+    @Override
+    public GoalResponseDto getGoalById(Long id) {
+        Goal goal = goalRepository.findById(id)
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_GOAL_NOT_EXISTS));
+        return goalMapper.goalToGoalResponseDto(goal);
+    }
+
+    @Override
+    public EquipmentResponseDto getEquipmentById(Long id) {
+        Equipment equipment = equipmentRepository.findById(id)
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EQUIPMENT_NOT_EXISTS));
+        return equipmentMapper.equipmentToEquipmentResponseDto(equipment);
+    }
+
+    @Override
     public TrainingScheduleResponseDto getTrainingSchedule(Long planId) {
         return trainingScheduleMapper
                 .trainingScheduleToTrainingScheduleResponseDto(

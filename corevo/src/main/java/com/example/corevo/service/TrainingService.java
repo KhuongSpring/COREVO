@@ -52,6 +52,20 @@ public interface TrainingService {
 
     PaginationResponseDto<TypeResponseDto> getTypes(PaginationRequestDto paginationRequestDto);
 
+    TypeResponseDto getTypeById(Long id);
+
+    TargetMuscleResponseDto getTargetMuscleById(Long id);
+
+    TrainingPlanResponseDto getTrainingPlanById(Long id);
+
+    LocationResponseDto getLocationById(Long id);
+
+    LevelResponseDto getLevelById(Long id);
+
+    GoalResponseDto getGoalById(Long id);
+
+    EquipmentResponseDto getEquipmentById(Long id);
+
     TrainingScheduleResponseDto getTrainingSchedule(Long planId);
 
     PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlanByType(String type,

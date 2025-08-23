@@ -111,6 +111,14 @@ public class UrlConstant {
         public static final String GET_TARGET_MUSCLE = PRE_FIX_RESOURCE + "/target-muscles";
         public static final String GET_TYPE = PRE_FIX_RESOURCE + "/types";
 
+        public static final String GET_TYPE_BY_ID = GET_TYPE + "/{id}";
+        public static final String GET_TARGET_MUSCLE_BY_ID = GET_TARGET_MUSCLE + "/{id}";
+        public static final String GET_TRAINING_PLAN_BY_ID = GET_TRAINING_PLAN + "/{id}";
+        public static final String GET_LOCATION_BY_ID = GET_LOCATION + "/{id}";
+        public static final String GET_LEVEL_BY_ID = GET_LEVEL + "/{id}";
+        public static final String GET_GOAL_BY_ID = GET_GOAL + "/{id}";
+        public static final String GET_EQUIPMENT_BY_ID = GET_EQUIPMENT + "/{id}";
+
         public static final String GET_TRAINING_SCHEDULE = PRE_FIX + "/schedule";
 
         public static final String COMPLETE_EXERCISE = PRE_FIX_PROGRESS + "/complete";
