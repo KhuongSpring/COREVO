@@ -217,7 +217,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  TrainingAssets.trainingNoteIcon,
+                                  AppAssets.trainingNoteIcon,
                                   height: 30.sp,
                                   width: 30.sp,
                                 ),

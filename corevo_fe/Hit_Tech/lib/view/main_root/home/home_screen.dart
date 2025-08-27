@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List<TrainingScheduleResponse> schedules = widget.schedules;
 
     final String? linkAvatar =
-        widget.userProfileResponse.linkAvatar ?? TrainingAssets.defaultImage;
+        widget.userProfileResponse.linkAvatar ?? AppAssets.defaultImage;
     final String? fullName =
         '${widget.userProfileResponse.firstName ?? ''} ${widget.userProfileResponse.lastName ?? ''}';
     final TrainingPlanResponse? trainingPlanResponse =
@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              TrainingAssets.mainBackground,
+              AppAssets.mainBackground,
               fit: BoxFit.cover,
             ),
           ),
@@ -170,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 backgroundImage: linkAvatar!.isNotEmpty
                                     ? NetworkImage(linkAvatar)
                                     : const AssetImage(
-                                            TrainingAssets.googleIcon,
+                                            AppAssets.googleIcon,
                                           )
                                           as ImageProvider,
                               ),
@@ -206,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        child: Image.asset(TrainingAssets.notificationIcon),
+                        child: Image.asset(AppAssets.notificationIcon),
                       ),
                     ],
                   ),
@@ -363,8 +363,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Image.asset(
                                 (progressStatistic?.currentStreak == 0)
-                                    ? TrainingAssets.fireNonIcon
-                                    : TrainingAssets.fireIcon,
+                                    ? AppAssets.fireNonIcon
+                                    : AppAssets.fireIcon,
                               ),
                             ],
                           ),

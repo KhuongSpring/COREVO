@@ -22,7 +22,7 @@ class _RemoveScreenState extends State<RemoveScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              TrainingAssets.mainBackground,
+              AppAssets.mainBackground,
               fit: BoxFit.cover,
             ),
           ),

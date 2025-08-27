@@ -15,7 +15,6 @@ import '../../../core/constants/app_message.dart';
 import '../../../core/constants/app_string.dart';
 import '../../../service/auth_service.dart';
 
-
 // Loi UI: Bottom Over 1.6
 class ActivityLevelSelectionWidget extends StatefulWidget {
   final String gender;
@@ -117,31 +116,31 @@ class _ActivityLevelSelectionWidgetState
       'title': 'Ít vận động',
       'description':
           'Hầu như không tập luyện thể dục và ít di chuyển hàng ngày.',
-      'image': TrainingAssets.imageActivityLevelSedentary,
+      'image': AppAssets.imageActivityLevelSedentary,
     },
     {
       'level': 'LEVEL_2',
       'title': 'Hoạt động nhẹ',
       'description': 'Tập nhẹ 1–2 buổi mỗi tuần hoặc đi bộ nhẹ mỗi ngày.',
-      'image': TrainingAssets.imageActivityLevelLight,
+      'image': AppAssets.imageActivityLevelLight,
     },
     {
       'level': 'LEVEL_3',
       'title': 'Hoạt động vừa phải',
       'description': 'Tập luyện đều đặn 3–4 buổi mỗi tuần.',
-      'image': TrainingAssets.imageActivityLevelModerate,
+      'image': AppAssets.imageActivityLevelModerate,
     },
     {
       'level': 'LEVEL_4',
       'title': 'Hoạt động nhiều',
       'description': 'Tập luyện cường độ cao hoặc công việc đòi hỏi di chuyển.',
-      'image': TrainingAssets.imageActivityLevelActive,
+      'image': AppAssets.imageActivityLevelActive,
     },
     {
       'level': 'LEVEL_5',
       'title': 'Rất năng động',
       'description': 'Vận động viên chuyên nghiệp hoặc tập luyện hàng ngày.',
-      'image': TrainingAssets.imageActivityLevelSuperActive,
+      'image': AppAssets.imageActivityLevelSuperActive,
     },
   ];
 
@@ -193,29 +192,26 @@ class _ActivityLevelSelectionWidgetState
   @override
   Widget build(BuildContext context) {
     final currentActivity = activityLevels[currentIndex];
-    final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
           SafeArea(
             child: SingleChildScrollView(
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height.sp,
-                ),
+                constraints: BoxConstraints(minHeight: AppDimensions.height),
                 child: IntrinsicHeight(
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(top: 30.sp, right: 70.sp),
+                        padding: EdgeInsets.only(
+                          top: AppDimensions.paddingXL,
+                          right: AppDimensions.size72,
+                        ),
                         child: Row(
                           children: [
                             IconButton(
@@ -225,10 +221,10 @@ class _ActivityLevelSelectionWidgetState
                                 color: AppColors.bNormal,
                               ),
                             ),
-                            SizedBox(width: 35.sp),
+                            SizedBox(width: AppDimensions.spacingXL),
                             Expanded(
                               child: Container(
-                                height: 7,
+                                height: AppDimensions.size8,
                                 decoration: BoxDecoration(
                                   color: AppColors.moreLighter,
                                   borderRadius: BorderRadius.circular(
@@ -241,7 +237,8 @@ class _ActivityLevelSelectionWidgetState
                                     return Stack(
                                       children: [
                                         Container(
-                                          width: constraints.maxWidth * progress,
+                                          width:
+                                              constraints.maxWidth * progress,
                                           decoration: BoxDecoration(
                                             color: AppColors.bNormal,
                                             borderRadius: BorderRadius.circular(
@@ -258,12 +255,13 @@ class _ActivityLevelSelectionWidgetState
                           ],
                         ),
                       ),
-                      SizedBox(height: 32.sp),
+                      SizedBox(height: AppDimensions.spacingXL),
+
                       Container(
-                        width: screenWidth.sp * 0.9.sp,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 24,
-                          horizontal: 20,
+                        width: AppDimensions.width * 0.9.w,
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppDimensions.paddingL,
+                          horizontal: AppDimensions.paddingL,
                         ),
                         decoration: BoxDecoration(
                           color: AppColors.bLightNotActive2,
@@ -272,20 +270,24 @@ class _ActivityLevelSelectionWidgetState
                           ),
                         ),
                         child: Column(
-                          children: const [
+                          children: [
                             Text(
                               'Mức độ hoạt động',
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: AppDimensions.textSizeXL,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.dark,
                               ),
                             ),
-                            SizedBox(height: 8),
+                            SizedBox(height: AppDimensions.spacingS),
                             Text(
                               'Chọn mức độ vận động hàng ngày của bạn để giúp đề xuất kế hoạch phù hợp.',
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 16, color: Colors.black),
+                              style: TextStyle(
+                                fontSize: AppDimensions.textSizeM,
+                                color: AppColors.dark,
+                                height: 1.3,
+                              ),
                             ),
                           ],
                         ),
@@ -298,29 +300,30 @@ class _ActivityLevelSelectionWidgetState
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                width: 230.sp,
-                                height: 230.sp,
+                              SizedBox(
+                                width: AppDimensions.size232,
+                                height: AppDimensions.size232,
                                 child: currentActivity['image'] != null
                                     ? Image.asset(
                                         currentActivity['image'],
-                                        width: 200.w,
-                                        height: 200.w,
+                                        width: AppDimensions.size200,
+                                        height: AppDimensions.size200,
                                         fit: BoxFit.contain,
                                       )
                                     : Icon(
                                         Icons.fitness_center,
-                                        size: 100,
-                                        color: Colors.blue[400],
+                                        size: AppDimensions.size104,
                                       ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: AppDimensions.paddingM,
+                                ),
                                 child: Text(
                                   currentActivity['description'],
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    fontSize: AppDimensions.textSizeS,
                                     color: Colors.black87,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -336,27 +339,30 @@ class _ActivityLevelSelectionWidgetState
                         child: Column(
                           children: [
                             _buildSlider(),
-                            SizedBox(height: 134),
+                            SizedBox(height: AppDimensions.size128 - 2.w),
                             Padding(
-                              padding: EdgeInsets.only(left: 24, bottom: 70, right: 24),
+                              padding: EdgeInsets.only(
+                                left: AppDimensions.paddingL,
+                                bottom: AppDimensions.size56,
+                                right: AppDimensions.paddingL,
+                              ),
                               child: SizedBox(
-                                width: AppDimensions.normal,
-                                height: AppDimensions.heightButton,
+                                width: AppDimensions.spacingWidthInfinite,
+                                height: AppDimensions.size48,
                                 child: ElevatedButton(
                                   onPressed: _handleFillPersonalInformation,
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        AppColors.buttonBGBottomGenderfocus,
+                                    backgroundColor: AppColors.bNormal,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(
-                                        AppDimensions.circularM,
+                                        AppDimensions.borderRadiusLarge,
                                       ),
                                     ),
                                   ),
                                   child: Text(
                                     AppStrings.genderSelectionContinue,
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: AppDimensions.textSizeL,
                                       color: AppColors.wWhite,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -382,27 +388,30 @@ class _ActivityLevelSelectionWidgetState
     return Column(
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.85,
-          height: 50,
+          width: AppDimensions.width * 0.9.w,
+          height: AppDimensions.size48,
           child: Stack(
             children: [
               Positioned(
-                top: 19,
-                left: 15,
+                top: AppDimensions.spacingML,
+                left: AppDimensions.spacingM,
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
-                  width:
-                      (MediaQuery.of(context).size.width - 90) *
-                      (currentIndex / 4),
-                  height: 4,
+                  width: (AppDimensions.width - 100.w) * (currentIndex / 4.w),
+                  height: AppDimensions.size4,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(2),
+                    color: AppColors.bNormal,
+                    borderRadius: BorderRadius.circular(
+                      AppDimensions.borderRadiusTiny,
+                    ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10),
+                padding: EdgeInsets.only(
+                  left: AppDimensions.paddingS,
+                  right: AppDimensions.paddingS,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: List.generate(5, (index) {
@@ -415,34 +424,42 @@ class _ActivityLevelSelectionWidgetState
                           : () => _onSliderChanged(index),
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 200),
-                        width: isActive ? 40.w : 30.w,
-                        height: isActive ? 40.w : 30.w,
+                        width: isActive
+                            ? AppDimensions.size40
+                            : AppDimensions.size32,
+                        height: isActive
+                            ? AppDimensions.size40
+                            : AppDimensions.size32,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: isActive
-                              ? Colors.blue
+                              ? AppColors.bNormal
                               : isPassed
-                              ? Colors.blue
-                              : Colors.white,
+                              ? AppColors.bNormal
+                              : AppColors.wWhite,
                           border: Border.all(
                             color: isActive || isPassed
-                                ? Colors.blue
-                                : Colors.grey[400]!,
+                                ? AppColors.bNormal
+                                : AppColors.moreLighter,
                             width: isActive ? 3 : 2,
                           ),
                         ),
                         child: Center(
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 200),
-                            width: isActive ? 16.w : 12.w,
-                            height: isActive ? 16.w : 12.w,
+                            width: isActive
+                                ? AppDimensions.size16
+                                : AppDimensions.iconSizeXS,
+                            height: isActive
+                                ? AppDimensions.size16
+                                : AppDimensions.iconSizeXS,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: isActive
-                                  ? Colors.white
+                                  ? AppColors.wWhite
                                   : isPassed
-                                  ? Colors.white
-                                  : Colors.grey[400],
+                                  ? AppColors.wWhite
+                                  : AppColors.moreLighter,
                             ),
                           ),
                         ),
@@ -455,17 +472,23 @@ class _ActivityLevelSelectionWidgetState
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0),
+          padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingXXL),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'Ít vận động',
-                style: TextStyle(fontSize: 12, color: Colors.black),
+                style: TextStyle(
+                  fontSize: AppDimensions.textSizeS,
+                  color: AppColors.dark,
+                ),
               ),
               Text(
                 'Rất năng động',
-                style: TextStyle(fontSize: 12, color: Colors.black),
+                style: TextStyle(
+                  fontSize: AppDimensions.textSizeS,
+                  color: AppColors.dark,
+                ),
               ),
             ],
           ),

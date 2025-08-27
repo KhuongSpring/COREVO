@@ -118,7 +118,7 @@ class _TrainingLibraryPlanDetailWidgetState
             top: 0,
             left: 0,
             right: 0,
-            child: Image.asset(TrainingAssets.trainingPlan1, fit: BoxFit.cover),
+            child: Image.asset(AppAssets.trainingPlan1, fit: BoxFit.cover),
           ),
 
           Padding(

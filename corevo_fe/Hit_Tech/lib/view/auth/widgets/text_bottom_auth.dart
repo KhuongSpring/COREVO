@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 
+import '../../../core/constants/app_dimension.dart';
+
 class DividerWithText extends StatelessWidget {
   final String text;
 
@@ -20,9 +22,9 @@ class DividerWithText extends StatelessWidget {
         ),
         Text(
           text,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.bNormal,
-            fontSize: 18,
+            fontSize: AppDimensions.textSizeM,
             fontWeight: FontWeight.w500,
           ),
         ),

@@ -136,7 +136,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 // Ảnh nền
                 Positioned.fill(
                   child: Image.asset(
-                    TrainingAssets.mainBackground,
+                    AppAssets.mainBackground,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -162,7 +162,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 backgroundImage: linkAvatar?.isNotEmpty ?? false
                                     ? NetworkImage(linkAvatar!)
                                     : const NetworkImage(
-                                        TrainingAssets.defaultImage,
+                                        AppAssets.defaultImage,
                                       ),
                               ),
                             ),
@@ -352,7 +352,7 @@ class _SettingScreenState extends State<SettingScreen> {
       child: Column(
         children: [
           _buildInnerTile(
-            TrainingAssets.personalInformationIcon,
+            AppAssets.personalInformationIcon,
             'Thông tin cá nhân',
             () {
               Navigator.push(
@@ -367,7 +367,7 @@ class _SettingScreenState extends State<SettingScreen> {
             },
           ),
           _buildInnerTile(
-            TrainingAssets.healthInformationIcon,
+            AppAssets.healthInformationIcon,
             'Thông tin sức khỏe',
             () {
               Navigator.push(
@@ -395,7 +395,7 @@ class _SettingScreenState extends State<SettingScreen> {
           ListTile(
             contentPadding: const EdgeInsets.only(left: 16, right: 5),
             leading: Image.asset(
-              TrainingAssets.themeIcon,
+              AppAssets.themeIcon,
               color: AppColors.bDarkHover,
             ),
             title: Text("Chế độ tối", style: TextStyle(fontSize: 14)),
@@ -412,7 +412,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
             onTap: () {},
           ),
-          _buildInnerTile(TrainingAssets.noticeIcon, 'Nhắc nhở luyện tập', () {
+          _buildInnerTile(AppAssets.noticeIcon, 'Nhắc nhở luyện tập', () {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -421,7 +421,7 @@ class _SettingScreenState extends State<SettingScreen> {
             );
           }),
           _buildInnerTile(
-            TrainingAssets.trashIcon,
+            AppAssets.trashIcon,
             'Xóa dữ liệu người dùng',
             () {
               Navigator.push(
@@ -444,9 +444,9 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       child: Column(
         children: [
-          _buildInnerTile(TrainingAssets.commentIcon, 'Đánh giá', () {}),
+          _buildInnerTile(AppAssets.commentIcon, 'Đánh giá', () {}),
           _buildInnerTile(
-            TrainingAssets.policyIcon,
+            AppAssets.policyIcon,
             'Chính sách và điều khoản',
             () async {
               String res = await getPrivacyAndTerms();

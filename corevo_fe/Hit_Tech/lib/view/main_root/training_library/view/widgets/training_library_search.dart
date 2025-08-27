@@ -33,24 +33,24 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
   String? _selectedLocation;
 
   List<String> goalCategoryNoActive = [
-    TrainingAssets.goalCategoryNoActive1,
-    TrainingAssets.goalCategoryNoActive2,
-    TrainingAssets.goalCategoryNoActive3,
-    TrainingAssets.goalCategoryNoActive4,
-    TrainingAssets.goalCategoryNoActive5,
-    TrainingAssets.goalCategoryNoActive6,
-    TrainingAssets.goalCategoryNoActive7,
-    TrainingAssets.goalCategoryNoActive8,
+    AppAssets.goalCategoryNoActive1,
+    AppAssets.goalCategoryNoActive2,
+    AppAssets.goalCategoryNoActive3,
+    AppAssets.goalCategoryNoActive4,
+    AppAssets.goalCategoryNoActive5,
+    AppAssets.goalCategoryNoActive6,
+    AppAssets.goalCategoryNoActive7,
+    AppAssets.goalCategoryNoActive8,
   ];
   List<String> goalCategoryActive = [
-    TrainingAssets.goalCategoryActive1,
-    TrainingAssets.goalCategoryActive2,
-    TrainingAssets.goalCategoryActive3,
-    TrainingAssets.goalCategoryActive4,
-    TrainingAssets.goalCategoryActive5,
-    TrainingAssets.goalCategoryActive6,
-    TrainingAssets.goalCategoryActive7,
-    TrainingAssets.goalCategoryActive8,
+    AppAssets.goalCategoryActive1,
+    AppAssets.goalCategoryActive2,
+    AppAssets.goalCategoryActive3,
+    AppAssets.goalCategoryActive4,
+    AppAssets.goalCategoryActive5,
+    AppAssets.goalCategoryActive6,
+    AppAssets.goalCategoryActive7,
+    AppAssets.goalCategoryActive8,
   ];
 
   List<TrainingPlanResponse> trainingPlanResponses = [];
@@ -173,7 +173,7 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
             left: 0,
             right: 0,
             child: Image.asset(
-              TrainingAssets.mainBackground,
+              AppAssets.mainBackground,
               fit: BoxFit.cover,
             ),
           ),
@@ -294,7 +294,7 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                       ),
                     ),
                     Image.asset(
-                      TrainingAssets.backIcon,
+                      AppAssets.backIcon,
                       color: AppColors.wWhite,
                       scale: 0.9,
                     ),
@@ -463,23 +463,23 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                     children: [
                       _buildGoalCategory(
                         'Giảm cân /\nGiảm mỡ',
-                        TrainingAssets.goalCategoryNoActive1,
-                        TrainingAssets.goalCategoryActive1,
+                        AppAssets.goalCategoryNoActive1,
+                        AppAssets.goalCategoryActive1,
                       ),
                       _buildGoalCategory(
                         'Tăng cân',
-                        TrainingAssets.goalCategoryNoActive2,
-                        TrainingAssets.goalCategoryActive2,
+                        AppAssets.goalCategoryNoActive2,
+                        AppAssets.goalCategoryActive2,
                       ),
                       _buildGoalCategory(
                         'Tăng cơ',
-                        TrainingAssets.goalCategoryNoActive3,
-                        TrainingAssets.goalCategoryActive3,
+                        AppAssets.goalCategoryNoActive3,
+                        AppAssets.goalCategoryActive3,
                       ),
                       _buildGoalCategory(
                         'Duy trì\nvóc dáng',
-                        TrainingAssets.goalCategoryNoActive4,
-                        TrainingAssets.goalCategoryActive4,
+                        AppAssets.goalCategoryNoActive4,
+                        AppAssets.goalCategoryActive4,
                       ),
                     ],
                   ),
@@ -487,23 +487,23 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                     children: [
                       _buildGoalCategory(
                         'Tăng sức\nbền',
-                        TrainingAssets.goalCategoryNoActive5,
-                        TrainingAssets.goalCategoryActive5,
+                        AppAssets.goalCategoryNoActive5,
+                        AppAssets.goalCategoryActive5,
                       ),
                       _buildGoalCategory(
                         'Cải thiện\ntim mạch',
-                        TrainingAssets.goalCategoryNoActive6,
-                        TrainingAssets.goalCategoryActive6,
+                        AppAssets.goalCategoryNoActive6,
+                        AppAssets.goalCategoryActive6,
                       ),
                       _buildGoalCategory(
                         'Giảm stress,\nthư giãn',
-                        TrainingAssets.goalCategoryNoActive7,
-                        TrainingAssets.goalCategoryActive7,
+                        AppAssets.goalCategoryNoActive7,
+                        AppAssets.goalCategoryActive7,
                       ),
                       _buildGoalCategory(
                         'Tăng chiều\ncao',
-                        TrainingAssets.goalCategoryNoActive8,
-                        TrainingAssets.goalCategoryActive8,
+                        AppAssets.goalCategoryNoActive8,
+                        AppAssets.goalCategoryActive8,
                       ),
                     ],
                   ),
@@ -533,12 +533,12 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
               children: [
                 _buildLevelCategory(
                   'Mới bắt đầu',
-                  TrainingAssets.levelHorizontal1,
+                  AppAssets.levelHorizontal1,
                 ),
-                _buildLevelCategory('Cơ bản', TrainingAssets.levelHorizontal2),
+                _buildLevelCategory('Cơ bản', AppAssets.levelHorizontal2),
                 _buildLevelCategory(
                   'Nâng cao',
-                  TrainingAssets.levelHorizontal3,
+                  AppAssets.levelHorizontal3,
                 ),
               ],
             ),
@@ -567,23 +567,23 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                 children: [
                   _buildLocationCategory(
                     'Tại nhà',
-                    TrainingAssets.locationHomeSelected,
-                    TrainingAssets.locationHome,
+                    AppAssets.locationHomeSelected,
+                    AppAssets.locationHome,
                   ),
                   _buildLocationCategory(
                     'Ngoài trời',
-                    TrainingAssets.locationOutSideSelected,
-                    TrainingAssets.locationOutSide,
+                    AppAssets.locationOutSideSelected,
+                    AppAssets.locationOutSide,
                   ),
                   _buildLocationCategory(
                     'Phòng gym',
-                    TrainingAssets.locationGymSelected,
-                    TrainingAssets.locationGym,
+                    AppAssets.locationGymSelected,
+                    AppAssets.locationGym,
                   ),
                   _buildLocationCategory(
                     'Mọi nơi',
-                    TrainingAssets.locationAnywhereSelected,
-                    TrainingAssets.locationAnywhere,
+                    AppAssets.locationAnywhereSelected,
+                    AppAssets.locationAnywhere,
                   ),
                 ],
               ),
@@ -853,7 +853,7 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         image: DecorationImage(
-          image: AssetImage(TrainingAssets.trainingPlan1),
+          image: AssetImage(AppAssets.trainingPlan1),
           fit: BoxFit.cover,
         ),
       ),

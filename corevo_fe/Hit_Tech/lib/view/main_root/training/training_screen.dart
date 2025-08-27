@@ -104,7 +104,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              TrainingAssets.mainBackground,
+              AppAssets.mainBackground,
               fit: BoxFit.cover,
             ),
           ),
@@ -153,27 +153,27 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         switch (status) {
                           case 1:
                             bgColor = Colors.transparent;
-                            iconAsset = TrainingAssets.prizeActiveIcon;
+                            iconAsset = AppAssets.prizeActiveIcon;
                             textColor = AppColors.bNormal;
                             break;
                           case 2:
                             bgColor = AppColors.prizeSelected;
-                            iconAsset = TrainingAssets.prizeTodayIcon;
+                            iconAsset = AppAssets.prizeTodayIcon;
                             textColor = AppColors.bNormal;
                             break;
                           case 3:
                             bgColor = Colors.transparent;
-                            iconAsset = TrainingAssets.prizeNotActiveIcon;
+                            iconAsset = AppAssets.prizeNotActiveIcon;
                             textColor = const Color(0xffb6abab);
                             break;
                           case 4:
                             bgColor = AppColors.prizeSelected;
-                            iconAsset = TrainingAssets.prizeActiveIcon;
+                            iconAsset = AppAssets.prizeActiveIcon;
                             textColor = AppColors.bNormal;
                             break;
                           default:
                             bgColor = Colors.transparent;
-                            iconAsset = TrainingAssets.prizeNotActiveIcon;
+                            iconAsset = AppAssets.prizeNotActiveIcon;
                             textColor = const Color(0xffb6abab);
                             break;
                         }
@@ -618,7 +618,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(TrainingAssets.personalTraining),
+          Image.asset(AppAssets.personalTraining),
           SizedBox(height: 20.sp),
           Text(
             'Bạn chưa có kế hoạch tập luyện nào...',

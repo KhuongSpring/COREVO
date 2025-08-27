@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 
 class AuthCustomButton extends StatelessWidget {
   final bool isLoading;
@@ -16,32 +18,32 @@ class AuthCustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
-      height: 50,
+      width: AppDimensions.width * 0.9.w,
+      height: AppDimensions.size56,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.bNormal,
-          disabledBackgroundColor: Colors.grey[400],
+          disabledBackgroundColor: AppColors.lighter,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
           ),
         ),
         child: isLoading
-            ? const SizedBox(
-                width: 20,
-                height: 20,
+            ? SizedBox(
+                width: AppDimensions.size24,
+                height: AppDimensions.size24,
                 child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  strokeWidth: 2.w,
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.wWhite),
                 ),
               )
             : Text(
                 text,
-                style: const TextStyle(
-                  fontSize: 20,
+                style: TextStyle(
+                  fontSize: AppDimensions.textSizeL,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: AppColors.wWhite,
                 ),
               ),
       ),

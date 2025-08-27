@@ -72,7 +72,7 @@ class _RecoveryAccountScreenState extends State<RecoveryAccountScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              TrainingAssets.authBackground,
+              AppAssets.authBackground,
               fit: BoxFit.cover,
             ),
           ),

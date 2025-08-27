@@ -92,7 +92,7 @@ class _PersonalHealthSelectionWidgetState
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    TrainingAssets.mainBackground,
+                    AppAssets.mainBackground,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -132,7 +132,7 @@ class _PersonalHealthSelectionWidgetState
                                 radius: 40,
                                 backgroundImage: linkAvatar?.isNotEmpty ?? false
                                     ? NetworkImage(linkAvatar!)
-                                    : NetworkImage(TrainingAssets.defaultImage),
+                                    : NetworkImage(AppAssets.defaultImage),
                               ),
                             ),
                           ),

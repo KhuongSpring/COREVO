@@ -120,50 +120,50 @@ class _TrainingLibraryExerciseWidgetState
 
   @override
   Widget build(BuildContext context) {
-    String imageBG = TrainingAssets.targetMuscleChest;
+    String imageBG = AppAssets.targetMuscleChest;
     Color colorArrowBack = Colors.black;
     switch (widget.primaryMuscleToQuery) {
       case "Chest":
         {
-          imageBG = TrainingAssets.targetMuscleChest;
+          imageBG = AppAssets.targetMuscleChest;
         }
       case "Back":
         {
-          imageBG = TrainingAssets.targetMuscleBack;
+          imageBG = AppAssets.targetMuscleBack;
           colorArrowBack = Colors.white;
         }
       case "Shoulders":
         {
-          imageBG = TrainingAssets.targetMuscleShoulders;
+          imageBG = AppAssets.targetMuscleShoulders;
           colorArrowBack = Colors.white;
         }
       case "Biceps":
         {
-          imageBG = TrainingAssets.targetMuscleBicep;
+          imageBG = AppAssets.targetMuscleBicep;
           colorArrowBack = Colors.white;
         }
       case "Triceps":
         {
-          imageBG = TrainingAssets.targetMuscleTricep;
+          imageBG = AppAssets.targetMuscleTricep;
           colorArrowBack = Colors.white;
         }
       case "Abs":
         {
-          imageBG = TrainingAssets.targetMuscleAbs;
+          imageBG = AppAssets.targetMuscleAbs;
           colorArrowBack = Colors.white;
         }
       case "Glutes":
         {
-          imageBG = TrainingAssets.targetMuscleGlute;
+          imageBG = AppAssets.targetMuscleGlute;
         }
       case "Quads":
         {
-          imageBG = TrainingAssets.targetMuscleQuad;
+          imageBG = AppAssets.targetMuscleQuad;
           colorArrowBack = Colors.white;
         }
       case "Hamstrings":
         {
-          imageBG = TrainingAssets.targetMuscleHamstring;
+          imageBG = AppAssets.targetMuscleHamstring;
           colorArrowBack = Colors.white;
         }
       case '':
@@ -171,16 +171,16 @@ class _TrainingLibraryExerciseWidgetState
           switch (widget.typeToQuery) {
             case "Cardio":
               {
-                imageBG = TrainingAssets.targetMuscleCardio;
+                imageBG = AppAssets.targetMuscleCardio;
                 colorArrowBack = Colors.white;
               }
             case "Yoga":
               {
-                imageBG = TrainingAssets.targetMuscleYoga;
+                imageBG = AppAssets.targetMuscleYoga;
               }
             case "Calisthenic":
               {
-                imageBG = TrainingAssets.targetMuscleCalisthenic;
+                imageBG = AppAssets.targetMuscleCalisthenic;
               }
           }
         }

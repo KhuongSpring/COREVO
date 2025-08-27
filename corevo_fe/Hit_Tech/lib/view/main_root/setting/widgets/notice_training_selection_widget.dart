@@ -17,7 +17,7 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
           children: [
             Positioned.fill(
               child: Image.asset(
-                TrainingAssets.mainBackground,
+                AppAssets.mainBackground,
                 fit: BoxFit.cover,
               ),
             ),
@@ -66,7 +66,7 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   !_isCheck
-                      ? Image.asset(TrainingAssets.noticeTraining)
+                      ? Image.asset(AppAssets.noticeTraining)
                       : _buildNotice(
                           title: "Tập chân",
                           time: "15:00",
@@ -168,7 +168,7 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.bNormal,
               borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(AppDimensions.borderRadius),
+                top: Radius.circular(12),
               ),
             ),
             child: Text(

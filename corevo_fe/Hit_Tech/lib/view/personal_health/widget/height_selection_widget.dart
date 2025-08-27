@@ -10,7 +10,11 @@ class HeightSelectionWidget extends StatefulWidget {
   final String gender;
   final int age;
 
-  const HeightSelectionWidget({super.key, required this.gender, required this.age});
+  const HeightSelectionWidget({
+    super.key,
+    required this.gender,
+    required this.age,
+  });
 
   @override
   _HeightSelectionWidgetState createState() => _HeightSelectionWidgetState();
@@ -21,29 +25,25 @@ class _HeightSelectionWidgetState extends State<HeightSelectionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: AppColors.bLight,
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
           SafeArea(
             child: SingleChildScrollView(
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height.sp,
-                ),
+                constraints: BoxConstraints(minHeight: AppDimensions.height),
                 child: IntrinsicHeight(
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(top: 30.sp, right: 70.sp),
+                        padding: EdgeInsets.only(
+                          top: AppDimensions.paddingXL,
+                          right: AppDimensions.size72,
+                        ),
                         child: Row(
                           children: [
                             IconButton(
@@ -53,10 +53,10 @@ class _HeightSelectionWidgetState extends State<HeightSelectionWidget> {
                                 color: AppColors.bNormal,
                               ),
                             ),
-                            SizedBox(width: 35.sp),
+                            SizedBox(width: AppDimensions.spacingXL),
                             Expanded(
                               child: Container(
-                                height: 7,
+                                height: AppDimensions.size8,
                                 decoration: BoxDecoration(
                                   color: AppColors.moreLighter,
                                   borderRadius: BorderRadius.circular(
@@ -69,7 +69,8 @@ class _HeightSelectionWidgetState extends State<HeightSelectionWidget> {
                                     return Stack(
                                       children: [
                                         Container(
-                                          width: constraints.maxWidth * progress,
+                                          width:
+                                          constraints.maxWidth * progress,
                                           decoration: BoxDecoration(
                                             color: AppColors.bNormal,
                                             borderRadius: BorderRadius.circular(
@@ -86,46 +87,50 @@ class _HeightSelectionWidgetState extends State<HeightSelectionWidget> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 32.sp),
+                      SizedBox(height: AppDimensions.spacingXL),
 
                       Container(
-                        width: screenWidth.sp * 0.9.sp,
-                        padding: EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+                        width: AppDimensions.width * 0.9.w,
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppDimensions.paddingL,
+                          horizontal: AppDimensions.paddingL,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.bLightNotActive2,
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.borderRadius,
+                          ),
                         ),
                         child: Column(
                           children: [
                             Text(
                               'Chiều Cao',
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: AppDimensions.textSizeXL,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF07314F),
+                                color: AppColors.dark,
                               ),
                             ),
-                            SizedBox(height: 8),
+                            SizedBox(height: AppDimensions.size8),
                             Text(
                               'Chiều cao hiện tại để giúp tính toán chỉ số thể hình và đề xuất chế độ phù hợp.',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black,
+                                fontSize: AppDimensions.textSizeM,
+                                color: AppColors.dark,
                                 height: 1.3,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 30),
 
                       Expanded(
                         child: Stack(
                           children: [
                             Positioned(
-                              top: 40,
-                              left: 30,
+                              top: AppDimensions.paddingXXL,
+                              left: AppDimensions.paddingXL,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.baseline,
                                 textBaseline: TextBaseline.alphabetic,
@@ -133,17 +138,17 @@ class _HeightSelectionWidgetState extends State<HeightSelectionWidget> {
                                   Text(
                                     '$height',
                                     style: TextStyle(
-                                      fontSize: 56,
+                                      fontSize: AppDimensions.size56,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xFF000000),
+                                      color: AppColors.dark,
                                     ),
                                   ),
-                                  SizedBox(width: 8),
+                                  SizedBox(width: AppDimensions.spacingS),
                                   Text(
                                     'cm',
                                     style: TextStyle(
-                                      fontSize: 20,
-                                      color: Color(0xFF888888),
+                                      fontSize: AppDimensions.textSizeL,
+                                      color: AppColors.lightActive,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -151,42 +156,46 @@ class _HeightSelectionWidgetState extends State<HeightSelectionWidget> {
                               ),
                             ),
                             Positioned(
-                              top: 110,
-                              left: 30,
+                              top: AppDimensions.size112,
+                              left: AppDimensions.paddingXL,
                               child: Container(
-                                width: 120,
-                                height: 4,
+                                width: AppDimensions.size120,
+                                height: 4.w,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF2196F3),
-                                  borderRadius: BorderRadius.circular(2),
+                                  color: AppColors.bNormal,
+                                  borderRadius: BorderRadius.circular(AppDimensions.borderRadiusTiny),
                                 ),
                               ),
                             ),
                             Positioned(
-                              left: 40,
-                              top: 120,
-                              bottom: 40,
-                              child: Container(
-                                width: 180,
+                              left: AppDimensions.paddingXXL,
+                              top: AppDimensions.size120,
+                              bottom: AppDimensions.paddingXXL,
+                              child: SizedBox(
+                                width: AppDimensions.size176,
                                 child: _buildGenderImage(widget.gender),
                               ),
                             ),
                             Positioned(
-                              right: 20,
-                              top: 80,
-                              bottom: 100,
-                              child: Container(
-                                width: 80,
+                              right: AppDimensions.paddingL,
+                              top: AppDimensions.size80,
+                              bottom: AppDimensions.size104,
+                              child: SizedBox(
+                                width: AppDimensions.size80,
                                 child: NotificationListener<ScrollNotification>(
                                   onNotification: (notification) {
-                                    if (notification is ScrollUpdateNotification) {
-                                      final scrollController = notification.metrics;
-                                      final total = scrollController.maxScrollExtent;
+                                    if (notification
+                                        is ScrollUpdateNotification) {
+                                      final scrollController =
+                                          notification.metrics;
+                                      final total =
+                                          scrollController.maxScrollExtent;
                                       final pos = scrollController.pixels;
                                       if (total > 0) {
                                         final progress = pos / total;
                                         final range = 200 - 100;
-                                        final newHeight = (200 - progress * range).round();
+                                        final newHeight =
+                                            (200 - progress * range).round();
                                         setState(() {
                                           height = newHeight.clamp(100, 200);
                                         });
@@ -196,36 +205,46 @@ class _HeightSelectionWidgetState extends State<HeightSelectionWidget> {
                                   },
                                   child: ListView.builder(
                                     physics: BouncingScrollPhysics(),
-                                    padding: EdgeInsets.symmetric(vertical: 100),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: AppDimensions.size104,
+                                    ),
                                     itemCount: 100,
                                     itemBuilder: (context, index) {
                                       final h = 200 - index;
                                       final isMain = h % 10 == 0 || h % 5 == 0;
                                       final isNear = (h - height).abs() <= 2;
-                                      return Container(
-                                        height: 30,
+                                      return SizedBox(
+                                        height: AppDimensions.size32,
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
                                           children: [
                                             if (isMain) ...[
                                               Text(
                                                 '$h',
                                                 style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: isNear ? Color(0xFF2196F3) : Color(0xFF333333),
-                                                  fontWeight: isNear ? FontWeight.bold : FontWeight.w500,
+                                                  fontSize: AppDimensions.textSizeM,
+                                                  color: isNear
+                                                      ? AppColors.bNormal
+                                                      : AppColors.lightActive,
+                                                  fontWeight: isNear
+                                                      ? FontWeight.bold
+                                                      : FontWeight.w500,
                                                 ),
                                               ),
-                                              SizedBox(width: 8),
+                                              SizedBox(width: AppDimensions.spacingS),
                                             ],
                                             Container(
-                                              width: isMain ? 25 : 15,
+                                              width: isMain ? AppDimensions.size24 : AppDimensions.size16,
                                               height: isNear ? 3 : 2,
                                               decoration: BoxDecoration(
                                                 color: isNear
-                                                    ? Color(0xFF2196F3)
-                                                    : (isMain ? Color(0xFF333333) : Color(0xFF9E9E9E)),
-                                                borderRadius: BorderRadius.circular(1),
+                                                    ? AppColors.bNormal
+                                                    : (isMain
+                                                          ? AppColors.lightActive
+                                                          : AppColors.lighter),
+                                                borderRadius:
+                                                    BorderRadius.circular(AppDimensions.borderRadiusTiny),
                                               ),
                                             ),
                                           ],
@@ -240,35 +259,47 @@ class _HeightSelectionWidgetState extends State<HeightSelectionWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 24, bottom: 70, right: 24),
+                        padding: EdgeInsets.only(
+                          left: AppDimensions.paddingL,
+                          bottom: AppDimensions.size88 + 2.w,
+                          right: AppDimensions.paddingL,
+                        ),
                         child: SizedBox(
-                          width: AppDimensions.normal,
-                          height: AppDimensions.heightButton,
+                          width: AppDimensions.spacingWidthInfinite,
+                          height: AppDimensions.size48,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) => WeightSelectionWidget(
-                                    gender: widget.gender,
-                                    age: widget.age,
-                                    height: height,
-                                  ),
+                                PageRouteBuilder(
+                                  pageBuilder: (_, __, ___) =>
+                                      WeightSelectionWidget(
+                                        gender: widget.gender,
+                                        age: widget.age,
+                                        height: height,
+                                      ),
+                                  transitionsBuilder:
+                                      (_, animation, __, child) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: child,
+                                        );
+                                      },
                                 ),
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.buttonBGBottomGenderfocus,
+                              backgroundColor: AppColors.bNormal,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                  AppDimensions.circularM,
+                                  AppDimensions.borderRadiusLarge,
                                 ),
                               ),
                             ),
                             child: Text(
                               AppStrings.genderSelectionContinue,
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: AppDimensions.textSizeL,
                                 color: AppColors.wWhite,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -281,22 +312,22 @@ class _HeightSelectionWidgetState extends State<HeightSelectionWidget> {
                 ),
               ),
             ),
-          )
+          ),
         ],
-      )
+      ),
     );
   }
 
   Widget _buildGenderImage(String? gender) {
     if (gender == 'Female') {
       return Image.asset(
-        TrainingAssets.imageGenderGirl,
+        AppAssets.imageGenderGirl,
         fit: BoxFit.contain,
         alignment: Alignment.bottomCenter,
       );
     } else {
       return Image.asset(
-        TrainingAssets.imageGenderBoy,
+        AppAssets.imageGenderBoy,
         fit: BoxFit.contain,
         alignment: Alignment.bottomCenter,
       );

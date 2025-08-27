@@ -43,7 +43,7 @@ class _PersonalInforSelectionWidgetState
         children: [
           Positioned.fill(
             child: Image.asset(
-              TrainingAssets.mainBackground,
+              AppAssets.mainBackground,
               fit: BoxFit.cover,
             ),
           ),
@@ -80,7 +80,7 @@ class _PersonalInforSelectionWidgetState
                           backgroundImage:
                               _userProfile.linkAvatar?.isNotEmpty ?? false
                               ? NetworkImage(_userProfile.linkAvatar!)
-                              : NetworkImage(TrainingAssets.defaultImage),
+                              : NetworkImage(AppAssets.defaultImage),
                         ),
                       ),
                     ),

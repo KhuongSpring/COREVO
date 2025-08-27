@@ -39,8 +39,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
-  final _firstnameController = TextEditingController(); //Tên
-  final _lastnameController = TextEditingController(); //Họ
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
   bool _isPasswordVisible = false;
   bool _agree = false;
   bool isLoading = false;
@@ -175,14 +175,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
       }
     } catch (e) {
-      print("❌ Google login failed: $e");
+      print("Google login failed: $e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: AppColors.wLight,
       body: Form(
@@ -190,43 +188,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Image.asset(
-                TrainingAssets.authBackground,
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset(AppAssets.authBackground, fit: BoxFit.cover),
             ),
             SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 80.sp),
+                  SizedBox(height: AppDimensions.size80),
                   // Header
                   Center(
                     child: Text(
                       AppStrings.register,
                       style: TextStyle(
-                        fontSize: 34,
+                        fontSize: AppDimensions.textSizeXXXL,
                         fontWeight: FontWeight.w600,
                         color: AppColors.dark,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppDimensions.paddingM,
+                    ),
                     child: Column(
                       children: [
-                        const SizedBox(height: AppDimensions.spaceXL),
+                        SizedBox(height: AppDimensions.spacingXL),
                         _buildFormFields(),
-                        SizedBox(height: 16.sp),
+                        SizedBox(height: AppDimensions.spacingM),
                         _buildAgreeRow(),
-                        SizedBox(height: 40.sp),
+                        SizedBox(height: AppDimensions.spacingXXL),
                         _buildRegisterButton(),
-                        const SizedBox(height: 40),
+                        SizedBox(height: AppDimensions.spacingXXL),
                         _buildDivider(),
-                        const SizedBox(height: AppDimensions.spaceM),
+                        SizedBox(height: AppDimensions.spacingML),
                         _buildSocialButtons(),
-                        const SizedBox(height: AppDimensions.spaceXXL),
+                        SizedBox(height: AppDimensions.spacingXL),
                         _buildLogInLink(),
-                        SizedBox(height: 18.sp),
+                        SizedBox(height: AppDimensions.spacingML),
                       ],
                     ),
                   ),
@@ -240,8 +237,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildFormFields() {
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -249,23 +244,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
         children: [
           CustomInputField(
             isPassword: true,
-            width: screenWidth * 0.9,
+            width: AppDimensions.width * 0.9.w,
             controller: _emailController,
             title: AppStrings.email,
             focusedBorderColor: AppColors.bNormal,
             keyboardType: TextInputType.emailAddress,
             validator: ValidatorUtil.validateEmail,
           ),
-          const SizedBox(height: AppDimensions.spaceM),
+          SizedBox(height: AppDimensions.spacingML),
           CustomInputField(
             isPassword: true,
-            width: screenWidth * 0.9,
+            width: AppDimensions.width * 0.9.w,
             controller: _usernameController,
             title: AppStrings.username,
             focusedBorderColor: AppColors.bNormal,
             validator: ValidatorUtil.validateUsername,
           ),
-          const SizedBox(height: AppDimensions.spaceM),
+          SizedBox(height: AppDimensions.spacingML),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -274,24 +269,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: _firstnameController,
                 title: AppStrings.firstName,
                 focusedBorderColor: AppColors.bNormal,
-                width: screenWidth * 0.52,
+                width: AppDimensions.width * 0.52.w,
                 validator: ValidatorUtil.validateFirstName,
               ),
-              const SizedBox(width: AppDimensions.spaceM),
+              SizedBox(width: AppDimensions.spacingML),
               CustomInputField(
                 isPassword: true,
                 controller: _lastnameController,
                 title: AppStrings.lastName,
                 focusedBorderColor: AppColors.bNormal,
-                width: screenWidth * 0.33,
+                width: AppDimensions.width * 0.33.w,
                 validator: ValidatorUtil.validateLastName,
               ),
             ],
           ),
-          const SizedBox(height: AppDimensions.spaceM),
+          SizedBox(height: AppDimensions.spacingML),
           CustomInputField(
             isPassword: true,
-            width: screenWidth * 0.9,
+            width: AppDimensions.width * 0.9.w,
             focusedBorderColor: AppColors.bNormal,
             controller: _passwordController,
             title: AppStrings.password,
@@ -300,7 +295,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             suffixIcon: IconButton(
               icon: Icon(
                 _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                color: Colors.grey[600],
+                color: AppColors.moreLighter,
               ),
               onPressed: () {
                 setState(() {
@@ -318,38 +313,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildAgreeRow() {
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return Center(
-      child: Container(
-        width: screenWidth,
+      child: SizedBox(
+        width: AppDimensions.width,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Checkbox(
-              checkColor: Colors.white,
+              checkColor: AppColors.wWhite,
               activeColor: AppColors.bNormal,
               value: _agree,
               onChanged: (v) => setState(() => _agree = v ?? false),
               // activeColor: AppColors.primaryAppColor,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(
+                  AppDimensions.borderRadiusTiny,
+                ),
               ),
-              side: BorderSide(color: AppColors.bNormal, width: 2),
+              side: BorderSide(color: AppColors.bNormal, width: 2.w),
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
             Expanded(
               child: RichText(
                 text: TextSpan(
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 0, 0, 0),
-                    fontSize: 14,
+                  style: TextStyle(
+                    color: AppColors.dark,
+                    fontSize: AppDimensions.textSizeS,
                   ),
                   children: [
-                    const TextSpan(text: 'Tôi đồng ý với '),
+                    TextSpan(
+                      text: 'Tôi đồng ý với ',
+                      style: TextStyle(fontSize: AppDimensions.textSizeS),
+                    ),
                     TextSpan(
                       text: 'Chính sách',
-                      style: const TextStyle(color: AppColors.bNormal),
+                      style: TextStyle(
+                        color: AppColors.bNormal,
+                        fontSize: AppDimensions.textSizeS,
+                      ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () async {
                           String res = await getPrivacyAndTerms();
@@ -362,10 +363,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           );
                         },
                     ),
-                    const TextSpan(text: ' và '),
+                    TextSpan(
+                      text: ' và ',
+                      style: TextStyle(fontSize: AppDimensions.textSizeS),
+                    ),
                     TextSpan(
                       text: 'Điều khoản sử dụng',
-                      style: const TextStyle(color: AppColors.bNormal),
+                      style: TextStyle(
+                        color: AppColors.bNormal,
+                        fontSize: AppDimensions.textSizeS,
+                      ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () async {
                           String res = await getPrivacyAndTerms();
@@ -397,42 +404,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget _buildDivider() {
-    return const Row(
+    return Row(
       children: [
-        Expanded(child: Divider(color: AppColors.bNormal)),
+        const Expanded(child: Divider(color: AppColors.bNormal)),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppDimensions.spaceS),
+          padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingM),
           child: Text(
             AppStrings.orRegisterWith,
             style: TextStyle(
               color: AppColors.bNormal,
-              fontSize: 16,
+              fontSize: AppDimensions.textSizeM,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        Expanded(child: Divider(color: AppColors.bNormal)),
+        const Expanded(child: Divider(color: AppColors.bNormal)),
       ],
     );
   }
 
   Widget _buildSocialButtons() {
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         ButtonGgFbAuth(
           onPressed: _handleLoginWithGoogle,
-          image: Image(image: AssetImage(TrainingAssets.googleIcon)),
+          image: Image(image: AssetImage(AppAssets.googleIcon)),
           text: 'Google',
-          width: screenWidth * 0.4,
+          width: AppDimensions.width * 0.4.w,
         ),
         ButtonGgFbAuth(
           onPressed: _handleFacebookRegister,
-          image: Image(image: AssetImage(TrainingAssets.facebookIcon)),
+          image: Image(image: AssetImage(AppAssets.facebookIcon)),
           text: 'Facebook',
-          width: screenWidth * 0.4,
+          width: AppDimensions.width * 0.4.w,
         ),
       ],
     );
@@ -444,9 +449,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
       children: [
         Text(
           AppStrings.alreadyHaveAccount,
-          style: TextStyle(color: Colors.grey[600], fontSize: 16),
+          style: TextStyle(
+            color: AppColors.lightHover,
+            fontSize: AppDimensions.textSizeM,
+          ),
         ),
-        SizedBox(width: 4),
+        SizedBox(width: 4.w),
         GestureDetector(
           onTap: () {
             Navigator.push(
@@ -458,7 +466,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             AppStrings.login,
             style: TextStyle(
               color: AppColors.bNormal,
-              fontSize: 16,
+              fontSize: AppDimensions.textSizeM,
               fontWeight: FontWeight.w600,
             ),
           ),

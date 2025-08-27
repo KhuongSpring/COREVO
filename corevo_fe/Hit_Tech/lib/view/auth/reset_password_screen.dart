@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
 import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
 
@@ -68,17 +69,17 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.wWhite,
       body: Stack(
         children: [
           Positioned.fill(
             child: Image.asset(
-              TrainingAssets.authBackground,
+              AppAssets.authBackground,
               fit: BoxFit.cover,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 51),
+            padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingL, vertical: AppDimensions.paddingXXXL),
             child: Column(
               children: [
                 Row(
@@ -90,14 +91,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       icon: Icon(
                         Icons.arrow_back_ios,
                         color: AppColors.bNormal,
-                        size: 28,
+                        size: AppDimensions.iconSizeXXL,
                       ),
                     ),
-                    const SizedBox(width: 30),
-                    const Text(
+                    SizedBox(width: AppDimensions.spacingXL),
+                    Text(
                       "Quên mật khẩu",
                       style: TextStyle(
-                        fontSize: 32,
+                        fontSize: AppDimensions.textSizeXXXL,
                         fontWeight: FontWeight.w500,
                         color: AppColors.dark,
                       ),
@@ -105,31 +106,31 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   ],
                 ),
 
-                SizedBox(height: 12.sp),
+                SizedBox(height: AppDimensions.spacingSM),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(3, (index) {
                     return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      width: 32,
-                      height: 6,
+                      margin: EdgeInsets.symmetric(horizontal: AppDimensions.paddingXS),
+                      width: AppDimensions.size32,
+                      height: AppDimensions.size8,
                       decoration: BoxDecoration(
                         color: AppColors.bNormal,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
                       ),
                     );
                   }),
                 ),
 
-                const SizedBox(height: 16),
+                SizedBox(height: AppDimensions.spacingM),
 
                 Text(
                   AppStrings.resetYourPassword,
-                  style: TextStyle(color: AppColors.dark, fontSize: 16),
+                  style: TextStyle(color: AppColors.dark, fontSize: AppDimensions.textSizeM),
                 ),
 
-                const SizedBox(height: 40),
+                SizedBox(height: AppDimensions.spacingXXL),
 
                 Form(
                   key: _formKey,
@@ -140,47 +141,47 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         // Text Field
                         CustomInputField(
                           isPassword: true,
-                          hintStyle: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
+                          hintStyle: TextStyle(
+                            color: AppColors.lighter,
+                            fontSize: AppDimensions.textSizeM,
                           ),
-                          width: screenWidth * 0.9,
-                          height: 64,
+                          width: AppDimensions.width * 0.9.w,
+                          height: AppDimensions.size64,
                           controller: _newPassword,
                           title: AppStrings.password,
-                          borderRadius: 12,
-                          borderColor: Colors.grey[400],
+                          borderRadius: AppDimensions.borderRadius,
+                          borderColor: AppColors.moreLighter,
                           focusedBorderColor: AppColors.bNormal,
                           validator: ValidatorUtil.validatePassword,
                           onChanged: (value) {},
                         ),
 
-                        SizedBox(height: 24),
+                        SizedBox(height: AppDimensions.size24),
 
                         // Text Field
                         CustomInputField(
                           isPassword: true,
-                          hintStyle: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
+                          hintStyle: TextStyle(
+                            color: AppColors.lighter,
+                            fontSize: AppDimensions.textSizeM,
                           ),
-                          width: screenWidth * 0.9,
-                          height: 64,
+                          width: AppDimensions.width * 0.9.w,
+                          height: AppDimensions.size64,
                           controller: _reEnterNewPassword,
                           title: AppStrings.reEnterPassword,
-                          borderRadius: 12,
-                          borderColor: Colors.grey[400],
+                          borderRadius: AppDimensions.borderRadius,
+                          borderColor: AppColors.moreLighter,
                           focusedBorderColor: AppColors.bNormal,
                           validator: ValidatorUtil.validatePassword,
                           onChanged: (value) {},
                         ),
 
-                        SizedBox(height: 40),
+                        SizedBox(height: AppDimensions.spacingXXL),
 
                         // Button
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          height: 50,
+                          width: AppDimensions.width * 0.9.w,
+                          height: AppDimensions.size48,
                           child: ElevatedButton(
                             onPressed: _handleResetPassword,
                             style: ElevatedButton.styleFrom(
@@ -189,15 +190,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                       _newPassword.text.isNotEmpty)
                                   ? AppColors.bNormal
                                   : AppColors.lighter,
-                              disabledBackgroundColor: Colors.grey[400],
+                              disabledBackgroundColor: AppColors.moreLighter,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
+                                borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
                               ),
                             ),
                             child: Text(
                               AppStrings.ok,
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: AppDimensions.textSizeL,
                                 fontWeight: FontWeight.bold,
                                 color:
                                     (_reEnterNewPassword.text.isNotEmpty &&

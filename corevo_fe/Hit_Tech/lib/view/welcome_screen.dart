@@ -3,6 +3,8 @@ import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/view/personal_health/personal_health_start_page.dart';
 
+import '../core/constants/app_dimension.dart';
+
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
@@ -12,77 +14,94 @@ class WelcomeScreen extends StatelessWidget {
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
           SafeArea(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0),
+              padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingL),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    TrainingAssets.welcomeHandImage,
-                    height: 150,
-                    width: 150,
+                    AppAssets.welcomeHandImage,
+                    height: AppDimensions.size152,
+                    width: AppDimensions.size152,
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(height: AppDimensions.spacingXL),
 
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: const Text(
+                    child: Text(
                       'Xin Chào!',
                       style: TextStyle(
-                        fontSize: 32,
+                        fontSize: AppDimensions.textSizeXXXL,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        color: AppColors.dark,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: AppDimensions.spacingSM),
                   RichText(
                     textAlign: TextAlign.start,
                     text: TextSpan(
-                      style: const TextStyle(
-                        color: Colors.black87,
-                        fontSize: 18,
+                      style: TextStyle(
+                        color: AppColors.dark,
+                        fontSize: AppDimensions.textSizeL,
                       ),
                       children: [
-                        const TextSpan(text: 'Tôi là '),
+                        TextSpan(
+                          text: 'Tôi là ',
+                          style: TextStyle(
+                            color: AppColors.dark,
+                            fontSize: AppDimensions.textSizeL,
+                          ),
+                        ),
                         TextSpan(
                           text: 'Corevo',
-                          style: TextStyle(color: AppColors.bNormal),
+                          style: TextStyle(
+                            color: AppColors.bNormal,
+                            fontSize: AppDimensions.textSizeL,
+                          ),
                         ),
-                        const TextSpan(
+                        TextSpan(
                           text:
                               ' - Trợ lý tập luyện của bạn\n\nSau đây là một số câu hỏi để ',
+                          style: TextStyle(
+                            color: AppColors.dark,
+                            fontSize: AppDimensions.textSizeL,
+                          ),
                         ),
                         TextSpan(
                           text: 'cá nhân hóa',
-                          style: TextStyle(color: AppColors.bNormal),
+                          style: TextStyle(
+                            color: AppColors.bNormal,
+                            fontSize: AppDimensions.textSizeL,
+                          ),
                         ),
-                        const TextSpan(
+                        TextSpan(
                           text: ' kế hoạch tập luyện dành cho bạn.',
+                          style: TextStyle(
+                            color: AppColors.dark,
+                            fontSize: AppDimensions.textSizeL,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 70),
+                  SizedBox(height: AppDimensions.spacingGiant),
                 ],
               ),
             ),
           ),
           Positioned(
-            left: 24,
-            right: 24,
-            bottom: 32,
+            left: AppDimensions.paddingL,
+            right: AppDimensions.paddingL,
+            bottom: AppDimensions.paddingXL,
             child: SafeArea(
               top: false,
               child: SizedBox(
                 width: double.infinity,
-                height: 50,
+                height: AppDimensions.size48,
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -95,12 +114,17 @@ class WelcomeScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.bNormal,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.borderRadiusLarge,
+                      ),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Bắt đầu',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: AppDimensions.textSizeL,
+                      color: AppColors.wWhite,
+                    ),
                   ),
                 ),
               ),

@@ -19,30 +19,26 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: AppColors.bLight,
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
 
           SafeArea(
             child: SingleChildScrollView(
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height.sp,
-                ),
+                constraints: BoxConstraints(minHeight: AppDimensions.height),
                 child: IntrinsicHeight(
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(top: 30.sp, right: 70.sp),
+                        padding: EdgeInsets.only(
+                          top: AppDimensions.paddingXL,
+                          right: AppDimensions.size72,
+                        ),
                         child: Row(
                           children: [
                             IconButton(
@@ -52,10 +48,10 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                                 color: AppColors.bNormal,
                               ),
                             ),
-                            SizedBox(width: 35.sp),
+                            SizedBox(width: AppDimensions.spacingXL),
                             Expanded(
                               child: Container(
-                                height: 7,
+                                height: AppDimensions.size8,
                                 decoration: BoxDecoration(
                                   color: AppColors.moreLighter,
                                   borderRadius: BorderRadius.circular(
@@ -68,7 +64,8 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                                     return Stack(
                                       children: [
                                         Container(
-                                          width: constraints.maxWidth * progress,
+                                          width:
+                                              constraints.maxWidth * progress,
                                           decoration: BoxDecoration(
                                             color: AppColors.bNormal,
                                             borderRadius: BorderRadius.circular(
@@ -85,17 +82,19 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 32.sp),
+                      SizedBox(height: AppDimensions.spacingXL),
                       // Header Section
                       Container(
-                        width: screenWidth.sp * 0.9.sp,
+                        width: AppDimensions.width * 0.9.w,
                         padding: EdgeInsets.symmetric(
-                          vertical: AppDimensions.paddingHorizontal,
-                          horizontal: AppDimensions.spaceML,
+                          vertical: AppDimensions.paddingL,
+                          horizontal: AppDimensions.paddingL,
                         ),
                         decoration: BoxDecoration(
                           color: AppColors.bLightNotActive2,
-                          borderRadius: BorderRadius.circular(AppDimensions.circularXS),
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.borderRadius,
+                          ),
                         ),
                         child: Column(
                           children: [
@@ -104,15 +103,15 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                               style: TextStyle(
                                 fontSize: AppDimensions.textSizeXL,
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.textGenderSelection,
+                                color: AppColors.dark,
                               ),
                             ),
-                            SizedBox(height: AppDimensions.spaceXS),
+                            SizedBox(height: AppDimensions.spacingS),
                             Text(
                               AppStrings.genderSelectionDescription,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: AppDimensions.textSizeS,
+                                fontSize: AppDimensions.textSizeM,
                                 color: AppColors.dark,
                                 height: 1.3,
                               ),
@@ -120,7 +119,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 32.sp),
+                      SizedBox(height: AppDimensions.spacingXL),
                       // Gender Options
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -129,7 +128,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                             context,
                             gender: 'Male',
                             label: AppStrings.genderSelectionBoy,
-                            imagePath: TrainingAssets.imageGenderBoy,
+                            imagePath: AppAssets.imageGenderBoy,
                             isSelected: selectedGender == 'Male',
                             ontap: () {
                               setState(() {
@@ -137,12 +136,12 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                               });
                             },
                           ),
-                          SizedBox(width: 16),
+                          SizedBox(width: AppDimensions.spacingM),
                           _buildGenderOption(
                             context,
                             gender: 'Female',
                             label: AppStrings.genderSelectionGirl,
-                            imagePath: TrainingAssets.imageGenderGirl,
+                            imagePath: AppAssets.imageGenderGirl,
                             isSelected: selectedGender == 'Female',
                             ontap: () {
                               setState(() {
@@ -152,31 +151,45 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 168.sp),
+                      SizedBox(height: AppDimensions.size168),
                       // Continue Button
                       Padding(
-                        padding: EdgeInsets.only(left: 24, bottom: 70, right: 24),
+                        padding: EdgeInsets.only(
+                          left: AppDimensions.paddingL,
+                          bottom: AppDimensions.size72,
+                          right: AppDimensions.paddingL,
+                        ),
                         child: SizedBox(
-                          width: AppDimensions.normal,
+                          width: double.infinity,
                           height: AppDimensions.heightButton,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AgeSelectionWidget(
-                                    gender: selectedGender ?? 'Male',
-                                  ),
-                                ),
-                              );
+                              selectedGender != null
+                                  ? Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (_, __, ___) =>
+                                            AgeSelectionWidget(
+                                              gender: selectedGender ?? 'Male',
+                                            ),
+                                        transitionsBuilder:
+                                            (_, animation, __, child) {
+                                              return FadeTransition(
+                                                opacity: animation,
+                                                child: child,
+                                              );
+                                            },
+                                      ),
+                                    )
+                                  : null;
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: selectedGender != null
-                                  ? AppColors.buttonBGBottomGenderfocus
+                                  ? AppColors.bNormal
                                   : AppColors.bLightNotActive,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                  AppDimensions.circularM,
+                                  AppDimensions.borderRadiusLarge,
                                 ),
                               ),
                               // elevation: formState.gender != null ? 2 : 0,
@@ -184,7 +197,7 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                             child: Text(
                               AppStrings.genderSelectionContinue,
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: AppDimensions.textSizeL,
                                 color: selectedGender != null
                                     ? AppColors.buttonTextGenderfocus
                                     : AppColors.wWhite,
@@ -220,23 +233,25 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
         }
       },
       child: SizedBox(
-        width: 160,
-        height: 320,
+        width: AppDimensions.size160,
+        height: AppDimensions.size320,
         child: Stack(
           children: [
             Positioned(
-              bottom: 30,
+              bottom: AppDimensions.paddingXL,
               left: 0,
               right: 0,
               child: Center(
                 child: Container(
-                  height: 260,
+                  height: AppDimensions.size264,
                   decoration: BoxDecoration(
                     color: isSelected
                         ? AppColors.bLightActive
                         : AppColors.wWhite,
                     border: Border.all(
-                      color: isSelected ? AppColors.bNormal : Colors.grey[300]!,
+                      color: isSelected
+                          ? AppColors.bNormal
+                          : AppColors.moreLighter,
                       width: isSelected ? 2 : 1,
                     ),
                     borderRadius: BorderRadius.circular(
@@ -248,12 +263,15 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
             ),
 
             Positioned(
-              top: 30 + 260 - 60,
-              left: 2,
-              right: 2,
+              top:
+                  AppDimensions.spacingXL +
+                  AppDimensions.size264 -
+                  AppDimensions.spacingGiant,
+              left: 2.w,
+              right: 2.w,
               child: IgnorePointer(
                 child: Container(
-                  height: 60,
+                  height: AppDimensions.size64,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.bottomCenter,
@@ -277,7 +295,11 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
               left: 0,
               right: 0,
               child: Center(
-                child: Image.asset(imagePath, height: 350, fit: BoxFit.contain),
+                child: Image.asset(
+                  imagePath,
+                  height: AppDimensions.size344,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
 
@@ -292,14 +314,16 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                         ? AppColors.bLightActive
                         : AppColors.wWhite,
                     border: Border.all(
-                      color: isSelected ? AppColors.bNormal : Colors.grey[300]!,
+                      color: isSelected
+                          ? AppColors.bNormal
+                          : AppColors.moreLighter,
                       width: isSelected ? 2 : 1,
                     ),
                     borderRadius: BorderRadius.circular(
                       AppDimensions.borderRadius,
                     ),
                   ),
-                  height: 60,
+                  height: AppDimensions.size64,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -308,12 +332,12 @@ class _GenderSelectionWidgetState extends State<GenderSelectionWidget> {
                         (gender == 'Male') ? Icons.male : Icons.female,
                         color: (gender == 'Male' ? Colors.blue : Colors.pink),
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(width: AppDimensions.size8),
                       Text(
                         label,
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 14,
+                          fontSize: AppDimensions.textSizeS,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

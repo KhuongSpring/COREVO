@@ -30,11 +30,11 @@ class CustomBottomNavBar extends StatelessWidget {
 
   Widget _buildNavItem(int index) {
     final icons = [
-      TrainingAssets.homeIcon,
-      TrainingAssets.libraryIcon,
-      TrainingAssets.chartIcon,
-      TrainingAssets.feedsIcon,
-      TrainingAssets.profileIcon,
+      AppAssets.homeIcon,
+      AppAssets.libraryIcon,
+      AppAssets.chartIcon,
+      AppAssets.feedsIcon,
+      AppAssets.profileIcon,
     ];
 
     final labels = [

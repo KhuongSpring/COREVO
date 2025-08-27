@@ -150,7 +150,7 @@ class _TrainingDayStartTrainingScreenState
         children: [
           Positioned.fill(
             child: Image.asset(
-              TrainingAssets.mainBackground,
+              AppAssets.mainBackground,
               fit: BoxFit.cover,
             ),
           ),
@@ -490,8 +490,8 @@ class _TrainingDayStartTrainingScreenState
               padding: const EdgeInsets.only(right: 15),
               child: Image.asset(
                 isCompleted
-                    ? TrainingAssets.tickActive
-                    : TrainingAssets.tickNonActive,
+                    ? AppAssets.tickActive
+                    : AppAssets.tickNonActive,
               ),
             ),
           ],

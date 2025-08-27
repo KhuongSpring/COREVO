@@ -36,18 +36,18 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
 
   List<TrainingPlanResponse> trainingPlanByType = [];
   List<String> targetMuscleCategory = [
-    TrainingAssets.chestCategory,
-    TrainingAssets.backCategory,
-    TrainingAssets.shouldersCategory,
-    TrainingAssets.bicepCategory,
-    TrainingAssets.tricepCategory,
-    TrainingAssets.absCategory,
-    TrainingAssets.gluteCategory,
-    TrainingAssets.quadsCategory,
-    TrainingAssets.hamstringCategory,
-    TrainingAssets.cardioCategory,
-    TrainingAssets.yogaCategory,
-    TrainingAssets.calisthenicCategory,
+    AppAssets.chestCategory,
+    AppAssets.backCategory,
+    AppAssets.shouldersCategory,
+    AppAssets.bicepCategory,
+    AppAssets.tricepCategory,
+    AppAssets.absCategory,
+    AppAssets.gluteCategory,
+    AppAssets.quadsCategory,
+    AppAssets.hamstringCategory,
+    AppAssets.cardioCategory,
+    AppAssets.yogaCategory,
+    AppAssets.calisthenicCategory,
   ];
 
   @override
@@ -143,7 +143,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    TrainingAssets.libraryBackground1,
+                    AppAssets.libraryBackground1,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -413,7 +413,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         image: DecorationImage(
-          image: AssetImage(TrainingAssets.trainingPlan1),
+          image: AssetImage(AppAssets.trainingPlan1),
           fit: BoxFit.cover,
         ),
       ),

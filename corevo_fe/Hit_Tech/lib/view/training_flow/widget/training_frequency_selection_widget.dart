@@ -43,11 +43,11 @@ class _TrainingFrequencySelectionState
     '“Vận động là một phần không thể thiếu trong cuộc sống của tôi.”',
   ];
   final List<String> hinhAnhLich = [
-    TrainingAssets.frequency1,
-    TrainingAssets.frequency2,
-    TrainingAssets.frequency3,
-    TrainingAssets.frequency4,
-    TrainingAssets.frequency5,
+    AppAssets.frequency1,
+    AppAssets.frequency2,
+    AppAssets.frequency3,
+    AppAssets.frequency4,
+    AppAssets.frequency5,
   ];
 
   @override
@@ -58,16 +58,16 @@ class _TrainingFrequencySelectionState
         children: [
           // Ảnh nền
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
 
           Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: 50, right: 70),
+                padding: EdgeInsets.only(
+                  top: AppDimensions.size48,
+                  right: AppDimensions.size72,
+                ),
                 child: Row(
                   children: [
                     IconButton(
@@ -77,10 +77,10 @@ class _TrainingFrequencySelectionState
                         color: AppColors.bNormal,
                       ),
                     ),
-                    SizedBox(width: 35),
+                    SizedBox(width: AppDimensions.spacingXL),
                     Expanded(
                       child: Container(
-                        height: 7,
+                        height: AppDimensions.size8,
                         decoration: BoxDecoration(
                           color: AppColors.moreLighter,
                           borderRadius: BorderRadius.circular(
@@ -110,10 +110,12 @@ class _TrainingFrequencySelectionState
                   ],
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: AppDimensions.spacingXL),
               // Header
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                margin: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingM,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.bLightHover,
                   borderRadius: BorderRadius.circular(
@@ -123,52 +125,65 @@ class _TrainingFrequencySelectionState
                 child: Row(
                   children: [
                     Container(
-                      width: 20.0,
-                      height: 90.0,
+                      width: AppDimensions.size16,
+                      height: AppDimensions.size88,
                       decoration: BoxDecoration(color: AppColors.bLightActive2),
                     ),
-                    const SizedBox(width: 20.0),
+                    SizedBox(width: AppDimensions.size16),
                     Expanded(
                       child: Text(
                         'Bạn thường tập luyện\nbao nhiêu ngày trong tuần?',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: AppDimensions.textSizeXL,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.darkActive,
+                          color: AppColors.dark,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 70),
+              SizedBox(height: AppDimensions.spacingXXL),
 
-              Image.asset(hinhAnhLich[selectedIndex], width: 120, height: 120),
-              const SizedBox(height: 25),
+              Image.asset(
+                hinhAnhLich[selectedIndex],
+                width: AppDimensions.size120,
+                height: AppDimensions.size120,
+              ),
+              SizedBox(height: AppDimensions.spacingL),
 
               Text(
                 '${soBuoi[selectedIndex]} buổi / tuần',
-                style: const TextStyle(
-                  fontSize: 20,
+                style: TextStyle(
+                  fontSize: AppDimensions.textSizeL,
                   fontWeight: FontWeight.bold,
                   color: AppColors.dark,
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: AppDimensions.spacingML),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingL,
+                ),
                 child: Text(
                   moTa[selectedIndex],
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 16, color: AppColors.dark),
+                  style: TextStyle(
+                    fontSize: AppDimensions.textSizeM,
+                    color: AppColors.dark,
+                  ),
                 ),
               ),
-              const SizedBox(height: 62),
+              SizedBox(height: AppDimensions.spacingGiant),
               // Progress Dots
               Container(
-                height: 30,
-                margin: const EdgeInsets.symmetric(horizontal: 30),
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                height: AppDimensions.size32,
+                margin: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingXL,
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingS,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.blueGrey[100],
                   borderRadius: BorderRadius.circular(
@@ -187,19 +202,26 @@ class _TrainingFrequencySelectionState
                       },
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
-                        width: isSelected ? 24 : 16,
-                        height: isSelected ? 24 : 16,
+                        width: isSelected
+                            ? AppDimensions.iconSizeXL
+                            : AppDimensions.iconSizeL,
+                        height: isSelected
+                            ? AppDimensions.iconSizeXL
+                            : AppDimensions.iconSizeM,
                         decoration: BoxDecoration(
                           color: AppColors.bNormal,
                           shape: BoxShape.circle,
                           border: isSelected
-                              ? Border.all(color: Colors.white, width: 5)
+                              ? Border.all(
+                                  color: AppColors.wWhite,
+                                  width: AppDimensions.size4,
+                                )
                               : null,
                           boxShadow: isSelected
                               ? [
                                   BoxShadow(
                                     color: Colors.black12,
-                                    blurRadius: 4,
+                                    blurRadius: AppDimensions.size4,
                                   ),
                                 ]
                               : [],
@@ -230,57 +252,69 @@ class _TrainingFrequencySelectionState
 
           // Button "Tiếp tục" nổi lên trên cùng
           Positioned(
-            left: 16,
-            right: 16,
-            bottom: 70,
+            left: AppDimensions.paddingM,
+            right: AppDimensions.paddingM,
+            bottom: AppDimensions.size72,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: selectedIndex != null
                     ? AppColors.bNormal
                     : AppColors.bLightNotActive,
-                minimumSize: const Size(double.infinity, 60),
+                minimumSize: Size(
+                  AppDimensions.spacingWidthInfinite,
+                  AppDimensions.size56,
+                ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.borderRadiusLarge,
+                  ),
                 ),
               ),
               onPressed: selectedIndex != null
                   ? () async {
-                final request = TrainingFlowRequest(
-                  currentStep: currentStep,
-                  selectedValue: options,
-                  selectedValues: selectedValues,
-                );
-
-                try {
-                  final response = await TrainingFlowService.sendStep(
-                    request,
-                  );
-
-                  var selectedValues = response.selectedValues;
-
-                  print(response.nextStep);
-                  print(selectedValues);
-                  print(response.options);
-
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TrainingLocationSelectionWidget(
-                        nextStep: response.nextStep,
+                      final request = TrainingFlowRequest(
+                        currentStep: currentStep,
+                        selectedValue: options,
                         selectedValues: selectedValues,
-                        options: response.options,
-                      ),
-                    ),
-                  );
-                } catch (e) {
-                  print("Error: $e");
-                }
-              }
+                      );
+
+                      try {
+                        final response = await TrainingFlowService.sendStep(
+                          request,
+                        );
+
+                        var selectedValues = response.selectedValues;
+
+                        print(response.nextStep);
+                        print(selectedValues);
+                        print(response.options);
+
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
+                                TrainingLocationSelectionWidget(
+                                  nextStep: response.nextStep,
+                                  selectedValues: selectedValues,
+                                  options: response.options,
+                                ),
+                            transitionsBuilder: (_, animation, __, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
+                          ),
+                        );
+                      } catch (e) {
+                        print("Error: $e");
+                      }
+                    }
                   : null,
               child: Text(
                 "Tiếp tục",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: AppDimensions.textSizeL,
                   color: selectedIndex != null
                       ? AppColors.wWhite
                       : AppColors.wDark,

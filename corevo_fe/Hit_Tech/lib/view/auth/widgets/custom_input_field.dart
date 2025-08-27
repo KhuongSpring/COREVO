@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 
 class CustomInputField extends StatefulWidget {
   final double? width;
@@ -74,7 +76,7 @@ class _CustomInputFieldState extends State<CustomInputField>
     );
 
     _colorAnimation = ColorTween(
-      begin: widget.borderColor ?? Color(0xFF989DA1),
+      begin: widget.borderColor ?? AppColors.lighter,
       end: widget.focusedBorderColor ?? AppColors.bNormal,
     ).animate(_animationController);
 
@@ -127,7 +129,7 @@ class _CustomInputFieldState extends State<CustomInputField>
   Widget build(BuildContext context) {
     return Container(
       width: widget.width,
-      height: widget.height ?? 60,
+      height: widget.height ?? AppDimensions.size64,
       child: Stack(
         children: [
           // Main TextFormField
@@ -144,16 +146,19 @@ class _CustomInputFieldState extends State<CustomInputField>
                 keyboardType: widget.keyboardType,
                 style:
                     widget.textStyle ??
-                    const TextStyle(fontSize: 16, color: Colors.black),
+                    TextStyle(
+                      fontSize: AppDimensions.textSizeM,
+                      color: AppColors.dark,
+                    ),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: widget.fillColor ?? Colors.white,
+                  fillColor: widget.fillColor ?? AppColors.wWhite,
                   hintText: widget.title != null ? null : widget.hintText,
                   hintStyle:
                       widget.hintStyle ??
                       TextStyle(
-                        color: widget.hintColor ?? Color(0xFF989DA1),
-                        fontSize: 16,
+                        color: widget.hintColor ?? AppColors.lighter,
+                        fontSize: AppDimensions.textSizeM,
                       ),
                   suffixIcon: widget.suffixIcon,
                   contentPadding:
@@ -161,29 +166,29 @@ class _CustomInputFieldState extends State<CustomInputField>
                       const EdgeInsets.fromLTRB(16, 24, 16, 12),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                      widget.borderRadius ?? 12,
+                      widget.borderRadius ?? AppDimensions.borderRadius,
                     ),
                     borderSide: BorderSide(
-                      color: widget.borderColor ?? Colors.grey[400]!,
-                      width: 1.5,
+                      color: widget.borderColor ?? AppColors.lighter,
+                      width: 1.5.w,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                      widget.borderRadius ?? 12,
+                      widget.borderRadius ?? AppDimensions.borderRadius,
                     ),
                     borderSide: BorderSide(
-                      color: widget.borderColor ?? Colors.grey[400]!,
-                      width: 1.5,
+                      color: widget.borderColor ?? AppColors.lighter,
+                      width: 1.5.w,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                      widget.borderRadius ?? 12,
+                      widget.borderRadius ?? AppDimensions.borderRadius,
                     ),
                     borderSide: BorderSide(
                       color: _colorAnimation.value ?? AppColors.bNormal,
-                      width: 2.0,
+                      width: 2.0.w,
                     ),
                   ),
                 ),
@@ -194,7 +199,7 @@ class _CustomInputFieldState extends State<CustomInputField>
           // Animated Label (only show if title is provided)
           if (widget.title != null)
             Positioned(
-              left: 12,
+              left: AppDimensions.spacingM,
               child: AnimatedBuilder(
                 animation: _labelAnimation,
                 builder: (context, child) {
@@ -211,22 +216,26 @@ class _CustomInputFieldState extends State<CustomInputField>
                       alignment: Alignment.centerLeft,
                       child: Container(
                         padding: _labelAnimation.value > 0.3
-                            ? const EdgeInsets.symmetric(horizontal: 6)
+                            ? EdgeInsets.symmetric(
+                                horizontal: AppDimensions.paddingS,
+                              )
                             : EdgeInsets.zero,
                         decoration: _labelAnimation.value > 0.3
                             ? BoxDecoration(
-                                color: widget.fillColor ?? Colors.white,
-                                borderRadius: BorderRadius.circular(4),
+                                color: widget.fillColor ?? AppColors.wWhite,
+                                borderRadius: BorderRadius.circular(
+                                  AppDimensions.borderRadiusTiny,
+                                ),
                               )
                             : null,
                         child: Text(
                           widget.title!,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: AppDimensions.textSizeM,
                             color: _isFocused
                                 ? (widget.focusedBorderColor ??
                                       AppColors.bNormal)
-                                : (widget.hintColor ?? Color(0xFF989DA1)),
+                                : (widget.hintColor ?? AppColors.lighter),
                             fontWeight:
                                 _isFocused || (_labelAnimation.value > 0.5)
                                 ? FontWeight.w500

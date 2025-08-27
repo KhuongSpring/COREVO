@@ -14,7 +14,7 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
           children: [
             Positioned.fill(
               child: Image.asset(
-                TrainingAssets.mainBackground,
+                AppAssets.mainBackground,
                 fit: BoxFit.cover,
               ),
             ),

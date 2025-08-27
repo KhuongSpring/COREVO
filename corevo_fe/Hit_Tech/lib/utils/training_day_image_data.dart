@@ -132,10 +132,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_3_1.png');
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_3_2.png');
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_3_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_3_4.png');
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_3_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     return l;
   }
   static List<String> getListGainMusclePlan2(){
@@ -146,18 +146,18 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_1_4.png');
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_1_5.png');
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_1_6.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     return l;
   }
   static List<String> getListGainMusclePlan3(){
     List<String> l = [];
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_2_1.png');
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_2_2.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_2_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/gain_muscle/gain_muscle_plan_2_4.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     return l;
   }
 
@@ -167,10 +167,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/gain_weight/gain_weight_plan_2_1.png');
     l.add('assets/images/training/training_day/gain_weight/gain_weight_plan_2_2.png');
     l.add('assets/images/training/training_day/gain_weight/gain_weight_plan_2_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/gain_weight/gain_weight_plan_2_4.png');
     l.add('assets/images/training/training_day/gain_weight/gain_weight_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -182,7 +182,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/gain_weight/gain_weight_plan_1_4.png');
     l.add('assets/images/training/training_day/gain_weight/gain_weight_plan_1_5.png');
     l.add('assets/images/training/training_day/gain_weight/gain_weight_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -193,10 +193,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/improve_cardiovascular/improve_cardiovascular_plan_2_1.png');
     l.add('assets/images/training/training_day/improve_cardiovascular/improve_cardiovascular_plan_2_2.png');
     l.add('assets/images/training/training_day/improve_cardiovascular/improve_cardiovascular_plan_2_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/improve_cardiovascular/improve_cardiovascular_plan_2_4.png');
     l.add('assets/images/training/training_day/improve_cardiovascular/improve_cardiovascular_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -207,8 +207,8 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/improve_cardiovascular/improve_cardiovascular_plan_1_3.png');
     l.add('assets/images/training/training_day/improve_cardiovascular/improve_cardiovascular_plan_1_4.png');
     l.add('assets/images/training/training_day/improve_cardiovascular/improve_cardiovascular_plan_1_5.png');
-    l.add(TrainingAssets.restDayIcon);
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -220,7 +220,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/improve_cardiovascular/improve_cardiovascular_plan_3_4.png');
     l.add('assets/images/training/training_day/improve_cardiovascular/improve_cardiovascular_plan_3_5.png');
     l.add('assets/images/training/training_day/improve_cardiovascular/improve_cardiovascular_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -230,11 +230,11 @@ class TrainingDayImageData{
     List<String> l = [];
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_2_1.png');
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_2_2.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_2_3.png');
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_2_4.png');
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -246,7 +246,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_1_4.png');
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_1_5.png');
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -255,10 +255,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_3_1.png');
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_3_2.png');
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_3_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_3_4.png');
     l.add('assets/images/training/training_day/increase_endurance/increase_endurance_plan_3_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -269,10 +269,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/increase_height/increase_height_plan_1_1.png');
     l.add('assets/images/training/training_day/increase_height/increase_height_plan_1_2.png');
     l.add('assets/images/training/training_day/increase_height/increase_height_plan_1_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/increase_height/increase_height_plan_1_4.png');
     l.add('assets/images/training/training_day/increase_height/increase_height_plan_1_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -283,8 +283,8 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/increase_height/increase_height_plan_2_3.png');
     l.add('assets/images/training/training_day/increase_height/increase_height_plan_2_4.png');
     l.add('assets/images/training/training_day/increase_height/increase_height_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -296,7 +296,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/increase_height/increase_height_plan_3_4.png');
     l.add('assets/images/training/training_day/increase_height/increase_height_plan_3_5.png');
     l.add('assets/images/training/training_day/increase_height/increase_height_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -306,11 +306,11 @@ class TrainingDayImageData{
     List<String> l = [];
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_2_1.png');
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_2_2.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_2_3.png');
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_2_4.png');
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -318,11 +318,11 @@ class TrainingDayImageData{
     List<String> l = [];
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_3_1.png');
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_3_2.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_3_3.png');
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_3_4.png');
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_3_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -334,7 +334,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_1_4.png');
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_1_5.png');
     l.add('assets/images/training/training_day/lose_fat/lose_fat_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -345,10 +345,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_2_1.png');
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_2_2.png');
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_2_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_2_4.png');
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -356,11 +356,11 @@ class TrainingDayImageData{
     List<String> l = [];
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_1_1.png');
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_1_2.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_1_3.png');
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_1_4.png');
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_1_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -372,7 +372,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_3_4.png');
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_3_5.png');
     l.add('assets/images/training/training_day/maintain_body/maintain_body_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -398,7 +398,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day/stress_relief/stress_relief_plan_2_4.png');
     l.add('assets/images/training/training_day/stress_relief/stress_relief_plan_2_5.png');
     l.add('assets/images/training/training_day/stress_relief/stress_relief_plan_1_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -422,10 +422,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_3_1.png');
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_3_2.png');
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_3_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_3_4.png');
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_3_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     return l;
   }
   static List<String> getListGainMuscleShapePlan2(){
@@ -436,18 +436,18 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_1_4.png');
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_1_5.png');
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_1_6.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     return l;
   }
   static List<String> getListGainMuscleShapePlan3(){
     List<String> l = [];
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_2_1.png');
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_2_2.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_2_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_2_4.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     return l;
   }
 
@@ -457,10 +457,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/gain_weight/gain_weight_plan_2_1.png');
     l.add('assets/images/training/training_day_shape/gain_weight/gain_weight_plan_2_2.png');
     l.add('assets/images/training/training_day_shape/gain_weight/gain_weight_plan_2_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/gain_weight/gain_weight_plan_2_4.png');
     l.add('assets/images/training/training_day_shape/gain_weight/gain_weight_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -472,7 +472,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/gain_weight/gain_weight_plan_1_4.png');
     l.add('assets/images/training/training_day_shape/gain_weight/gain_weight_plan_1_5.png');
     l.add('assets/images/training/training_day_shape/gain_weight/gain_weight_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -483,10 +483,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/improve_cardiovascular/improve_cardiovascular_plan_2_1.png');
     l.add('assets/images/training/training_day_shape/improve_cardiovascular/improve_cardiovascular_plan_2_2.png');
     l.add('assets/images/training/training_day_shape/improve_cardiovascular/improve_cardiovascular_plan_2_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/improve_cardiovascular/improve_cardiovascular_plan_2_4.png');
     l.add('assets/images/training/training_day_shape/improve_cardiovascular/improve_cardiovascular_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -497,8 +497,8 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/improve_cardiovascular/improve_cardiovascular_plan_1_3.png');
     l.add('assets/images/training/training_day_shape/improve_cardiovascular/improve_cardiovascular_plan_1_4.png');
     l.add('assets/images/training/training_day_shape/improve_cardiovascular/improve_cardiovascular_plan_1_5.png');
-    l.add(TrainingAssets.restDayIcon);
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -510,7 +510,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/improve_cardiovascular/improve_cardiovascular_plan_3_4.png');
     l.add('assets/images/training/training_day_shape/improve_cardiovascular/improve_cardiovascular_plan_3_5.png');
     l.add('assets/images/training/training_day_shape/improve_cardiovascular/improve_cardiovascular_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -520,11 +520,11 @@ class TrainingDayImageData{
     List<String> l = [];
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_2_1.png');
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_2_2.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_2_3.png');
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_2_4.png');
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -536,7 +536,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_1_4.png');
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_1_5.png');
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -545,10 +545,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_3_1.png');
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_3_2.png');
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_3_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_3_4.png');
     l.add('assets/images/training/training_day_shape/increase_endurance/increase_endurance_plan_3_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -559,10 +559,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/increase_height/increase_height_plan_1_1.png');
     l.add('assets/images/training/training_day_shape/increase_height/increase_height_plan_1_2.png');
     l.add('assets/images/training/training_day_shape/increase_height/increase_height_plan_1_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/increase_height/increase_height_plan_1_4.png');
     l.add('assets/images/training/training_day_shape/increase_height/increase_height_plan_1_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -573,8 +573,8 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/increase_height/increase_height_plan_2_3.png');
     l.add('assets/images/training/training_day_shape/increase_height/increase_height_plan_2_4.png');
     l.add('assets/images/training/training_day_shape/increase_height/increase_height_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -586,7 +586,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/increase_height/increase_height_plan_3_4.png');
     l.add('assets/images/training/training_day_shape/increase_height/increase_height_plan_3_5.png');
     l.add('assets/images/training/training_day_shape/increase_height/increase_height_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -596,11 +596,11 @@ class TrainingDayImageData{
     List<String> l = [];
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_2_1.png');
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_2_2.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_2_3.png');
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_2_4.png');
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -608,11 +608,11 @@ class TrainingDayImageData{
     List<String> l = [];
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_3_1.png');
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_3_2.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_3_3.png');
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_3_4.png');
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_3_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -624,7 +624,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_1_4.png');
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_1_5.png');
     l.add('assets/images/training/training_day_shape/lose_fat/lose_fat_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -635,10 +635,10 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_2_1.png');
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_2_2.png');
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_2_3.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_2_4.png');
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -646,11 +646,11 @@ class TrainingDayImageData{
     List<String> l = [];
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_1_1.png');
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_1_2.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_1_3.png');
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_1_4.png');
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_1_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -662,7 +662,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_3_4.png');
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_3_5.png');
     l.add('assets/images/training/training_day_shape/maintain_body/maintain_body_plan_2_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
@@ -688,7 +688,7 @@ class TrainingDayImageData{
     l.add('assets/images/training/training_day_shape/stress_relief/stress_relief_plan_2_4.png');
     l.add('assets/images/training/training_day_shape/stress_relief/stress_relief_plan_2_5.png');
     l.add('assets/images/training/training_day_shape/stress_relief/stress_relief_plan_1_5.png');
-    l.add(TrainingAssets.restDayIcon);
+    l.add(AppAssets.restDayIcon);
 
     return l;
   }
