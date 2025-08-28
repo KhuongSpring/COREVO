@@ -149,25 +149,27 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                 ),
                 Column(
                   children: [
-                    const SizedBox(height: 52),
+                    SizedBox(height: AppDimensions.spacingHuge),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         _buildTab("Kế hoạch luyện tập", 0),
-                        const SizedBox(width: 20),
+                        SizedBox(width: AppDimensions.spacingML),
                         _buildTab("Các bài tập", 1),
                       ],
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: AppDimensions.spacingL),
                     _buildSearchBar(),
-                    const SizedBox(height: 20),
-                    SizedBox(height: 10),
+                    SizedBox(height: AppDimensions.spacingXL),
                     (selectedIndex == 0)
                         ? Expanded(
                             child: SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: Padding(
-                                padding: const EdgeInsets.only(bottom: 80),
+                                padding: EdgeInsets.only(
+                                  bottom: AppDimensions.size80,
+                                  top: AppDimensions.spacingSM,
+                                ),
                                 child: Column(
                                   children: [
                                     buildTrainingPlanSection(
@@ -178,7 +180,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                                         return _buildTrainingPlanItem(plan);
                                       }).toList(),
                                     ),
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: AppDimensions.spacingML),
                                     buildTrainingPlanSection(
                                       title: normalizePlanName(
                                         trainingPlanGainWeight.first.goals,
@@ -189,7 +191,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                                         return _buildTrainingPlanItem(plan);
                                       }).toList(),
                                     ),
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: AppDimensions.spacingML),
                                     buildTrainingPlanSection(
                                       title: normalizePlanName(
                                         trainingPlanGainMuscle.first.goals,
@@ -200,7 +202,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                                         return _buildTrainingPlanItem(plan);
                                       }).toList(),
                                     ),
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: AppDimensions.spacingML),
                                     buildTrainingPlanSection(
                                       title: normalizePlanName(
                                         trainingPlanMaintainBody.first.goals,
@@ -211,7 +213,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                                         return _buildTrainingPlanItem(plan);
                                       }).toList(),
                                     ),
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: AppDimensions.spacingML),
                                     buildTrainingPlanSection(
                                       title: normalizePlanName(
                                         trainingPlanIncreaseEndurance
@@ -224,7 +226,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                                           })
                                           .toList(),
                                     ),
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: AppDimensions.spacingML),
                                     buildTrainingPlanSection(
                                       title: normalizePlanName(
                                         trainingPlanImproveCardiovascular
@@ -237,7 +239,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                                           })
                                           .toList(),
                                     ),
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: AppDimensions.spacingML),
                                     buildTrainingPlanSection(
                                       title: normalizePlanName(
                                         trainingPlanStressRelief.first.goals,
@@ -248,7 +250,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                                         return _buildTrainingPlanItem(plan);
                                       }).toList(),
                                     ),
-                                    const SizedBox(height: 20),
+                                    SizedBox(height: AppDimensions.spacingML),
                                     buildTrainingPlanSection(
                                       title: normalizePlanName(
                                         trainingPlanIncreaseHeight.first.goals,
@@ -268,50 +270,56 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                             child: SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: Padding(
-                                padding: EdgeInsets.only(bottom: 80),
+                                padding: EdgeInsets.only(
+                                  bottom: AppDimensions.size48,
+                                  top: AppDimensions.spacingSM,
+                                ),
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: AppDimensions.paddingM,
+                                  ),
                                   child: Column(
                                     children: [
                                       _buildTargetMuscleCategory('Ngực', 20, 0),
-                                      SizedBox(height: 20.sp),
+                                      SizedBox(height: AppDimensions.spacingML),
                                       _buildTargetMuscleCategory('Lưng', 20, 1),
-                                      SizedBox(height: 20.sp),
+                                      SizedBox(height: AppDimensions.spacingML),
                                       _buildTargetMuscleCategory('Vai', 20, 2),
-                                      SizedBox(height: 20.sp),
+                                      SizedBox(height: AppDimensions.spacingML),
                                       _buildTargetMuscleCategory(
                                         'Tay trước',
                                         20,
                                         3,
                                       ),
-                                      SizedBox(height: 20.sp),
+                                      SizedBox(height: AppDimensions.spacingML),
                                       _buildTargetMuscleCategory(
                                         'Tay sau',
                                         20,
                                         4,
                                       ),
-                                      SizedBox(height: 20.sp),
+                                      SizedBox(height: AppDimensions.spacingML),
                                       _buildTargetMuscleCategory('Bụng', 20, 5),
-                                      SizedBox(height: 20.sp),
+                                      SizedBox(height: AppDimensions.spacingML),
                                       _buildTargetMuscleCategory('Mông', 20, 6),
-                                      SizedBox(height: 20.sp),
+                                      SizedBox(height: AppDimensions.spacingML),
                                       _buildTargetMuscleCategory(
                                         'Đùi trước',
                                         20,
                                         7,
                                       ),
-                                      SizedBox(height: 20.sp),
+                                      SizedBox(height: AppDimensions.spacingML),
                                       _buildTargetMuscleCategory(
                                         'Đùi sau',
                                         20,
                                         8,
                                       ),
-                                      SizedBox(height: 20.sp),
+                                      SizedBox(height: AppDimensions.spacingML),
                                       _buildTypeCategory('Cardio', 20, 9),
-                                      SizedBox(height: 20.sp),
+                                      SizedBox(height: AppDimensions.spacingML),
                                       _buildTypeCategory('Yoga', 20, 10),
-                                      SizedBox(height: 20.sp),
+                                      SizedBox(height: AppDimensions.spacingML),
                                       _buildTypeCategory('Calisthenic', 20, 11),
+                                      SizedBox(height: AppDimensions.spacingXL),
                                     ],
                                   ),
                                 ),
@@ -340,21 +348,25 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 250),
             style: TextStyle(
-              fontSize: isSelected ? 24 : 16,
+              fontSize: isSelected
+                  ? AppDimensions.textSizeXL
+                  : AppDimensions.textSizeM,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: AppColors.dark,
             ),
             child: Text(text),
           ),
           Center(
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 250),
-              margin: const EdgeInsets.only(top: 4),
-              height: 3,
-              width: isSelected ? 80 : 0,
+              margin: EdgeInsets.only(top: AppDimensions.paddingXS),
+              height: AppDimensions.size4,
+              width: isSelected ? AppDimensions.size80 : 0,
               decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(20),
+                color: AppColors.dark,
+                borderRadius: BorderRadius.circular(
+                  AppDimensions.borderRadiusLarge,
+                ),
               ),
             ),
           ),
@@ -369,15 +381,19 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
       child: Material(
         color: Colors.transparent,
         child: Container(
-          height: 48,
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          height: AppDimensions.size48,
+          margin: EdgeInsets.symmetric(horizontal: AppDimensions.paddingM),
+          padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingM),
           decoration: BoxDecoration(
             color: const Color(0xFFD3EDFF),
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(
+              AppDimensions.borderRadiusLarge,
+            ),
           ),
           child: InkWell(
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(
+              AppDimensions.borderRadiusLarge,
+            ),
             onTap: () {
               Navigator.push(
                 context,
@@ -390,12 +406,19 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
               );
             },
             child: Row(
-              children: const [
-                Icon(Icons.search, color: AppColors.lightHover, size: 20),
-                SizedBox(width: 8),
+              children: [
+                Icon(
+                  Icons.search,
+                  color: AppColors.lightHover,
+                  size: AppDimensions.iconSizeL,
+                ),
+                SizedBox(width: AppDimensions.spacingS),
                 Text(
                   'Tìm kiếm bài tập, kế hoạch...',
-                  style: TextStyle(fontSize: 14, color: AppColors.lightHover),
+                  style: TextStyle(
+                    fontSize: AppDimensions.textSizeS,
+                    color: AppColors.lightHover,
+                  ),
                 ),
               ],
             ),
@@ -407,11 +430,11 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
 
   Widget _buildTrainingPlanItem(TrainingPlanResponse plan) {
     return Container(
-      width: 300,
-      height: 200,
-      margin: const EdgeInsets.only(right: 16),
+      width: AppDimensions.size304,
+      height: AppDimensions.size200,
+      margin: EdgeInsets.only(right: AppDimensions.paddingM),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
         image: DecorationImage(
           image: AssetImage(AppAssets.trainingPlan1),
           fit: BoxFit.cover,
@@ -423,7 +446,9 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(
+                  AppDimensions.borderRadiusLarge,
+                ),
                 gradient: LinearGradient(
                   colors: [Colors.transparent, Colors.black.withOpacity(0.4)],
                   begin: Alignment.topCenter,
@@ -434,7 +459,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
           ),
           // Nội dung
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(AppDimensions.paddingM),
             child: Stack(
               children: [
                 // Bên dưới (nút ở góc phải)
@@ -452,14 +477,21 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.lightHover.withOpacity(0.6),
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppDimensions.paddingS,
+                      ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
+                        borderRadius: BorderRadius.circular(
+                          AppDimensions.borderRadiusLarge,
+                        ),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Bắt đầu',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                        color: AppColors.wWhite,
+                        fontSize: AppDimensions.textSizeS,
+                      ),
                     ),
                   ),
                 ),
@@ -472,18 +504,21 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                     children: [
                       Text(
                         plan.name,
-                        style: const TextStyle(
-                          fontSize: 20,
+                        style: TextStyle(
+                          fontSize: AppDimensions.textSizeL,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: AppColors.wWhite,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: AppDimensions.size4),
                       SizedBox(
-                        width: 180,
+                        width: AppDimensions.size184,
                         child: Text(
                           plan.description,
-                          style: TextStyle(fontSize: 12, color: Colors.white70),
+                          style: TextStyle(
+                            fontSize: AppDimensions.textSizeXS,
+                            color: Colors.white70,
+                          ),
                         ),
                       ),
                     ],
@@ -505,19 +540,19 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 16),
+          padding: EdgeInsets.only(left: AppDimensions.paddingM),
           child: Text(
             title,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: AppDimensions.textSizeM,
               fontWeight: FontWeight.w500,
               color: AppColors.dark,
             ),
           ),
         ),
-        const SizedBox(height: 5),
+        SizedBox(height: AppDimensions.size4),
         Padding(
-          padding: const EdgeInsets.only(left: 16),
+          padding: EdgeInsets.only(left: AppDimensions.paddingM),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(children: plans),
@@ -551,7 +586,10 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
           Image.asset(targetMuscleCategory[index], fit: BoxFit.cover),
 
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 30),
+            padding: EdgeInsets.symmetric(
+              vertical: AppDimensions.paddingXXL + 2.w,
+              horizontal: AppDimensions.paddingXL,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -559,7 +597,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                   categoryName,
                   style: TextStyle(
                     color: AppColors.wWhite,
-                    fontSize: 24,
+                    fontSize: AppDimensions.textSizeXL,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -595,7 +633,10 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
           Image.asset(targetMuscleCategory[index], fit: BoxFit.cover),
 
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 30),
+            padding: EdgeInsets.symmetric(
+              vertical: AppDimensions.paddingXXL,
+              horizontal: AppDimensions.paddingXL,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -603,7 +644,7 @@ class _TrainingLibraryScreenState extends State<TrainingLibraryScreen> {
                   categoryName,
                   style: TextStyle(
                     color: AppColors.wWhite,
-                    fontSize: 24,
+                    fontSize: AppDimensions.textSizeXL,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

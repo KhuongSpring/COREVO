@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -8,11 +6,11 @@ import 'package:hit_tech/model/response/training/training_exercise_preview_respo
 import 'package:hit_tech/model/response/training/training_exercise_response.dart';
 import 'package:hit_tech/model/response/training/training_plan_response.dart';
 import 'package:hit_tech/model/response/training/training_schedule_response.dart';
-import 'package:hit_tech/model/response/training/training_schedule_result_response.dart';
 import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
 import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_exercise_detail_widget.dart';
 
 import '../../../../../core/constants/app_color.dart';
+import '../../../../../core/constants/app_dimension.dart';
 import '../../../../../model/response/training/training_schedule_exercise_group_response.dart';
 import '../../../../../model/response/training/training_schedule_exercise_response.dart';
 import '../../../../../service/training_service.dart';
@@ -33,7 +31,6 @@ class _TrainingLibraryPlanDetailWidgetState
 
   List<String> categoryPlan = [];
   List<TrainingExercisePreviewResponse> previewExercises = [];
-
 
   @override
   void initState() {
@@ -79,14 +76,17 @@ class _TrainingLibraryPlanDetailWidgetState
                 final isDuplicate = previewExercises.any((e) => e.id == newId);
 
                 if (!isDuplicate) {
-                  final result = MappingTrainingResourceHelper.parse(l[i].duration);
+                  final result = MappingTrainingResourceHelper.parse(
+                    l[i].duration,
+                  );
                   previewExercises.add(
                     TrainingExercisePreviewResponse(
                       id: newId,
                       name: response.data['name'],
                       imageURL: response.data['imageURL'],
                       description: response.data['description'],
-                      levelName: '${result.sets} sets | ${result.repsPerSet ?? result.durationPerSet}'
+                      levelName:
+                          '${result.sets} sets | ${result.repsPerSet ?? result.durationPerSet}',
                     ),
                   );
                 }
@@ -122,29 +122,34 @@ class _TrainingLibraryPlanDetailWidgetState
           ),
 
           Padding(
-            padding: const EdgeInsets.only(top: 30, left: 10),
+            padding: EdgeInsets.only(
+              top: AppDimensions.paddingXL,
+              left: AppDimensions.paddingS,
+            ),
             child: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
               icon: Icon(Icons.arrow_back_ios),
-              color: Colors.black,
+              color: AppColors.dark,
             ),
           ),
 
           DraggableScrollableSheet(
-            initialChildSize: 0.8.sp,
-            minChildSize: 0.8.sp,
-            maxChildSize: 1.0.sp,
+            initialChildSize: 0.8.w,
+            minChildSize: 0.8.w,
+            maxChildSize: 1.0.w,
             builder: (context, scrollController) {
               return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 24,
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.spacingML,
+                  vertical: AppDimensions.paddingL,
                 ),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                decoration: BoxDecoration(
+                  color: AppColors.wWhite,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(AppDimensions.borderRadiusLarge),
+                  ),
                 ),
                 child: SingleChildScrollView(
                   controller: scrollController,
@@ -153,17 +158,17 @@ class _TrainingLibraryPlanDetailWidgetState
                       Text(
                         '${MappingTrainingResourceHelper.mappingGoalToVietnamese(widget.plan.goals)} - ${widget.plan.name}',
                         style: TextStyle(
-                          fontSize: 18.sp,
+                          fontSize: AppDimensions.textSizeL,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: AppColors.dark,
                         ),
                       ),
-                      SizedBox(height: 12.sp),
+                      SizedBox(height: AppDimensions.spacingSM),
                       Text(
                         generateDesAndAim(widget.plan.name),
-                        style: TextStyle(height: 1.5, color: Colors.black),
+                        style: TextStyle(height: 1.5.w, color: AppColors.dark),
                       ),
-                      SizedBox(height: 12.sp),
+                      SizedBox(height: AppDimensions.spacingSM),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: SingleChildScrollView(
@@ -172,7 +177,9 @@ class _TrainingLibraryPlanDetailWidgetState
                             children: categoryPlan
                                 .map(
                                   (label) => Padding(
-                                    padding: const EdgeInsets.only(right: 8),
+                                    padding: EdgeInsets.only(
+                                      right: AppDimensions.paddingS,
+                                    ),
                                     child: _buildCategoryPlan(label),
                                   ),
                                 )
@@ -180,21 +187,21 @@ class _TrainingLibraryPlanDetailWidgetState
                           ),
                         ),
                       ),
-                      SizedBox(height: 12.sp),
+                      SizedBox(height: AppDimensions.spacingSM),
                       const Divider(color: AppColors.bNormal),
-                      SizedBox(height: 12.sp),
+                      SizedBox(height: AppDimensions.spacingSM),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           'Các bài tập (${previewExercises.length})',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.black,
+                            fontSize: AppDimensions.textSizeM,
+                            color: AppColors.dark,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 12),
+                      SizedBox(height: AppDimensions.spacingSM),
 
                       // List bài tập
                       ...List.generate(previewExercises.length, (index) {
@@ -203,7 +210,7 @@ class _TrainingLibraryPlanDetailWidgetState
                         );
                       }),
 
-                      SizedBox(height: 80.sp),
+                      SizedBox(height: AppDimensions.size80),
                     ],
                   ),
                 ),
@@ -212,9 +219,9 @@ class _TrainingLibraryPlanDetailWidgetState
           ),
 
           Positioned(
-            left: 16,
-            right: 16,
-            bottom: 16,
+            left: AppDimensions.paddingM,
+            right: AppDimensions.paddingM,
+            bottom: AppDimensions.paddingM,
             child: ElevatedButton(
               onPressed: () {
                 // Navigator.push(
@@ -231,13 +238,24 @@ class _TrainingLibraryPlanDetailWidgetState
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.bNormal,
                 foregroundColor: AppColors.wWhite,
-                padding: EdgeInsets.symmetric(vertical: 16),
-                minimumSize: Size(double.infinity, 30),
+                padding: EdgeInsets.symmetric(vertical: AppDimensions.paddingM),
+                minimumSize: Size(
+                  AppDimensions.spacingWidthInfinite,
+                  AppDimensions.size32,
+                ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.borderRadiusSmall,
+                  ),
                 ),
               ),
-              child: Text("Bắt đầu", style: TextStyle(fontSize: 20)),
+              child: Text(
+                "Bắt đầu",
+                style: TextStyle(
+                  fontSize: AppDimensions.textSizeL,
+                  color: AppColors.wWhite,
+                ),
+              ),
             ),
           ),
           if (_showLoading)
@@ -252,17 +270,20 @@ class _TrainingLibraryPlanDetailWidgetState
 
   Widget _buildCategoryPlan(String label) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppDimensions.paddingS,
+        vertical: AppDimensions.paddingS,
+      ),
       decoration: BoxDecoration(
         color: AppColors.bgHealthInfor,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
       ),
       child: Text(
         label,
         style: TextStyle(
-          fontSize: 12,
+          fontSize: AppDimensions.textSizeXS,
           fontWeight: FontWeight.w500,
-          color: Colors.black,
+          color: AppColors.dark,
         ),
       ),
     );
@@ -272,7 +293,7 @@ class _TrainingLibraryPlanDetailWidgetState
     required TrainingExercisePreviewResponse exercise,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: EdgeInsets.symmetric(vertical: AppDimensions.paddingS),
       child: GestureDetector(
         onTap: () async {
           showDialog(
@@ -302,13 +323,13 @@ class _TrainingLibraryPlanDetailWidgetState
           }
         },
         child: Container(
-          width: double.infinity,
+          width: AppDimensions.spacingWidthInfinite,
           decoration: BoxDecoration(color: Colors.transparent),
           child: Row(
             children: [
               Container(
-                height: 60,
-                width: 110,
+                height: AppDimensions.size64,
+                width: AppDimensions.size112,
                 color: Colors.grey.shade300,
                 child: exercise.imageURL == null
                     ? const Icon(Icons.image, color: Colors.grey)
@@ -321,7 +342,7 @@ class _TrainingLibraryPlanDetailWidgetState
                             const Icon(Icons.broken_image, color: Colors.red),
                       ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: AppDimensions.spacingSM),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,13 +352,16 @@ class _TrainingLibraryPlanDetailWidgetState
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
-                        fontSize: 16.sp,
+                        fontSize: AppDimensions.textSizeM,
                       ),
                     ),
-                    SizedBox(height: 10.sp),
+                    SizedBox(height: AppDimensions.spacingSM),
                     Text(
                       exercise.levelName,
-                      style: const TextStyle(color: AppColors.bNormal),
+                      style: TextStyle(
+                        color: AppColors.bNormal,
+                        fontSize: AppDimensions.textSizeS,
+                      ),
                     ),
                   ],
                 ),

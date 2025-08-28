@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/model/response/training/training_exercise_response.dart';
 import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
 
@@ -11,7 +10,10 @@ import '../../../../../utils/training_exercise_image_helper.dart';
 class TrainingLibraryExerciseDetailWidget extends StatefulWidget {
   final TrainingExerciseResponse exercise;
 
-  const TrainingLibraryExerciseDetailWidget({super.key, required this.exercise});
+  const TrainingLibraryExerciseDetailWidget({
+    super.key,
+    required this.exercise,
+  });
 
   @override
   State<TrainingLibraryExerciseDetailWidget> createState() =>
@@ -34,7 +36,7 @@ class _TrainingLibraryExerciseDetailWidgetState
     super.initState();
     _loadAndUseImage();
     _controller.addListener(() {
-      if (_controller.size <= 0.5.sp) {
+      if (_controller.size <= 0.5.w) {
         Navigator.of(context).pop();
       }
     });
@@ -70,7 +72,6 @@ class _TrainingLibraryExerciseDetailWidgetState
   @override
   Widget build(BuildContext context) {
     TrainingExerciseResponse exerciseResponse = widget.exercise;
-    double screenWidth = MediaQuery.of(context).size.width.sp;
 
     List<String> primaryTargetMuscle =
         MappingTrainingResourceHelper.mappingTargetMuscleList(
@@ -94,21 +95,26 @@ class _TrainingLibraryExerciseDetailWidgetState
         : '${exerciseResponse.maxRep} reps';
 
     return DraggableScrollableSheet(
-      initialChildSize: 0.9.sp,
-      minChildSize: 0.52.sp,
-      maxChildSize: 1.0.sp,
+      initialChildSize: 0.9.w,
+      minChildSize: 0.52.w,
+      maxChildSize: 1.0.w,
       builder: (context, scrollController) {
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+          padding: EdgeInsets.symmetric(
+            horizontal: AppDimensions.spacingML,
+            vertical: AppDimensions.paddingL,
+          ),
+          decoration: BoxDecoration(
+            color: AppColors.wWhite,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(AppDimensions.borderRadiusLarge),
+            ),
           ),
           child: _isReady
               ? Stack(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(bottom: 70),
+                      padding: EdgeInsets.only(bottom: AppDimensions.size72),
                       child: SingleChildScrollView(
                         controller: scrollController,
                         child: Column(
@@ -116,64 +122,74 @@ class _TrainingLibraryExerciseDetailWidgetState
                           children: [
                             Center(
                               child: Container(
-                                height: 4,
-                                width: screenWidth * 0.3.sp,
+                                height: AppDimensions.size4,
+                                width: AppDimensions.width * 0.3.w,
                                 decoration: BoxDecoration(
                                   color: AppColors.bNormal,
-                                  borderRadius: BorderRadius.circular(24.sp),
+                                  borderRadius: BorderRadius.circular(
+                                    AppDimensions.borderRadiusLarge,
+                                  ),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 30.sp),
+                            SizedBox(height: AppDimensions.spacingXL),
                             Text(
                               exerciseResponse.name,
                               style: TextStyle(
-                                fontSize: 24.sp,
+                                fontSize: AppDimensions.textSizeXL,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                                color: AppColors.dark,
                               ),
                             ),
-                            SizedBox(height: 30.sp),
+                            SizedBox(height: AppDimensions.spacingL),
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                horizontal: (_imageHeight == 630.0) ? 0 : 50.sp,
+                                horizontal: (_imageHeight == 630.w)
+                                    ? 0.w
+                                    : AppDimensions.size4,
                               ),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16.sp),
+                                borderRadius: BorderRadius.circular(
+                                  AppDimensions.borderRadius,
+                                ),
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
                                 child: Container(
                                   width: (_imageHeight == 630.0)
-                                      ? screenWidth.sp
-                                      : screenWidth * 0.8.sp,
+                                      ? AppDimensions.width.sp
+                                      : AppDimensions.width * 0.8.w,
                                   height: (_imageHeight == 630.0)
-                                      ? 200.sp
-                                      : 280.sp,
+                                      ? AppDimensions.size200
+                                      : AppDimensions.size280,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: AppColors.wWhite,
                                     border: Border.all(
                                       color: AppColors.bNormal,
-                                      width: 3,
+                                      width: 3.w,
                                     ),
-                                    borderRadius: BorderRadius.circular(16.sp),
+                                    borderRadius: BorderRadius.circular(
+                                      AppDimensions.borderRadius,
+                                    ),
                                   ),
                                   child:
                                       _imageWidget ??
-                                      const Icon(
+                                      Icon(
                                         Icons.image,
-                                        color: Colors.grey,
+                                        color: AppColors.moreLighter,
                                       ),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 15.sp),
+                            SizedBox(height: AppDimensions.spacingM),
                             Align(
                               alignment: Alignment.centerRight,
                               child: Container(
-                                width: 180,
-                                height: 45,
+                                width: AppDimensions.size184,
+                                height: AppDimensions.size40,
                                 decoration: BoxDecoration(
                                   color: AppColors.bNormal,
-                                  borderRadius: BorderRadius.circular(5.sp),
+                                  borderRadius: BorderRadius.circular(
+                                    AppDimensions.borderRadiusTiny,
+                                  ),
                                 ),
                                 child: Center(
                                   child: Text(
@@ -182,7 +198,7 @@ class _TrainingLibraryExerciseDetailWidgetState
                                     '$min - '
                                     '$max',
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: AppDimensions.textSizeS,
                                       color: AppColors.wWhite,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -190,33 +206,33 @@ class _TrainingLibraryExerciseDetailWidgetState
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20.sp),
+                            SizedBox(height: AppDimensions.spacingML),
                             Text(
                               "GIỚI THIỆU",
                               style: TextStyle(
-                                fontSize: 16.sp,
+                                fontSize: AppDimensions.textSizeM,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.bNormal,
                               ),
                             ),
-                            SizedBox(height: 12.sp),
+                            SizedBox(height: AppDimensions.spacingSM),
                             Text(
                               exerciseResponse.description,
                               style: TextStyle(
-                                fontSize: 16.sp,
-                                color: Colors.black,
+                                fontSize: AppDimensions.textSizeM,
+                                color: AppColors.dark,
                               ),
                             ),
-                            SizedBox(height: 30.sp),
+                            SizedBox(height: AppDimensions.spacingXL),
                             Text(
                               "NHÓM CƠ TÁC ĐỘNG",
                               style: TextStyle(
-                                fontSize: 16.sp,
+                                fontSize: AppDimensions.textSizeM,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.bNormal,
                               ),
                             ),
-                            SizedBox(height: 12.sp),
+                            SizedBox(height: AppDimensions.spacingML),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
@@ -240,16 +256,16 @@ class _TrainingLibraryExerciseDetailWidgetState
                                 ],
                               ),
                             ),
-                            SizedBox(height: 30.sp),
+                            SizedBox(height: AppDimensions.spacingXL),
                             Text(
                               "DỤNG CỤ LUYỆN TẬP",
                               style: TextStyle(
-                                fontSize: 16.sp,
+                                fontSize: AppDimensions.textSizeM,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.bNormal,
                               ),
                             ),
-                            SizedBox(height: 12.sp),
+                            SizedBox(height: AppDimensions.spacingSM),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
@@ -263,15 +279,15 @@ class _TrainingLibraryExerciseDetailWidgetState
                                 ],
                               ),
                             ),
-                            SizedBox(height: 30.sp),
+                            SizedBox(height: AppDimensions.spacingXL),
                           ],
                         ),
                       ),
                     ),
                     Positioned(
-                      left: 16,
-                      right: 16,
-                      bottom: 16,
+                      left: AppDimensions.paddingM,
+                      right: AppDimensions.paddingM,
+                      bottom: AppDimensions.paddingM,
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -279,20 +295,25 @@ class _TrainingLibraryExerciseDetailWidgetState
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.bNormal,
                           foregroundColor: AppColors.wWhite,
-                          padding: EdgeInsets.symmetric(vertical: 16),
+                          padding: EdgeInsets.symmetric(
+                            vertical: AppDimensions.paddingM,
+                          ),
                         ),
-                        child: Text("Đóng", style: TextStyle(fontSize: 20)),
+                        child: Text(
+                          "Đóng",
+                          style: TextStyle(fontSize: AppDimensions.textSizeL),
+                        ),
                       ),
                     ),
                   ],
                 )
               : Container(
                   alignment: Alignment.center,
-                  height: 200,
-                  child: const SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(strokeWidth: 3),
+                  height: AppDimensions.size200,
+                  child: SizedBox(
+                    width: AppDimensions.size24,
+                    height: AppDimensions.size24,
+                    child: CircularProgressIndicator(strokeWidth: 3.w),
                   ),
                 ),
         );
@@ -306,14 +327,12 @@ class _TrainingLibraryExerciseDetailWidgetState
     bool isEquipment = false,
   }) {
     return Container(
-      width: isEquipment ? 110 : 90,
-      height: 40,
-      margin: EdgeInsets.only(right: 10),
+      width: isEquipment ? AppDimensions.size112 : AppDimensions.size104,
+      height: AppDimensions.size40,
+      margin: EdgeInsets.only(right: AppDimensions.paddingS),
       decoration: BoxDecoration(
-        color: isPrimary
-            ? AppColors.buttonBGBottomGenderfocus
-            : AppColors.bgHealthInfor,
-        borderRadius: BorderRadius.circular(10),
+        color: isPrimary ? AppColors.bNormal : AppColors.wLightActive,
+        borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
@@ -325,9 +344,9 @@ class _TrainingLibraryExerciseDetailWidgetState
       child: AnimatedDefaultTextStyle(
         duration: const Duration(milliseconds: 250),
         style: TextStyle(
-          fontSize: 16,
+          fontSize: AppDimensions.textSizeM,
           fontWeight: FontWeight.w600,
-          color: isPrimary ? Colors.white : Colors.black,
+          color: isPrimary ? AppColors.wLight : AppColors.dark,
         ),
         child: Center(child: Text(label)),
       ),

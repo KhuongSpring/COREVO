@@ -82,6 +82,12 @@ class AppAssets {
       'assets/images/level/level_horizontal_2.png';
   static const String levelHorizontal3 =
       'assets/images/level/level_horizontal_3.png';
+  static const String levelHorizontalActive1 =
+      'assets/images/level/level_horizontal_active_1.png';
+  static const String levelHorizontalActive2 =
+      'assets/images/level/level_horizontal_active_2.png';
+  static const String levelHorizontalActive3 =
+      'assets/images/level/level_horizontal_active_3.png';
 
   // Duration
   static const String duration1 = 'assets/images/duration/duration_1.png';
@@ -130,6 +136,14 @@ class AppAssets {
       'assets/images/location/location_gym_selected.png';
   static const String locationAnywhereSelected =
       'assets/images/location/location_anywhere_selected.png';
+  static const String locationHomeActive =
+      'assets/images/location/location_home_active.png';
+  static const String locationOutSideActive  =
+      'assets/images/location/location_outside_active.png';
+  static const String locationGymActive  =
+      'assets/images/location/location_gym_active.png';
+  static const String locationAnywhereActive  =
+      'assets/images/location/location_anywhere_active.png';
 
   // Target muscle
   static const String targetMuscleAbs = 'assets/images/target_muscle/abs.png';
