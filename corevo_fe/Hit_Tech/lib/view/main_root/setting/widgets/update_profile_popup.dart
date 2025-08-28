@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:intl/intl.dart';
 import 'package:country_picker/country_picker.dart';
 
@@ -58,32 +59,38 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
       child: Material(
         color: Colors.transparent,
         child: Container(
-          width: MediaQuery.of(context).size.width.sp * 0.8.sp,
+          width: AppDimensions.width * 0.8.w,
           decoration: BoxDecoration(
             color: AppColors.wWhite,
-            borderRadius: BorderRadius.circular(15.sp),
+            borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
           ),
-          padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+          padding: EdgeInsets.only(
+            top: AppDimensions.paddingM,
+            left: AppDimensions.paddingM,
+            right: AppDimensions.paddingM,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 widget.type,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: AppDimensions.textSizeS,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: AppColors.dark,
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: AppDimensions.spacingSM),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.borderRadiusSmall,
+                  ),
                   border: Border.all(
                     color: isFocus || widget.controller.text.trim().isNotEmpty
                         ? AppColors.bNormal
                         : CupertinoColors.inactiveGray,
-                    width: 1,
+                    width: 1.w,
                   ),
                 ),
                 child: widget.type == 'Ngày sinh'
@@ -114,17 +121,17 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
                             context: context,
                             showPhoneCode: false,
                             countryListTheme: CountryListThemeData(
-                              flagSize: 30,
-                              backgroundColor: Colors.white,
+                              flagSize: AppDimensions.iconSizeXXL,
+                              backgroundColor: AppColors.wWhite,
                               textStyle: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
+                                fontSize: AppDimensions.textSizeM,
+                                color: AppColors.dark,
                               ),
                               searchTextStyle: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
+                                fontSize: AppDimensions.textSizeM,
+                                color: AppColors.dark,
                               ),
-                              bottomSheetHeight: 500,
+                              bottomSheetHeight: AppDimensions.height * 0.5.w,
                               inputDecoration: InputDecoration(
                                 prefixIconColor: AppColors.bNormal,
                                 prefixIcon: Icon(Icons.search),
@@ -153,23 +160,26 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
                     ? _buildTextField(true)
                     : _buildTextField(false),
               ),
-              SizedBox(height: 25.sp),
-              const Divider(height: 1, color: AppColors.bLightActive),
+              SizedBox(height: AppDimensions.spacingL),
+              Divider(height: 1.w, color: AppColors.bLightActive),
               Row(
                 children: [
                   Expanded(
                     child: CupertinoButton(
                       onPressed: widget.onCancel,
-                      child: const Text(
+                      child: Text(
                         'Hủy bỏ',
-                        style: TextStyle(color: Colors.red, fontSize: 14),
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: AppDimensions.textSizeS,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 50.sp,
-                    child: const VerticalDivider(
-                      width: 1,
+                    height: AppDimensions.size48,
+                    child: VerticalDivider(
+                      width: 1.w,
                       color: AppColors.bLightActive,
                     ),
                   ),
@@ -183,8 +193,8 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
                         style: TextStyle(
                           color: (widget.controller.text.trim().isNotEmpty)
                               ? AppColors.bNormal
-                              : Colors.grey,
-                          fontSize: 14,
+                              : AppColors.lighter,
+                          fontSize: AppDimensions.textSizeS,
                         ),
                       ),
                     ),
@@ -204,7 +214,7 @@ class _UpdateProfilePopUpState extends State<UpdateProfilePopUp> {
       controller: widget.controller,
       placeholder: 'Nhập ${widget.type.toLowerCase()}',
       clearButtonMode: OverlayVisibilityMode.editing,
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(AppDimensions.spacingSM),
       keyboardType: isPhone ? TextInputType.number : TextInputType.text,
       decoration: const BoxDecoration(),
       inputFormatters: isPhone ? [FilteringTextInputFormatter.digitsOnly] : [],

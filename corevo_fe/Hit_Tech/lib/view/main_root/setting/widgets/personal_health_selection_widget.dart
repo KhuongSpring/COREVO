@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/constants/app_color.dart';
@@ -98,17 +99,17 @@ class _PersonalHealthSelectionWidgetState
                 ),
                 Column(
                   children: [
-                    const SizedBox(height: 50),
+                    SizedBox(height: AppDimensions.spacingXXXL),
 
                     // Header + Avatar
                     SizedBox(
-                      height: 110,
+                      height: AppDimensions.size104,
                       child: Stack(
                         children: [
                           Positioned(
-                            left: 20,
-                            top: 0,
-                            bottom: 70,
+                            left: AppDimensions.spacingML,
+                            top: 0.w,
+                            bottom: AppDimensions.size72,
                             child: IconButton(
                               onPressed: () {
                                 Navigator.pop(context);
@@ -124,12 +125,12 @@ class _PersonalHealthSelectionWidgetState
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: Colors.blue,
-                                  width: 2,
+                                  color: AppColors.bNormal,
+                                  width: 2.w,
                                 ),
                               ),
                               child: CircleAvatar(
-                                radius: 40,
+                                radius: AppDimensions.size40,
                                 backgroundImage: linkAvatar?.isNotEmpty ?? false
                                     ? NetworkImage(linkAvatar!)
                                     : NetworkImage(AppAssets.defaultImage),
@@ -141,32 +142,33 @@ class _PersonalHealthSelectionWidgetState
                     ),
                     Column(
                       children: [
-                        const SizedBox(height: 10),
                         Text(
                           '${firstname ?? ''} ${lastname ?? ''}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: AppDimensions.textSizeM,
                             color: AppColors.normal,
                           ),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height: AppDimensions.size4),
                         Text(
                           email ?? '',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: AppDimensions.textSizeXS,
                             color: AppColors.lightActive,
                           ),
                         ),
                       ],
                     ),
 
-                    const SizedBox(height: 40),
+                    SizedBox(height: AppDimensions.spacingXXL),
 
                     // Các mục
                     Expanded(
                       child: ListView(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppDimensions.paddingL,
+                        ),
                         children: [_buildProfileSection()],
                       ),
                     ),
@@ -180,12 +182,12 @@ class _PersonalHealthSelectionWidgetState
   // Build Inner tile
   Widget _buildInnerTile(IconData icon, String title, String text) {
     return ListTile(
-      title: Text(title, style: TextStyle(fontSize: 14)),
+      title: Text(title, style: TextStyle(fontSize: AppDimensions.textSizeS)),
       trailing: Text(
         text,
         style: TextStyle(
           color: AppColors.bNormal,
-          fontSize: 14,
+          fontSize: AppDimensions.textSizeS,
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -196,7 +198,7 @@ class _PersonalHealthSelectionWidgetState
   Widget _buildProfileSection() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.wWhite,
         borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
       ),
       child: Column(
@@ -206,21 +208,21 @@ class _PersonalHealthSelectionWidgetState
             'Chiều cao',
             '${height ?? ''} cm',
           ),
-          const Divider(height: 1, color: AppColors.bLightHover),
+          Divider(height: 1.w, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Cân nặng',
             '${weight ?? ''} kg',
           ),
-          const Divider(height: 1, color: AppColors.bLightHover),
+          Divider(height: 1.w, color: AppColors.bLightHover),
           _buildInnerTile(Icons.favorite_border, 'Tuổi', '${age ?? ''}'),
-          const Divider(height: 1, color: AppColors.bLightHover),
+          Divider(height: 1.w, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Giới tính',
             (gender! == "MALE") ? 'Nam' : 'Nữ',
           ),
-          const Divider(height: 1, color: AppColors.bLightHover),
+          Divider(height: 1.w, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Mức độ hoạt động',

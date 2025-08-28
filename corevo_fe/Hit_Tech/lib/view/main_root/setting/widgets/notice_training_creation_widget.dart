@@ -13,22 +13,19 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Image.asset(
-                AppAssets.mainBackground,
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 10.0,
-                right: 10.0,
-                top: 20.0,
+              padding: EdgeInsets.only(
+                left: AppDimensions.paddingS,
+                right: AppDimensions.paddingS,
+                top: AppDimensions.paddingL,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 40,
+                    height: AppDimensions.size40,
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
@@ -48,7 +45,7 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
                             "Tạo lời nhắc",
                             style: TextStyle(
                               color: AppColors.dark,
-                              fontSize: 16,
+                              fontSize: AppDimensions.textSizeM,
                               fontWeight: FontWeight.bold,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -58,11 +55,11 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: AppDimensions.spacingML),
                   _buildTextField(),
-                  const SizedBox(height: 16),
+                  SizedBox(height: AppDimensions.spacingM),
                   _buildTimeBox(),
-                  const SizedBox(height: 16),
+                  SizedBox(height: AppDimensions.spacingM),
                   _buildRepeatBox(),
                 ],
               ),
@@ -70,13 +67,16 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
 
             // Button dưới cùng
             Positioned(
-              left: 30,
-              right: 30,
-              bottom: 30,
+              left: AppDimensions.paddingXL,
+              right: AppDimensions.paddingXL,
+              bottom: AppDimensions.paddingXL,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.bNormal,
-                  minimumSize: const Size(double.infinity, 55),
+                  minimumSize: Size(
+                    AppDimensions.spacingWidthInfinite,
+                    AppDimensions.size56,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
                       AppDimensions.borderRadiusLarge,
@@ -88,7 +88,10 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
                 },
                 child: Text(
                   "Xác nhận",
-                  style: TextStyle(fontSize: 20, color: AppColors.wWhite),
+                  style: TextStyle(
+                    fontSize: AppDimensions.textSizeL,
+                    color: AppColors.wWhite,
+                  ),
                 ),
               ),
             ),
@@ -100,17 +103,24 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
 
   Widget _buildTextField() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      margin: EdgeInsets.symmetric(horizontal: AppDimensions.paddingS),
+      padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingM),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.8),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
       ),
-      child: const TextField(
-        style: TextStyle(color: AppColors.dark, fontSize: 14),
+      child: TextField(
+        style: TextStyle(
+          color: AppColors.dark,
+          fontSize: AppDimensions.textSizeS,
+        ),
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: 'Nhập tên lời nhắc',
-          hintStyle: TextStyle(color: AppColors.lightHover, fontSize: 14),
+          hintStyle: TextStyle(
+            color: AppColors.lightHover,
+            fontSize: AppDimensions.textSizeS,
+          ),
         ),
       ),
     );
@@ -118,7 +128,11 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
 
   Widget _buildTimeBox() {
     return Container(
-      padding: const EdgeInsets.only(left: 16, top: 5),
+      margin: EdgeInsets.symmetric(horizontal: AppDimensions.paddingS),
+      padding: EdgeInsets.only(
+        left: AppDimensions.paddingM,
+        top: AppDimensions.size4,
+      ),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.9),
         borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
@@ -128,10 +142,10 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text(
+              Text(
                 'Thời gian',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: AppDimensions.textSizeM,
                   fontWeight: FontWeight.w500,
                   color: AppColors.dark,
                 ),
@@ -151,44 +165,47 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
                   inactiveThumbColor: AppColors.wWhite, // màu nút tròn khi tắt
                 ),
               ),
-              SizedBox(width: 10),
+              SizedBox(width: AppDimensions.spacingSM),
             ],
           ),
-          const SizedBox(height: 30),
+          SizedBox(height: AppDimensions.spacingXL),
           Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            margin: EdgeInsets.only(right: 20, bottom: 30),
+            width: AppDimensions.spacingWidthInfinite,
+            padding: EdgeInsets.symmetric(vertical: AppDimensions.paddingM),
+            margin: EdgeInsets.only(
+              right: AppDimensions.paddingL,
+              bottom: AppDimensions.paddingXL,
+            ),
             decoration: BoxDecoration(
               color: AppColors.bNormal,
               borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   '01',
                   style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
+                    fontSize: AppDimensions.textSizeXL,
+                    color: AppColors.wWhite,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width: 70),
+                SizedBox(width: AppDimensions.size72),
                 Text(
                   ':',
                   style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
+                    fontSize: AppDimensions.textSizeXL,
+                    color: AppColors.wWhite,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width: 70),
+                SizedBox(width: AppDimensions.size72),
                 Text(
                   '01',
                   style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
+                    fontSize: AppDimensions.textSizeXL,
+                    color: AppColors.wWhite,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -203,8 +220,12 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
   Widget _buildRepeatBox() {
     final days = ['2', '3', '4', '5', '6', '7', 'CN'];
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+      width: AppDimensions.spacingWidthInfinite,
+      margin: EdgeInsets.symmetric(horizontal: AppDimensions.paddingS),
+      padding: EdgeInsets.symmetric(
+        vertical: AppDimensions.paddingM,
+        horizontal: AppDimensions.spacingSM,
+      ),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.9),
         borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
@@ -212,30 +233,31 @@ class NoticeTrainingCreationWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Lặp lại',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: AppDimensions.textSizeM,
               fontWeight: FontWeight.w500,
               color: AppColors.dark,
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: AppDimensions.spacingSM),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: days
                 .map(
                   (day) => Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: EdgeInsets.all(AppDimensions.spacingSM),
                     decoration: BoxDecoration(
                       color: AppColors.bNormal,
                       shape: BoxShape.circle,
                     ),
                     child: Text(
                       day,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.wWhite,
                         fontWeight: FontWeight.bold,
+                        fontSize: AppDimensions.textSizeM,
                       ),
                     ),
                   ),

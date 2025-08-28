@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/notice_training_creation_widget.dart';
 
@@ -16,22 +17,19 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Image.asset(
-                AppAssets.mainBackground,
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 10.0,
-                right: 10.0,
-                top: 20.0,
+              padding: EdgeInsets.only(
+                left: AppDimensions.paddingS,
+                right: AppDimensions.paddingS,
+                top: AppDimensions.paddingL,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 40,
+                    height: AppDimensions.size40,
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
@@ -54,7 +52,7 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
                               "Nhắc nhở luyện tập",
                               style: TextStyle(
                                 color: AppColors.dark,
-                                fontSize: 16,
+                                fontSize: AppDimensions.textSizeL,
                                 fontWeight: FontWeight.bold,
                               ),
                               overflow: TextOverflow.ellipsis,
@@ -64,7 +62,7 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: AppDimensions.spacingML),
                   !_isCheck
                       ? Image.asset(AppAssets.noticeTraining)
                       : _buildNotice(
@@ -76,17 +74,17 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
                           onEdit: () {},
                           onToggle: (value) {},
                         ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: AppDimensions.spacingML),
                   if (!_isCheck)
                     Text(
                       "Nhắc Nhở Luyện Tập",
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: AppDimensions.textSizeXL,
                         color: AppColors.dark,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: AppDimensions.spacingML),
                   if (!_isCheck)
                     Text(
                       "Giúp bạn duy trì thói quen tập luyện đều đặn bằng\n"
@@ -94,7 +92,7 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
                       "trong ngày.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: AppDimensions.textSizeS,
                         color: AppColors.lightActive,
                       ),
                     ),
@@ -104,13 +102,16 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
 
             // Button dưới cùng
             Positioned(
-              left: 30,
-              right: 30,
-              bottom: 30,
+              left: AppDimensions.spacingXL,
+              right: AppDimensions.spacingXL,
+              bottom: AppDimensions.spacingXL,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.bNormal,
-                  minimumSize: const Size(double.infinity, 55),
+                  minimumSize: Size(
+                    AppDimensions.spacingWidthInfinite,
+                    AppDimensions.size56,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
                       AppDimensions.borderRadiusLarge,
@@ -127,7 +128,10 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
                 },
                 child: Text(
                   "Thêm",
-                  style: TextStyle(fontSize: 20, color: AppColors.wWhite),
+                  style: TextStyle(
+                    fontSize: AppDimensions.textSizeL,
+                    color: AppColors.wWhite,
+                  ),
                 ),
               ),
             ),
@@ -147,7 +151,7 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
     required ValueChanged<bool> onToggle,
   }) {
     return Container(
-      margin: const EdgeInsets.only(right: 15),
+      margin: EdgeInsets.symmetric(horizontal: AppDimensions.paddingS),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
         color: AppColors.wWhite,
@@ -164,27 +168,30 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
           // Title bar
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(AppDimensions.spacingSM),
             decoration: BoxDecoration(
               color: AppColors.bNormal,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(12),
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(AppDimensions.borderRadius),
               ),
             ),
             child: Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.wWhite,
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: AppDimensions.textSizeM,
               ),
             ),
           ),
 
           // Main content
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: EdgeInsets.symmetric(
+              horizontal: AppDimensions.paddingM,
+              vertical: AppDimensions.spacingSM,
+            ),
             child: Row(
               children: [
                 Column(
@@ -192,17 +199,17 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
                   children: [
                     Text(
                       time,
-                      style: const TextStyle(
-                        fontSize: 24,
+                      style: TextStyle(
+                        fontSize: AppDimensions.textSizeXL,
                         fontWeight: FontWeight.bold,
                         color: AppColors.dark,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    SizedBox(height: AppDimensions.size4),
                     Text(
                       days,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: AppDimensions.textSizeS,
                         color: AppColors.lightActive,
                       ),
                     ),
@@ -228,29 +235,35 @@ class NoticeTrainingSelectionWidget extends StatelessWidget {
             ),
           ),
 
-          const Divider(height: 1, color: AppColors.bLightHover),
+          Divider(height: 1.w, color: AppColors.bLightHover),
 
           // Action buttons
           SizedBox(
-            height: 50,
+            height: AppDimensions.size48,
             child: Row(
               children: [
                 Expanded(
                   child: TextButton(
                     onPressed: onDelete,
-                    child: const Text(
+                    child: Text(
                       'Xóa',
-                      style: TextStyle(color: AppColors.bNormal),
+                      style: TextStyle(
+                        color: AppColors.bNormal,
+                        fontSize: AppDimensions.textSizeS,
+                      ),
                     ),
                   ),
                 ),
-                const VerticalDivider(width: 1, color: AppColors.bLightHover),
+                VerticalDivider(width: 1.w, color: AppColors.bLightHover),
                 Expanded(
                   child: TextButton(
                     onPressed: onEdit,
-                    child: const Text(
+                    child: Text(
                       'Sửa',
-                      style: TextStyle(color: AppColors.bNormal),
+                      style: TextStyle(
+                        color: AppColors.bNormal,
+                        fontSize: AppDimensions.textSizeS,
+                      ),
                     ),
                   ),
                 ),

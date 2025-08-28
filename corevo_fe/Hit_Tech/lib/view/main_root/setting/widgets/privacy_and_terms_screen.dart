@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hit_tech/core/constants/app_color.dart';
 
 import '../../../../core/constants/app_assets.dart';
+import '../../../../core/constants/app_dimension.dart';
 
 class PrivacyAndTermsScreen extends StatelessWidget {
   final String privacyAndTerms;
@@ -15,19 +17,16 @@ class PrivacyAndTermsScreen extends StatelessWidget {
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              AppAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
           SafeArea(
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 10,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppDimensions.spacingSM,
+                      vertical: AppDimensions.spacingSM,
                     ),
                     child: Stack(
                       alignment: Alignment.center,
@@ -40,14 +39,14 @@ class PrivacyAndTermsScreen extends StatelessWidget {
                           ),
                         ),
 
-                        const Align(
+                        Align(
                           alignment: Alignment.center,
                           child: Text(
                             'Chính sách và điều khoản',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: AppDimensions.textSizeL,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: AppColors.dark,
                             ),
                           ),
                         ),
@@ -55,10 +54,13 @@ class PrivacyAndTermsScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(20.sp),
+                    padding: EdgeInsets.all(AppDimensions.paddingM),
                     child: Text(
                       privacyAndTerms,
-                      style: TextStyle(fontSize: 16, color: Colors.black),
+                      style: TextStyle(
+                        fontSize: AppDimensions.textSizeM,
+                        color: AppColors.dark,
+                      ),
                     ),
                   ),
                 ],

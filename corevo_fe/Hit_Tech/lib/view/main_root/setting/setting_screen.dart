@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/core/constants/app_dimension.dart';
@@ -12,7 +13,6 @@ import 'package:hit_tech/view/main_root/setting/widgets/personal_infor_selection
 import 'package:hit_tech/view/main_root/setting/widgets/privacy_and_terms_screen.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/remove_screen.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 import '../../../service/auth_service.dart';
 import '../../../service/shared_preferences.dart';
@@ -72,8 +72,8 @@ class _SettingScreenState extends State<SettingScreen> {
     final XFile? pickedFile = await picker.pickImage(
       source: source,
       imageQuality: 75,
-      maxWidth: 800,
-      maxHeight: 800,
+      maxWidth: 800.w,
+      maxHeight: 800.w,
     );
 
     if (pickedFile != null) {
@@ -142,7 +142,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Column(
                   children: [
-                    const SizedBox(height: 65),
+                    SizedBox(height: AppDimensions.spacingGiant),
                     // Header + Avatar
                     Column(
                       children: [
@@ -153,12 +153,12 @@ class _SettingScreenState extends State<SettingScreen> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: Colors.blue,
-                                  width: 2,
+                                  color: AppColors.bNormal,
+                                  width: 2.w,
                                 ),
                               ),
                               child: CircleAvatar(
-                                radius: 40,
+                                radius: AppDimensions.size40,
                                 backgroundImage: linkAvatar?.isNotEmpty ?? false
                                     ? NetworkImage(linkAvatar!)
                                     : const NetworkImage(
@@ -169,15 +169,15 @@ class _SettingScreenState extends State<SettingScreen> {
 
                             // Nút máy ảnh ở góc dưới phải
                             Positioned(
-                              bottom: 0,
-                              right: 0,
+                              bottom: 0.w,
+                              right: 0.w,
                               child: GestureDetector(
                                 onTap: () {
                                   showCupertinoModalPopup(
                                     context: context,
                                     builder: (BuildContext context) => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 10,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: AppDimensions.paddingS,
                                       ),
                                       child: CupertinoActionSheet(
                                         actions: <CupertinoActionSheetAction>[
@@ -186,10 +186,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                               Navigator.pop(context);
                                               _pickImage(ImageSource.camera);
                                             },
-                                            child: const Text(
+                                            child: Text(
                                               'Chụp ảnh',
                                               style: TextStyle(
-                                                fontSize: 16,
+                                                fontSize:
+                                                    AppDimensions.textSizeM,
                                                 color: AppColors.bNormal,
                                               ),
                                             ),
@@ -199,10 +200,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                               Navigator.pop(context);
                                               _pickImage(ImageSource.gallery);
                                             },
-                                            child: const Text(
+                                            child: Text(
                                               'Chọn ảnh từ Album',
                                               style: TextStyle(
-                                                fontSize: 16,
+                                                fontSize:
+                                                    AppDimensions.textSizeM,
                                                 color: AppColors.bNormal,
                                               ),
                                             ),
@@ -214,10 +216,11 @@ class _SettingScreenState extends State<SettingScreen> {
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
-                                              child: const Text(
+                                              child: Text(
                                                 'Hủy bỏ',
                                                 style: TextStyle(
-                                                  fontSize: 16,
+                                                  fontSize:
+                                                      AppDimensions.textSizeM,
                                                   color: AppColors.bNormal,
                                                 ),
                                               ),
@@ -227,19 +230,21 @@ class _SettingScreenState extends State<SettingScreen> {
                                   );
                                 },
                                 child: Container(
-                                  padding: const EdgeInsets.all(4),
+                                  padding: EdgeInsets.all(
+                                    AppDimensions.paddingXS,
+                                  ),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.white,
+                                    color: AppColors.wWhite,
                                     border: Border.all(
-                                      color: Colors.blue,
-                                      width: 1.5,
+                                      color: AppColors.bNormal,
+                                      width: 1.5.w,
                                     ),
                                   ),
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.camera_alt,
-                                    size: 16,
-                                    color: Colors.black,
+                                    size: AppDimensions.iconSizeM,
+                                    color: AppColors.dark,
                                   ),
                                 ),
                               ),
@@ -247,32 +252,34 @@ class _SettingScreenState extends State<SettingScreen> {
                           ],
                         ),
 
-                        const SizedBox(height: 10),
+                        SizedBox(height: AppDimensions.spacingS),
                         Text(
                           '${firstname ?? ''} ${lastname ?? ''}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: AppDimensions.textSizeM,
                             color: AppColors.normal,
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        SizedBox(height: AppDimensions.size4),
                         Text(
                           username ?? '',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: AppDimensions.textSizeS,
                             color: AppColors.lightActive,
                           ),
                         ),
                       ],
                     ),
 
-                    const SizedBox(height: 10),
+                    SizedBox(height: AppDimensions.spacingS),
 
                     // Các mục
                     Expanded(
                       child: ListView(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppDimensions.paddingL,
+                        ),
                         children: [
                           _buildSectionTitle('Hồ sơ người dùng'),
                           _buildProfileSection(),
@@ -283,7 +290,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           _buildSectionTitle('Thông tin hỗ trợ'),
                           _buildSettingsSection(),
 
-                          const SizedBox(height: 20),
+                          SizedBox(height: AppDimensions.spacingML),
 
                           Container(
                             decoration: BoxDecoration(
@@ -297,9 +304,12 @@ class _SettingScreenState extends State<SettingScreen> {
                                 _handleLogout();
                               },
                               // style: ,
-                              child: const Text(
+                              child: Text(
                                 'Đăng Xuất',
-                                style: TextStyle(color: Colors.red),
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: AppDimensions.textSizeM,
+                                ),
                               ),
                             ),
                           ),
@@ -316,13 +326,13 @@ class _SettingScreenState extends State<SettingScreen> {
   // Build title
   Widget _buildSectionTitle(String title) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(vertical: AppDimensions.paddingS),
       child: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           fontWeight: FontWeight.bold,
           color: AppColors.bDarkHover,
-          fontSize: 14,
+          fontSize: AppDimensions.textSizeS,
         ),
       ),
     );
@@ -332,10 +342,10 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget _buildInnerTile(String icon, String title, VoidCallback ontap) {
     return ListTile(
       leading: Image.asset(icon, color: AppColors.bDarkHover),
-      title: Text(title, style: TextStyle(fontSize: 14)),
-      trailing: const Icon(
+      title: Text(title, style: TextStyle(fontSize: AppDimensions.textSizeS)),
+      trailing: Icon(
         Icons.arrow_forward_ios,
-        size: 16,
+        size: AppDimensions.iconSizeM,
         color: AppColors.bDarkHover,
       ),
       onTap: ontap,
@@ -346,7 +356,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget _buildProfileSection() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.wWhite,
         borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
       ),
       child: Column(
@@ -387,18 +397,24 @@ class _SettingScreenState extends State<SettingScreen> {
   _buildOverallSettingsSection() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.wWhite,
         borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
       ),
       child: Column(
         children: [
           ListTile(
-            contentPadding: const EdgeInsets.only(left: 16, right: 5),
+            contentPadding: EdgeInsets.only(
+              left: AppDimensions.paddingM,
+              right: AppDimensions.paddingXS,
+            ),
             leading: Image.asset(
               AppAssets.themeIcon,
               color: AppColors.bDarkHover,
             ),
-            title: Text("Chế độ tối", style: TextStyle(fontSize: 14)),
+            title: Text(
+              "Chế độ tối",
+              style: TextStyle(fontSize: AppDimensions.textSizeS),
+            ),
             trailing: Transform.scale(
               scale: 0.7,
               child: Switch(
@@ -420,16 +436,12 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
             );
           }),
-          _buildInnerTile(
-            AppAssets.trashIcon,
-            'Xóa dữ liệu người dùng',
-            () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => RemoveScreen()),
-              );
-            },
-          ),
+          _buildInnerTile(AppAssets.trashIcon, 'Xóa dữ liệu người dùng', () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => RemoveScreen()),
+            );
+          }),
         ],
       ),
     );
@@ -439,7 +451,7 @@ class _SettingScreenState extends State<SettingScreen> {
   _buildSettingsSection() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.wWhite,
         borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
       ),
       child: Column(
