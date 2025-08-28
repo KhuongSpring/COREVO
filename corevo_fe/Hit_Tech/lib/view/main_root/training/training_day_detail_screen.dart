@@ -15,6 +15,7 @@ import 'package:hit_tech/view/main_root/training_library/view/widgets/training_l
 
 import '../../../../../core/constants/app_color.dart';
 import '../../../../../service/training_service.dart';
+import '../../../core/constants/app_dimension.dart';
 
 class TrainingDayDetailScreen extends StatefulWidget {
   final TrainingScheduleResponse schedule;
@@ -94,37 +95,46 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
           Image.asset(widget.imageBG, fit: BoxFit.cover),
 
           Padding(
-            padding: const EdgeInsets.only(top: 30, left: 10),
+            padding: EdgeInsets.only(
+              top: AppDimensions.paddingXL,
+              left: AppDimensions.spacingSM,
+            ),
             child: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
               icon: Icon(Icons.arrow_back_ios),
-              color: Colors.black,
+              color: AppColors.dark,
             ),
           ),
 
           DraggableScrollableSheet(
-            initialChildSize: 0.7.sp,
-            minChildSize: 0.7.sp,
-            maxChildSize: 1.0.sp,
+            initialChildSize: 0.7.w,
+            minChildSize: 0.7.w,
+            maxChildSize: 1.0.w,
             builder: (context, scrollController) {
               return Container(
-                decoration: const BoxDecoration(
-                  color: AppColors.bgHealthInfor,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                decoration: BoxDecoration(
+                  color: AppColors.bLight,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(AppDimensions.borderRadiusLarge),
+                  ),
                 ),
                 child: SingleChildScrollView(
                   controller: scrollController,
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppDimensions.paddingS,
+                        ),
+                        width: AppDimensions.spacingWidthInfinite,
+                        decoration: BoxDecoration(
                           color: AppColors.bNormal,
                           borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(24),
+                            top: Radius.circular(
+                              AppDimensions.borderRadiusLarge,
+                            ),
                           ),
                         ),
                         child: Column(
@@ -132,29 +142,31 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                             Text(
                               widget.numberDay,
                               style: TextStyle(
-                                fontSize: 24.sp,
+                                fontSize: AppDimensions.textSizeXL,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                                color: AppColors.wWhite,
                               ),
                             ),
-                            SizedBox(height: 12.sp),
+                            SizedBox(height: AppDimensions.spacingSM),
                             Text(
                               widget.schedule.name,
                               style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
+                                fontSize: AppDimensions.textSizeL,
+                                color: AppColors.wWhite,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 20.sp),
+                      SizedBox(height: AppDimensions.spacingML),
 
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        color: AppColors.bgHealthInfor,
-                        width: double.infinity,
-                        height: 230.sp,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppDimensions.paddingL,
+                        ),
+                        color: AppColors.bLight,
+                        width: AppDimensions.spacingWidthInfinite,
+                        height: AppDimensions.size232,
                         child: Column(
                           children: [
                             Row(
@@ -165,28 +177,28 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                                     Text(
                                       widget.schedule.duration ?? '60 phút',
                                       style: TextStyle(
-                                        fontSize: 16.sp,
+                                        fontSize: AppDimensions.textSizeM,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                        color: AppColors.dark,
                                       ),
                                     ),
-                                    SizedBox(height: 15.sp),
+                                    SizedBox(height: AppDimensions.spacingM),
                                     Text(
                                       'Thời gian',
                                       style: TextStyle(
-                                        fontSize: 14.sp,
-                                        color: Colors.black,
+                                        fontSize: AppDimensions.textSizeS,
+                                        color: AppColors.dark,
                                       ),
                                     ),
                                   ],
                                 ),
-                                SizedBox(width: 60.sp),
+                                SizedBox(width: AppDimensions.spacingGiant),
                                 Container(
-                                  width: 1,
+                                  width: 1.w,
                                   color: AppColors.bNormal,
-                                  height: 50,
+                                  height: AppDimensions.size48,
                                 ),
-                                SizedBox(width: 60.sp),
+                                SizedBox(width: AppDimensions.spacingGiant),
                                 Column(
                                   children: [
                                     Text(
@@ -195,58 +207,62 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                                           ) ??
                                           'Mọi nơi',
                                       style: TextStyle(
-                                        fontSize: 16.sp,
+                                        fontSize: AppDimensions.textSizeM,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                        color: AppColors.dark,
                                       ),
                                     ),
-                                    SizedBox(height: 15.sp),
+                                    SizedBox(height: AppDimensions.spacingM),
                                     Text(
                                       'Địa điểm',
                                       style: TextStyle(
-                                        fontSize: 14.sp,
-                                        color: Colors.black,
+                                        fontSize: AppDimensions.textSizeS,
+                                        color: AppColors.dark,
                                       ),
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                            SizedBox(height: 25.sp),
+                            SizedBox(height: AppDimensions.spacingL),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
                                   AppAssets.trainingNoteIcon,
-                                  height: 30.sp,
-                                  width: 30.sp,
+                                  height: AppDimensions.iconSizeXXL,
+                                  width: AppDimensions.iconSizeXXL,
                                 ),
-                                SizedBox(width: 10.sp),
+                                SizedBox(width: AppDimensions.spacingS),
                                 SizedBox(
-                                  width: 250.sp,
+                                  width: AppDimensions.size248,
                                   child: Center(
                                     child: Text(
                                       widget.schedule.exerciseGroups!.note ??
                                           '',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.black,
+                                        fontSize: AppDimensions.textSizeS,
+                                        color: AppColors.dark,
                                       ),
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 25.sp),
+                            SizedBox(height: AppDimensions.spacingL),
                             Container(
-                              width: double.infinity * 0.9,
-                              height: 60.sp,
+                              width: AppDimensions.spacingWidthInfinite * 0.9.w,
+                              height: AppDimensions.size64,
                               decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
+                                color: AppColors.wWhite,
+                                borderRadius: BorderRadius.circular(
+                                  AppDimensions.borderRadiusLarge,
+                                ),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: AppDimensions.paddingS,
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -254,20 +270,20 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                                     Text(
                                       'Thời gian nghỉ',
                                       style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.black,
+                                        fontSize: AppDimensions.textSizeM,
+                                        color: AppColors.dark,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Text(
                                       '30 giây',
                                       style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.black,
+                                        fontSize: AppDimensions.textSizeM,
+                                        color: AppColors.dark,
                                       ),
                                     ),
                                     Transform.scale(
-                                      scale: 0.8,
+                                      scale: 0.8.w,
                                       child: Switch(
                                         value: _isOn,
                                         onChanged: (_) {
@@ -290,16 +306,20 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                       ),
                       // List bài tập
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppDimensions.spacingML,
+                        ),
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 15,
+                            horizontal: AppDimensions.spacingSM,
+                            vertical: AppDimensions.paddingM,
                           ),
-                          width: double.infinity,
+                          width: AppDimensions.spacingWidthInfinite,
                           decoration: BoxDecoration(
                             color: AppColors.wWhite,
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(
+                              AppDimensions.borderRadiusLarge,
+                            ),
                           ),
                           child: Column(
                             children: List.generate(
@@ -313,7 +333,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                         ),
                       ),
 
-                      SizedBox(height: 80),
+                      SizedBox(height: AppDimensions.size80),
                     ],
                   ),
                 ),
@@ -322,9 +342,9 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
           ),
 
           Positioned(
-            left: 16,
-            right: 16,
-            bottom: 25,
+            left: AppDimensions.paddingM,
+            right: AppDimensions.paddingM,
+            bottom: AppDimensions.paddingL,
             child: ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -341,13 +361,21 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.bNormal,
                 foregroundColor: AppColors.wWhite,
-                padding: EdgeInsets.symmetric(vertical: 16),
-                minimumSize: Size(double.infinity, 30),
+                padding: EdgeInsets.symmetric(vertical: AppDimensions.paddingM),
+                minimumSize: Size(
+                  AppDimensions.spacingWidthInfinite,
+                  AppDimensions.spacingXL,
+                ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.borderRadiusSmall,
+                  ),
                 ),
               ),
-              child: Text("Bắt đầu", style: TextStyle(fontSize: 20)),
+              child: Text(
+                "Bắt đầu",
+                style: TextStyle(fontSize: AppDimensions.textSizeL),
+              ),
             ),
           ),
           if (_showLoading)
@@ -366,7 +394,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
   }) {
     final result = MappingTrainingResourceHelper.parse(duration);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: EdgeInsets.symmetric(vertical: AppDimensions.paddingS),
       child: GestureDetector(
         onTap: () async {
           showDialog(
@@ -396,13 +424,13 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
           }
         },
         child: Container(
-          width: double.infinity,
+          width: AppDimensions.spacingWidthInfinite,
           decoration: BoxDecoration(color: Colors.transparent),
           child: Row(
             children: [
               Container(
-                height: 60,
-                width: 110,
+                height: AppDimensions.size64,
+                width: AppDimensions.size112,
                 color: Colors.grey.shade300,
                 child: exercise.imageURL == null
                     ? const Icon(Icons.image, color: Colors.grey)
@@ -415,7 +443,7 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                             const Icon(Icons.broken_image, color: Colors.red),
                       ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: AppDimensions.spacingSM),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -424,14 +452,17 @@ class _TrainingDayDetailScreenState extends State<TrainingDayDetailScreen> {
                       exercise.name,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                        fontSize: 16.sp,
+                        color: AppColors.dark,
+                        fontSize: AppDimensions.textSizeM,
                       ),
                     ),
-                    SizedBox(height: 10.sp),
+                    SizedBox(height: AppDimensions.spacingS),
                     Text(
                       '${result.sets} ${result.sets == '1' ? 'set' : 'sets'} | ${result.repsPerSet ?? result.durationPerSet}',
-                      style: const TextStyle(color: AppColors.bNormal),
+                      style: TextStyle(
+                        color: AppColors.bNormal,
+                        fontSize: AppDimensions.textSizeS,
+                      ),
                     ),
                   ],
                 ),

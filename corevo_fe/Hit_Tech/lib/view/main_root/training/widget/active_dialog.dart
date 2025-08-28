@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_color.dart';
+import '../../../../core/constants/app_dimension.dart';
 
 class ActiveDialog {
   void showPauseDialog(BuildContext context, VoidCallback exit) {
@@ -14,30 +15,34 @@ class ActiveDialog {
         return Dialog.fullscreen(
           backgroundColor: AppColors.bNormal.withOpacity(0.9),
           child: Padding(
-            padding: EdgeInsets.only(top: 184.sp, left: 24.sp, right: 24.sp),
+            padding: EdgeInsets.only(
+              top: AppDimensions.size184,
+              left: AppDimensions.paddingL,
+              right: AppDimensions.paddingL,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Tạm dừng',
                   style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
+                    fontSize: AppDimensions.textSizeXL,
+                    color: AppColors.wWhite,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: AppDimensions.spacingSM),
                 _buildDialogButton(
                   label: 'Thoát',
                   color: AppColors.bLightActive2,
-                  textColor: Colors.white,
+                  textColor: AppColors.wWhite,
                   onPressed: exit,
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: AppDimensions.spacingSM),
                 _buildDialogButton(
                   label: 'Tiếp tục',
-                  color: Colors.white,
+                  color: AppColors.wWhite,
                   textColor: AppColors.bNormal,
                   onPressed: () {
                     Navigator.pop(context);
@@ -58,15 +63,15 @@ class ActiveDialog {
     required VoidCallback onPressed,
   }) {
     return SizedBox(
-      width: double.infinity,
-      height: 50,
+      width: AppDimensions.spacingWidthInfinite,
+      height: AppDimensions.size48,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
           foregroundColor: textColor,
           elevation: 0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
           ),
         ),
         onPressed: onPressed,
@@ -74,7 +79,7 @@ class ActiveDialog {
           alignment: Alignment.centerLeft,
           child: Text(
             label,
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: AppDimensions.textSizeM),
           ),
         ),
       ),

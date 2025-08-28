@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/model/response/exercise_set_progress.dart';
 import 'package:hit_tech/model/response/training/training_schedule_exercise_response.dart';
@@ -12,12 +10,11 @@ import 'package:provider/provider.dart';
 
 import '../../../core/constants/app_assets.dart';
 import '../../../core/constants/app_color.dart';
+import '../../../core/constants/app_dimension.dart';
 import '../../../model/response/training/training_exercise_preview_response.dart';
-import '../../../model/response/training/training_exercise_response.dart';
 import '../../../service/training_service.dart';
 import '../../../utils/change_notifier.dart';
 import '../../../utils/mapping_training_resource_helper.dart';
-import '../training_library/view/widgets/training_library_exercise_detail_widget.dart';
 
 class TrainingDayStartTrainingScreen extends StatefulWidget {
   final TrainingScheduleResponse schedule;
@@ -149,17 +146,16 @@ class _TrainingDayStartTrainingScreenState
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              AppAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
 
           Column(
             children: [
-              SizedBox(height: 30.sp),
+              SizedBox(height: AppDimensions.spacingXL),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingS,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -175,16 +171,16 @@ class _TrainingDayStartTrainingScreenState
                     Text(
                       widget.schedule.name,
                       style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
+                        fontSize: AppDimensions.textSizeM,
+                        color: AppColors.dark,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
                       formatSecondsToTime(totalTime),
                       style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
+                        fontSize: AppDimensions.textSizeM,
+                        color: AppColors.dark,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -193,7 +189,7 @@ class _TrainingDayStartTrainingScreenState
               ),
               Expanded(
                 child: ListView.builder(
-                  padding: const EdgeInsets.all(20),
+                  padding: EdgeInsets.all(AppDimensions.paddingL),
                   itemCount: widget.previewExercises.length,
                   itemBuilder: (context, index) {
                     final previewExercise = widget.previewExercises[index];
@@ -218,13 +214,13 @@ class _TrainingDayStartTrainingScreenState
                   },
                 ),
               ),
-              SizedBox(height: 80.sp),
+              SizedBox(height: AppDimensions.size80),
             ],
           ),
           Positioned(
-            left: 16,
-            right: 16,
-            bottom: 25,
+            left: AppDimensions.paddingM,
+            right: AppDimensions.paddingM,
+            bottom: AppDimensions.paddingL,
             child: ElevatedButton(
               onPressed: () {
                 final currentProgress = exerciseProgressList[currentIndex];
@@ -297,13 +293,21 @@ class _TrainingDayStartTrainingScreenState
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.bNormal,
                 foregroundColor: AppColors.wWhite,
-                padding: EdgeInsets.symmetric(vertical: 16),
-                minimumSize: Size(double.infinity, 30),
+                padding: EdgeInsets.symmetric(vertical: AppDimensions.paddingM),
+                minimumSize: Size(
+                  AppDimensions.spacingWidthInfinite,
+                  AppDimensions.paddingXL,
+                ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.borderRadiusSmall,
+                  ),
                 ),
               ),
-              child: Text("Tiếp theo", style: TextStyle(fontSize: 20)),
+              child: Text(
+                "Tiếp theo",
+                style: TextStyle(fontSize: AppDimensions.textSizeL),
+              ),
             ),
           ),
         ],
@@ -322,23 +326,26 @@ class _TrainingDayStartTrainingScreenState
     final totalSet = exerciseProgressList[exerciseIndex].totalSets;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: EdgeInsets.symmetric(vertical: AppDimensions.size4),
       child: GestureDetector(
         onTap: onToggleExpand,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: AppDimensions.size4,
+            vertical: AppDimensions.paddingS,
+          ),
+          width: AppDimensions.spacingWidthInfinite,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(15),
+            color: AppColors.wWhite,
+            borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
           ),
           child: Column(
             children: [
               Row(
                 children: [
                   Container(
-                    height: 60,
-                    width: 110,
+                    height: AppDimensions.size64,
+                    width: AppDimensions.size112,
                     color: Colors.grey.shade300,
                     child: previewExercise.imageURL == null
                         ? const Icon(Icons.image, color: Colors.grey)
@@ -354,24 +361,27 @@ class _TrainingDayStartTrainingScreenState
                             ),
                           ),
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(width: AppDimensions.spacingSM),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 12.sp),
+                        SizedBox(height: AppDimensions.spacingSM),
                         Text(
                           previewExercise.name,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                            fontSize: 16.sp,
+                            color: AppColors.dark,
+                            fontSize: AppDimensions.textSizeM,
                           ),
                         ),
-                        SizedBox(height: 8.sp),
+                        SizedBox(height: AppDimensions.spacingS),
                         Text(
                           '$completedCount/$totalSet hoàn thành',
-                          style: const TextStyle(color: AppColors.bNormal),
+                          style: TextStyle(
+                            color: AppColors.bNormal,
+                            fontSize: AppDimensions.textSizeS,
+                          ),
                         ),
                       ],
                     ),
@@ -398,28 +408,44 @@ class _TrainingDayStartTrainingScreenState
     int exerciseIndex,
   ) {
     return Container(
-      padding: const EdgeInsets.only(left: 40, right: 20, top: 20),
-      color: Colors.white,
+      padding: EdgeInsets.only(
+        left: AppDimensions.size40,
+        right: AppDimensions.spacingML,
+        top: AppDimensions.spacingML,
+      ),
+      color: AppColors.wWhite,
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10),
+            padding: EdgeInsets.only(left: AppDimensions.paddingS),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'Set',
-                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  style: TextStyle(
+                    color: AppColors.dark,
+                    fontSize: AppDimensions.textSizeS,
+                  ),
                 ),
                 Text(
                   'Rep / Thời gian',
-                  style: TextStyle(color: Colors.black, fontSize: 14),
+                  style: TextStyle(
+                    color: AppColors.dark,
+                    fontSize: AppDimensions.textSizeS,
+                  ),
                 ),
-                Text('', style: TextStyle(color: Colors.black, fontSize: 14)),
+                Text(
+                  '',
+                  style: TextStyle(
+                    color: AppColors.dark,
+                    fontSize: AppDimensions.textSizeS,
+                  ),
+                ),
               ],
             ),
           ),
-          SizedBox(height: 10.sp),
+          SizedBox(height: AppDimensions.spacingS),
           _buildChildItem(context, exercise, exerciseIndex),
         ],
       ),
@@ -451,47 +477,53 @@ class _TrainingDayStartTrainingScreenState
     return GestureDetector(
       onTap: () {},
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 6),
-        margin: const EdgeInsets.only(bottom: 6),
+        padding: EdgeInsets.symmetric(vertical: AppDimensions.paddingS),
+        margin: EdgeInsets.only(bottom: AppDimensions.paddingS),
         decoration: BoxDecoration(
-          color: isCompleted ? AppColors.bNormalActive : Colors.white,
-          borderRadius: BorderRadius.circular(8),
+          color: isCompleted ? AppColors.bNormalActive : AppColors.wWhite,
+          borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 15, right: 40),
+              padding: EdgeInsets.only(
+                left: AppDimensions.paddingM,
+                right: AppDimensions.paddingXXL,
+              ),
               child: Text(
                 '${setIndex + 1}',
                 style: TextStyle(
-                  fontSize: 14,
-                  color: isCompleted ? Colors.white : Colors.black,
+                  fontSize: AppDimensions.textSizeS,
+                  color: isCompleted ? AppColors.wWhite : AppColors.dark,
                 ),
               ),
             ),
             Container(
-              height: 25,
-              width: 100,
+              height: AppDimensions.size24,
+              width: AppDimensions.size104,
               decoration: BoxDecoration(
-                color: isCompleted ? Colors.white : Color(0xffDADADA),
-                borderRadius: BorderRadius.circular(8),
+                color: isCompleted ? AppColors.wWhite : Color(0xffDADADA),
+                borderRadius: BorderRadius.circular(
+                  AppDimensions.borderRadiusSmall,
+                ),
               ),
               child: Center(
                 child: Text(
                   MappingTrainingResourceHelper.getRepOrSecOfExercise(
                     exercise.duration,
                   ),
-                  style: const TextStyle(fontSize: 14, color: Colors.black),
+                  style: TextStyle(
+                    fontSize: AppDimensions.textSizeS,
+                    color: AppColors.dark,
+                  ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 15),
+              padding: EdgeInsets.only(right: AppDimensions.paddingM),
               child: Image.asset(
-                isCompleted
-                    ? AppAssets.tickActive
-                    : AppAssets.tickNonActive,
+                isCompleted ? AppAssets.tickActive : AppAssets.tickNonActive,
               ),
             ),
           ],
