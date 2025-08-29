@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -9,6 +7,7 @@ import 'package:hit_tech/model/response/training/training_exercise_response.dart
 import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_exercise_detail_widget.dart';
 
 import '../../../../../core/constants/app_color.dart';
+import '../../../../../core/constants/app_dimension.dart';
 import '../../../../../service/training_service.dart';
 
 class TrainingLibraryExerciseWidget extends StatefulWidget {
@@ -120,50 +119,50 @@ class _TrainingLibraryExerciseWidgetState
 
   @override
   Widget build(BuildContext context) {
-    String imageBG = TrainingAssets.targetMuscleChest;
+    String imageBG = AppAssets.targetMuscleChest;
     Color colorArrowBack = Colors.black;
     switch (widget.primaryMuscleToQuery) {
       case "Chest":
         {
-          imageBG = TrainingAssets.targetMuscleChest;
+          imageBG = AppAssets.targetMuscleChest;
         }
       case "Back":
         {
-          imageBG = TrainingAssets.targetMuscleBack;
+          imageBG = AppAssets.targetMuscleBack;
           colorArrowBack = Colors.white;
         }
       case "Shoulders":
         {
-          imageBG = TrainingAssets.targetMuscleShoulders;
+          imageBG = AppAssets.targetMuscleShoulders;
           colorArrowBack = Colors.white;
         }
       case "Biceps":
         {
-          imageBG = TrainingAssets.targetMuscleBicep;
+          imageBG = AppAssets.targetMuscleBicep;
           colorArrowBack = Colors.white;
         }
       case "Triceps":
         {
-          imageBG = TrainingAssets.targetMuscleTricep;
+          imageBG = AppAssets.targetMuscleTricep;
           colorArrowBack = Colors.white;
         }
       case "Abs":
         {
-          imageBG = TrainingAssets.targetMuscleAbs;
+          imageBG = AppAssets.targetMuscleAbs;
           colorArrowBack = Colors.white;
         }
       case "Glutes":
         {
-          imageBG = TrainingAssets.targetMuscleGlute;
+          imageBG = AppAssets.targetMuscleGlute;
         }
       case "Quads":
         {
-          imageBG = TrainingAssets.targetMuscleQuad;
+          imageBG = AppAssets.targetMuscleQuad;
           colorArrowBack = Colors.white;
         }
       case "Hamstrings":
         {
-          imageBG = TrainingAssets.targetMuscleHamstring;
+          imageBG = AppAssets.targetMuscleHamstring;
           colorArrowBack = Colors.white;
         }
       case '':
@@ -171,16 +170,16 @@ class _TrainingLibraryExerciseWidgetState
           switch (widget.typeToQuery) {
             case "Cardio":
               {
-                imageBG = TrainingAssets.targetMuscleCardio;
+                imageBG = AppAssets.targetMuscleCardio;
                 colorArrowBack = Colors.white;
               }
             case "Yoga":
               {
-                imageBG = TrainingAssets.targetMuscleYoga;
+                imageBG = AppAssets.targetMuscleYoga;
               }
             case "Calisthenic":
               {
-                imageBG = TrainingAssets.targetMuscleCalisthenic;
+                imageBG = AppAssets.targetMuscleCalisthenic;
               }
           }
         }
@@ -193,7 +192,10 @@ class _TrainingLibraryExerciseWidgetState
           Image.asset(imageBG, fit: BoxFit.cover),
 
           Padding(
-            padding: const EdgeInsets.only(top: 30, left: 10),
+            padding: EdgeInsets.only(
+              top: AppDimensions.spacingXL,
+              left: AppDimensions.spacingS,
+            ),
             child: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -204,18 +206,20 @@ class _TrainingLibraryExerciseWidgetState
           ),
 
           DraggableScrollableSheet(
-            initialChildSize: 0.75.sp,
-            minChildSize: 0.75.sp,
-            maxChildSize: 1.0.sp,
+            initialChildSize: 0.75.w,
+            minChildSize: 0.75.w,
+            maxChildSize: 1.0.w,
             builder: (context, scrollController) {
               return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 24,
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingL - 4.w,
+                  vertical: AppDimensions.paddingL,
                 ),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                decoration: BoxDecoration(
+                  color: AppColors.wWhite,
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(AppDimensions.borderRadiusLarge),
+                  ),
                 ),
                 child: SingleChildScrollView(
                   controller: scrollController,
@@ -224,35 +228,35 @@ class _TrainingLibraryExerciseWidgetState
                       Text(
                         'BÀI TẬP ${widget.primaryMuscle}',
                         style: TextStyle(
-                          fontSize: 18.sp,
+                          fontSize: AppDimensions.textSizeL,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: AppColors.dark,
                         ),
                       ),
-                      SizedBox(height: 12.sp),
+                      SizedBox(height: AppDimensions.spacingSM),
                       Text(
                         convertDescriptionForTargetMuscle(
                           (widget.primaryMuscle == '')
                               ? widget.type
                               : widget.primaryMuscle,
                         ),
-                        style: TextStyle(height: 1.5, color: Colors.black),
+                        style: TextStyle(height: 1.5.w, color: AppColors.dark),
                       ),
-                      SizedBox(height: 20.sp),
+                      SizedBox(height: AppDimensions.spacingML),
                       const Divider(color: AppColors.bNormal),
-                      SizedBox(height: 12.sp),
+                      SizedBox(height: AppDimensions.spacingSM),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           'Các bài tập (${exercises.length})',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.black,
+                            fontSize: AppDimensions.textSizeM,
+                            color: AppColors.dark,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 12),
+                      SizedBox(height: AppDimensions.spacingSM),
 
                       // List bài tập
                       ...List.generate(exercises.length, (index) {
@@ -279,7 +283,7 @@ class _TrainingLibraryExerciseWidgetState
     required TrainingExercisePreviewResponse exercise,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: EdgeInsets.symmetric(vertical: AppDimensions.paddingS),
       child: GestureDetector(
         onTap: () async {
           showDialog(
@@ -309,13 +313,13 @@ class _TrainingLibraryExerciseWidgetState
           }
         },
         child: Container(
-          width: double.infinity,
+          width: AppDimensions.spacingWidthInfinite,
           decoration: BoxDecoration(color: Colors.transparent),
           child: Row(
             children: [
               Container(
-                height: 60,
-                width: 110,
+                height: AppDimensions.size64,
+                width: AppDimensions.size112,
                 color: Colors.grey.shade300,
                 child: exercise.imageURL == null
                     ? const Icon(Icons.image, color: Colors.grey)
@@ -328,7 +332,7 @@ class _TrainingLibraryExerciseWidgetState
                             const Icon(Icons.broken_image, color: Colors.red),
                       ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: AppDimensions.spacingSM),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -338,13 +342,16 @@ class _TrainingLibraryExerciseWidgetState
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
-                        fontSize: 16.sp,
+                        fontSize: AppDimensions.textSizeM,
                       ),
                     ),
-                    SizedBox(height: 10.sp),
+                    SizedBox(height: AppDimensions.spacingSM),
                     Text(
                       exercise.levelName,
-                      style: const TextStyle(color: AppColors.bNormal),
+                      style: TextStyle(
+                        color: AppColors.bNormal,
+                        fontSize: AppDimensions.textSizeS,
+                      ),
                     ),
                   ],
                 ),

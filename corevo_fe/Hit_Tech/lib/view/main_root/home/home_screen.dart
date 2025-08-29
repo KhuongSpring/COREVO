@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/model/response/training/training_plan_response.dart';
 import 'package:hit_tech/model/response/training/training_progress_statistic_response.dart';
 import 'package:hit_tech/model/response/training/training_schedule_response.dart';
 import 'package:hit_tech/model/response/user/user_profile_response.dart';
-import 'package:hit_tech/service/shared_preferences.dart';
 import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
-import 'package:hit_tech/view/auth/login_screen.dart';
 import 'package:hit_tech/view/main_root/home/widget/calendar_widget.dart';
-import 'package:hit_tech/view/main_root/setting/widgets/notice_training_creation_widget.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/notice_training_selection_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +16,6 @@ import '../../../core/constants/app_assets.dart';
 import '../../../service/training_service.dart';
 import '../../../utils/change_notifier.dart';
 
-// Loi UI: percentage make screen extend height
 class HomeScreen extends StatefulWidget {
   final UserProfileResponse userProfileResponse;
   final List<TrainingScheduleResponse> schedules;
@@ -43,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   TrainingProgressStatisticResponse? progressStatistic;
   bool _isLoading = true;
 
-  bool _isHaveNotice = false;
+  final bool _isHaveNotice = false;
 
   @override
   void initState() {
@@ -120,9 +116,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     List<TrainingScheduleResponse> schedules = widget.schedules;
 
-    final String? linkAvatar =
-        widget.userProfileResponse.linkAvatar ?? TrainingAssets.defaultImage;
-    final String? fullName =
+    final String linkAvatar =
+        widget.userProfileResponse.linkAvatar ?? AppAssets.defaultImage;
+    final String fullName =
         '${widget.userProfileResponse.firstName ?? ''} ${widget.userProfileResponse.lastName ?? ''}';
     final TrainingPlanResponse? trainingPlanResponse =
         widget.userProfileResponse.trainingPlans?.first;
@@ -131,21 +127,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
     String day = MappingTrainingResourceHelper.getThuTiengViet(weekDay);
 
-    final double screenWidth = MediaQuery.of(context).size.width.sp;
-
     return Scaffold(
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
           SafeArea(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppDimensions.paddingL,
+                vertical: AppDimensions.paddingM,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -161,37 +155,35 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: Colors.blue,
-                                  width: 2,
+                                  color: AppColors.bNormal,
+                                  width: 2.w,
                                 ),
                               ),
                               child: CircleAvatar(
-                                radius: 25.sp,
-                                backgroundImage: linkAvatar!.isNotEmpty
+                                radius: AppDimensions.borderRadiusLarge,
+                                backgroundImage: linkAvatar.isNotEmpty
                                     ? NetworkImage(linkAvatar)
-                                    : const AssetImage(
-                                            TrainingAssets.googleIcon,
-                                          )
+                                    : const AssetImage(AppAssets.googleIcon)
                                           as ImageProvider,
                               ),
                             ),
-                            const SizedBox(width: 12),
+                            SizedBox(width: AppDimensions.spacingSM),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Xin chào!',
                                   style: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: Colors.black,
+                                    fontSize: AppDimensions.textSizeS,
+                                    color: AppColors.dark,
                                   ),
                                 ),
                                 Text(
-                                  fullName!,
+                                  fullName,
                                   style: TextStyle(
-                                    fontSize: 16.sp,
+                                    fontSize: AppDimensions.textSizeM,
                                     fontWeight: FontWeight.w500,
-                                    color: Colors.black,
+                                    color: AppColors.dark,
                                   ),
                                 ),
                               ],
@@ -200,27 +192,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Container(
-                        height: 45.sp,
-                        width: 45.sp,
+                        height: AppDimensions.size48,
+                        width: AppDimensions.size48,
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(50),
+                          color: AppColors.wWhite,
+                          borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
                         ),
-                        child: Image.asset(TrainingAssets.notificationIcon),
+                        child: Image.asset(AppAssets.notificationIcon),
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: 30),
+                  SizedBox(height: AppDimensions.spacingL),
 
                   // Card
                   GestureDetector(
                     onTap: widget.onNavigateToTraining,
                     child: Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(AppDimensions.paddingM),
                       decoration: BoxDecoration(
                         color: AppColors.bNormal,
-                        borderRadius: BorderRadius.circular(20.sp),
+                        borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,18 +227,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                     MappingTrainingResourceHelper.mappingGoalToVietnamese(
                                       trainingPlanResponse!.goals,
                                     ),
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
+                                    style: TextStyle(
+                                      color: AppColors.wWhite,
+                                      fontSize: AppDimensions.textSizeL,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(height: 5),
+                                  SizedBox(height: AppDimensions.size4),
                                   Text(
                                     '${day}  •  ${schedules[weekDay - 1].exerciseGroups?.exercises.length} bài tập',
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
+                                      color: AppColors.wWhite,
+                                      fontSize: AppDimensions.textSizeXS,
                                     ),
                                   ),
                                 ],
@@ -255,49 +247,49 @@ class _HomeScreenState extends State<HomeScreen> {
                                 alignment: Alignment.center,
                                 children: [
                                   SizedBox(
-                                    height: 50,
-                                    width: 50,
+                                    height: AppDimensions.size48,
+                                    width: AppDimensions.size48,
                                     child: CircularProgressIndicator(
                                       value: percentage / 100,
-                                      strokeWidth: 5,
+                                      strokeWidth: 5.w,
                                       backgroundColor: Colors.white24,
                                       valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white,
+                                        AppColors.wWhite,
                                       ),
                                     ),
                                   ),
                                   Text(
                                     '${percentage / 100 * 100}%',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
+                                    style: TextStyle(
+                                      color: AppColors.wWhite,
+                                      fontSize: AppDimensions.textSizeXS,
                                     ),
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                          const SizedBox(height: 12),
+                          SizedBox(height: AppDimensions.spacingSM),
                           Text(
                             schedules[weekDay - 1].description,
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: AppColors.wWhite),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: AppDimensions.spacingM),
                           ElevatedButton(
                             onPressed: widget.onNavigateToTraining,
                             style: ElevatedButton.styleFrom(
-                              minimumSize: Size(screenWidth * 0.9, 40),
-                              backgroundColor: Colors.white,
-                              foregroundColor: const Color(0xFF0094FF),
+                              minimumSize: Size(AppDimensions.width * 0.9.w, AppDimensions.size40),
+                              backgroundColor: AppColors.wWhite,
+                              foregroundColor: AppColors.bNormal,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
                               ),
                             ),
                             child: Text(
                               'Luyện Tập',
                               style: TextStyle(
                                 color: AppColors.bNormal,
-                                fontSize: 14.sp,
+                                fontSize: AppDimensions.textSizeS,
                               ),
                             ),
                           ),
@@ -306,13 +298,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 10.sp),
+                  SizedBox(height: AppDimensions.spacingSM),
 
                   // Calendar placeholder
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
+                      color: AppColors.wWhite,
+                      borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
                     ),
                     child: IgnorePointer(
                       ignoring: true,
@@ -324,19 +316,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 10.sp),
+                  SizedBox(height: AppDimensions.spacingSM),
 
                   // Streak + giờ tiếp theo
                   Row(
                     children: [
                       Expanded(
                         child: Container(
-                          padding: const EdgeInsets.all(12),
+                          padding: EdgeInsets.all(AppDimensions.paddingM),
                           decoration: BoxDecoration(
                             color: AppColors.bNormal,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
                           ),
-                          width: screenWidth * 0.75,
+                          width: AppDimensions.width * 0.75.w,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -348,29 +340,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 16,
+                                      fontSize: AppDimensions.textSizeM,
                                     ),
                                   ),
-                                  SizedBox(height: 5),
+                                  SizedBox(height: AppDimensions.size4),
                                   Text(
                                     'Kỉ lục dài nhất của bạn: ${progressStatistic?.longestStreak}',
                                     style: TextStyle(
                                       color: Colors.white70,
-                                      fontSize: 12,
+                                      fontSize: AppDimensions.textSizeXS,
                                     ),
                                   ),
                                 ],
                               ),
                               Image.asset(
                                 (progressStatistic?.currentStreak == 0)
-                                    ? TrainingAssets.fireNonIcon
-                                    : TrainingAssets.fireIcon,
+                                    ? AppAssets.fireNonIcon
+                                    : AppAssets.fireIcon,
                               ),
                             ],
                           ),
                         ),
                       ),
-                      const SizedBox(width: 20),
+                      SizedBox(width: AppDimensions.spacingML),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -381,37 +373,41 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
                         child: Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(AppDimensions.paddingS),
                           decoration: BoxDecoration(
                             color: AppColors.bNormal,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
                           ),
-                          width: screenWidth * 0.25,
+                          width: AppDimensions.width * 0.25.w,
                           child: Column(
                             children: [
                               _isHaveNotice
                                   ? Text(
                                       'Tiếp theo',
                                       style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
+                                        color: AppColors.wWhite,
+                                        fontSize: AppDimensions.textSizeXS,
                                       ),
                                     )
-                                  : Icon(Icons.alarm, color: Colors.white, size: 22,),
-                              SizedBox(height: 8),
+                                  : Icon(
+                                      Icons.alarm,
+                                      color: AppColors.wWhite,
+                                      size: AppDimensions.iconSizeXXXL,
+                                    ),
+                              SizedBox(height: AppDimensions.spacingS),
                               _isHaveNotice
                                   ? Text(
                                       '-- : --',
                                       style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: AppDimensions.textSizeL,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     )
                                   : Text(
                                       'Tạo lời nhắc',
                                       style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.white,
+                                        fontSize: AppDimensions.textSizeXS,
+                                        color: AppColors.wWhite,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -422,7 +418,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
 
-                  SizedBox(height: 100.sp),
+                  SizedBox(height: AppDimensions.size104),
                 ],
               ),
             ),

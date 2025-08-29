@@ -2,8 +2,8 @@ abstract class ApiEndpoint {
   // static const String baseUrl = 'http://192.168.184.103:8080';
 
   // Máy Khương
-  // static const String baseUrl = 'http://10.0.2.2:8080';
-  static const String baseUrl = 'http://192.168.50.240:8080';
+  static const String baseUrl = 'http://10.0.2.2:8080';
+  // static const String baseUrl = 'http://192.168.50.240:8080';
 
   // static const String baseUrl = 'http://146.190.101.127:8080';
 

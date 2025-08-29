@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
+
+import '../../../core/constants/app_dimension.dart';
 
 class ButtonGgFbAuth extends StatelessWidget {
   final double width;
@@ -18,15 +21,15 @@ class ButtonGgFbAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: 50,
+      height: AppDimensions.size48,
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFF989DA1), width: 1),
+        border: Border.all(color: AppColors.moreLighter, width: 1.w),
         color: AppColors.wWhite,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
+            blurRadius: AppDimensions.borderRadiusSmall,
             offset: const Offset(0, 4),
           ),
         ],
@@ -37,15 +40,15 @@ class ButtonGgFbAuth extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 30,
-              height: 30,
+              width: AppDimensions.size32,
+              height: AppDimensions.size32,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: AppColors.wWhite,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
+                    blurRadius: AppDimensions.borderRadiusSmall,
                     offset: Offset(0, 4),
                   ),
                 ],
@@ -53,13 +56,13 @@ class ButtonGgFbAuth extends StatelessWidget {
               alignment: Alignment.center,
               child: image,
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: AppDimensions.spacingM),
             Text(
               text,
-              style: const TextStyle(
-                fontSize: 16,
+              style: TextStyle(
+                fontSize: AppDimensions.textSizeM,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: AppColors.dark,
               ),
             ),
           ],

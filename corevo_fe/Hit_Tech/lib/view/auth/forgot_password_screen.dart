@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
 import 'package:hit_tech/model/request/auth/forgot_password_request.dart';
 import 'package:hit_tech/model/response/auth/forgot_password_response.dart';
@@ -65,21 +66,33 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
+  void initState() {
+    super.initState();
+    _emailController.addListener(() {
+      setState(() {});
+    });
+  }
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.wWhite,
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.authBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.authBackground, fit: BoxFit.cover),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 51),
+            padding: EdgeInsets.symmetric(
+              horizontal: AppDimensions.paddingL,
+              vertical: AppDimensions.paddingXXXL,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -92,38 +105,42 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       icon: Icon(
                         Icons.arrow_back_ios,
                         color: AppColors.bNormal,
-                        size: 28,
+                        size: AppDimensions.textSizeXXL,
                       ),
                     ),
-                    const SizedBox(width: 30),
-                    const Text(
+                    SizedBox(width: AppDimensions.size32),
+                    Text(
                       "Quên mật khẩu",
                       style: TextStyle(
-                        fontSize: 32,
+                        fontSize: AppDimensions.textSizeXXXL,
                         fontWeight: FontWeight.w500,
                         color: AppColors.dark,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 12.sp),
+                SizedBox(height: AppDimensions.spacingSM),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(3, (index) {
                     return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      width: 32,
-                      height: 6,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: AppDimensions.paddingXS,
+                      ),
+                      width: AppDimensions.size32,
+                      height: AppDimensions.size8,
                       decoration: BoxDecoration(
                         color: index == 0
                             ? AppColors.bNormal
-                            : Colors.grey[400],
-                        borderRadius: BorderRadius.circular(20),
+                            : AppColors.lighter,
+                        borderRadius: BorderRadius.circular(
+                          AppDimensions.borderRadiusLarge,
+                        ),
                       ),
                     );
                   }),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: AppDimensions.size16),
 
                 //content
                 Form(
@@ -134,35 +151,38 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       children: [
                         Text(
                           AppStrings.fillEmailToResetPassword,
-                          style: TextStyle(color: AppColors.dark, fontSize: 16),
+                          style: TextStyle(
+                            color: AppColors.dark,
+                            fontSize: AppDimensions.textSizeM,
+                          ),
                         ),
 
-                        SizedBox(height: 40),
+                        SizedBox(height: AppDimensions.size40),
 
                         // Text Field
                         CustomInputField(
                           isPassword: true,
-                          hintStyle: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
+                          hintStyle: TextStyle(
+                            color: AppColors.lighter,
+                            fontSize: AppDimensions.textSizeM,
                           ),
-                          width: screenWidth * 0.9,
-                          height: 64,
+                          width: AppDimensions.width * 0.9.w,
+                          height: AppDimensions.size64,
                           controller: _emailController,
                           title: AppStrings.email,
-                          borderRadius: 12,
-                          borderColor: Colors.grey[400],
+                          borderRadius: AppDimensions.borderRadius,
+                          borderColor: AppColors.lighter,
                           focusedBorderColor: AppColors.bNormal,
                           validator: ValidatorUtil.validateEmail,
                           onChanged: (value) {},
                         ),
 
-                        SizedBox(height: 40),
+                        SizedBox(height: AppDimensions.size40),
 
                         // Button
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          height: 50,
+                          width: AppDimensions.width * 0.9.w,
+                          height: AppDimensions.size48,
                           child: ElevatedButton(
                             onPressed: _handleForgot,
                             style: ElevatedButton.styleFrom(
@@ -170,15 +190,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   (_emailController.text.isNotEmpty)
                                   ? AppColors.bNormal
                                   : AppColors.lighter,
-                              disabledBackgroundColor: Colors.grey[400],
+                              disabledBackgroundColor: AppColors.lighter,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
+                                borderRadius: BorderRadius.circular(
+                                  AppDimensions.borderRadiusLarge,
+                                ),
                               ),
                             ),
                             child: Text(
                               AppStrings.ok,
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: AppDimensions.textSizeL,
                                 fontWeight: FontWeight.bold,
                                 color: (_emailController.text.isNotEmpty)
                                     ? AppColors.wWhite

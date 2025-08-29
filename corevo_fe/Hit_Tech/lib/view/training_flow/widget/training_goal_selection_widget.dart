@@ -30,14 +30,14 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
   Map<String, List<String>> selectedValues = {};
 
   List<String> goalImage = [
-    TrainingAssets.goal1,
-    TrainingAssets.goal2,
-    TrainingAssets.goal3,
-    TrainingAssets.goal4,
-    TrainingAssets.goal5,
-    TrainingAssets.goal6,
-    TrainingAssets.goal7,
-    TrainingAssets.goal8,
+    AppAssets.goal1,
+    AppAssets.goal2,
+    AppAssets.goal3,
+    AppAssets.goal4,
+    AppAssets.goal5,
+    AppAssets.goal6,
+    AppAssets.goal7,
+    AppAssets.goal8,
   ];
 
   @override
@@ -48,16 +48,16 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
         children: [
           // Ảnh nền
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
 
           Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: 50, right: 70),
+                padding: EdgeInsets.only(
+                  top: AppDimensions.size48,
+                  right: AppDimensions.size72,
+                ),
                 child: Row(
                   children: [
                     IconButton(
@@ -67,10 +67,10 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
                         color: AppColors.bNormal,
                       ),
                     ),
-                    SizedBox(width: 35),
+                    SizedBox(width: AppDimensions.spacingXL),
                     Expanded(
                       child: Container(
-                        height: 7,
+                        height: AppDimensions.size8,
                         decoration: BoxDecoration(
                           color: AppColors.moreLighter,
                           borderRadius: BorderRadius.circular(
@@ -100,10 +100,12 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
                   ],
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: AppDimensions.spacingXL),
               // Header
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                margin: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingM,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.bLightHover,
                   borderRadius: BorderRadius.circular(
@@ -113,30 +115,35 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
                 child: Row(
                   children: [
                     Container(
-                      width: 20.0,
-                      height: 90.0,
+                      width: AppDimensions.size16,
+                      height: AppDimensions.size88,
                       decoration: BoxDecoration(color: AppColors.bLightActive2),
                     ),
-                    const SizedBox(width: 20.0),
+                    SizedBox(width: AppDimensions.size16),
                     Expanded(
                       child: Text(
                         'Mục Tiêu Luyện Tập\ncủa bạn là gì?',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: AppDimensions.textSizeXL,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.darkActive,
+                          color: AppColors.dark,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: AppDimensions.spacingXXL),
 
               // Item list
               Expanded(
                 child: ListView.builder(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 150),
+                  padding: EdgeInsets.fromLTRB(
+                    AppDimensions.paddingM,
+                    0,
+                    AppDimensions.paddingM,
+                    AppDimensions.size152,
+                  ),
                   itemCount: goals.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -148,9 +155,9 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
                         }
                       }),
                       child: Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        padding: const EdgeInsets.all(12),
-                        height: 110,
+                        margin: EdgeInsets.only(bottom: AppDimensions.paddingM),
+                        padding: EdgeInsets.all(AppDimensions.paddingM),
+                        height: AppDimensions.size112,
                         decoration: BoxDecoration(
                           color: selectedIndex == index
                               ? AppColors.bLightHover
@@ -161,7 +168,7 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
                           border: Border.all(
                             color: selectedIndex == index
                                 ? AppColors.bNormal
-                                : Colors.grey.shade300,
+                                : AppColors.wWhite,
                             width: selectedIndex == index ? 2 : 1,
                           ),
                           boxShadow: [
@@ -177,19 +184,21 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
                             Expanded(
                               child: Text(
                                 goals[index],
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  color: AppColors.darkActive,
+                                style: TextStyle(
+                                  fontSize: AppDimensions.textSizeL,
+                                  color: AppColors.dark,
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 12),
+                            SizedBox(width: AppDimensions.spacingSM),
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(
+                                AppDimensions.borderRadiusSmall,
+                              ),
                               child: Image.asset(
                                 goalImage[index],
-                                width: 90,
-                                height: 90,
+                                width: AppDimensions.size88,
+                                height: AppDimensions.size88,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -212,7 +221,7 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                     colors: [AppColors.wWhite, Colors.transparent],
-                    stops: [0.0, 0.2],
+                    stops: [0.0, 0.1],
                   ),
                 ),
               ),
@@ -221,17 +230,22 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
 
           // Button "Tiếp tục" nổi lên trên cùng
           Positioned(
-            left: 16,
-            right: 16,
-            bottom: 70,
+            left: AppDimensions.paddingM,
+            right: AppDimensions.paddingM,
+            bottom: AppDimensions.size72,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: selectedIndex != null
                     ? AppColors.bNormal
                     : AppColors.bLightNotActive,
-                minimumSize: const Size(double.infinity, 60),
+                minimumSize: Size(
+                  AppDimensions.spacingWidthInfinite,
+                  AppDimensions.size56,
+                ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.borderRadiusLarge,
+                  ),
                 ),
               ),
               onPressed: selectedIndex != null
@@ -316,12 +330,19 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
 
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => TrainingLevelSelectionWidget(
-                              nextStep: response.nextStep,
-                              selectedValues: selectedValues,
-                              options: levelIds,
-                            ),
+                          PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
+                                TrainingLevelSelectionWidget(
+                                  nextStep: response.nextStep,
+                                  selectedValues: selectedValues,
+                                  options: levelIds,
+                                ),
+                            transitionsBuilder: (_, animation, __, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
                           ),
                         );
                       } catch (e) {
@@ -332,7 +353,7 @@ class _TrainingGoalSelectionState extends State<TrainingGoalSelectionWidget> {
               child: Text(
                 "Tiếp tục",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: AppDimensions.textSizeL,
                   color: selectedIndex != null
                       ? AppColors.wWhite
                       : AppColors.wDark,

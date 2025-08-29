@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/view/on_boarding/on_boarding_screen_1.dart';
 
 import 'custom_page_indicator.dart';
@@ -39,7 +40,7 @@ class _SplashOnboardingState extends State<SplashOnboarding> {
           ),
           // Indicator
           Positioned(
-            bottom: 140,
+            bottom: 140.sp,
             left: 0,
             right: 0,
             child: CustomPageIndicator(currentIndex: _currentIndex),

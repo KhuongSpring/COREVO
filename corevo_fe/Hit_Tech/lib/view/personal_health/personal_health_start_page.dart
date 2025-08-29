@@ -6,6 +6,8 @@ import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/view/personal_health/widget/age_selection_widget.dart';
 import 'package:hit_tech/view/personal_health/widget/gender_selection_widget.dart';
 
+import '../../core/constants/app_dimension.dart';
+
 class PersonalHealthStartPage extends StatefulWidget {
   const PersonalHealthStartPage({super.key});
 
@@ -51,13 +53,13 @@ class _PersonalHealthStartPageState extends State<PersonalHealthStartPage> {
               // Ảnh nền
               Positioned.fill(
                 child: Image.asset(
-                  TrainingAssets.startBackground,
+                  AppAssets.startBackground,
                   fit: BoxFit.cover,
                 ),
               ),
 
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingL),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -67,24 +69,24 @@ class _PersonalHealthStartPageState extends State<PersonalHealthStartPage> {
                         'Phần 1',
                         style: TextStyle(
                           color: AppColors.wWhite,
-                          fontSize: 16,
+                          fontSize: AppDimensions.textSizeM,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: AppDimensions.spacingSM),
                     Row(
                       children: [
                         Text(
                           'Chỉ số cơ thể',
                           style: TextStyle(
                             color: AppColors.wWhite,
-                            fontSize: 32,
+                            fontSize: AppDimensions.textSizeXXXL,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Spacer(),
-                        Image.asset(TrainingAssets.customArrowIcon),
+                        Image.asset(AppAssets.customArrowIcon),
                       ],
                     ),
                   ],

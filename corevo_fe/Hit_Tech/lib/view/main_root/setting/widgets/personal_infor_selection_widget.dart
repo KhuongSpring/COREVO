@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/model/response/user/user_profile_response.dart';
 import 'package:hit_tech/view/main_root/setting/widgets/update_profile_popup.dart';
@@ -42,23 +43,20 @@ class _PersonalInforSelectionWidgetState
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
           Column(
             children: [
-              const SizedBox(height: 50),
+              SizedBox(height: AppDimensions.spacingXXXL),
               // Header + Avatar
               SizedBox(
-                height: 110,
+                height: AppDimensions.size112,
                 child: Stack(
                   children: [
                     Positioned(
-                      left: 20,
-                      top: 0,
-                      bottom: 70,
+                      left: AppDimensions.spacingML,
+                      top: 0.w,
+                      bottom: AppDimensions.size72,
                       child: IconButton(
                         onPressed: () {
                           Navigator.pop(context);
@@ -73,14 +71,17 @@ class _PersonalInforSelectionWidgetState
                       child: Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.blue, width: 2),
+                          border: Border.all(
+                            color: AppColors.bNormal,
+                            width: 2.w,
+                          ),
                         ),
                         child: CircleAvatar(
-                          radius: 40,
+                          radius: AppDimensions.size40,
                           backgroundImage:
                               _userProfile.linkAvatar?.isNotEmpty ?? false
                               ? NetworkImage(_userProfile.linkAvatar!)
-                              : NetworkImage(TrainingAssets.defaultImage),
+                              : NetworkImage(AppAssets.defaultImage),
                         ),
                       ),
                     ),
@@ -89,32 +90,33 @@ class _PersonalInforSelectionWidgetState
               ),
               Column(
                 children: [
-                  const SizedBox(height: 10),
                   Text(
                     '${_userProfile.firstName ?? ''} ${_userProfile.lastName ?? ''}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      fontSize: AppDimensions.textSizeM,
                       color: AppColors.normal,
                     ),
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: AppDimensions.size4),
                   Text(
                     _userProfile.email ?? '',
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: AppDimensions.textSizeS,
                       color: AppColors.lightActive,
                     ),
                   ),
                 ],
               ),
 
-              const SizedBox(height: 40),
+              SizedBox(height: AppDimensions.spacingXXXL),
 
               // Các mục
               Expanded(
                 child: ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppDimensions.paddingL,
+                  ),
                   children: [_buildProfileSection()],
                 ),
               ),
@@ -128,12 +130,12 @@ class _PersonalInforSelectionWidgetState
   // Build Inner tile
   Widget _buildInnerTile(IconData icon, String title, String text) {
     return ListTile(
-      title: Text(title, style: TextStyle(fontSize: 14)),
+      title: Text(title, style: TextStyle(fontSize: AppDimensions.textSizeS)),
       trailing: Text(
         text,
         style: TextStyle(
           color: AppColors.bNormal,
-          fontSize: 14,
+          fontSize: AppDimensions.textSizeS,
           fontWeight: FontWeight.w500,
         ),
       ),
@@ -146,7 +148,7 @@ class _PersonalInforSelectionWidgetState
   Widget _buildProfileSection() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.wWhite,
         borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
       ),
       child: Column(
@@ -156,31 +158,31 @@ class _PersonalInforSelectionWidgetState
             'Tên đăng nhập',
             _userProfile.username ?? '?',
           ),
-          const Divider(height: 1, color: AppColors.bLightHover),
+          Divider(height: 1.w, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Họ',
             _userProfile.firstName ?? '?',
           ),
-          const Divider(height: 1, color: AppColors.bLightHover),
+          Divider(height: 1.w, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Tên',
             _userProfile.lastName ?? '?',
           ),
-          const Divider(height: 1, color: AppColors.bLightHover),
+          Divider(height: 1.w, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Ngày sinh',
             _userProfile.birth ?? '?',
           ),
-          const Divider(height: 1, color: AppColors.bLightHover),
+          Divider(height: 1.w, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Số điện thoại',
             _userProfile.phone ?? '?',
           ),
-          const Divider(height: 1, color: AppColors.bLightHover),
+          Divider(height: 1.w, color: AppColors.bLightHover),
           _buildInnerTile(
             Icons.favorite_border,
             'Quốc tịch',

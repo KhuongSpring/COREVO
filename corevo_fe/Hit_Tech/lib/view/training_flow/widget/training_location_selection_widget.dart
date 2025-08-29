@@ -49,16 +49,16 @@ class _TrainingLocationSelectionState
         children: [
           // Ảnh nền
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
 
           Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: 50, right: 70),
+                padding: EdgeInsets.only(
+                  top: AppDimensions.size48,
+                  right: AppDimensions.size72,
+                ),
                 child: Row(
                   children: [
                     IconButton(
@@ -68,10 +68,10 @@ class _TrainingLocationSelectionState
                         color: AppColors.bNormal,
                       ),
                     ),
-                    SizedBox(width: 35),
+                    SizedBox(width: AppDimensions.spacingXL),
                     Expanded(
                       child: Container(
-                        height: 7,
+                        height: AppDimensions.size8,
                         decoration: BoxDecoration(
                           color: AppColors.moreLighter,
                           borderRadius: BorderRadius.circular(
@@ -101,10 +101,12 @@ class _TrainingLocationSelectionState
                   ],
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: AppDimensions.spacingXL),
               // Header
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                margin: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingM,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.bLightHover,
                   borderRadius: BorderRadius.circular(
@@ -114,30 +116,35 @@ class _TrainingLocationSelectionState
                 child: Row(
                   children: [
                     Container(
-                      width: 20.0,
-                      height: 90.0,
+                      width: AppDimensions.size16,
+                      height: AppDimensions.size88,
                       decoration: BoxDecoration(color: AppColors.bLightActive2),
                     ),
-                    const SizedBox(width: 20.0),
+                    SizedBox(width: AppDimensions.size16),
                     Expanded(
                       child: Text(
                         'Địa điểm luyện tập\nmà bạn ưa thích?',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: AppDimensions.textSizeXL,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.darkActive,
+                          color: AppColors.dark,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: AppDimensions.spacingXXL),
 
               // Item list
               Expanded(
                 child: ListView.builder(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 200),
+                  padding: EdgeInsets.fromLTRB(
+                    AppDimensions.paddingM,
+                    0,
+                    AppDimensions.paddingM,
+                    AppDimensions.size152,
+                  ),
                   itemCount: locations.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -149,9 +156,9 @@ class _TrainingLocationSelectionState
                         }
                       }),
                       child: Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        padding: const EdgeInsets.all(12),
-                        height: 80,
+                        margin: EdgeInsets.only(bottom: AppDimensions.paddingM),
+                        padding: EdgeInsets.all(AppDimensions.paddingM),
+                        height: AppDimensions.size80,
                         decoration: BoxDecoration(
                           color: selectedIndex == index
                               ? AppColors.bLightHover
@@ -175,31 +182,30 @@ class _TrainingLocationSelectionState
                         ),
                         child: Row(
                           children: [
-                            SizedBox(width: 20),
+                            SizedBox(width: AppDimensions.spacingML),
                             Image.asset(
                               index == 0
                                   ? (selectedIndex == 0
-                                        ? TrainingAssets.locationHomeSelected
-                                        : TrainingAssets.locationHome)
+                                        ? AppAssets.locationHomeSelected
+                                        : AppAssets.locationHome)
                                   : index == 1
                                   ? (selectedIndex == 1
-                                        ? TrainingAssets.locationGymSelected
-                                        : TrainingAssets.locationGym)
+                                        ? AppAssets.locationGymSelected
+                                        : AppAssets.locationGym)
                                   : index == 2
                                   ? (selectedIndex == 2
-                                        ? TrainingAssets.locationOutSideSelected
-                                        : TrainingAssets.locationOutSide)
+                                        ? AppAssets.locationOutSideSelected
+                                        : AppAssets.locationOutSide)
                                   : (selectedIndex == 3
-                                        ? TrainingAssets
-                                              .locationAnywhereSelected
-                                        : TrainingAssets.locationAnywhere),
+                                        ? AppAssets.locationAnywhereSelected
+                                        : AppAssets.locationAnywhere),
                             ),
-                            SizedBox(width: 20),
+                            SizedBox(width: AppDimensions.spacingML),
                             Expanded(
                               child: Text(
                                 locations[index],
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: AppDimensions.textSizeL,
                                   color: selectedIndex == index
                                       ? AppColors.bNormal
                                       : AppColors.darkActive,
@@ -208,17 +214,19 @@ class _TrainingLocationSelectionState
                               ),
                             ),
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(
+                                AppDimensions.borderRadiusSmall,
+                              ),
                               child: Image.asset(
                                 selectedIndex == index
-                                    ? TrainingAssets.tickActive
-                                    : TrainingAssets.tickNonActive,
-                                width: 20,
-                                height: 20,
+                                    ? AppAssets.tickActive
+                                    : AppAssets.tickNonActive,
+                                width: AppDimensions.iconSizeL,
+                                height: AppDimensions.iconSizeL,
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(width: 10),
+                            SizedBox(width: AppDimensions.spacingSM),
                           ],
                         ),
                       ),
@@ -247,17 +255,22 @@ class _TrainingLocationSelectionState
 
           // Button "Tiếp tục" nổi lên trên cùng
           Positioned(
-            left: 16,
-            right: 16,
-            bottom: 70,
+            left: AppDimensions.paddingM,
+            right: AppDimensions.paddingM,
+            bottom: AppDimensions.size72,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: selectedIndex != null
                     ? AppColors.bNormal
                     : AppColors.bLightNotActive,
-                minimumSize: const Size(double.infinity, 60),
+                minimumSize: Size(
+                  AppDimensions.spacingWidthInfinite,
+                  AppDimensions.size56,
+                ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.borderRadiusLarge,
+                  ),
                 ),
               ),
               onPressed: selectedIndex != null
@@ -281,12 +294,19 @@ class _TrainingLocationSelectionState
 
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => TrainingEquipmentSelectionWidget(
-                              nextStep: response.nextStep,
-                              selectedValues: selectedValues,
-                              options: response.options,
-                            ),
+                          PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
+                                TrainingEquipmentSelectionWidget(
+                                  nextStep: response.nextStep,
+                                  selectedValues: selectedValues,
+                                  options: response.options,
+                                ),
+                            transitionsBuilder: (_, animation, __, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
                           ),
                         );
                       } catch (e) {
@@ -297,7 +317,7 @@ class _TrainingLocationSelectionState
               child: Text(
                 "Tiếp tục",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: AppDimensions.textSizeL,
                   color: selectedIndex != null
                       ? AppColors.wWhite
                       : AppColors.wDark,

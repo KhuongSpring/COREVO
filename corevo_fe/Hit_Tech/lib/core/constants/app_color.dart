@@ -38,7 +38,7 @@ class AppColors {
   static const Color wNormal = Color(0xFFf9fafb);
   static const Color wNormalHover = Color(0xFFf2f4f7);
   static const Color wNormalActive = Color(0xFFebeef2);
-  static const Color wDark = Color(0xFFf6f8f9);
+  static const Color wDark = Color(0xffdadada);
 
   // Màu không có trong bảng
   //// Health Information Colors

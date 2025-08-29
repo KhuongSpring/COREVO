@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hit_tech/core/constants/app_color.dart';
+
+import '../../../../core/constants/app_dimension.dart';
 
 class WeeklyTimeline extends StatefulWidget {
   final int selectedIndex;
@@ -15,7 +19,6 @@ class WeeklyTimeline extends StatefulWidget {
 }
 
 class _WeeklyTimelineState extends State<WeeklyTimeline> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,17 +33,17 @@ class _WeeklyTimelineState extends State<WeeklyTimeline> {
 
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
-              height: isSelected ? 36 : 16,
-              width: 16,
+              height: isSelected ? AppDimensions.size32 : AppDimensions.size16,
+              width: AppDimensions.size16,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: isSelected ? Colors.blue : Colors.grey.shade700,
+                color: isSelected ? AppColors.bNormal : AppColors.lighter,
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
                           color: Colors.blue.withOpacity(0.3),
-                          blurRadius: 12,
-                          spreadRadius: 4,
+                          blurRadius: AppDimensions.borderRadius,
+                          spreadRadius: 4.w,
                         ),
                       ]
                     : [],
@@ -52,9 +55,11 @@ class _WeeklyTimelineState extends State<WeeklyTimeline> {
           final isAboveSelected = aboveDot == widget.selectedIndex;
           return AnimatedContainer(
             duration: const Duration(milliseconds: 300),
-            height: isAboveSelected ? 265 : 100,
-            width: 2,
-            color: Colors.grey.shade500,
+            height: isAboveSelected
+                ? AppDimensions.size264
+                : AppDimensions.size104,
+            width: 2.w,
+            color: AppColors.lighter,
           );
         }
       }),

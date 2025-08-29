@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -42,7 +43,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final Set<DateTime> _underlinedDays =
+    final Set<DateTime> underlinedDays =
         MappingTrainingResourceHelper.buildMarkedTrainingDays(
           widget.schedules,
           DateTime.now().year,
@@ -61,17 +62,17 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     }
 
     return TableCalendar(
-      rowHeight: 45,
+      rowHeight: AppDimensions.size48,
       firstDay: _firstDay,
       lastDay: _lastDay,
       focusedDay: _focusedDay,
       selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
       calendarStyle: CalendarStyle(
-        defaultTextStyle: const TextStyle(color: Colors.black),
-        todayTextStyle: const TextStyle(color: Colors.white),
+        defaultTextStyle: TextStyle(color: AppColors.dark, fontSize: AppDimensions.textSizeS),
+        todayTextStyle: TextStyle(color: AppColors.wWhite, fontSize: AppDimensions.textSizeS),
       ),
-      headerStyle: const HeaderStyle(
-        titleTextStyle: TextStyle(color: Colors.black),
+      headerStyle: HeaderStyle(
+        titleTextStyle: TextStyle(color: AppColors.dark, fontSize: AppDimensions.textSizeM),
         formatButtonVisible: false,
         titleCentered: true,
         leftChevronIcon: Icon(Icons.chevron_left, color: Colors.black),
@@ -80,7 +81,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       calendarBuilders: CalendarBuilders(
         markerBuilder: (context, day, focusDay) {
           final DateTime today = DateTime.now();
-          final bool isMarked = _underlinedDays.any(
+          final bool isMarked = underlinedDays.any(
             (d) =>
                 d.year == day.year && d.month == day.month && d.day == day.day,
           );
@@ -97,10 +98,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               day.isBefore(DateTime(today.year, today.month, today.day))) {
             if (!isCompleted) {
               return Positioned(
-                bottom: 6,
+                bottom: AppDimensions.paddingS,
                 child: Container(
-                  width: 6,
-                  height: 6,
+                  width: AppDimensions.size4 + 2.w,
+                  height: AppDimensions.size4 + 2.w,
                   decoration: const BoxDecoration(
                     color: Colors.red,
                     shape: BoxShape.circle,
@@ -109,10 +110,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               );
             } else {
               return Positioned(
-                bottom: 6,
+                bottom: AppDimensions.paddingS,
                 child: Container(
-                  width: 6,
-                  height: 6,
+                  width: AppDimensions.size4 + 2.w,
+                  height: AppDimensions.size4 + 2.w,
                   decoration: const BoxDecoration(
                     color: AppColors.bNormal,
                     shape: BoxShape.circle,
@@ -125,12 +126,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           if (isMarked) {
             final bool isToday = isSameDay(day, DateTime.now());
             return Positioned(
-              bottom: 6,
+              bottom: AppDimensions.paddingS,
               child: Container(
-                width: 5,
-                height: 5,
+                width: AppDimensions.size4 + 2.w,
+                height: AppDimensions.size4 + 2.w,
                 decoration: BoxDecoration(
-                  color: isToday ? Colors.white : AppColors.lightActive,
+                  color: isToday ? AppColors.wWhite : AppColors.lightActive,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -140,17 +141,17 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         },
         todayBuilder: (context, day, focusedDay) {
           return Container(
-            height: 45.sp,
-            width: 45.sp,
+            height: AppDimensions.size48,
+            width: AppDimensions.size48,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: AppColors.bNormal,
               shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
             ),
             child: Text(
               '${day.day}',
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(color: AppColors.wWhite),
             ),
           );
         },

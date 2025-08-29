@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/core/constants/app_dimension.dart';
 
@@ -8,13 +9,25 @@ class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
 
-  const CustomBottomNavBar({required this.currentIndex, required this.onTap});
+  const CustomBottomNavBar({
+    super.key,
+    required this.currentIndex,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-      margin: const EdgeInsets.only(left: 50, top: 16, right: 50, bottom: 16),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppDimensions.paddingS,
+        vertical: AppDimensions.paddingS,
+      ),
+      margin: EdgeInsets.only(
+        left: AppDimensions.paddingXXXL,
+        top: AppDimensions.paddingM,
+        right: AppDimensions.paddingXXXL,
+        bottom: AppDimensions.paddingM,
+      ),
       decoration: BoxDecoration(
         color: AppColors.bNormal,
         borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
@@ -30,11 +43,11 @@ class CustomBottomNavBar extends StatelessWidget {
 
   Widget _buildNavItem(int index) {
     final icons = [
-      TrainingAssets.homeIcon,
-      TrainingAssets.libraryIcon,
-      TrainingAssets.chartIcon,
-      TrainingAssets.feedsIcon,
-      TrainingAssets.profileIcon,
+      AppAssets.homeIcon,
+      AppAssets.libraryIcon,
+      AppAssets.chartIcon,
+      AppAssets.feedsIcon,
+      AppAssets.profileIcon,
     ];
 
     final labels = [
@@ -52,35 +65,35 @@ class CustomBottomNavBar extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: EdgeInsets.symmetric(
-          horizontal: isSelected ? 8 : 0,
-          vertical: 8,
+          horizontal: isSelected ? AppDimensions.paddingS : 0.w,
+          vertical: AppDimensions.paddingS,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.bLightActive2 : Colors.white,
+          color: isSelected ? AppColors.bLightActive2 : AppColors.wWhite,
           borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
         ),
-        constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
+        constraints: BoxConstraints(minWidth: AppDimensions.size40, minHeight: AppDimensions.size40),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              margin: EdgeInsets.only(left: isSelected ? 0 : 8),
+              margin: EdgeInsets.only(left: isSelected ? 0 : AppDimensions.paddingS),
               child: Image.asset(
                 icons[index],
-                color: isSelected ? Colors.white : Colors.black,
-                width: 23,
-                height: 23,
+                color: isSelected ? AppColors.wWhite : AppColors.dark,
+                width: AppDimensions.iconSizeXL,
+                height: AppDimensions.iconSizeXL,
               ),
             ),
             if (isSelected)
               Padding(
-                padding: const EdgeInsets.only(left: 2),
+                padding: EdgeInsets.only(left: AppDimensions.paddingXS - 4.w),
                 child: Text(
                   labels[index],
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 12,
+                    fontSize: AppDimensions.textSizeXS,
                   ),
                 ),
               ),

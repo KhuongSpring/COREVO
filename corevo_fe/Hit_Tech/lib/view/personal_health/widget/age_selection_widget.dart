@@ -39,28 +39,25 @@ class _AgeSelectionScreenstate extends State<AgeSelectionWidget> {
   @override
   Widget build(BuildContext context) {
     final selected = selectedYear ?? 2005;
-    final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
           SafeArea(
             child: SingleChildScrollView(
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height.sp,
-                ),
+                constraints: BoxConstraints(minHeight: AppDimensions.height),
                 child: IntrinsicHeight(
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(top: 30.sp, right: 70.sp),
+                        padding: EdgeInsets.only(
+                          top: AppDimensions.paddingXL,
+                          right: AppDimensions.size72,
+                        ),
                         child: Row(
                           children: [
                             IconButton(
@@ -70,10 +67,10 @@ class _AgeSelectionScreenstate extends State<AgeSelectionWidget> {
                                 color: AppColors.bNormal,
                               ),
                             ),
-                            SizedBox(width: 35.sp),
+                            SizedBox(width: AppDimensions.spacingXL),
                             Expanded(
                               child: Container(
-                                height: 7,
+                                height: AppDimensions.size8,
                                 decoration: BoxDecoration(
                                   color: AppColors.moreLighter,
                                   borderRadius: BorderRadius.circular(
@@ -86,7 +83,8 @@ class _AgeSelectionScreenstate extends State<AgeSelectionWidget> {
                                     return Stack(
                                       children: [
                                         Container(
-                                          width: constraints.maxWidth * progress,
+                                          width:
+                                              constraints.maxWidth * progress,
                                           decoration: BoxDecoration(
                                             color: AppColors.bNormal,
                                             borderRadius: BorderRadius.circular(
@@ -103,13 +101,13 @@ class _AgeSelectionScreenstate extends State<AgeSelectionWidget> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 32.sp),
+                      SizedBox(height: AppDimensions.spacingXL),
 
                       Container(
-                        width: screenWidth.sp * 0.9.sp,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 24,
-                          horizontal: 20,
+                        width: AppDimensions.width * 0.9.w,
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppDimensions.paddingL,
+                          horizontal: AppDimensions.paddingL,
                         ),
                         decoration: BoxDecoration(
                           color: AppColors.bLightNotActive2,
@@ -118,20 +116,24 @@ class _AgeSelectionScreenstate extends State<AgeSelectionWidget> {
                           ),
                         ),
                         child: Column(
-                          children: const [
+                          children: [
                             Text(
                               'Tuổi',
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: AppDimensions.textSizeXL,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.dark,
                               ),
                             ),
-                            SizedBox(height: 8),
+                            SizedBox(height: AppDimensions.spacingS),
                             Text(
                               'Nhập tuổi của bạn để điều chỉnh mục tiêu phù hợp với giai đoạn của cơ thể.',
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 16, color: Colors.black),
+                              style: TextStyle(
+                                fontSize: AppDimensions.textSizeM,
+                                color: AppColors.dark,
+                                height: 1.3,
+                              ),
                             ),
                           ],
                         ),
@@ -141,8 +143,8 @@ class _AgeSelectionScreenstate extends State<AgeSelectionWidget> {
                       Expanded(
                         child: Center(
                           child: SizedBox(
-                            height: 280,
-                            width: screenWidth * 0.9,
+                            height: AppDimensions.size280,
+                            width: AppDimensions.width * 0.9.w,
                             child: ListWheelScrollView.useDelegate(
                               controller: _scrollController,
                               itemExtent: 60,
@@ -170,21 +172,25 @@ class _AgeSelectionScreenstate extends State<AgeSelectionWidget> {
                                         width: isSelected ? 2 : 1,
                                       ),
                                       color: isSelected
-                                          ? const Color(0xFFDCEEFB)
+                                          ? AppColors.bLightHover
                                           : Colors.transparent,
-                                      borderRadius: BorderRadius.circular(30),
+                                      borderRadius: BorderRadius.circular(
+                                        AppDimensions.borderRadiusLarge,
+                                      ),
                                     ),
                                     child: Center(
                                       child: Text(
                                         '$year',
                                         style: TextStyle(
-                                          fontSize: isSelected ? 32 : 20,
+                                          fontSize: isSelected
+                                              ? AppDimensions.textSizeXXXL
+                                              : AppDimensions.textSizeL,
                                           fontWeight: isSelected
                                               ? FontWeight.bold
                                               : FontWeight.w500,
                                           color: isSelected
                                               ? AppColors.bNormal
-                                              : const Color(0xFF989DA1),
+                                              : AppColors.lighter,
                                         ),
                                       ),
                                     ),
@@ -196,41 +202,52 @@ class _AgeSelectionScreenstate extends State<AgeSelectionWidget> {
                         ),
                       ),
 
-                      SizedBox(height: 30),
+                      SizedBox(height: AppDimensions.spacingXL),
 
                       // Continue Button
                       Padding(
-                        padding: EdgeInsets.only(left: 24, bottom: 70, right: 24),
+                        padding: EdgeInsets.only(
+                          left: AppDimensions.paddingL,
+                          bottom: AppDimensions.size88 + 2.w,
+                          right: AppDimensions.paddingL,
+                        ),
                         child: SizedBox(
-                          width: AppDimensions.normal,
-                          height: AppDimensions.heightButton,
+                          width: AppDimensions.spacingWidthInfinite,
+                          height: AppDimensions.size48,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
+                                PageRouteBuilder(
+                                  pageBuilder: (_, __, ___) =>
                                       HeightSelectionWidget(
                                         gender: widget.gender,
-                                        age: DateTime
-                                            .now()
-                                            .year - (selectedYear ?? 1990),
+                                        age:
+                                            DateTime.now().year -
+                                            (selectedYear ?? 1990),
                                       ),
+                                  transitionsBuilder:
+                                      (_, animation, __, child) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: child,
+                                        );
+                                      },
                                 ),
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.buttonBGBottomGenderfocus,
+                              backgroundColor: AppColors.bNormal,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(
-                                  AppDimensions.circularM,
+                                  AppDimensions.borderRadiusLarge,
                                 ),
                               ),
                             ),
                             child: Text(
                               AppStrings.genderSelectionContinue,
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: AppDimensions.textSizeL,
                                 color: AppColors.wWhite,
                                 fontWeight: FontWeight.w600,
                               ),

@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/model/request/training/training_dynamic_search_request.dart';
@@ -8,10 +7,10 @@ import 'package:hit_tech/service/training_service.dart';
 import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
 import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_exercise_detail_widget.dart';
 import 'package:hit_tech/view/main_root/training_library/view/widgets/training_library_plan_detail_widget.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/constants/app_color.dart';
+import '../../../../../core/constants/app_dimension.dart';
 import '../../../../../model/response/training/training_exercise_response.dart';
 import '../../../../../model/response/training/training_plan_response.dart';
 import '../../../../../service/shared_preferences.dart';
@@ -33,24 +32,24 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
   String? _selectedLocation;
 
   List<String> goalCategoryNoActive = [
-    TrainingAssets.goalCategoryNoActive1,
-    TrainingAssets.goalCategoryNoActive2,
-    TrainingAssets.goalCategoryNoActive3,
-    TrainingAssets.goalCategoryNoActive4,
-    TrainingAssets.goalCategoryNoActive5,
-    TrainingAssets.goalCategoryNoActive6,
-    TrainingAssets.goalCategoryNoActive7,
-    TrainingAssets.goalCategoryNoActive8,
+    AppAssets.goalCategoryNoActive1,
+    AppAssets.goalCategoryNoActive2,
+    AppAssets.goalCategoryNoActive3,
+    AppAssets.goalCategoryNoActive4,
+    AppAssets.goalCategoryNoActive5,
+    AppAssets.goalCategoryNoActive6,
+    AppAssets.goalCategoryNoActive7,
+    AppAssets.goalCategoryNoActive8,
   ];
   List<String> goalCategoryActive = [
-    TrainingAssets.goalCategoryActive1,
-    TrainingAssets.goalCategoryActive2,
-    TrainingAssets.goalCategoryActive3,
-    TrainingAssets.goalCategoryActive4,
-    TrainingAssets.goalCategoryActive5,
-    TrainingAssets.goalCategoryActive6,
-    TrainingAssets.goalCategoryActive7,
-    TrainingAssets.goalCategoryActive8,
+    AppAssets.goalCategoryActive1,
+    AppAssets.goalCategoryActive2,
+    AppAssets.goalCategoryActive3,
+    AppAssets.goalCategoryActive4,
+    AppAssets.goalCategoryActive5,
+    AppAssets.goalCategoryActive6,
+    AppAssets.goalCategoryActive7,
+    AppAssets.goalCategoryActive8,
   ];
 
   List<TrainingPlanResponse> trainingPlanResponses = [];
@@ -169,30 +168,25 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
       body: Stack(
         children: [
           Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            top: 0.w,
+            left: 0.w,
+            right: 0.w,
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
 
           SafeArea(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height,
-                ),
+                constraints: BoxConstraints(minHeight: AppDimensions.height),
                 child: Stack(
                   children: [
                     Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
+                      top: 0.w,
+                      left: 0.w,
+                      right: 0.w,
                       child: Container(
-                        height: 100.sp,
+                        height: AppDimensions.size104,
                         color: AppColors.bNormal,
                       ),
                     ),
@@ -203,39 +197,41 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                           child: Material(
                             color: Colors.transparent,
                             child: Container(
-                              height: 48,
-                              margin: const EdgeInsets.only(
-                                left: 16,
-                                right: 16,
-                                top: 30,
+                              height: AppDimensions.size48,
+                              margin: EdgeInsets.only(
+                                left: AppDimensions.paddingM,
+                                right: AppDimensions.paddingM,
+                                top: AppDimensions.paddingXL,
                               ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: AppDimensions.paddingM,
                               ),
                               decoration: BoxDecoration(
-                                color: const Color(0xFFD3EDFF),
-                                borderRadius: BorderRadius.circular(30),
+                                color: AppColors.bLightHover,
+                                borderRadius: BorderRadius.circular(
+                                  AppDimensions.borderRadiusLarge,
+                                ),
                               ),
                               child: Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.search,
                                     color: AppColors.lightHover,
-                                    size: 20,
+                                    size: AppDimensions.iconSizeL,
                                   ),
-                                  const SizedBox(width: 8),
+                                  SizedBox(width: AppDimensions.spacingS),
                                   Expanded(
                                     child: TextField(
                                       decoration: InputDecoration(
                                         hintText:
                                             'Tìm kiếm bài tập, kế hoạch...',
-                                        hintStyle: const TextStyle(
+                                        hintStyle: TextStyle(
                                           color: AppColors.lightHover,
                                         ),
                                         border: InputBorder.none,
                                       ),
-                                      style: const TextStyle(
-                                        fontSize: 14,
+                                      style: TextStyle(
+                                        fontSize: AppDimensions.textSizeS,
                                         color: AppColors.dark,
                                       ),
                                       onSubmitted: _onSearch,
@@ -262,8 +258,8 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
 
           // Back Icon
           Positioned(
-            left: 0,
-            bottom: 30,
+            left: 0.w,
+            bottom: AppDimensions.size32,
             child: GestureDetector(
               onTap: () {
                 (_isSearched)
@@ -275,26 +271,28 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.horizontal(
-                    right: Radius.circular(20.sp),
+                    right: Radius.circular(AppDimensions.borderRadiusLarge),
                   ),
                   color: AppColors.bNormalActive,
                 ),
-                height: 45.sp,
-                width: 120.sp,
-                padding: EdgeInsets.symmetric(horizontal: 15.sp),
+                height: AppDimensions.size48,
+                width: AppDimensions.size120,
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingM,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Quay lại',
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: AppDimensions.textSizeS,
                         color: AppColors.wWhite,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Image.asset(
-                      TrainingAssets.backIcon,
+                      AppAssets.backIcon,
                       color: AppColors.wWhite,
                       scale: 0.9,
                     ),
@@ -312,7 +310,11 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
     return [
       if (_history.isNotEmpty)
         Padding(
-          padding: EdgeInsets.only(top: 35.sp, left: 16.sp, right: 16.sp),
+          padding: EdgeInsets.only(
+            top: AppDimensions.paddingXL,
+            left: AppDimensions.paddingM,
+            right: AppDimensions.paddingM,
+          ),
           child: Column(
             children: [
               Row(
@@ -321,7 +323,7 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                   Text(
                     'Tìm kiếm gần đây',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: AppDimensions.textSizeM,
                       color: AppColors.dark,
                       fontWeight: FontWeight.bold,
                     ),
@@ -330,12 +332,15 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                     onTap: _clearAllSearchHistory,
                     child: Text(
                       'Xóa hết',
-                      style: TextStyle(fontSize: 14, color: AppColors.bNormal),
+                      style: TextStyle(
+                        fontSize: AppDimensions.textSizeS,
+                        color: AppColors.bNormal,
+                      ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 10.sp),
+              SizedBox(height: AppDimensions.spacingSM),
               Align(
                 alignment: Alignment.centerLeft,
                 child: SingleChildScrollView(
@@ -348,16 +353,20 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                         InkWell(
                           onTap: () => _onSearch(_history[i]),
                           child: Container(
-                            margin: EdgeInsets.only(right: 10.sp),
-                            height: 40.sp,
+                            margin: EdgeInsets.only(
+                              right: AppDimensions.paddingS,
+                            ),
+                            height: AppDimensions.size40,
                             decoration: BoxDecoration(
-                              color: Color(0xffDADADA),
-                              borderRadius: BorderRadius.circular(10.sp),
+                              color: AppColors.wDark,
+                              borderRadius: BorderRadius.circular(
+                                AppDimensions.borderRadiusSmall,
+                              ),
                             ),
                             child: Padding(
                               padding: EdgeInsets.symmetric(
-                                horizontal: 10.sp,
-                                vertical: 10.sp,
+                                horizontal: AppDimensions.paddingS,
+                                vertical: AppDimensions.paddingS,
                               ),
                               child: Row(
                                 mainAxisAlignment:
@@ -367,10 +376,10 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                                     _history[i],
                                     style: TextStyle(
                                       color: AppColors.dark,
-                                      fontSize: 14,
+                                      fontSize: AppDimensions.textSizeS,
                                     ),
                                   ),
-                                  SizedBox(width: 10.sp),
+                                  SizedBox(width: AppDimensions.spacingS),
                                   GestureDetector(
                                     onTap: () {
                                       _removeSearchHistory(_history[i]);
@@ -378,7 +387,7 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                                     child: Icon(
                                       Icons.close,
                                       color: Colors.red,
-                                      size: 14.sp,
+                                      size: AppDimensions.iconSizeS,
                                     ),
                                   ),
                                 ],
@@ -397,9 +406,11 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
       // Equipment
       Padding(
         padding: EdgeInsets.only(
-          top: _history.isEmpty ? 40.sp : 20.sp,
-          left: 16.sp,
-          right: 16.sp,
+          top: _history.isEmpty
+              ? AppDimensions.paddingXXL
+              : AppDimensions.paddingM,
+          left: AppDimensions.paddingM,
+          right: AppDimensions.paddingM,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -407,12 +418,12 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
             Text(
               'Dụng cụ luyện tập',
               style: TextStyle(
-                fontSize: 16.sp,
+                fontSize: AppDimensions.textSizeM,
                 color: AppColors.dark,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10.sp),
+            SizedBox(height: AppDimensions.spacingSM),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Column(
@@ -425,7 +436,7 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                       _buildEquipmentCategory('Đầy đủ thiết bị gym'),
                     ],
                   ),
-                  SizedBox(height: 8.sp),
+                  SizedBox(height: AppDimensions.spacingS),
                   Row(
                     children: [
                       _buildEquipmentCategory('Thảm tập'),
@@ -443,14 +454,18 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
 
       // Goal
       Padding(
-        padding: EdgeInsets.only(top: 20.sp, left: 16.sp, right: 16.sp),
+        padding: EdgeInsets.only(
+          top: AppDimensions.paddingM,
+          left: AppDimensions.paddingM,
+          right: AppDimensions.paddingM,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Mục tiêu',
               style: TextStyle(
-                fontSize: 16.sp,
+                fontSize: AppDimensions.textSizeM,
                 color: AppColors.dark,
                 fontWeight: FontWeight.bold,
               ),
@@ -463,23 +478,23 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                     children: [
                       _buildGoalCategory(
                         'Giảm cân /\nGiảm mỡ',
-                        TrainingAssets.goalCategoryNoActive1,
-                        TrainingAssets.goalCategoryActive1,
+                        AppAssets.goalCategoryNoActive1,
+                        AppAssets.goalCategoryActive1,
                       ),
                       _buildGoalCategory(
                         'Tăng cân',
-                        TrainingAssets.goalCategoryNoActive2,
-                        TrainingAssets.goalCategoryActive2,
+                        AppAssets.goalCategoryNoActive2,
+                        AppAssets.goalCategoryActive2,
                       ),
                       _buildGoalCategory(
                         'Tăng cơ',
-                        TrainingAssets.goalCategoryNoActive3,
-                        TrainingAssets.goalCategoryActive3,
+                        AppAssets.goalCategoryNoActive3,
+                        AppAssets.goalCategoryActive3,
                       ),
                       _buildGoalCategory(
                         'Duy trì\nvóc dáng',
-                        TrainingAssets.goalCategoryNoActive4,
-                        TrainingAssets.goalCategoryActive4,
+                        AppAssets.goalCategoryNoActive4,
+                        AppAssets.goalCategoryActive4,
                       ),
                     ],
                   ),
@@ -487,23 +502,23 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                     children: [
                       _buildGoalCategory(
                         'Tăng sức\nbền',
-                        TrainingAssets.goalCategoryNoActive5,
-                        TrainingAssets.goalCategoryActive5,
+                        AppAssets.goalCategoryNoActive5,
+                        AppAssets.goalCategoryActive5,
                       ),
                       _buildGoalCategory(
                         'Cải thiện\ntim mạch',
-                        TrainingAssets.goalCategoryNoActive6,
-                        TrainingAssets.goalCategoryActive6,
+                        AppAssets.goalCategoryNoActive6,
+                        AppAssets.goalCategoryActive6,
                       ),
                       _buildGoalCategory(
                         'Giảm stress,\nthư giãn',
-                        TrainingAssets.goalCategoryNoActive7,
-                        TrainingAssets.goalCategoryActive7,
+                        AppAssets.goalCategoryNoActive7,
+                        AppAssets.goalCategoryActive7,
                       ),
                       _buildGoalCategory(
                         'Tăng chiều\ncao',
-                        TrainingAssets.goalCategoryNoActive8,
-                        TrainingAssets.goalCategoryActive8,
+                        AppAssets.goalCategoryNoActive8,
+                        AppAssets.goalCategoryActive8,
                       ),
                     ],
                   ),
@@ -516,31 +531,44 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
 
       // Level
       Padding(
-        padding: EdgeInsets.only(top: 20.sp, left: 16.sp, right: 16.sp),
+        padding: EdgeInsets.only(
+          top: AppDimensions.paddingM,
+          left: AppDimensions.paddingM,
+          right: AppDimensions.paddingM,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Kinh nghiệm',
               style: TextStyle(
-                fontSize: 16.sp,
+                fontSize: AppDimensions.textSizeM,
                 color: AppColors.dark,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10.sp),
-            Row(
-              children: [
-                _buildLevelCategory(
-                  'Mới bắt đầu',
-                  TrainingAssets.levelHorizontal1,
-                ),
-                _buildLevelCategory('Cơ bản', TrainingAssets.levelHorizontal2),
-                _buildLevelCategory(
-                  'Nâng cao',
-                  TrainingAssets.levelHorizontal3,
-                ),
-              ],
+            SizedBox(height: AppDimensions.spacingSM),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  _buildLevelCategory(
+                    'Mới bắt đầu',
+                    AppAssets.levelHorizontal1,
+                    AppAssets.levelHorizontalActive1,
+                  ),
+                  _buildLevelCategory(
+                    'Cơ bản',
+                    AppAssets.levelHorizontal2,
+                    AppAssets.levelHorizontalActive2,
+                  ),
+                  _buildLevelCategory(
+                    'Nâng cao',
+                    AppAssets.levelHorizontal3,
+                    AppAssets.levelHorizontalActive3,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -548,42 +576,46 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
 
       // Location
       Padding(
-        padding: EdgeInsets.only(top: 20.sp, left: 16.sp, right: 16.sp),
+        padding: EdgeInsets.only(
+          top: AppDimensions.paddingM,
+          left: AppDimensions.paddingM,
+          right: AppDimensions.paddingM,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Nơi tập',
               style: TextStyle(
-                fontSize: 16.sp,
+                fontSize: AppDimensions.textSizeM,
                 color: AppColors.dark,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10.sp),
+            SizedBox(height: AppDimensions.spacingSM),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
                   _buildLocationCategory(
                     'Tại nhà',
-                    TrainingAssets.locationHomeSelected,
-                    TrainingAssets.locationHome,
+                    AppAssets.locationHomeSelected,
+                    AppAssets.locationHomeActive,
                   ),
                   _buildLocationCategory(
                     'Ngoài trời',
-                    TrainingAssets.locationOutSideSelected,
-                    TrainingAssets.locationOutSide,
+                    AppAssets.locationOutSideSelected,
+                    AppAssets.locationOutSideActive,
                   ),
                   _buildLocationCategory(
                     'Phòng gym',
-                    TrainingAssets.locationGymSelected,
-                    TrainingAssets.locationGym,
+                    AppAssets.locationGymSelected,
+                    AppAssets.locationGymActive,
                   ),
                   _buildLocationCategory(
                     'Mọi nơi',
-                    TrainingAssets.locationAnywhereSelected,
-                    TrainingAssets.locationAnywhere,
+                    AppAssets.locationAnywhereSelected,
+                    AppAssets.locationAnywhereActive,
                   ),
                 ],
               ),
@@ -600,7 +632,11 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
   ) {
     return [
       Padding(
-        padding: EdgeInsets.only(top: 35.sp, left: 16.sp, right: 16.sp),
+        padding: EdgeInsets.only(
+          top: AppDimensions.paddingXL,
+          left: AppDimensions.paddingM,
+          right: AppDimensions.paddingM,
+        ),
         child: Column(
           children: [
             SingleChildScrollView(
@@ -611,15 +647,17 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                 ],
               ),
             ),
-            SizedBox(height: 20.sp,),
+            SizedBox(height: AppDimensions.spacingML),
             SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(
                 decoration: BoxDecoration(
                   color: AppColors.wWhite,
-                  borderRadius: BorderRadius.circular(30.sp)
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.borderRadiusLarge,
+                  ),
                 ),
-                padding: EdgeInsets.all(12.sp),
+                padding: EdgeInsets.all(AppDimensions.spacingSM),
                 child: Column(
                   children: [
                     ...List.generate(e.length, (index) {
@@ -629,7 +667,7 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                 ),
               ),
             ),
-            SizedBox(height: 100.sp,)
+            SizedBox(height: AppDimensions.size104),
           ],
         ),
       ),
@@ -650,9 +688,9 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
         });
       },
       child: Container(
-        height: 40.sp,
+        height: AppDimensions.size40,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.sp),
+          borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
           color: isSelected ? AppColors.bNormal : AppColors.wWhite,
           boxShadow: [
             BoxShadow(
@@ -663,13 +701,16 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
             ),
           ],
         ),
-        margin: EdgeInsets.only(right: 10.sp),
+        margin: EdgeInsets.only(right: AppDimensions.paddingS),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 10.sp),
+          padding: EdgeInsets.symmetric(
+            horizontal: AppDimensions.paddingM,
+            vertical: AppDimensions.paddingS + 2.w,
+          ),
           child: Text(
             text,
             style: TextStyle(
-              fontSize: 14.sp,
+              fontSize: AppDimensions.textSizeS,
               color: isSelected ? AppColors.wWhite : AppColors.dark,
               fontWeight: FontWeight.w500,
             ),
@@ -697,15 +738,15 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
         });
       },
       child: Container(
-        height: 90.sp,
-        width: 170.sp,
+        height: AppDimensions.size88,
+        width: AppDimensions.size168,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.sp),
-          color: AppColors.bgHealthInfor,
+          borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
+          color: AppColors.wLightActive,
         ),
-        margin: EdgeInsets.only(right: 10.sp),
+        margin: EdgeInsets.only(right: AppDimensions.spacingSM),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(10.sp),
+          borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
           child: Stack(
             children: [
               // ảnh nền
@@ -720,11 +761,14 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 10.sp, top: 10.sp),
+                  padding: EdgeInsets.only(
+                    left: AppDimensions.spacingM,
+                    top: AppDimensions.spacingM,
+                  ),
                   child: Text(
                     text,
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: AppDimensions.textSizeS,
                       color: isSelected ? AppColors.wWhite : AppColors.dark,
                       fontWeight: FontWeight.w500,
                     ),
@@ -738,7 +782,11 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
     );
   }
 
-  Widget _buildLevelCategory(String text, String image) {
+  Widget _buildLevelCategory(
+    String text,
+    String imageNotActive,
+    String imageActive,
+  ) {
     bool isSelected = _selectedLevel == text;
 
     return GestureDetector(
@@ -752,10 +800,10 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
         });
       },
       child: Container(
-        height: 70.sp,
+        height: AppDimensions.size72,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.sp),
-          color: Colors.white,
+          borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
+          color: (isSelected) ? AppColors.bNormal : AppColors.wWhite,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
@@ -764,23 +812,20 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
               offset: Offset(0, 1),
             ),
           ],
-          border: isSelected
-              ? Border.all(color: AppColors.bNormal, width: 2)
-              : null,
         ),
-        margin: EdgeInsets.only(right: 10.sp),
+        margin: EdgeInsets.only(right: AppDimensions.paddingM),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.sp),
+          padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingL),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(image),
-              SizedBox(height: 10.sp),
+              Image.asset(isSelected ? imageActive : imageNotActive),
+              SizedBox(height: AppDimensions.spacingSM),
               Text(
                 text,
                 style: TextStyle(
-                  fontSize: 14.sp,
-                  color: AppColors.dark,
+                  fontSize: AppDimensions.textSizeS,
+                  color: isSelected ? AppColors.wWhite : AppColors.dark,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -809,9 +854,9 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
         });
       },
       child: Container(
-        height: 50.sp,
+        height: AppDimensions.size48,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.sp),
+          borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
           color: isSelected ? AppColors.bNormal : AppColors.wWhite,
           boxShadow: [
             BoxShadow(
@@ -822,18 +867,18 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
             ),
           ],
         ),
-        margin: EdgeInsets.only(right: 10.sp),
+        margin: EdgeInsets.only(right: AppDimensions.paddingS),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.sp),
+          padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingS),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(isSelected ? imageActive : imageNoActive),
-              SizedBox(width: 10.sp),
+              SizedBox(width: AppDimensions.spacingSM),
               Text(
                 text,
                 style: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: AppDimensions.textSizeS,
                   color: isSelected ? AppColors.wWhite : AppColors.dark,
                   fontWeight: FontWeight.w500,
                 ),
@@ -847,13 +892,13 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
 
   Widget _buildTrainingPlanResult(TrainingPlanResponse plan) {
     return Container(
-      width: 300,
-      height: 180,
-      margin: const EdgeInsets.only(right: 16),
+      width: AppDimensions.size304,
+      height: AppDimensions.size184,
+      margin: EdgeInsets.only(right: AppDimensions.paddingM),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
         image: DecorationImage(
-          image: AssetImage(TrainingAssets.trainingPlan1),
+          image: AssetImage(AppAssets.trainingPlan1),
           fit: BoxFit.cover,
         ),
       ),
@@ -863,7 +908,7 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
                 gradient: LinearGradient(
                   colors: [Colors.transparent, Colors.black.withOpacity(0.4)],
                   begin: Alignment.topCenter,
@@ -874,7 +919,7 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
           ),
           // Nội dung
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(AppDimensions.paddingM),
             child: Stack(
               children: [
                 // Bên dưới (nút ở góc phải)
@@ -892,14 +937,14 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.lightHover.withOpacity(0.6),
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingS),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
+                        borderRadius: BorderRadius.circular(AppDimensions.borderRadiusLarge),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'Bắt đầu',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: AppDimensions.textSizeS),
                     ),
                   ),
                 ),
@@ -912,18 +957,18 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                     children: [
                       Text(
                         plan.name,
-                        style: const TextStyle(
-                          fontSize: 20,
+                        style: TextStyle(
+                          fontSize: AppDimensions.textSizeL,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: AppColors.wWhite,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: AppDimensions.size4),
                       SizedBox(
-                        width: 180,
+                        width: AppDimensions.size184,
                         child: Text(
                           plan.description,
-                          style: TextStyle(fontSize: 12, color: Colors.white70),
+                          style: TextStyle(fontSize: AppDimensions.textSizeXS, color: AppColors.wDark),
                         ),
                       ),
                     ],
@@ -941,7 +986,7 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
     required TrainingExercisePreviewResponse exercise,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: EdgeInsets.symmetric(vertical: AppDimensions.paddingS),
       child: GestureDetector(
         onTap: () async {
           showDialog(
@@ -975,10 +1020,9 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
           decoration: BoxDecoration(color: Colors.transparent),
           child: Row(
             children: [
-              Container(
-                height: 60,
-                width: 110,
-                color: Colors.grey.shade300,
+              SizedBox(
+                height: AppDimensions.size64,
+                width: AppDimensions.size112,
                 child: exercise.imageURL == null
                     ? const Icon(Icons.image, color: Colors.grey)
                     : CachedNetworkImage(
@@ -990,7 +1034,7 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                             const Icon(Icons.broken_image, color: Colors.red),
                       ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: AppDimensions.spacingSM),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -999,11 +1043,11 @@ class _TrainingLibrarySearchState extends State<TrainingLibrarySearch> {
                       exercise.name,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                        fontSize: 16.sp,
+                        color: AppColors.dark,
+                        fontSize: AppDimensions.textSizeM,
                       ),
                     ),
-                    SizedBox(height: 10.sp),
+                    SizedBox(height: AppDimensions.spacingS),
                     Text(
                       exercise.levelName,
                       style: const TextStyle(color: AppColors.bNormal),

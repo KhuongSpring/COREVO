@@ -40,16 +40,16 @@ class _TrainingTypeSelectionState extends State<TrainingTypeSelectionWidget> {
         children: [
           // Ảnh nền
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
 
           Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: 50, right: 70),
+                padding: EdgeInsets.only(
+                  top: AppDimensions.size48,
+                  right: AppDimensions.size72,
+                ),
                 child: Row(
                   children: [
                     IconButton(
@@ -59,10 +59,10 @@ class _TrainingTypeSelectionState extends State<TrainingTypeSelectionWidget> {
                         color: AppColors.bNormal,
                       ),
                     ),
-                    SizedBox(width: 35),
+                    SizedBox(width: AppDimensions.spacingXL),
                     Expanded(
                       child: Container(
-                        height: 7,
+                        height: AppDimensions.size8,
                         decoration: BoxDecoration(
                           color: AppColors.moreLighter,
                           borderRadius: BorderRadius.circular(
@@ -92,10 +92,12 @@ class _TrainingTypeSelectionState extends State<TrainingTypeSelectionWidget> {
                   ],
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: AppDimensions.spacingXL),
               // Header
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                margin: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingM,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.bLightHover,
                   borderRadius: BorderRadius.circular(
@@ -105,30 +107,35 @@ class _TrainingTypeSelectionState extends State<TrainingTypeSelectionWidget> {
                 child: Row(
                   children: [
                     Container(
-                      width: 20.0,
-                      height: 90.0,
+                      width: AppDimensions.size16,
+                      height: AppDimensions.size88,
                       decoration: BoxDecoration(color: AppColors.bLightActive2),
                     ),
-                    const SizedBox(width: 20.0),
+                    SizedBox(width: AppDimensions.size16),
                     Expanded(
                       child: Text(
                         'Thể loại mà bạn ưa thích\nlà gì?',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: AppDimensions.textSizeXL,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.darkActive,
+                          color: AppColors.dark,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: AppDimensions.spacingXXL),
 
               // Item list
               Expanded(
                 child: ListView.builder(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 150),
+                  padding: EdgeInsets.fromLTRB(
+                    AppDimensions.paddingM,
+                    0,
+                    AppDimensions.paddingM,
+                    AppDimensions.size152,
+                  ),
                   itemCount: options.length,
                   itemBuilder: (context, index) {
                     final option = options[index];
@@ -139,21 +146,21 @@ class _TrainingTypeSelectionState extends State<TrainingTypeSelectionWidget> {
                         selectedIndex = isSelected ? null : index;
                       }),
                       child: Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        padding: const EdgeInsets.all(12),
-                        height: 80,
+                        margin: EdgeInsets.only(bottom: AppDimensions.paddingM),
+                        padding: EdgeInsets.all(AppDimensions.paddingM),
+                        height: AppDimensions.size96,
                         decoration: BoxDecoration(
-                          color: isSelected
+                          color: selectedIndex == index
                               ? AppColors.bLightHover
                               : AppColors.wWhite,
                           borderRadius: BorderRadius.circular(
                             AppDimensions.borderRadiusSmall,
                           ),
                           border: Border.all(
-                            color: isSelected
+                            color: selectedIndex == index
                                 ? AppColors.bNormal
-                                : Colors.grey.shade300,
-                            width: isSelected ? 2 : 1,
+                                : AppColors.wWhite,
+                            width: selectedIndex == index ? 2 : 1,
                           ),
                           boxShadow: [
                             BoxShadow(
@@ -165,22 +172,22 @@ class _TrainingTypeSelectionState extends State<TrainingTypeSelectionWidget> {
                         ),
                         child: Row(
                           children: [
-                            SizedBox(width: 20),
+                            SizedBox(width: AppDimensions.spacingML),
                             Image.asset(
                               isSelected
                                   ? typeImagesSelected[option] ??
-                                        TrainingAssets.defaultImage
+                                        AppAssets.defaultImage
                                   : typeImages[option] ??
-                                        TrainingAssets.defaultImage,
-                              width: 40,
-                              height: 40,
+                                        AppAssets.defaultImage,
+                              width: AppDimensions.size40,
+                              height: AppDimensions.size40,
                             ),
-                            SizedBox(width: 20),
+                            SizedBox(width: AppDimensions.spacingML),
                             Expanded(
                               child: Text(
                                 option,
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: AppDimensions.textSizeL,
                                   color: isSelected
                                       ? AppColors.bNormal
                                       : AppColors.darkActive,
@@ -189,17 +196,19 @@ class _TrainingTypeSelectionState extends State<TrainingTypeSelectionWidget> {
                               ),
                             ),
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(
+                                AppDimensions.borderRadiusSmall,
+                              ),
                               child: Image.asset(
-                                isSelected
-                                    ? TrainingAssets.tickActive
-                                    : TrainingAssets.tickNonActive,
-                                width: 20,
-                                height: 20,
+                                selectedIndex == index
+                                    ? AppAssets.tickActive
+                                    : AppAssets.tickNonActive,
+                                width: AppDimensions.iconSizeL,
+                                height: AppDimensions.iconSizeL,
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(width: 10),
+                            SizedBox(width: AppDimensions.spacingSM),
                           ],
                         ),
                       ),
@@ -228,17 +237,22 @@ class _TrainingTypeSelectionState extends State<TrainingTypeSelectionWidget> {
 
           // Button "Tiếp tục" nổi lên trên cùng
           Positioned(
-            left: 16,
-            right: 16,
-            bottom: 70,
+            left: AppDimensions.paddingM,
+            right: AppDimensions.paddingM,
+            bottom: AppDimensions.size72,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: selectedIndex != null
                     ? AppColors.bNormal
                     : AppColors.bLightNotActive,
-                minimumSize: const Size(double.infinity, 60),
+                minimumSize: Size(
+                  AppDimensions.spacingWidthInfinite,
+                  AppDimensions.size56,
+                ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.borderRadiusLarge,
+                  ),
                 ),
               ),
               onPressed: selectedIndex != null
@@ -264,13 +278,19 @@ class _TrainingTypeSelectionState extends State<TrainingTypeSelectionWidget> {
 
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) =>
+                          PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
                                 TrainingFrequencySelectionWidget(
                                   nextStep: response.nextStep,
                                   selectedValues: selectedValues,
                                   options: response.options,
                                 ),
+                            transitionsBuilder: (_, animation, __, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
                           ),
                         );
                       } catch (e) {
@@ -281,7 +301,7 @@ class _TrainingTypeSelectionState extends State<TrainingTypeSelectionWidget> {
               child: Text(
                 "Tiếp tục",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: AppDimensions.textSizeL,
                   color: selectedIndex != null
                       ? AppColors.wWhite
                       : AppColors.wDark,
@@ -295,16 +315,16 @@ class _TrainingTypeSelectionState extends State<TrainingTypeSelectionWidget> {
   }
 
   final Map<String, String> typeImages = {
-    "Yoga": TrainingAssets.yoga,
-    "Calisthenic": TrainingAssets.calisthenic,
-    "Gym": TrainingAssets.gym,
-    "Cardio": TrainingAssets.cardio,
+    "Yoga": AppAssets.yoga,
+    "Calisthenic": AppAssets.calisthenic,
+    "Gym": AppAssets.gym,
+    "Cardio": AppAssets.cardio,
   };
 
   final Map<String, String> typeImagesSelected = {
-    "Yoga": TrainingAssets.yogaSelected,
-    "Calisthenic": TrainingAssets.calisthenicSelected,
-    "Gym": TrainingAssets.gymSelected,
-    "Cardio": TrainingAssets.cardioSelected,
+    "Yoga": AppAssets.yogaSelected,
+    "Calisthenic": AppAssets.calisthenicSelected,
+    "Gym": AppAssets.gymSelected,
+    "Cardio": AppAssets.cardioSelected,
   };
 }

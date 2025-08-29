@@ -1,13 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:hit_tech/core/constants/api_endpoint.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/core/constants/app_message.dart';
 import 'package:hit_tech/core/constants/app_string.dart';
 import 'package:hit_tech/model/request/auth/oauth2_google_request.dart';
@@ -16,22 +13,18 @@ import 'package:hit_tech/utils/validator_util.dart';
 import 'package:hit_tech/view/auth/recovery_account_screen.dart';
 import 'package:hit_tech/view/auth/register_screen.dart';
 import 'package:hit_tech/view/auth/widgets/recover_account_popup.dart';
-import 'package:hit_tech/view/main_root/home/home_screen.dart';
 import 'package:hit_tech/view/main_root/home_root.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
 import 'package:hit_tech/view/auth/widgets/auth_custom_button.dart';
 import 'package:hit_tech/view/auth/widgets/button_gg_fb_auth.dart';
 import 'package:hit_tech/view/auth/widgets/custom_input_field.dart';
 import 'package:hit_tech/view/auth/widgets/text_bottom_auth.dart';
-import 'package:hit_tech/view/personal_health/widget/gender_selection_widget.dart';
 import 'package:hit_tech/view/training_flow/training_flow_start_page.dart';
 import 'package:hit_tech/view/welcome_screen.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../core/constants/app_assets.dart';
 import '../../../service/auth_service.dart';
 import '../../model/request/auth/login_request.dart';
-import '../training_flow/widget/training_goal_selection_widget.dart';
 import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -261,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       }
     } catch (e) {
-      print("❌ Google login failed: $e");
+      print("Google login failed: $e");
     }
   }
 
@@ -277,30 +270,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.wWhite,
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.authBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.authBackground, fit: BoxFit.cover),
           ),
           SingleChildScrollView(
             child: Form(
               key: _formKey,
               child: Column(
                 children: [
-                  SizedBox(height: 80.sp),
+                  SizedBox(height: AppDimensions.size80),
                   // Header
                   Center(
                     child: Text(
                       AppStrings.login,
                       style: TextStyle(
-                        fontSize: 34,
+                        fontSize: AppDimensions.textSizeXXXL,
                         fontWeight: FontWeight.w600,
                         color: AppColors.dark,
                       ),
@@ -309,23 +297,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   // Form Content
                   Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: EdgeInsets.all(AppDimensions.paddingL),
                     child: Column(
                       children: [
-                        SizedBox(height: 30.sp),
+                        SizedBox(height: AppDimensions.spacingML),
                         // Username Field
                         CustomInputField(
                           isPassword: true,
-                          hintStyle: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
+                          hintStyle: TextStyle(
+                            color: AppColors.lightHover,
+                            fontSize: AppDimensions.textSizeM,
                           ),
-                          width: screenWidth * 0.9,
-                          height: 64,
+                          width: AppDimensions.width * 0.9.w,
+                          height: AppDimensions.size64,
                           controller: _usernameController,
                           title: AppStrings.username,
-                          borderRadius: 12,
-                          borderColor: Colors.grey[400],
+                          borderRadius: AppDimensions.borderRadius,
+                          borderColor: AppColors.moreLighter,
                           focusedBorderColor: AppColors.bNormal,
                           validator: ValidatorUtil.validateUsername,
                           onChanged: (value) {
@@ -333,21 +321,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
 
-                        const SizedBox(height: 24),
+                        SizedBox(height: AppDimensions.spacingM),
 
                         // Password Field
                         CustomInputField(
                           isPassword: true,
-                          hintStyle: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
+                          hintStyle: TextStyle(
+                            color: AppColors.lightHover,
+                            fontSize: AppDimensions.textSizeM,
                           ),
-                          width: screenWidth * 0.9,
-                          height: 64,
+                          width: AppDimensions.width * 0.9.w,
+                          height: AppDimensions.size64,
                           controller: _passwordController,
                           title: AppStrings.password,
-                          borderRadius: 12,
-                          borderColor: Colors.grey[400],
+                          borderRadius: AppDimensions.borderRadius,
+                          borderColor: AppColors.moreLighter,
                           focusedBorderColor: AppColors.bNormal,
                           obscureText: !_isPasswordVisible,
                           validator: ValidatorUtil.validatePassword,
@@ -356,7 +344,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               _isPasswordVisible
                                   ? Icons.visibility
                                   : Icons.visibility_off,
-                              color: Colors.grey[600],
+                              color: AppColors.moreLighter,
                             ),
                             onPressed: () {
                               setState(() {
@@ -369,7 +357,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
 
-                        const SizedBox(height: 16),
+                        SizedBox(height: AppDimensions.spacingM),
 
                         // Remember Me & Forgot Password
                         Row(
@@ -377,34 +365,35 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Row(
                               children: [
-                                Container(
-                                  width: 18,
-                                  height: 18,
+                                SizedBox(
+                                  width: AppDimensions.size24,
+                                  height: AppDimensions.size24,
                                   child: Checkbox(
-                                    checkColor: Colors.white,
+                                    checkColor: AppColors.wWhite,
                                     activeColor: AppColors.bNormal,
                                     value: _rememberMe,
                                     onChanged: (v) => setState(
                                       () => _rememberMe = v ?? false,
                                     ),
-                                    // activeColor: AppColors.primaryAppColor,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4),
+                                      borderRadius: BorderRadius.circular(
+                                        AppDimensions.borderRadiusTiny,
+                                      ),
                                     ),
                                     side: BorderSide(
                                       color: AppColors.bNormal,
-                                      width: 2,
+                                      width: 2.w,
                                     ),
                                     materialTapTargetSize:
                                         MaterialTapTargetSize.shrinkWrap,
                                   ),
                                 ),
-                                SizedBox(width: 8),
+                                SizedBox(width: AppDimensions.spacingS),
                                 Text(
                                   'Ghi nhớ đăng nhập',
                                   style: TextStyle(
-                                    color: Colors.grey[600],
-                                    fontSize: 16,
+                                    color: AppColors.lightHover,
+                                    fontSize: AppDimensions.textSizeM,
                                   ),
                                 ),
                               ],
@@ -424,7 +413,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 AppStrings.forgotPassword,
                                 style: TextStyle(
                                   color: AppColors.bNormal,
-                                  fontSize: 16,
+                                  fontSize: AppDimensions.textSizeM,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -432,7 +421,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
 
-                        SizedBox(height: 40.sp),
+                        SizedBox(height: AppDimensions.spacingXXL),
 
                         // Login Button
                         AuthCustomButton(
@@ -440,28 +429,26 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: _handleLogin,
                         ),
 
-                        const SizedBox(height: 40),
+                        SizedBox(height: AppDimensions.spacingXXL),
 
                         // Divider
                         DividerWithText(text: AppStrings.orLoginWith),
 
-                        SizedBox(height: 40.sp),
+                        SizedBox(height: AppDimensions.spacingXXL),
 
                         // Social Login Buttons
                         ButtonGgFbAuth(
-                          image: Image(
-                            image: AssetImage(TrainingAssets.googleIcon),
-                          ),
-                          width: screenWidth * 0.7.sp,
+                          image: Image(image: AssetImage(AppAssets.googleIcon)),
+                          width: AppDimensions.width * 0.7.w,
                           text: 'Tiếp tục với Google',
                           onPressed: _handleLoginWithGoogle,
                         ),
-                        SizedBox(height: 18.sp),
+                        SizedBox(height: AppDimensions.spacingM),
                         ButtonGgFbAuth(
                           image: Image(
-                            image: AssetImage(TrainingAssets.facebookIcon),
+                            image: AssetImage(AppAssets.facebookIcon),
                           ),
-                          width: screenWidth * 0.7.sp,
+                          width: AppDimensions.width * 0.7.w,
                           text: 'Tiếp tục với Facebook',
                           onPressed: () {
                             // Handle Facebook login
@@ -469,7 +456,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
 
-                        SizedBox(height: 30.sp),
+                        SizedBox(height: AppDimensions.spacingXL),
 
                         // Register Link
                         Row(
@@ -478,11 +465,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             Text(
                               AppStrings.dontHaveAccount,
                               style: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 16,
+                                color: AppColors.lightHover,
+                                fontSize: AppDimensions.textSizeM,
                               ),
                             ),
-                            SizedBox(width: 4),
+                            SizedBox(width: 4.w),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -496,14 +483,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 AppStrings.register,
                                 style: TextStyle(
                                   color: AppColors.bNormal,
-                                  fontSize: 16,
+                                  fontSize: AppDimensions.textSizeM,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 31),
+                        SizedBox(height: AppDimensions.spacingXL),
                       ],
                     ),
                   ),

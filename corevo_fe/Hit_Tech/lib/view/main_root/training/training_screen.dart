@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/utils/mapping_training_resource_helper.dart';
 import 'package:hit_tech/utils/training_day_image_data.dart';
 import 'package:hit_tech/view/main_root/training/training_day_detail_screen.dart';
@@ -80,7 +81,6 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width.sp;
     final UserProfileResponse user = widget.userProfileResponse;
     final List<TrainingScheduleResponse> schedules = widget.schedules;
     final List<DateTime> days = getWeekDates(DateTime.now());
@@ -103,25 +103,29 @@ class _TrainingScreenState extends State<TrainingScreen> {
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppDimensions.paddingM,
+                vertical: AppDimensions.spacingSM,
+              ),
               child: ListView(
                 children: [
-                  SizedBox(height: 20.sp),
+                  SizedBox(height: AppDimensions.spacingML),
                   // Medal selector row
                   Container(
-                    height: 100,
+                    height: AppDimensions.size104,
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
+                      color: AppColors.wWhite,
+                      borderRadius: BorderRadius.circular(
+                        AppDimensions.borderRadius,
+                      ),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppDimensions.spacingSM,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: List.generate(days.length, (index) {
@@ -153,43 +157,45 @@ class _TrainingScreenState extends State<TrainingScreen> {
                         switch (status) {
                           case 1:
                             bgColor = Colors.transparent;
-                            iconAsset = TrainingAssets.prizeActiveIcon;
+                            iconAsset = AppAssets.prizeActiveIcon;
                             textColor = AppColors.bNormal;
                             break;
                           case 2:
                             bgColor = AppColors.prizeSelected;
-                            iconAsset = TrainingAssets.prizeTodayIcon;
+                            iconAsset = AppAssets.prizeTodayIcon;
                             textColor = AppColors.bNormal;
                             break;
                           case 3:
                             bgColor = Colors.transparent;
-                            iconAsset = TrainingAssets.prizeNotActiveIcon;
+                            iconAsset = AppAssets.prizeNotActiveIcon;
                             textColor = const Color(0xffb6abab);
                             break;
                           case 4:
                             bgColor = AppColors.prizeSelected;
-                            iconAsset = TrainingAssets.prizeActiveIcon;
+                            iconAsset = AppAssets.prizeActiveIcon;
                             textColor = AppColors.bNormal;
                             break;
                           default:
                             bgColor = Colors.transparent;
-                            iconAsset = TrainingAssets.prizeNotActiveIcon;
+                            iconAsset = AppAssets.prizeNotActiveIcon;
                             textColor = const Color(0xffb6abab);
                             break;
                         }
 
                         return Container(
-                          width: 45,
-                          height: 70,
+                          width: AppDimensions.size48,
+                          height: AppDimensions.size72,
                           decoration: BoxDecoration(
                             color: bgColor,
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(
+                              AppDimensions.borderRadiusSmall,
+                            ),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(iconAsset),
-                              SizedBox(height: 5),
+                              SizedBox(height: AppDimensions.size4),
                               Text(
                                 '${days[index].day}',
                                 style: TextStyle(color: textColor),
@@ -201,7 +207,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 16),
+                  SizedBox(height: AppDimensions.spacingM),
 
                   // Toggle buttons
                   Row(
@@ -212,7 +218,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                     ],
                   ),
 
-                  const SizedBox(height: 25),
+                  SizedBox(height: AppDimensions.spacingL),
                   selectedIndex == 0
                       ? _buildTab1(
                           user,
@@ -222,7 +228,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                           trainingDayShapeImage,
                         )
                       : _buildTab2(),
-                  SizedBox(height: 150),
+                  SizedBox(height: AppDimensions.size104),
                 ],
               ),
             ),
@@ -242,22 +248,22 @@ class _TrainingScreenState extends State<TrainingScreen> {
         });
       },
       child: AnimatedContainer(
-        width:
-            MediaQuery.of(context).size.width *
-            (selectedIndex == index ? 0.5 : 0.40),
-        height: selectedIndex == index ? 50 : 45,
+        width: AppDimensions.width * (selectedIndex == index ? 0.5.w : 0.40.w),
+        height: selectedIndex == index
+            ? AppDimensions.size48
+            : AppDimensions.size40,
         duration: const Duration(milliseconds: 250),
         decoration: BoxDecoration(
           color: isSelected ? AppColors.bNormal : AppColors.bLightActive,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
         ),
         alignment: Alignment.center,
         child: Text(
           text,
           style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black,
+            color: isSelected ? AppColors.wWhite : AppColors.dark,
             fontWeight: FontWeight.bold,
-            fontSize: 14,
+            fontSize: AppDimensions.textSizeS,
           ),
         ),
       ),
@@ -276,23 +282,26 @@ class _TrainingScreenState extends State<TrainingScreen> {
       children: [
         // Tag: Mục tiêu - Plan
         Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          width: AppDimensions.spacingWidthInfinite,
+          padding: EdgeInsets.symmetric(
+            horizontal: AppDimensions.spacingSM,
+            vertical: AppDimensions.paddingS,
+          ),
           decoration: BoxDecoration(
             color: AppColors.bNormal,
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(AppDimensions.borderRadiusTiny),
           ),
           child: Text(
             "${MappingTrainingResourceHelper.mappingGoalToVietnamese(user.trainingPlans!.first.goals)}  •  ${user.trainingPlans?.first.name}",
             style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
+              color: AppColors.wWhite,
+              fontSize: AppDimensions.textSizeM,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
 
-        SizedBox(height: 20),
+        SizedBox(height: AppDimensions.spacingML),
 
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -305,7 +314,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                 });
               },
             ),
-            const SizedBox(width: 16),
+            SizedBox(width: AppDimensions.spacingM),
             Expanded(
               child: Column(
                 children: List.generate(7, (index) {
@@ -313,8 +322,10 @@ class _TrainingScreenState extends State<TrainingScreen> {
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeInOut,
-                    margin: EdgeInsets.only(top: index == 0 ? 0 : 16),
-                    width: 300,
+                    margin: EdgeInsets.only(
+                      top: index == 0 ? 0.w : AppDimensions.paddingM,
+                    ),
+                    width: AppDimensions.size304,
                     child: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 300),
                       switchInCurve: Curves.easeInOut,
@@ -328,7 +339,9 @@ class _TrainingScreenState extends State<TrainingScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 10),
+                                  padding: EdgeInsets.only(
+                                    top: AppDimensions.paddingS,
+                                  ),
                                   child: Text(
                                     (selectedIndex2 != selectedDay)
                                         ? ((selectedDay - selectedIndex2)
@@ -339,28 +352,30 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                               : '${(selectedDay - selectedIndex2).abs()} ngày ${(selectedIndex2 < selectedDay) ? 'trước' : 'tới'}'
                                         : 'Hôm nay',
                                     style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
+                                      color: AppColors.dark,
+                                      fontSize: AppDimensions.textSizeM,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 10),
+                                SizedBox(height: AppDimensions.paddingS),
                                 Container(
-                                  padding: const EdgeInsets.only(
-                                    left: 12,
-                                    right: 12,
-                                    top: 12,
+                                  padding: EdgeInsets.only(
+                                    left: AppDimensions.spacingSM,
+                                    right: AppDimensions.spacingSM,
+                                    top: AppDimensions.spacingSM,
                                   ),
-                                  width: double.infinity,
-                                  height: 160,
+                                  width: AppDimensions.spacingWidthInfinite,
+                                  height: AppDimensions.size160,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(12),
+                                    color: AppColors.wWhite,
+                                    borderRadius: BorderRadius.circular(
+                                      AppDimensions.borderRadius,
+                                    ),
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black.withOpacity(0.05),
-                                        blurRadius: 8,
+                                        blurRadius: 8.w,
                                         offset: const Offset(0, 2),
                                       ),
                                     ],
@@ -378,25 +393,32 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                               Text(
                                                 '${days[index].day}/${days[index].month}',
                                                 style: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize:
+                                                      AppDimensions.textSizeM,
                                                   color: AppColors.bNormal,
                                                 ),
                                               ),
-                                              SizedBox(height: 5),
+                                              SizedBox(
+                                                height: AppDimensions.size4,
+                                              ),
                                               Text(
                                                 'Ngày ${index + 1}',
-                                                style: const TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.black,
+                                                style: TextStyle(
+                                                  fontSize:
+                                                      AppDimensions.textSizeL,
+                                                  color: AppColors.dark,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              SizedBox(height: 5),
+                                              SizedBox(
+                                                height: AppDimensions.size4,
+                                              ),
                                               Text(
                                                 schedules[index].duration ??
                                                     'Nghỉ ngơi, hồi phục',
-                                                style: const TextStyle(
-                                                  fontSize: 14,
+                                                style: TextStyle(
+                                                  fontSize:
+                                                      AppDimensions.textSizeS,
                                                   color: AppColors.bNormal,
                                                 ),
                                               ),
@@ -407,27 +429,32 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 10),
+                                      SizedBox(height: AppDimensions.spacingS),
                                       (selectedIndex2 < selectedDay)
                                           ? ElevatedButton(
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor:
                                                     AppColors.moreLighter,
                                                 minimumSize: Size(
-                                                  double.infinity,
-                                                  40,
+                                                  AppDimensions
+                                                      .spacingWidthInfinite,
+                                                  AppDimensions.size40,
                                                 ),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                      BorderRadius.circular(
+                                                        AppDimensions
+                                                            .borderRadiusSmall,
+                                                      ),
                                                 ),
                                               ),
                                               onPressed: () {},
                                               child: Text(
                                                 'Đã hoàn thành',
                                                 style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.white,
+                                                  fontSize:
+                                                      AppDimensions.textSizeS,
+                                                  color: AppColors.wWhite,
                                                 ),
                                               ),
                                             )
@@ -438,13 +465,15 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                       backgroundColor:
                                                           AppColors.moreLighter,
                                                       minimumSize: Size(
-                                                        double.infinity,
-                                                        40,
+                                                        AppDimensions
+                                                            .spacingWidthInfinite,
+                                                        AppDimensions.size40,
                                                       ),
                                                       shape: RoundedRectangleBorder(
                                                         borderRadius:
                                                             BorderRadius.circular(
-                                                              10,
+                                                              AppDimensions
+                                                                  .borderRadiusSmall,
                                                             ),
                                                       ),
                                                     ),
@@ -452,8 +481,9 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                     child: Text(
                                                       'Đã hoàn thành',
                                                       style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.white,
+                                                        fontSize: AppDimensions
+                                                            .textSizeS,
+                                                        color: AppColors.wWhite,
                                                       ),
                                                     ),
                                                   )
@@ -462,13 +492,15 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                       backgroundColor:
                                                           AppColors.bNormal,
                                                       minimumSize: Size(
-                                                        double.infinity,
-                                                        40,
+                                                        AppDimensions
+                                                            .spacingWidthInfinite,
+                                                        AppDimensions.size40,
                                                       ),
                                                       shape: RoundedRectangleBorder(
                                                         borderRadius:
                                                             BorderRadius.circular(
-                                                              10,
+                                                              AppDimensions
+                                                                  .borderRadiusSmall,
                                                             ),
                                                       ),
                                                     ),
@@ -491,8 +523,9 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                     child: Text(
                                                       'Bắt đầu',
                                                       style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.white,
+                                                        fontSize: AppDimensions
+                                                            .textSizeS,
+                                                        color: AppColors.wWhite,
                                                       ),
                                                     ),
                                                   ))
@@ -501,19 +534,24 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                                 backgroundColor:
                                                     AppColors.bLightActive,
                                                 minimumSize: Size(
-                                                  double.infinity,
-                                                  40,
+                                                  AppDimensions
+                                                      .spacingWidthInfinite,
+                                                  AppDimensions.size40,
                                                 ),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(10),
+                                                      BorderRadius.circular(
+                                                        AppDimensions
+                                                            .borderRadiusSmall,
+                                                      ),
                                                 ),
                                               ),
                                               onPressed: () {},
                                               child: Text(
                                                 'Chưa bắt đầu',
                                                 style: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize:
+                                                      AppDimensions.textSizeS,
                                                   color: AppColors.wWhite,
                                                 ),
                                               ),
@@ -521,7 +559,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(height: 30),
+                                SizedBox(height: AppDimensions.paddingXL),
                                 if (index != 6)
                                   Text(
                                     (selectedIndex2 != selectedDay)
@@ -532,8 +570,8 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                               : '${(selectedDay - selectedIndex2 - 1).abs()} ngày ${(selectedIndex2 < selectedDay) ? 'trước' : 'tới'}'
                                         : 'Tiếp theo',
                                     style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 16,
+                                      color: AppColors.dark,
+                                      fontSize: AppDimensions.textSizeM,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -547,16 +585,20 @@ class _TrainingScreenState extends State<TrainingScreen> {
                               },
                               child: Container(
                                 key: ValueKey('unselected_$index'),
-                                padding: const EdgeInsets.all(12),
-                                height: 100,
-                                width: double.infinity,
+                                padding: EdgeInsets.all(
+                                  AppDimensions.spacingSM,
+                                ),
+                                height: AppDimensions.size104,
+                                width: AppDimensions.spacingWidthInfinite,
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
+                                  color: AppColors.wWhite,
+                                  borderRadius: BorderRadius.circular(
+                                    AppDimensions.borderRadius,
+                                  ),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black.withOpacity(0.05),
-                                      blurRadius: 8,
+                                      blurRadius: 8.w,
                                       offset: const Offset(0, 2),
                                     ),
                                   ],
@@ -571,26 +613,26 @@ class _TrainingScreenState extends State<TrainingScreen> {
                                       children: [
                                         Text(
                                           '${days[index].day}/${days[index].month}',
-                                          style: const TextStyle(
-                                            fontSize: 14,
+                                          style: TextStyle(
+                                            fontSize: AppDimensions.textSizeS,
                                             color: AppColors.bNormal,
                                           ),
                                         ),
-                                        SizedBox(height: 5),
+                                        SizedBox(height: AppDimensions.size4),
                                         Text(
                                           'Ngày ${index + 1}',
-                                          style: const TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.black,
+                                          style: TextStyle(
+                                            fontSize: AppDimensions.textSizeL,
+                                            color: AppColors.dark,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        SizedBox(height: 5),
+                                        SizedBox(height: AppDimensions.size4),
                                         Text(
                                           schedules[index].duration ??
                                               'Nghỉ ngơi, hồi phục',
-                                          style: const TextStyle(
-                                            fontSize: 14,
+                                          style: TextStyle(
+                                            fontSize: AppDimensions.textSizeS,
                                             color: AppColors.bNormal,
                                           ),
                                         ),
@@ -618,23 +660,31 @@ class _TrainingScreenState extends State<TrainingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(TrainingAssets.personalTraining),
-          SizedBox(height: 20.sp),
+          Image.asset(AppAssets.personalTraining),
+          SizedBox(height: AppDimensions.spacingSM),
           Text(
             'Bạn chưa có kế hoạch tập luyện nào...',
-            style: TextStyle(fontSize: 14, color: Colors.black),
+            style: TextStyle(
+              fontSize: AppDimensions.textSizeS,
+              color: AppColors.dark,
+            ),
           ),
-          SizedBox(height: 20.sp),
-          Container(
-            width: 145.sp,
+          SizedBox(height: AppDimensions.spacingSM),
+          SizedBox(
+            width: AppDimensions.size144,
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.bNormal,
                 foregroundColor: AppColors.wWhite,
-                padding: EdgeInsets.symmetric(vertical: 16, horizontal: 15),
+                padding: EdgeInsets.symmetric(
+                  vertical: AppDimensions.paddingM,
+                  horizontal: AppDimensions.paddingM,
+                ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.borderRadiusLarge,
+                  ),
                 ),
               ),
               child: Row(
@@ -643,12 +693,16 @@ class _TrainingScreenState extends State<TrainingScreen> {
                   Text(
                     'Thêm mới',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+                      color: AppColors.wWhite,
+                      fontSize: AppDimensions.textSizeM,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Icon(Icons.add, color: Colors.white, size: 20),
+                  Icon(
+                    Icons.add,
+                    color: AppColors.wWhite,
+                    size: AppDimensions.iconSizeL,
+                  ),
                 ],
               ),
             ),

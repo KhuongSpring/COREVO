@@ -53,16 +53,16 @@ class _TrainingEquipmentSelectionState
         children: [
           // Ảnh nền
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
 
           Column(
             children: [
               Container(
-                padding: EdgeInsets.only(top: 50, right: 70),
+                padding: EdgeInsets.only(
+                  top: AppDimensions.size48,
+                  right: AppDimensions.size72,
+                ),
                 child: Row(
                   children: [
                     IconButton(
@@ -72,10 +72,10 @@ class _TrainingEquipmentSelectionState
                         color: AppColors.bNormal,
                       ),
                     ),
-                    SizedBox(width: 35),
+                    SizedBox(width: AppDimensions.spacingXL),
                     Expanded(
                       child: Container(
-                        height: 7,
+                        height: AppDimensions.size8,
                         decoration: BoxDecoration(
                           color: AppColors.moreLighter,
                           borderRadius: BorderRadius.circular(
@@ -105,10 +105,12 @@ class _TrainingEquipmentSelectionState
                   ],
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: AppDimensions.spacingXL),
               // Header
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15.0),
+                margin: EdgeInsets.symmetric(
+                  horizontal: AppDimensions.paddingM,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.bLightHover,
                   borderRadius: BorderRadius.circular(
@@ -118,30 +120,35 @@ class _TrainingEquipmentSelectionState
                 child: Row(
                   children: [
                     Container(
-                      width: 20.0,
-                      height: 90.0,
+                      width: AppDimensions.size16,
+                      height: AppDimensions.size88,
                       decoration: BoxDecoration(color: AppColors.bLightActive2),
                     ),
-                    const SizedBox(width: 20.0),
+                    SizedBox(width: AppDimensions.size16),
                     Expanded(
                       child: Text(
                         'Thiết bị luyện tập\nmà bạn có?',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: AppDimensions.textSizeXL,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.darkActive,
+                          color: AppColors.dark,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: AppDimensions.spacingXXL),
 
               // Item list
               Expanded(
                 child: ListView.builder(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 200),
+                  padding: EdgeInsets.fromLTRB(
+                    AppDimensions.paddingM,
+                    0,
+                    AppDimensions.paddingM,
+                    AppDimensions.size152,
+                  ),
                   itemCount: equipments.length,
                   itemBuilder: (context, index) {
                     bool isSelected = selectedIndexes.contains(index);
@@ -155,9 +162,9 @@ class _TrainingEquipmentSelectionState
                         }
                       }),
                       child: Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        padding: const EdgeInsets.all(12),
-                        height: 80,
+                        margin: EdgeInsets.only(bottom: AppDimensions.paddingM),
+                        padding: EdgeInsets.all(AppDimensions.paddingM),
+                        height: AppDimensions.size80,
                         decoration: BoxDecoration(
                           color: selectedIndexes.contains(index)
                               ? AppColors.bLightHover
@@ -181,12 +188,12 @@ class _TrainingEquipmentSelectionState
                         ),
                         child: Row(
                           children: [
-                            SizedBox(width: 20),
+                            SizedBox(width: AppDimensions.spacingML),
                             Expanded(
                               child: Text(
                                 equipments[index],
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: AppDimensions.textSizeL,
                                   color: selectedIndexes.contains(index)
                                       ? AppColors.bNormal
                                       : AppColors.darkActive,
@@ -195,17 +202,19 @@ class _TrainingEquipmentSelectionState
                               ),
                             ),
                             ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(
+                                AppDimensions.borderRadiusSmall,
+                              ),
                               child: Image.asset(
                                 selectedIndexes.contains(index)
-                                    ? TrainingAssets.tickActive
-                                    : TrainingAssets.tickNonActive,
-                                width: 20,
-                                height: 20,
+                                    ? AppAssets.tickActive
+                                    : AppAssets.tickNonActive,
+                                width: AppDimensions.iconSizeL,
+                                height: AppDimensions.iconSizeL,
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            SizedBox(width: 10),
+                            SizedBox(width: AppDimensions.spacingSM),
                           ],
                         ),
                       ),
@@ -234,15 +243,20 @@ class _TrainingEquipmentSelectionState
 
           // Button "Tiếp tục" nổi lên trên cùng
           Positioned(
-            left: 16,
-            right: 16,
-            bottom: 70,
+            left: AppDimensions.paddingM,
+            right: AppDimensions.paddingM,
+            bottom: AppDimensions.size72,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.bNormal,
-                minimumSize: const Size(double.infinity, 60),
+                minimumSize: Size(
+                  AppDimensions.spacingWidthInfinite,
+                  AppDimensions.size56,
+                ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(
+                    AppDimensions.borderRadiusLarge,
+                  ),
                 ),
               ),
               onPressed: selectedIndexes.isNotEmpty
@@ -286,7 +300,10 @@ class _TrainingEquipmentSelectionState
                   : null,
               child: Text(
                 "Tiếp tục",
-                style: TextStyle(fontSize: 20, color: AppColors.wWhite),
+                style: TextStyle(
+                  fontSize: AppDimensions.textSizeL,
+                  color: AppColors.wWhite,
+                ),
               ),
             ),
           ),

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 
+import '../../../../core/constants/app_dimension.dart';
 import '../../../../service/shared_preferences.dart';
 import '../../../../service/user_service.dart';
 import '../../../auth/login_screen.dart';
@@ -21,10 +22,7 @@ class _RemoveScreenState extends State<RemoveScreen> {
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.mainBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.mainBackground, fit: BoxFit.cover),
           ),
 
           // Nội dung
@@ -32,9 +30,9 @@ class _RemoveScreenState extends State<RemoveScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 10,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppDimensions.spacingSM,
+                    vertical: AppDimensions.spacingSM,
                   ),
                   child: Stack(
                     alignment: Alignment.center,
@@ -47,14 +45,14 @@ class _RemoveScreenState extends State<RemoveScreen> {
                         ),
                       ),
 
-                      const Align(
+                      Align(
                         alignment: Alignment.center,
                         child: Text(
                           'Xóa dữ liệu người dùng',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: AppDimensions.textSizeM,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: AppColors.dark,
                           ),
                         ),
                       ),
@@ -62,10 +60,12 @@ class _RemoveScreenState extends State<RemoveScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                SizedBox(height: AppDimensions.spacingML),
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppDimensions.paddingM,
+                  ),
                   child: Column(
                     children: [
                       DeleteOptionTile(
@@ -95,7 +95,7 @@ class _RemoveScreenState extends State<RemoveScreen> {
                           }
                         },
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: AppDimensions.spacingM),
                       DeleteOptionTile(
                         title: 'Xóa tài khoản',
                         content1:
@@ -105,7 +105,7 @@ class _RemoveScreenState extends State<RemoveScreen> {
                         onConfirm: () async {
                           try {
                             final response =
-                            await UserService.deleteMyAccount();
+                                await UserService.deleteMyAccount();
 
                             if (response.status == 'SUCCESS') {
                               await SharedPreferencesService.clearAll();
@@ -152,74 +152,82 @@ class DeleteOptionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
+      ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
         child: Container(
-          color: Colors.white,
+          color: AppColors.wWhite,
           child: Theme(
             data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
-              backgroundColor: Colors.white,
-              tilePadding: const EdgeInsets.symmetric(horizontal: 16),
+              backgroundColor: AppColors.wWhite,
+              tilePadding: EdgeInsets.symmetric(
+                horizontal: AppDimensions.paddingM,
+              ),
               title: Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 16,
+                  fontSize: AppDimensions.textSizeM,
                 ),
               ),
-              childrenPadding: const EdgeInsets.symmetric(
-                horizontal: 0,
-                vertical: 0,
+              childrenPadding: EdgeInsets.symmetric(
+                horizontal: 0.w,
+                vertical: 0.w,
               ),
               children: [
                 Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(12),
+                  width: AppDimensions.spacingWidthInfinite,
+                  padding: EdgeInsets.all(AppDimensions.spacingSM),
                   decoration: BoxDecoration(
                     color: AppColors.bNormal,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(
+                      AppDimensions.borderRadius,
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         content1,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
+                        style: TextStyle(
+                          color: AppColors.wWhite,
+                          fontSize: AppDimensions.textSizeS,
                         ),
                       ),
-                      SizedBox(height: 12),
+                      SizedBox(height: AppDimensions.spacingSM),
                       Text(
                         content1,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
+                        style: TextStyle(
+                          color: AppColors.wWhite,
+                          fontSize: AppDimensions.textSizeS,
                         ),
                       ),
-                      const SizedBox(height: 12),
+                      SizedBox(height: AppDimensions.spacingSM),
                       Align(
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.black,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 10,
+                            backgroundColor: AppColors.wWhite,
+                            foregroundColor: AppColors.dark,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppDimensions.paddingM,
+                              vertical: AppDimensions.spacingSM,
                             ),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
+                              borderRadius: BorderRadius.circular(
+                                AppDimensions.borderRadiusLarge,
+                              ),
                             ),
                           ),
                           onPressed: onConfirm,
-                          child: const Text(
+                          child: Text(
                             'Xác nhận',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 12,
+                              fontSize: AppDimensions.textSizeXS,
                             ),
                           ),
                         ),

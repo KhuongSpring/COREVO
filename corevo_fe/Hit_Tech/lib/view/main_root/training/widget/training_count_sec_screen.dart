@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 
+import '../../../../core/constants/app_dimension.dart';
 import '../../../../model/response/exercise_set_progress.dart';
 import '../../../../model/response/training/training_exercise_response.dart';
 import '../../../../service/training_service.dart';
@@ -17,7 +17,12 @@ class TrainingCountSecScreen extends StatefulWidget {
   final int exerciseId;
   final ExerciseSetProgress exerciseSetProgress;
   final int exerciseIndex;
-  final Future<void> Function(int exerciseIndex, int setIndex, bool value, int total)
+  final Future<void> Function(
+    int exerciseIndex,
+    int setIndex,
+    bool value,
+    int total,
+  )
   onSetCompleted;
   final int totalSet;
   final int completedSet;
@@ -136,7 +141,7 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
       } else {
         if (_currentPhase == TimerPhase.rest) {
           _timer?.cancel();
-          if (mounted){
+          if (mounted) {
             await widget.onSetCompleted(
               widget.exerciseIndex,
               _setIndex,
@@ -179,8 +184,6 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width.sp;
-
     if (exercise == null) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -210,13 +213,13 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
       body: Stack(
         children: [
           Positioned(
-            top: 30,
-            left: 10,
+            top: AppDimensions.paddingXL,
+            left: AppDimensions.paddingS,
             child: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+              icon: Icon(Icons.arrow_back_ios, color: AppColors.wWhite),
             ),
           ),
           Align(
@@ -227,21 +230,21 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                 Text(
                   _currentPhase == TimerPhase.work ? 'Tập luyện' : 'Nghỉ ngơi',
                   style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
+                    fontSize: AppDimensions.textSizeXL,
+                    color: AppColors.wWhite,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 20.sp),
+                SizedBox(height: AppDimensions.spacingML),
                 Text(
                   _formatTime(_remainingSeconds),
                   style: TextStyle(
-                    fontSize: 54,
-                    color: Colors.white,
+                    fontSize: 54.w,
+                    color: AppColors.wWhite,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 50.sp),
+                SizedBox(height: AppDimensions.spacingXXXL),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -256,21 +259,28 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                         foregroundColor: _currentPhase == TimerPhase.work
                             ? AppColors.wWhite
                             : AppColors.bNormal,
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        minimumSize: Size(100, 30),
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppDimensions.paddingS,
+                        ),
+                        minimumSize: Size(
+                          AppDimensions.size104,
+                          AppDimensions.size32,
+                        ),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.borderRadiusLarge,
+                          ),
                         ),
                       ),
                       child: Text(
                         '+20s',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: AppDimensions.textSizeM,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    SizedBox(width: 20.sp),
+                    SizedBox(width: AppDimensions.spacingML),
                     ElevatedButton(
                       onPressed:
                           (_currentPhase == TimerPhase.work &&
@@ -281,7 +291,7 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                 widget.exerciseIndex,
                                 _setIndex,
                                 true,
-                                _workDuration - _remainingSeconds
+                                _workDuration - _remainingSeconds,
                               );
 
                               Navigator.pop(context);
@@ -297,46 +307,53 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                 _remainingSeconds > 19)
                             ? AppColors.wWhite
                             : AppColors.bNormal,
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        minimumSize: Size(100, 30),
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppDimensions.paddingS,
+                        ),
+                        minimumSize: Size(
+                          AppDimensions.size104,
+                          AppDimensions.size32,
+                        ),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
+                          borderRadius: BorderRadius.circular(
+                            AppDimensions.borderRadiusLarge,
+                          ),
                         ),
                       ),
                       child: Text(
                         'Bỏ qua',
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: AppDimensions.textSizeM,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 150.sp),
+                SizedBox(height: AppDimensions.size152),
               ],
             ),
           ),
           Positioned(
-            bottom: 290,
-            left: 10,
+            bottom: AppDimensions.size288,
+            left: AppDimensions.size8,
             child: Text(
               'Tiếp theo ${widget.completedSet}/${widget.totalSet}',
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
+                color: AppColors.wWhite,
+                fontSize: AppDimensions.textSizeM,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
           Positioned(
-            bottom: 270,
-            left: 10,
+            bottom: AppDimensions.size264 + 4.w,
+            left: AppDimensions.size8,
             child: Text(
               '${exercise?.name} - Set ${_setIndex + 1}/${widget.exerciseSetProgress.totalSets}',
               style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
+                color: AppColors.wWhite,
+                fontSize: AppDimensions.textSizeM,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -350,26 +367,30 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                   ? DraggableScrollableSheet(
                       key: ValueKey('sheet'),
                       controller: _controller,
-                      initialChildSize: 0.95.sp,
-                      minChildSize: 0.3.sp,
-                      maxChildSize: 0.95.sp,
+                      initialChildSize: 0.95.w,
+                      minChildSize: 0.3.w,
+                      maxChildSize: 0.95.w,
                       builder: (context, scrollController) {
                         return Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 24,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppDimensions.spacingML,
+                            vertical: AppDimensions.paddingL,
                           ),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
+                          decoration: BoxDecoration(
+                            color: AppColors.wWhite,
                             borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(24),
+                              top: Radius.circular(
+                                AppDimensions.borderRadiusLarge,
+                              ),
                             ),
                           ),
                           child: _isReady
                               ? Stack(
                                   children: [
                                     Padding(
-                                      padding: EdgeInsets.only(bottom: 70),
+                                      padding: EdgeInsets.only(
+                                        bottom: AppDimensions.size72,
+                                      ),
                                       child: SingleChildScrollView(
                                         controller: scrollController,
                                         child: Column(
@@ -378,58 +399,68 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                           children: [
                                             Center(
                                               child: Container(
-                                                height: 4,
-                                                width: screenWidth * 0.3.sp,
+                                                height: AppDimensions.size4,
+                                                width:
+                                                    AppDimensions.width * 0.3.w,
                                                 decoration: BoxDecoration(
                                                   color: AppColors.bNormal,
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                        24.sp,
+                                                        AppDimensions
+                                                            .borderRadiusLarge,
                                                       ),
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 30.sp),
+                                            SizedBox(
+                                              height: AppDimensions.spacingXL,
+                                            ),
                                             Text(
                                               exercise!.name,
                                               style: TextStyle(
-                                                fontSize: 24.sp,
+                                                fontSize:
+                                                    AppDimensions.textSizeXL,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.black,
+                                                color: AppColors.dark,
                                               ),
                                             ),
-                                            SizedBox(height: 30.sp),
+                                            SizedBox(
+                                              height: AppDimensions.spacingXL,
+                                            ),
                                             Padding(
                                               padding: EdgeInsets.symmetric(
                                                 horizontal:
                                                     (_imageHeight == 630.0)
-                                                    ? 0
-                                                    : 50.sp,
+                                                    ? 0.w
+                                                    : AppDimensions.size48,
                                               ),
                                               child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(
-                                                      16.sp,
+                                                      AppDimensions
+                                                          .borderRadius,
                                                     ),
                                                 clipBehavior:
                                                     Clip.antiAliasWithSaveLayer,
                                                 child: Container(
                                                   width: (_imageHeight == 630.0)
-                                                      ? screenWidth.sp
-                                                      : screenWidth * 0.8.sp,
+                                                      ? AppDimensions.width
+                                                      : AppDimensions.width *
+                                                            0.8.w,
                                                   height:
                                                       (_imageHeight == 630.0)
-                                                      ? 200.sp
-                                                      : 280.sp,
+                                                      ? AppDimensions.size200
+                                                      : AppDimensions.size280,
                                                   decoration: BoxDecoration(
-                                                    color: Colors.white,
+                                                    color: AppColors.wWhite,
                                                     border: Border.all(
                                                       color: AppColors.bNormal,
-                                                      width: 3,
+                                                      width: 3.w,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                          16.sp,
+                                                          AppDimensions
+                                                              .borderRadius,
                                                         ),
                                                   ),
                                                   child:
@@ -441,17 +472,20 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 15.sp),
+                                            SizedBox(
+                                              height: AppDimensions.spacingM,
+                                            ),
                                             Align(
                                               alignment: Alignment.centerRight,
                                               child: Container(
-                                                width: 180,
-                                                height: 45,
+                                                width: AppDimensions.size184,
+                                                height: AppDimensions.size48,
                                                 decoration: BoxDecoration(
                                                   color: AppColors.bNormal,
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                        5.sp,
+                                                        AppDimensions
+                                                            .borderRadiusTiny,
                                                       ),
                                                 ),
                                                 child: Center(
@@ -461,7 +495,8 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                                     '$min - '
                                                     '$max',
                                                     style: TextStyle(
-                                                      fontSize: 14,
+                                                      fontSize: AppDimensions
+                                                          .textSizeS,
                                                       color: AppColors.wWhite,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -470,33 +505,44 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 20.sp),
+                                            SizedBox(
+                                              height: AppDimensions.spacingML,
+                                            ),
                                             Text(
                                               "GIỚI THIỆU",
                                               style: TextStyle(
-                                                fontSize: 16.sp,
+                                                fontSize:
+                                                    AppDimensions.textSizeM,
                                                 fontWeight: FontWeight.bold,
                                                 color: AppColors.bNormal,
                                               ),
                                             ),
-                                            SizedBox(height: 12.sp),
+                                            SizedBox(
+                                              height: AppDimensions.spacingSM,
+                                            ),
                                             Text(
                                               exercise!.description,
                                               style: TextStyle(
-                                                fontSize: 16.sp,
-                                                color: Colors.black,
+                                                fontSize:
+                                                    AppDimensions.textSizeM,
+                                                color: AppColors.dark,
                                               ),
                                             ),
-                                            SizedBox(height: 30.sp),
+                                            SizedBox(
+                                              height: AppDimensions.spacingXL,
+                                            ),
                                             Text(
                                               "NHÓM CƠ TÁC ĐỘNG",
                                               style: TextStyle(
-                                                fontSize: 16.sp,
+                                                fontSize:
+                                                    AppDimensions.textSizeM,
                                                 fontWeight: FontWeight.bold,
                                                 color: AppColors.bNormal,
                                               ),
                                             ),
-                                            SizedBox(height: 12.sp),
+                                            SizedBox(
+                                              height: AppDimensions.spacingSM,
+                                            ),
                                             SingleChildScrollView(
                                               scrollDirection: Axis.horizontal,
                                               child: Row(
@@ -522,16 +568,21 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(height: 30.sp),
+                                            SizedBox(
+                                              height: AppDimensions.spacingXL,
+                                            ),
                                             Text(
                                               "DỤNG CỤ LUYỆN TẬP",
                                               style: TextStyle(
-                                                fontSize: 16.sp,
+                                                fontSize:
+                                                    AppDimensions.textSizeM,
                                                 fontWeight: FontWeight.bold,
                                                 color: AppColors.bNormal,
                                               ),
                                             ),
-                                            SizedBox(height: 12.sp),
+                                            SizedBox(
+                                              height: AppDimensions.spacingSM,
+                                            ),
                                             SingleChildScrollView(
                                               scrollDirection: Axis.horizontal,
                                               child: Row(
@@ -548,15 +599,17 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(height: 30.sp),
+                                            SizedBox(
+                                              height: AppDimensions.spacingXL,
+                                            ),
                                           ],
                                         ),
                                       ),
                                     ),
                                     Positioned(
-                                      left: 16,
-                                      right: 16,
-                                      bottom: 16,
+                                      left: AppDimensions.paddingM,
+                                      right: AppDimensions.paddingM,
+                                      bottom: AppDimensions.paddingM,
                                       child: ElevatedButton(
                                         onPressed: () {
                                           setState(() {
@@ -567,12 +620,14 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                           backgroundColor: AppColors.bNormal,
                                           foregroundColor: AppColors.wWhite,
                                           padding: EdgeInsets.symmetric(
-                                            vertical: 16,
+                                            vertical: AppDimensions.paddingM,
                                           ),
                                         ),
                                         child: Text(
                                           "Đóng",
-                                          style: TextStyle(fontSize: 20),
+                                          style: TextStyle(
+                                            fontSize: AppDimensions.spacingML,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -580,12 +635,12 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                 )
                               : Container(
                                   alignment: Alignment.center,
-                                  height: 200,
-                                  child: const SizedBox(
-                                    width: 24,
-                                    height: 24,
+                                  height: AppDimensions.size200,
+                                  child: SizedBox(
+                                    width: AppDimensions.size24,
+                                    height: AppDimensions.size24,
                                     child: CircularProgressIndicator(
-                                      strokeWidth: 3,
+                                      strokeWidth: 3.w,
                                     ),
                                   ),
                                 ),
@@ -596,38 +651,44 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                       key: ValueKey('static'),
                       alignment: Alignment.bottomCenter,
                       child: Container(
-                        width: double.infinity,
+                        width: AppDimensions.spacingWidthInfinite,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: AppColors.wWhite,
                           borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
+                            top: Radius.circular(
+                              AppDimensions.borderRadiusLarge,
+                            ),
                           ),
                         ),
                         padding: EdgeInsets.symmetric(
-                          horizontal: (_imageHeight == 630.0) ? 30.sp : 50.sp,
-                          vertical: 30.sp,
+                          horizontal: (_imageHeight == 630.0)
+                              ? AppDimensions.paddingXL
+                              : AppDimensions.paddingXXXL,
+                          vertical: AppDimensions.paddingXL,
                         ),
                         child: _isReady
                             ? Stack(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(16.sp),
+                                    borderRadius: BorderRadius.circular(
+                                      AppDimensions.borderRadius,
+                                    ),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     child: Container(
                                       width: (_imageHeight == 630.0)
-                                          ? screenWidth.sp
-                                          : screenWidth * 0.8.sp,
+                                          ? AppDimensions.width
+                                          : AppDimensions.width * 0.8.w,
                                       height: (_imageHeight == 630.0)
-                                          ? 200.sp
-                                          : 280.sp,
+                                          ? AppDimensions.size200
+                                          : AppDimensions.size280,
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: AppColors.wWhite,
                                         border: Border.all(
                                           color: AppColors.bNormal,
-                                          width: 3,
+                                          width: 3.w,
                                         ),
                                         borderRadius: BorderRadius.circular(
-                                          16.sp,
+                                          AppDimensions.borderRadius,
                                         ),
                                       ),
                                       child:
@@ -639,8 +700,8 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                     ),
                                   ),
                                   Positioned(
-                                    right: 12,
-                                    top: 12,
+                                    right: AppDimensions.spacingSM,
+                                    top: AppDimensions.spacingSM,
                                     child: GestureDetector(
                                       onTap: () {
                                         setState(() {
@@ -652,14 +713,15 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                                           color: AppColors.bNormal,
                                           shape: BoxShape.circle,
                                         ),
-                                        height: 20.sp,
-                                        width: 20.sp,
+                                        height: AppDimensions.spacingML,
+                                        width: AppDimensions.spacingML,
                                         child: Center(
                                           child: Text(
                                             "?",
                                             style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.white,
+                                              fontSize:
+                                                  AppDimensions.textSizeXS,
+                                              color: AppColors.wWhite,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
@@ -671,12 +733,12 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
                               )
                             : Container(
                                 alignment: Alignment.center,
-                                height: 200,
-                                child: const SizedBox(
-                                  width: 24,
-                                  height: 24,
+                                height: AppDimensions.size200,
+                                child: SizedBox(
+                                  width: AppDimensions.size24,
+                                  height: AppDimensions.size24,
                                   child: CircularProgressIndicator(
-                                    strokeWidth: 3,
+                                    strokeWidth: 3.w,
                                   ),
                                 ),
                               ),
@@ -695,18 +757,16 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
     bool isEquipment = false,
   }) {
     return Container(
-      width: isEquipment ? 110 : 90,
-      height: 40,
-      margin: EdgeInsets.only(right: 10),
+      width: isEquipment ? AppDimensions.size112 : AppDimensions.size88,
+      height: AppDimensions.size40,
+      margin: EdgeInsets.only(right: AppDimensions.paddingS),
       decoration: BoxDecoration(
-        color: isPrimary
-            ? AppColors.buttonBGBottomGenderfocus
-            : AppColors.bgHealthInfor,
-        borderRadius: BorderRadius.circular(10),
+        color: isPrimary ? AppColors.bNormal : AppColors.bLight,
+        borderRadius: BorderRadius.circular(AppDimensions.borderRadiusSmall),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
-            blurRadius: 6,
+            blurRadius: 6.w,
             offset: const Offset(0, 2),
           ),
         ],
@@ -714,9 +774,9 @@ class _TrainingCountSecScreenState extends State<TrainingCountSecScreen> {
       child: AnimatedDefaultTextStyle(
         duration: const Duration(milliseconds: 250),
         style: TextStyle(
-          fontSize: 16,
+          fontSize: AppDimensions.textSizeM,
           fontWeight: FontWeight.w600,
-          color: isPrimary ? Colors.white : Colors.black,
+          color: isPrimary ? AppColors.wWhite : AppColors.dark,
         ),
         child: Center(child: Text(label)),
       ),

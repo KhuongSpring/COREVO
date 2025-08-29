@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/core/constants/app_message.dart';
 import 'package:hit_tech/service/auth_service.dart';
 import 'package:hit_tech/view/auth/reset_password_screen.dart';
@@ -43,6 +44,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   void initState() {
     super.initState();
     _startTimer();
+    for (var controller in _controllers) {
+      controller.addListener(() {
+        setState(() {});
+      });
+    }
   }
 
   @override
@@ -213,35 +219,35 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.wWhite,
       body: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(
-              TrainingAssets.authBackground,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(AppAssets.authBackground, fit: BoxFit.cover),
           ),
           SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.sp),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppDimensions.paddingL,
+                vertical: AppDimensions.paddingXL,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20.sp),
+                  SizedBox(height: AppDimensions.spacingL),
                   SizedBox(
-                    height: 70.sp,
+                    height: AppDimensions.size64,
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
                         Positioned(
-                          top: 0,
-                          left: 0,
+                          top: 0.w,
+                          left: 0.w,
                           child: IconButton(
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.arrow_back_ios,
                               color: AppColors.bNormal,
-                              size: 28,
+                              size: AppDimensions.iconSizeXXL,
                             ),
                             onPressed: () => Navigator.pop(context),
                           ),
@@ -254,26 +260,28 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                               Text(
                                 "Quên mật khẩu",
                                 style: TextStyle(
-                                  fontSize: 32,
+                                  fontSize: AppDimensions.textSizeXXXL,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.dark,
                                 ),
                               ),
-                              SizedBox(height: 12.sp),
+                              SizedBox(height: AppDimensions.spacingSM),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: List.generate(3, (index) {
                                   return Container(
-                                    margin: const EdgeInsets.symmetric(
-                                      horizontal: 4,
+                                    margin: EdgeInsets.symmetric(
+                                      horizontal: AppDimensions.paddingXS,
                                     ),
-                                    width: 32,
-                                    height: 6,
+                                    width: AppDimensions.size32,
+                                    height: AppDimensions.size8,
                                     decoration: BoxDecoration(
                                       color: index == 0 || index == 1
                                           ? AppColors.bNormal
                                           : Colors.grey[400],
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(
+                                        AppDimensions.borderRadiusLarge,
+                                      ),
                                     ),
                                   );
                                 }),
@@ -284,65 +292,65 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 15),
+                  SizedBox(height: AppDimensions.spacingM),
 
                   // Icon
                   Container(
-                    width: 80,
-                    height: 80,
+                    width: AppDimensions.size80,
+                    height: AppDimensions.size80,
                     decoration: BoxDecoration(
                       color: Colors.blue.shade50,
                       borderRadius: BorderRadius.circular(40),
                     ),
                     child: Icon(
                       Icons.email_outlined,
-                      size: 40,
-                      color: Colors.blue.shade600,
+                      size: AppDimensions.iconSizeXXXL,
+                      color: AppColors.bNormal,
                     ),
                   ),
 
-                  const SizedBox(height: 32),
+                  SizedBox(height: AppDimensions.spacingXL),
 
                   // Title
-                  const Text(
+                  Text(
                     'Xác thực OTP',
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: AppDimensions.textSizeXXL,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: AppColors.dark,
                     ),
                   ),
 
-                  const SizedBox(height: 16),
+                  SizedBox(height: AppDimensions.spacingM),
 
                   // Description
                   Text(
                     'Chúng tôi đã gửi mã xác thực 6 chữ số đến\n${widget.email}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey.shade600,
+                      fontSize: AppDimensions.textSizeM,
+                      color: AppColors.lighter,
                       height: 1.5,
                     ),
                   ),
 
-                  const SizedBox(height: 48),
+                  SizedBox(height: AppDimensions.spacingXXXL),
 
                   // OTP Input Fields
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: List.generate(6, (index) {
                       return Container(
-                        width: 48,
-                        height: 56,
+                        width: AppDimensions.size48,
+                        height: AppDimensions.size56,
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: _controllers[index].text.isNotEmpty
-                                ? Colors.blue.shade600
-                                : Colors.grey.shade300,
+                                ? AppColors.bNormal
+                                : AppColors.moreLighter,
                             width: 2,
                           ),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
                         ),
                         child:
                             TextField(
@@ -351,15 +359,14 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.number,
                               maxLength: 1,
-                              style: const TextStyle(
-                                fontSize: 20,
+                              style: TextStyle(
+                                fontSize: AppDimensions.textSizeL,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.bNormal,
                               ),
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 counterText: '',
-                                contentPadding: EdgeInsets.only(left: 3),
                               ),
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly,
@@ -388,7 +395,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     }),
                   ),
 
-                  const SizedBox(height: 32),
+                  SizedBox(height: AppDimensions.spacingXL),
 
                   // Timer and Resend
                   Row(
@@ -397,22 +404,22 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       Text(
                         'Gửi lại mã sau ',
                         style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey.shade600,
+                          fontSize: AppDimensions.textSizeM,
+                          color: AppColors.lighter,
                         ),
                       ),
                       Text(
                         _formattedTime,
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: AppDimensions.textSizeM,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade600,
+                          color: AppColors.bNormal,
                         ),
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: 16),
+                  SizedBox(height: AppDimensions.spacingM),
 
                   // Resend Button
                   TextButton(
@@ -420,24 +427,24 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         ? _resendOtp
                         : null,
                     child: _isResending
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
+                        ? SizedBox(
+                            width: AppDimensions.size24,
+                            height: AppDimensions.size24,
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
                         : Text(
                             'Gửi lại mã OTP',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: AppDimensions.textSizeM,
                               fontWeight: FontWeight.w600,
                               color: _remainingTime == 0
-                                  ? Colors.blue.shade600
-                                  : Colors.grey.shade400,
+                                  ? AppColors.bNormal
+                                  : AppColors.moreLighter,
                             ),
                           ),
                   ),
 
-                  const SizedBox(height: 32),
+                  SizedBox(height: AppDimensions.spacingXL),
                 ],
               ),
             ),

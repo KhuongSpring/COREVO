@@ -5,6 +5,8 @@ import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
 import 'package:hit_tech/view/training_flow/widget/training_goal_selection_widget.dart';
 
+import '../../core/constants/app_dimension.dart';
+
 class TrainingFlowStartPage extends StatefulWidget {
   const TrainingFlowStartPage({super.key});
 
@@ -50,13 +52,13 @@ class _TrainingFlowStartPageState extends State<TrainingFlowStartPage> {
               // Ảnh nền
               Positioned.fill(
                 child: Image.asset(
-                  TrainingAssets.startBackground,
+                  AppAssets.startBackground,
                   fit: BoxFit.cover,
                 ),
               ),
 
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: AppDimensions.paddingL),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -66,24 +68,24 @@ class _TrainingFlowStartPageState extends State<TrainingFlowStartPage> {
                         'Phần 2',
                         style: TextStyle(
                           color: AppColors.wWhite,
-                          fontSize: 16,
+                          fontSize: AppDimensions.textSizeM,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: AppDimensions.spacingSM),
                     Row(
                       children: [
                         Text(
                           'Kế hoạch tập luyện',
                           style: TextStyle(
                             color: AppColors.wWhite,
-                            fontSize: 32,
+                            fontSize: AppDimensions.textSizeXXXL,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Spacer(),
-                        Image.asset(TrainingAssets.customArrowIcon),
+                        Image.asset(AppAssets.customArrowIcon),
                       ],
                     ),
                   ],

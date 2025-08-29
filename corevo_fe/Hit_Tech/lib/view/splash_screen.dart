@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hit_tech/core/constants/app_assets.dart';
 import 'package:hit_tech/core/constants/app_color.dart';
-import 'package:hit_tech/view/main_root/home/home_screen.dart';
+import 'package:hit_tech/core/constants/app_dimension.dart';
 import 'package:hit_tech/service/shared_preferences.dart';
 import 'package:hit_tech/view/auth/login_screen.dart';
 import 'package:hit_tech/view/main_root/home_root.dart';
-import 'package:hit_tech/view/on_boarding/on_boarding_screen_1.dart';
 import 'package:hit_tech/view/on_boarding/splash_on_boarding.dart';
 import 'package:hit_tech/view/training_flow/training_flow_start_page.dart';
 import 'package:hit_tech/view/welcome_screen.dart';
@@ -113,30 +114,30 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: 42,
-                  height: 42,
+                  width: AppDimensions.size40,
+                  height: AppDimensions.size40,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/icons/logo_corevo.png'),
+                      image: AssetImage(AppAssets.logoCorevo),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                SizedBox(width: 12),
+                SizedBox(width: AppDimensions.spacingSM),
                 Text(
                   'Corevo',
                   style: TextStyle(
-                    color: AppColors.wLight,
-                    fontSize: 40,
+                    color: AppColors.wWhite,
+                    fontSize: AppDimensions.textSizeXXXL,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 50),
+            SizedBox(height: AppDimensions.spacingXXXL),
             if (_isChecking)
               CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.wWhite),
               ),
           ],
         ),
