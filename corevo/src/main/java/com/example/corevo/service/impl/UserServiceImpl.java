@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsUserByPhone(request.getPhone()))
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
 
-        String oldAddressId = null;
+        UUID oldAddressId = null;
         if (user.getAddress() != null) {
             oldAddressId = user.getAddress().getId();
         }
@@ -184,7 +184,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto getUserById(String userId) {
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(UUID.fromString(userId))
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         return userMapper.userToUserResponseDto(user);
@@ -217,7 +217,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public UserResponseDto updateUser(String userId, UpdateUserRequestDto request) {
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(UUID.fromString(userId))
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         if (request.getEmail() != null && !request.getEmail().equals(user.getEmail())) {
@@ -243,7 +243,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public CommonResponseDto lockUser(String userId) {
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(UUID.fromString(userId))
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         if (user.getIsLocked()) {
@@ -261,7 +261,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public CommonResponseDto unlockUser(String userId) {
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(UUID.fromString(userId))
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         if (!user.getIsLocked()) {
@@ -279,10 +279,10 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public CommonResponseDto deleteUserAccount(String userId) {
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(UUID.fromString(userId))
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
-        String addressId = null;
+        UUID addressId = null;
 
         if (user.getAddress() != null) {
             addressId = user.getAddress().getId();
@@ -374,7 +374,7 @@ public class UserServiceImpl implements UserService {
             userMapper.updateUserFromPersonalInformationDto(personalInfo, user);
 
             if (personalInfo.getAddress() != null) {
-                String oldAddressId = null;
+                UUID oldAddressId = null;
                 if (user.getAddress() != null) {
                     oldAddressId = user.getAddress().getId();
                 }

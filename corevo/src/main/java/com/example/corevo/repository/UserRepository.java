@@ -12,9 +12,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, UUID> {
 
         Optional<User> findUserDetailByUsername(String username);
 
@@ -35,7 +36,7 @@ public interface UserRepository extends JpaRepository<User, String> {
         List<User> findExpiredDeletedUsers(@Param("expiredDate") LocalDateTime expiredDate);
 
         @Query("SELECT COUNT(u) FROM User u WHERE u.address.id = :addressId")
-        long countByAddressId(String addressId);
+        long countByAddressId(UUID addressId);
 
         Page<User> findUserByUsernameContainingIgnoreCase(String username, Pageable pageable);
 

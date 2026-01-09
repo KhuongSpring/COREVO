@@ -3,7 +3,8 @@ package com.example.corevo.domain.entity.user;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.GenericGenerator;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "address")
@@ -16,10 +17,9 @@ import org.hibernate.annotations.GenericGenerator;
 public class Address {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(insertable = false, updatable = false, nullable = false, columnDefinition = "CHAR(36)")
-    String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false)
+    UUID id;
 
     @Column(nullable = false)
     String province;
