@@ -2,6 +2,8 @@ package com.example.corevo.config;
 
 import com.example.corevo.constant.RoleConstant;
 import com.example.corevo.security.JwtAuthenticationFilter;
+import com.example.corevo.security.RequestLogFilter;
+
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,10 +39,13 @@ public class SecurityConfig {
     String[] OPEN_API;
 
     final JwtAuthenticationFilter jwtAuthenticationFilter;
+    final RequestLogFilter requestLogFilter;
 
     public SecurityConfig(
-            JwtAuthenticationFilter jwtAuthenticationFilter) {
+            JwtAuthenticationFilter jwtAuthenticationFilter,
+            com.example.corevo.security.RequestLogFilter requestLogFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.requestLogFilter = requestLogFilter;
     }
 
     @Bean
@@ -57,6 +62,7 @@ public class SecurityConfig {
                 .requestMatchers(OPEN_API).permitAll()
                 .anyRequest().authenticated());
 
+        http.addFilterBefore(requestLogFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.sessionManagement(session -> session

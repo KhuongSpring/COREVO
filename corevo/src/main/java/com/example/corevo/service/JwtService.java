@@ -17,4 +17,6 @@ public interface JwtService {
 
     boolean isTokenExpired(String token);
 
+    String extractTokenId(String token);
+
 }
