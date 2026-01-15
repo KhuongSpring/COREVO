@@ -33,10 +33,6 @@ import lombok.experimental.FieldDefaults;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -81,13 +77,13 @@ public class UserServiceImpl implements UserService {
             Authentication authentication,
             PersonalInformationRequestDto request) {
 
-        if (!userRepository.existsUserByUsername(authentication.getName()))
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
+        User user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         if (userRepository.existsUsersByPhone(request.getPhone()))
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
-
-        User user = userRepository.findByUsername(authentication.getName());
 
         String oldAddressId = null;
         if (user.getAddress() != null) {
@@ -124,10 +120,10 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto uploadAvatar(
             Authentication authentication,
             MultipartFile file) throws IOException {
-        if (!userRepository.existsUserByUsername(authentication.getName()))
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-
-        User user = userRepository.findByUsername(authentication.getName());
+        User user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         if (user.getAvatarPublicId() != null) {
             cloudinary.uploader().destroy(user.getAvatarPublicId(), ObjectUtils.emptyMap());
@@ -291,13 +287,10 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public AccountDeletionResponseDto deleteMyAccount(Authentication authentication) {
 
-        String username = authentication.getName();
-
-        User user = userRepository.findByUsername(username);
-
-        if (user == null) {
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-        }
+        User user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         if (Boolean.TRUE.equals(user.getIsDeleted())) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_ALREADY_DELETED);
@@ -320,12 +313,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto getMyProfile(Authentication authentication) {
-        String username = authentication.getName();
-
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-        }
+        User user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         UserResponseDto userResponseDto = userMapper.userToUserResponseDto(user);
 
@@ -346,12 +337,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserResponseDto updateProfile(ConfirmPasswordRequestDto request, Authentication authentication) {
-        String username = authentication.getName();
-
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-        }
+        User user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         // if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
         // throw new VsException(HttpStatus.BAD_REQUEST,

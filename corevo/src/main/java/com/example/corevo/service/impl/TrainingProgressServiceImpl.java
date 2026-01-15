@@ -37,12 +37,10 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
     @Override
     public void completeExercise(ExerciseCompletionRequestDto request, Authentication authentication) {
 
-        String username = authentication.getName();
-
-        if (!userRepository.existsUserByUsername(username))
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
         LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(today.getDayOfWeek().toString());
 
@@ -83,12 +81,10 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(today.getDayOfWeek().toString());
 
-        String username = authentication.getName();
-
-        if (!userRepository.existsUserByUsername(username))
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         if (user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
@@ -135,12 +131,10 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         LocalDate weekStart = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
 
-        String username = authentication.getName();
-
-        if (!userRepository.existsUserByUsername(username))
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         if (user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
@@ -185,12 +179,10 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
     public CompletionStatisticResponseDto getCompletionStatistic(Integer year, Integer month,
             Authentication authentication) {
 
-        String username = authentication.getName();
-
-        if (!userRepository.existsUserByUsername(username))
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         if (user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);

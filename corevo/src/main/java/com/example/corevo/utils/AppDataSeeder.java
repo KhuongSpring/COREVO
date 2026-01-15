@@ -9,7 +9,6 @@ import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponse
 import com.example.corevo.domain.dto.response.training_schedule.TrainingExerciseGroupDetailsResponseDto;
 import com.example.corevo.domain.dto.response.training_schedule.TrainingExerciseGroupResponseDto;
 import com.example.corevo.domain.dto.response.training_schedule.TrainingScheduleResponseDto;
-import com.example.corevo.domain.entity.training.TrainingExercise;
 import com.example.corevo.domain.entity.training.*;
 import com.example.corevo.domain.entity.training.training_schedule_details.TrainingDay;
 import com.example.corevo.domain.entity.training.training_schedule_details.TrainingExerciseGroup;
@@ -383,7 +382,7 @@ public class AppDataSeeder implements ApplicationRunner {
 
             return uploadImageFromResources(cloudinary, filePath, publicId);
         } catch (Exception e) {
-            System.out.println(filename);
+            log.error("Failed to upload image: {}", filename, e);
             throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
         }
     }
@@ -400,7 +399,7 @@ public class AppDataSeeder implements ApplicationRunner {
                 return (String) result.get("secure_url");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Failed to upload image from resources: {}", pathInResources, e);
             throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
         }
     }

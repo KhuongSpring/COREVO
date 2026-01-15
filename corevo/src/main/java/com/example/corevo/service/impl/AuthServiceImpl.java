@@ -31,6 +31,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.util.*;
@@ -69,11 +70,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponseDto authentication(LoginRequestDto request) {
-        if (!userRepository.existsUserByUsername(request.getUsername())) {
-            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_INCORRECT_USERNAME);
-        }
-
-        User user = userRepository.findByUsername(request.getUsername());
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.Auth.ERR_INVALID_CREDENTIALS));
 
         // Check account status (deleted or locked)
         if (accountValidationService.isAccountDeleted(user) || accountValidationService.isAccountLocked(user)) {
@@ -83,7 +83,7 @@ public class AuthServiceImpl implements AuthService {
         // Validate password
         boolean auth = passwordEncoder.matches(request.getPassword(), user.getPassword());
         if (!auth) {
-            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_LOGIN_FAIL);
+            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_INVALID_CREDENTIALS);
         }
 
         // Generate tokens
@@ -112,11 +112,9 @@ public class AuthServiceImpl implements AuthService {
             GoogleIdToken token = verifier.verify(request.getIdToken());
 
             if (token == null) {
-                return LoginResponseDto.builder()
-                        .status(HttpStatus.UNAUTHORIZED)
-                        .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
-                        .isDeleted(false)
-                        .build();
+                throw new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.Auth.ERR_INVALID_GOOGLE_TOKEN);
             }
 
             GoogleIdToken.Payload payload = token.getPayload();
@@ -124,15 +122,24 @@ public class AuthServiceImpl implements AuthService {
             String email = payload.getEmail();
             String firstName = (String) payload.get("given_name");
             String lastName = (String) payload.get("family_name");
-            String username = email.split("@")[0];
             String picture = (String) payload.get("picture");
+
+            String username = email.split("@")[0];
+            long count = 0;
+            String uniqueUsername = username;
+            while (userRepository.existsUserByUsername(uniqueUsername)) {
+                count++;
+                uniqueUsername = username + "_" + count;
+            }
+
+            final String finalUsername = uniqueUsername;
 
             User user = userRepository.findByEmail(email).orElseGet(() -> {
                 User newUser = new User();
-                newUser.setUsername(username);
+                newUser.setUsername(finalUsername);
                 newUser.setFirstName(firstName);
                 newUser.setLastName(lastName);
-                newUser.setPassword(UUID.randomUUID().toString());
+                newUser.setPassword(null);
                 newUser.setEmail(email);
                 newUser.setLinkAvatar(picture);
                 newUser.setProvider("GOOGLE");
@@ -167,12 +174,24 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public CommonResponseDto logout(LogoutRequestDto request) {
         try {
             SignedJWT signedJWT = SignedJWT.parse(request.getToken());
 
+            String username = jwtService.extractUsername(request.getToken());
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+            if (!jwtService.isTokenValid(request.getToken(), userDetails)) {
+                throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_TOKEN_INVALIDATED);
+            }
+
             String jwtId = signedJWT.getJWTClaimsSet().getJWTID();
             Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+            if (invalidatedTokenRepository.existsById(jwtId)) {
+                throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_TOKEN_ALREADY_INVALIDATED);
+            }
 
             invalidatedTokenRepository.save(new InvalidatedToken(jwtId, expirationTime));
 
@@ -189,7 +208,7 @@ public class AuthServiceImpl implements AuthService {
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-        if (!jwtService.isTokenExpired(refreshToken)) {
+        if (jwtService.isTokenExpired(refreshToken)) {
             throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.EXPIRED_REFRESH_TOKEN);
         }
 
@@ -197,7 +216,10 @@ public class AuthServiceImpl implements AuthService {
             throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.INVALID_REFRESH_TOKEN);
         }
 
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         return TokenRefreshResponseDto.builder()
                 .tokenType(CommonConstant.BEARER_TOKEN)
@@ -207,13 +229,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void register(RegisterRequestDto request) {
+    @Transactional
+    public CommonResponseDto register(RegisterRequestDto request) {
         if (userRepository.existsUserByUsername(request.getUsername())) {
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_USERNAME_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USERNAME_EXISTED);
         }
 
         if (userRepository.existsUserByEmail(request.getEmail())) {
-            throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_EXISTED);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_EXISTED);
         }
 
         String otp = otpService.generateOtp();
@@ -228,6 +251,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         emailService.sendOtpEmail(request.getEmail(), otp);
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.Auth.SUCCESS_SEND_OTP);
     }
 
     @Override
@@ -263,7 +287,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void forgotPassword(ForgotPasswordRequestDto request) {
+    public CommonResponseDto forgotPassword(ForgotPasswordRequestDto request) {
         if (!userRepository.existsUserByEmail(request.getEmail())) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
         }
@@ -279,21 +303,29 @@ public class AuthServiceImpl implements AuthService {
         }
 
         emailService.sendOtpEmail(request.getEmail(), otp);
+
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.Auth.SUCCESS_SEND_OTP);
     }
 
     @Override
-    public boolean verifyOtpToResetPassword(VerifyOtpRequestDto request) {
-        return otpService.validateOtp(request.getEmail(), request.getOtp(), OtpType.PASSWORD_RESET);
+    public CommonResponseDto verifyOtpToResetPassword(VerifyOtpRequestDto request) {
+
+        if (!otpService.validateOtp(request.getEmail(), request.getOtp(), OtpType.PASSWORD_RESET)) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
+        }
+
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.Auth.SUCCESS_VERIFY_OTP);
     }
 
     @Override
+    @Transactional
     public UserResponseDto resetPassword(ResetPasswordRequestDto request) {
         if (!userRepository.existsUserByEmail(request.getEmail())) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
         }
 
         if (!request.getNewPassword().equals(request.getReEnterPassword())) {
-            throw new VsException(HttpStatus.UNPROCESSABLE_ENTITY, ErrorMessage.User.ERR_RE_ENTER_PASSWORD_NOT_MATCH);
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_RE_ENTER_PASSWORD_NOT_MATCH);
         }
 
         User user = userRepository.findByEmail(request.getEmail())
@@ -336,13 +368,19 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean verifyOtpToRecovery(VerifyOtpRequestDto request) {
-        return otpService.validateOtp(request.getEmail(), request.getOtp(), OtpType.ACCOUNT_RECOVERY);
+    public CommonResponseDto verifyOtpToRecovery(VerifyOtpRequestDto request) {
+
+        if (!otpService.validateOtp(request.getEmail(), request.getOtp(), OtpType.ACCOUNT_RECOVERY)) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
+        }
+
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.Auth.SUCCESS_VERIFY_OTP);
     }
 
     @Override
+    @Transactional
     public CommonResponseDto recoverAccount(VerifyOtpRequestDto request) {
-        if (!verifyOtpToRecovery(request)) {
+        if (!otpService.validateOtp(request.getEmail(), request.getOtp(), OtpType.ACCOUNT_RECOVERY)) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
         }
 
@@ -361,10 +399,5 @@ public class AuthServiceImpl implements AuthService {
         otpService.clearOtp(request.getEmail(), OtpType.ACCOUNT_RECOVERY);
 
         return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.RECOVERY_SUCCESS);
-    }
-
-    @Override
-    public String generateOtp() {
-        return otpService.generateOtp();
     }
 }

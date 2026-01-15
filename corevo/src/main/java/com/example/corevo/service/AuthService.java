@@ -17,21 +17,19 @@ public interface AuthService {
 
     TokenRefreshResponseDto refresh(TokenRefreshRequestDto request);
 
-    void register(RegisterRequestDto request);
+    CommonResponseDto register(RegisterRequestDto request);
 
     UserResponseDto verifyOtpToRegister(VerifyOtpRequestDto request);
 
-    void forgotPassword(ForgotPasswordRequestDto request);
+    CommonResponseDto forgotPassword(ForgotPasswordRequestDto request);
 
-    boolean verifyOtpToResetPassword(VerifyOtpRequestDto request);
+    CommonResponseDto verifyOtpToResetPassword(VerifyOtpRequestDto request);
 
     UserResponseDto resetPassword(ResetPasswordRequestDto request);
 
     CommonResponseDto sendEmailRecoveryOtp(RecoveryRequestDto request);
 
-    boolean verifyOtpToRecovery(VerifyOtpRequestDto request);
+    CommonResponseDto verifyOtpToRecovery(VerifyOtpRequestDto request);
 
     CommonResponseDto recoverAccount(VerifyOtpRequestDto request);
-
-    String generateOtp();
 }

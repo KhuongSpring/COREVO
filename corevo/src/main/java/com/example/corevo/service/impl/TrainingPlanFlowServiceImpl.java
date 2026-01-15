@@ -99,13 +99,10 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
                 throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.UNAUTHORIZED);
             }
 
-            String username = authentication.getName();
-
-            User user = userRepository.findByUsername(username);
-
-            if (user == null) {
-                throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-            }
+            User user = userRepository.findByUsername(authentication.getName())
+                    .orElseThrow(() -> new VsException(
+                            HttpStatus.UNAUTHORIZED,
+                            ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
             if (!user.getTrainingPlans().contains(matchingPlans.getFirst())) {
                 user.getTrainingPlans().add(matchingPlans.getFirst());
@@ -202,13 +199,10 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
                 throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.UNAUTHORIZED);
             }
 
-            String username = authentication.getName();
-
-            User user = userRepository.findByUsername(username);
-
-            if (user == null) {
-                throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-            }
+            User user = userRepository.findByUsername(authentication.getName())
+                    .orElseThrow(() -> new VsException(
+                            HttpStatus.UNAUTHORIZED,
+                            ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
             List<TrainingPlan> currentTrainingPlans = user.getTrainingPlans();
             if (currentTrainingPlans != null && !currentTrainingPlans.isEmpty()) {

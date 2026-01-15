@@ -21,6 +21,7 @@ public class ErrorMessage {
     public static class Auth {
         public static final String ERR_INCORRECT_USERNAME = "exception.auth.incorrect.username";
         public static final String ERR_INCORRECT_PASSWORD = "exception.auth.incorrect.password";
+        public static final String ERR_INVALID_CREDENTIALS = "exception.auth.username.or.password.wrong";
         public static final String ERR_ACCOUNT_NOT_ENABLED = "exception.auth.account.not.enabled";
         public static final String ERR_ACCOUNT_LOCKED = "exception.auth.account.locked";
         public static final String INVALID_REFRESH_TOKEN = "exception.auth.invalid.refresh.token";
@@ -31,6 +32,8 @@ public class ErrorMessage {
         public static final String ERR_GET_TOKEN_CLAIM_SET_FAIL = "exception.auth.get.token.claim.set.fail";
         public static final String ERR_TOKEN_INVALIDATED = "exception.auth.token.invalidated";
         public static final String ERR_MALFORMED_TOKEN = "exception.auth.malformed.token";
+        public static final String ERR_TOKEN_ALREADY_INVALIDATED = "exception.auth.token.already.invalidated";
+        public static final String ERR_INVALID_GOOGLE_TOKEN = "exception.auth.invalid.google.token";
 
     }
 

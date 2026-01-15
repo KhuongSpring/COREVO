@@ -35,11 +35,10 @@ public class UserHealthServiceImpl implements UserHealthService {
             Authentication authentication,
             UserHealthRequestDto request) {
 
-        if (!userRepository.existsUserByUsername(authentication.getName())) {
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-        }
-
-        User user = userRepository.findByUsername(authentication.getName());
+        User user = userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new VsException(
+                        HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         UserHealth userHealth = user.getUserHealth();
         if (userHealth == null) {
