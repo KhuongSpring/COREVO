@@ -2,11 +2,8 @@ package com.example.corevo.service;
 
 import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.pagination.PaginationResponseDto;
-import com.example.corevo.domain.dto.request.admin.CreateTrainingExerciseRequestDto;
-import com.example.corevo.domain.dto.request.admin.UpdateTrainingExerciseRequestDto;
 import com.example.corevo.domain.dto.request.training.TrainingDynamicSearchingRequestDto;
 import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
-import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.training.*;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseLevelPreviewResponseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExercisePreviewResponseDto;
@@ -18,57 +15,59 @@ import java.util.List;
 
 public interface TrainingService {
 
-    List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByPrimaryMuscle(String primaryMuscle,
-                                                                                    PaginationRequestDto paginationRequestDto);
+        List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByPrimaryMuscle(String primaryMuscle,
+                        PaginationRequestDto paginationRequestDto);
 
-    List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByType(String type,
-                                                                           PaginationRequestDto paginationRequestDto);
+        List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByType(String type,
+                        PaginationRequestDto paginationRequestDto);
 
-    List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByGoal(String goal,
-                                                                           PaginationRequestDto paginationRequestDto);
+        List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByGoal(String goal,
+                        PaginationRequestDto paginationRequestDto);
 
-    PaginationResponseDto<TrainingExerciseResponseDto> getAllExercise(PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<TrainingExerciseResponseDto> getAllExercise(PaginationRequestDto paginationRequestDto);
 
-    List<Long> searchTrainingPlanDynamic(TrainingDynamicSearchingRequestDto request);
+        List<Long> searchTrainingPlanDynamic(TrainingDynamicSearchingRequestDto request);
 
-    List<TrainingExercisePreviewResponseDto> searchTrainingExerciseDynamic(TrainingDynamicSearchingRequestDto request);
+        List<TrainingExercisePreviewResponseDto> searchTrainingExerciseDynamic(
+                        TrainingDynamicSearchingRequestDto request);
 
-    PaginationResponseDto<TrainingExerciseResponseDto> searchTrainingExercise(TrainingExerciseSearchingRequestDto request,
-                                                                             PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<TrainingExerciseResponseDto> searchTrainingExercise(
+                        TrainingExerciseSearchingRequestDto request,
+                        PaginationRequestDto paginationRequestDto);
 
-    TrainingExerciseResponseDto getTrainingExerciseById(Long id);
+        TrainingExerciseResponseDto getTrainingExerciseById(Long id);
 
-    PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlans(PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlans(PaginationRequestDto paginationRequestDto);
 
-    PaginationResponseDto<EquipmentResponseDto> getEquipments(PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<EquipmentResponseDto> getEquipments(PaginationRequestDto paginationRequestDto);
 
-    PaginationResponseDto<GoalResponseDto> getGoals(PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<GoalResponseDto> getGoals(PaginationRequestDto paginationRequestDto);
 
-    PaginationResponseDto<LevelResponseDto> getLevels(PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<LevelResponseDto> getLevels(PaginationRequestDto paginationRequestDto);
 
-    PaginationResponseDto<LocationResponseDto> getLocations(PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<LocationResponseDto> getLocations(PaginationRequestDto paginationRequestDto);
 
-    PaginationResponseDto<TargetMuscleResponseDto> getTargetMuscles(PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<TargetMuscleResponseDto> getTargetMuscles(PaginationRequestDto paginationRequestDto);
 
-    PaginationResponseDto<TypeResponseDto> getTypes(PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<TypeResponseDto> getTypes(PaginationRequestDto paginationRequestDto);
 
-    TypeResponseDto getTypeById(Long id);
+        TypeResponseDto getTypeById(Long id);
 
-    TargetMuscleResponseDto getTargetMuscleById(Long id);
+        TargetMuscleResponseDto getTargetMuscleById(Long id);
 
-    TrainingPlanResponseDto getTrainingPlanById(Long id);
+        TrainingPlanResponseDto getTrainingPlanById(Long id);
 
-    LocationResponseDto getLocationById(Long id);
+        LocationResponseDto getLocationById(Long id);
 
-    LevelResponseDto getLevelById(Long id);
+        LevelResponseDto getLevelById(Long id);
 
-    GoalResponseDto getGoalById(Long id);
+        GoalResponseDto getGoalById(Long id);
 
-    EquipmentResponseDto getEquipmentById(Long id);
+        EquipmentResponseDto getEquipmentById(Long id);
 
-    TrainingScheduleResponseDto getTrainingSchedule(Long planId);
+        TrainingScheduleResponseDto getTrainingSchedule(Long planId);
 
-    PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlanByType(String type,
-                                                                         PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlanByType(String type,
+                        PaginationRequestDto paginationRequestDto);
 
 }

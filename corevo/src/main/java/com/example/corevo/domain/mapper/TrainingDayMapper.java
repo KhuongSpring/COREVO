@@ -10,11 +10,8 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        uses = {TrainingExerciseGroupMapper.class, TrainingScheduleMapperHelper.class},
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
-)
+@Mapper(componentModel = "spring", uses = { TrainingExerciseGroupMapper.class,
+        TrainingScheduleMapperHelper.class }, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface TrainingDayMapper {
 
     @Mapping(target = "exerciseGroup", source = "exerciseGroups")

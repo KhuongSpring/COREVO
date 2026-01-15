@@ -10,26 +10,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfig {
 
-    private final String API_KEY = "Bearer Token";
-
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-                .info(new Info()
-                        .title("Corevo API")
-                        .version("1.0")
-                        .description("API hệ thống quản lý sức khỏe"))
-                .components(new Components()
-                        .addSecuritySchemes("Bearer Token",
-                                new SecurityScheme()
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")
-                                        .in(SecurityScheme.In.HEADER)
-                                        .name("Authorization")
-                        )
-                );
-    }
-
+        @Bean
+        public OpenAPI customOpenAPI() {
+                return new OpenAPI()
+                                .info(new Info()
+                                                .title("Corevo API")
+                                                .version("1.0")
+                                                .description("API hệ thống quản lý sức khỏe"))
+                                .components(new Components()
+                                                .addSecuritySchemes("Bearer Token",
+                                                                new SecurityScheme()
+                                                                                .type(SecurityScheme.Type.HTTP)
+                                                                                .scheme("bearer")
+                                                                                .bearerFormat("JWT")
+                                                                                .in(SecurityScheme.In.HEADER)
+                                                                                .name("Authorization")));
+        }
 
 }

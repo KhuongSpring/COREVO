@@ -20,16 +20,17 @@ public class StringToTrainingIDHelper {
                 "Resistance Band", 4L,
                 "Gym equipment", 5L,
                 "Pull up bar", 6L,
-                "Parallel bars", 7L
-        );
+                "Parallel bars", 7L);
 
         public static Optional<Long> toId(String name) {
-            if (name == null) return Optional.empty();
+            if (name == null)
+                return Optional.empty();
             return Optional.ofNullable(NAME_TO_ID.get(name));
         }
 
         public static List<Long> toIds(List<String> names) {
-            if (names == null || names.isEmpty()) return List.of();
+            if (names == null || names.isEmpty())
+                return List.of();
             return names.stream()
                     .map(Equipment::toId)
                     .flatMap(Optional::stream)
@@ -46,16 +47,17 @@ public class StringToTrainingIDHelper {
                 "Increase endurance", 5L,
                 "Improve cardiovascular", 6L,
                 "Stress relief/relaxation", 7L,
-                "Increase height", 8L
-        );
+                "Increase height", 8L);
 
         public static Optional<Long> toId(String name) {
-            if (name == null) return Optional.empty();
+            if (name == null)
+                return Optional.empty();
             return Optional.ofNullable(NAME_TO_ID.get(name));
         }
 
         public static List<Long> toIds(List<String> names) {
-            if (names == null || names.isEmpty()) return List.of();
+            if (names == null || names.isEmpty())
+                return List.of();
             return names.stream()
                     .map(Goal::toId)
                     .flatMap(Optional::stream)
@@ -67,16 +69,17 @@ public class StringToTrainingIDHelper {
         private static final Map<String, Long> NAME_TO_ID = Map.of(
                 "BEGINNER", 1L,
                 "INTERMEDIATE", 2L,
-                "ADVANCED", 3L
-        );
+                "ADVANCED", 3L);
 
         public static Optional<Long> toId(String name) {
-            if (name == null) return Optional.empty();
+            if (name == null)
+                return Optional.empty();
             return Optional.ofNullable(NAME_TO_ID.get(name.toUpperCase()));
         }
 
         public static List<Long> toIds(List<String> names) {
-            if (names == null || names.isEmpty()) return List.of();
+            if (names == null || names.isEmpty())
+                return List.of();
             return names.stream()
                     .map(Level::toId)
                     .flatMap(Optional::stream)
@@ -89,16 +92,17 @@ public class StringToTrainingIDHelper {
                 "HOME", 1L,
                 "GYM", 2L,
                 "OUTSIDE", 3L,
-                "ANYWHERE", 4L
-        );
+                "ANYWHERE", 4L);
 
         public static Optional<Long> toId(String name) {
-            if (name == null) return Optional.empty();
+            if (name == null)
+                return Optional.empty();
             return Optional.ofNullable(NAME_TO_ID.get(name.toUpperCase()));
         }
 
         public static List<Long> toIds(List<String> names) {
-            if (names == null || names.isEmpty()) return List.of();
+            if (names == null || names.isEmpty())
+                return List.of();
             return names.stream()
                     .map(Location::toId)
                     .flatMap(Optional::stream)
@@ -117,16 +121,17 @@ public class StringToTrainingIDHelper {
                 "Lower Back", 9L,
                 "Glutes", 10L,
                 "Quads", 11L,
-                "Hamstrings", 12L
-        );
+                "Hamstrings", 12L);
 
         public static Optional<Long> toId(String name) {
-            if (name == null) return Optional.empty();
+            if (name == null)
+                return Optional.empty();
             return Optional.ofNullable(NAME_TO_ID.get(toCapitalized(name)));
         }
 
         public static List<Long> toIds(List<String> names) {
-            if (names == null || names.isEmpty()) return List.of();
+            if (names == null || names.isEmpty())
+                return List.of();
             return names.stream()
                     .map(TargetMuscle::toId)
                     .flatMap(Optional::stream)
@@ -139,16 +144,17 @@ public class StringToTrainingIDHelper {
                 "Gym", 1L,
                 "Cardio", 2L,
                 "Yoga", 3L,
-                "Calisthenic", 4L
-        );
+                "Calisthenic", 4L);
 
         public static Optional<Long> toId(String name) {
-            if (name == null) return Optional.empty();
+            if (name == null)
+                return Optional.empty();
             return Optional.ofNullable(NAME_TO_ID.get(toCapitalized(name)));
         }
 
         public static List<Long> toIds(List<String> names) {
-            if (names == null || names.isEmpty()) return List.of();
+            if (names == null || names.isEmpty())
+                return List.of();
             return names.stream()
                     .map(Type::toId)
                     .flatMap(Optional::stream)

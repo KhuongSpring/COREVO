@@ -33,11 +33,10 @@ import lombok.experimental.FieldDefaults;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
+
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -77,12 +76,10 @@ public class UserServiceImpl implements UserService {
 
     Cloudinary cloudinary;
 
-
     @Override
     public UserResponseDto personalInformation(
             Authentication authentication,
-            PersonalInformationRequestDto request
-    ) {
+            PersonalInformationRequestDto request) {
 
         if (!userRepository.existsUserByUsername(authentication.getName()))
             throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
@@ -126,8 +123,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto uploadAvatar(
             Authentication authentication,
-            MultipartFile file
-    ) throws IOException {
+            MultipartFile file) throws IOException {
         if (!userRepository.existsUserByUsername(authentication.getName()))
             throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
@@ -206,8 +202,8 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.createUserRequestDtoToUser(request);
 
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setCreatedAt(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
-        user.setIsLocked(CommonConstant.FALSE);
+        user.setCreatedAt(com.example.corevo.utils.TimeUtil.today());
+        user.setIsLocked(false);
 
         return userMapper.userToUserResponseDto(userRepository.save(user));
     }
@@ -244,7 +240,7 @@ public class UserServiceImpl implements UserService {
 
         checkLockUser(user);
 
-        user.get().setIsLocked(CommonConstant.TRUE);
+        user.get().setIsLocked(true);
 
         userRepository.save(user.get());
 
@@ -258,7 +254,7 @@ public class UserServiceImpl implements UserService {
 
         checkUnlockUser(user);
 
-        user.get().setIsLocked(CommonConstant.FALSE);
+        user.get().setIsLocked(false);
 
         userRepository.save(user.get());
 
@@ -309,8 +305,8 @@ public class UserServiceImpl implements UserService {
 
         Integer gracePeriodDays = CommonConstant.ACCOUNT_RECOVERY_DAYS;
 
-        user.setIsDeleted(CommonConstant.TRUE);
-        user.setDeletedAt(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
+        user.setIsDeleted(true);
+        user.setDeletedAt(com.example.corevo.utils.TimeUtil.today());
 
         userRepository.save(user);
 
@@ -319,8 +315,7 @@ public class UserServiceImpl implements UserService {
                 SuccessMessage.User.SOFT_DELETE_SUCCESS,
                 user.getEmail(),
                 gracePeriodDays,
-                "corevo@gmail.com"
-        );
+                "corevo@gmail.com");
     }
 
     @Override
@@ -340,8 +335,8 @@ public class UserServiceImpl implements UserService {
         }
 
         if (!user.getTrainingPlans().isEmpty()) {
-            List<TrainingPlanResponseDto> listResponseDto = trainingPlanMapper.
-                    listTrainingPlanToListTrainingPlanResponseDto(user.getTrainingPlans());
+            List<TrainingPlanResponseDto> listResponseDto = trainingPlanMapper
+                    .listTrainingPlanToListTrainingPlanResponseDto(user.getTrainingPlans());
             userResponseDto.setTrainingPlans(listResponseDto);
         }
 
@@ -358,14 +353,16 @@ public class UserServiceImpl implements UserService {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
         }
 
-//        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-//            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_INCORRECT_PASSWORD_CONFIRMATION);
-//        }
+        // if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        // throw new VsException(HttpStatus.BAD_REQUEST,
+        // ErrorMessage.User.ERR_INCORRECT_PASSWORD_CONFIRMATION);
+        // }
 
-//        if (user.getPhone() == null || user.getBirth() == null ||
-//                user.getNationality() == null || user.getAddress() == null) {
-//            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_PERSONAL_INFORMATION_NOT_COMPLETED);
-//        }
+        // if (user.getPhone() == null || user.getBirth() == null ||
+        // user.getNationality() == null || user.getAddress() == null) {
+        // throw new VsException(HttpStatus.BAD_REQUEST,
+        // ErrorMessage.User.ERR_PERSONAL_INFORMATION_NOT_COMPLETED);
+        // }
 
         if (request.getProfileData().getPersonalInformation() != null) {
 
@@ -434,14 +431,13 @@ public class UserServiceImpl implements UserService {
         }
 
         if (!updatedUser.getTrainingPlans().isEmpty()) {
-            List<TrainingPlanResponseDto> listResponseDto = trainingPlanMapper.
-                    listTrainingPlanToListTrainingPlanResponseDto(user.getTrainingPlans());
+            List<TrainingPlanResponseDto> listResponseDto = trainingPlanMapper
+                    .listTrainingPlanToListTrainingPlanResponseDto(user.getTrainingPlans());
             userResponseDto.setTrainingPlans(listResponseDto);
         }
 
         return userResponseDto;
     }
-
 
     private void calculateHealthData(UserHealth userHealth) {
 
@@ -484,19 +480,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public PaginationResponseDto<UserResponseDto> searchUserByUsername(
             UserSearchingRequestDto request,
-            PaginationRequestDto paginationRequestDto){
+            PaginationRequestDto paginationRequestDto) {
 
         List<UserResponseDto> result;
 
         Pageable pageable = PageRequest.of(
                 paginationRequestDto.getPageNum(),
-                paginationRequestDto.getPageSize()
-        );
+                paginationRequestDto.getPageSize());
 
-        Page<User> userPage = userRepository.
-                findUserByUsernameContainingIgnoreCase(
-                    request.getSearchSentence(),
-                    pageable);
+        Page<User> userPage = userRepository.findUserByUsernameContainingIgnoreCase(
+                request.getSearchSentence(),
+                pageable);
 
         result = userPage.getContent()
                 .stream()
@@ -507,30 +501,28 @@ public class UserServiceImpl implements UserService {
         PagingMeta pagingMeta = new PagingMeta(
                 userPage.getTotalElements(),
                 userPage.getTotalPages(),
-                paginationRequestDto.getPageNum()+1,
+                paginationRequestDto.getPageNum() + 1,
                 paginationRequestDto.getPageSize(),
                 null,
                 null);
 
-        return new PaginationResponseDto<>(pagingMeta,result);
+        return new PaginationResponseDto<>(pagingMeta, result);
     }
 
     @Override
     public PaginationResponseDto<UserResponseDto> searchUserByEmail(
             UserSearchingRequestDto request,
-            PaginationRequestDto paginationRequestDto){
+            PaginationRequestDto paginationRequestDto) {
 
         List<UserResponseDto> result;
 
         Pageable pageable = PageRequest.of(
                 paginationRequestDto.getPageNum(),
-                paginationRequestDto.getPageSize()
-        );
+                paginationRequestDto.getPageSize());
 
-        Page<User> userPage = userRepository.
-                findUserByEmailContainingIgnoreCase(
-                        request.getSearchSentence(),
-                        pageable);
+        Page<User> userPage = userRepository.findUserByEmailContainingIgnoreCase(
+                request.getSearchSentence(),
+                pageable);
 
         result = userPage.getContent()
                 .stream()
@@ -541,30 +533,28 @@ public class UserServiceImpl implements UserService {
         PagingMeta pagingMeta = new PagingMeta(
                 userPage.getTotalElements(),
                 userPage.getTotalPages(),
-                paginationRequestDto.getPageNum()+1,
+                paginationRequestDto.getPageNum() + 1,
                 paginationRequestDto.getPageSize(),
                 null,
                 null);
 
-        return new PaginationResponseDto<>(pagingMeta,result);
+        return new PaginationResponseDto<>(pagingMeta, result);
     }
 
     @Override
     public PaginationResponseDto<UserResponseDto> searchUserByPhone(
             UserSearchingRequestDto request,
-            PaginationRequestDto paginationRequestDto){
+            PaginationRequestDto paginationRequestDto) {
 
         List<UserResponseDto> result;
 
         Pageable pageable = PageRequest.of(
                 paginationRequestDto.getPageNum(),
-                paginationRequestDto.getPageSize()
-        );
+                paginationRequestDto.getPageSize());
 
-        Page<User> userPage = userRepository.
-                findUserByPhoneContaining(
-                        request.getSearchSentence(),
-                        pageable);
+        Page<User> userPage = userRepository.findUserByPhoneContaining(
+                request.getSearchSentence(),
+                pageable);
 
         result = userPage.getContent()
                 .stream()
@@ -575,17 +565,17 @@ public class UserServiceImpl implements UserService {
         PagingMeta pagingMeta = new PagingMeta(
                 userPage.getTotalElements(),
                 userPage.getTotalPages(),
-                paginationRequestDto.getPageNum()+1,
+                paginationRequestDto.getPageNum() + 1,
                 paginationRequestDto.getPageSize(),
                 null,
                 null);
 
-        return new PaginationResponseDto<>(pagingMeta,result);
+        return new PaginationResponseDto<>(pagingMeta, result);
     }
 
     @Override
     public List<DayCountResponseDto> getUserDayCounts() {
-        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        LocalDate today = com.example.corevo.utils.TimeUtil.today();
         LocalDate startDate = today.minusDays(6);
 
         List<Object[]> results = userRepository.countUserByDay(startDate);
@@ -598,18 +588,18 @@ public class UserServiceImpl implements UserService {
         }
 
         List<DayCountResponseDto> result = new ArrayList<>();
-        for(int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             LocalDate day = startDate.plusDays(i);
             String dayName = day.getDayOfWeek().toString();
-            Long count = countMap.getOrDefault(day,0L);
-            result.add(new DayCountResponseDto(dayName,count));
+            Long count = countMap.getOrDefault(day, 0L);
+            result.add(new DayCountResponseDto(dayName, count));
         }
         return result;
     }
 
     @Override
     public List<MonthCountResponseDto> getUserMonthCounts() {
-        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        LocalDate today = com.example.corevo.utils.TimeUtil.today();
         LocalDate startDate = today.minusMonths(11).withDayOfMonth(1);
 
         List<Object[]> results = userRepository.countUserByMonth(startDate);

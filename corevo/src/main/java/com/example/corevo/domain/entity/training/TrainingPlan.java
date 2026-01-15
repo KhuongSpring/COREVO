@@ -17,51 +17,39 @@ import java.util.List;
 @ToString
 public class TrainingPlan {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        Long id;
 
-    @Column(nullable = false)
-    String name;
+        @Column(nullable = false)
+        String name;
 
-    String description;
+        String description;
 
-    String aim;
+        String aim;
 
-    @Column(nullable = false)
-    String goals;
+        @Column(nullable = false)
+        String goals;
 
-    @Column(nullable = false)
-    String type;
+        @Column(nullable = false)
+        String type;
 
-    @Column(nullable = false)
-    String duration;
+        @Column(nullable = false)
+        String duration;
 
-    @Column(nullable = false)
-    String frequency;
+        @Column(nullable = false)
+        String frequency;
 
-    @ManyToMany
-    @JoinTable(
-            name = "training_plan_levels",
-            joinColumns = @JoinColumn(name = "training_plan_id"),
-            inverseJoinColumns = @JoinColumn(name = "level_id")
-    )
-    List<Level> levels;
+        @ManyToMany
+        @JoinTable(name = "training_plan_levels", joinColumns = @JoinColumn(name = "training_plan_id"), inverseJoinColumns = @JoinColumn(name = "level_id"))
+        List<Level> levels;
 
-    @ManyToMany
-    @JoinTable(
-            name = "training_plan_locations",
-            joinColumns = @JoinColumn(name = "training_plan_id"),
-            inverseJoinColumns = @JoinColumn(name = "location_id")
-    )
-    List<Location> locations;
+        @ManyToMany
+        @JoinTable(name = "training_plan_locations", joinColumns = @JoinColumn(name = "training_plan_id"), inverseJoinColumns = @JoinColumn(name = "location_id"))
+        List<Location> locations;
 
-    @ManyToMany
-    @JoinTable(
-            name = "training_plan_equipments",
-            joinColumns = @JoinColumn(name = "training_plan_id"),
-            inverseJoinColumns = @JoinColumn(name = "equipment_id")
-    )
-    List<Equipment> equipments;
+        @ManyToMany
+        @JoinTable(name = "training_plan_equipments", joinColumns = @JoinColumn(name = "training_plan_id"), inverseJoinColumns = @JoinColumn(name = "equipment_id"))
+        List<Equipment> equipments;
 
 }

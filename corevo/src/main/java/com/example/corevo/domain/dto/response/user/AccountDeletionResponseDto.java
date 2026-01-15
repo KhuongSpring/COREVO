@@ -19,7 +19,7 @@ public class AccountDeletionResponseDto extends CommonResponseDto {
     String supportContact;
 
     public AccountDeletionResponseDto(HttpStatus status, String message, String userEmail,
-                                      Integer gracePeriodDays, String supportContact) {
+            Integer gracePeriodDays, String supportContact) {
         super(status, message);
         this.userEmail = userEmail;
         this.gracePeriodDays = gracePeriodDays;

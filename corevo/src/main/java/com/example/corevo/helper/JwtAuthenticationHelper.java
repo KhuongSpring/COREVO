@@ -12,8 +12,7 @@ public class JwtAuthenticationHelper {
 
     public boolean handleSoftDeletedUser(
             UserDetails userDetails,
-            HttpServletResponse response
-    ) throws IOException {
+            HttpServletResponse response) throws IOException {
         if (isUserSoftDeleted(userDetails)) {
             sendDeletedAccountResponse(response);
             return true;
@@ -30,9 +29,10 @@ public class JwtAuthenticationHelper {
     }
 
     private void sendDeletedAccountResponse(HttpServletResponse response) throws IOException {
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); //  401 Unauthorized
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
         response.setContentType("application/json");
-        response.getWriter().write("{\"error\":\"Account has been deleted\",\"message\":\"Your account has been deleted. Please contact support to recover.\"}");
+        response.getWriter().write(
+                "{\"error\":\"Account has been deleted\",\"message\":\"Your account has been deleted. Please contact support to recover.\"}");
     }
 
 }

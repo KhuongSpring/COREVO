@@ -1,6 +1,5 @@
 package com.example.corevo.domain.dto.response.training_progress;
 
-import com.example.corevo.domain.entity.training.training_schedule_details.DayOfWeek;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

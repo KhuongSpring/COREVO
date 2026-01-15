@@ -1,11 +1,7 @@
 package com.example.corevo.domain.dto.request.admin;
 
-import com.example.corevo.constant.ErrorMessage;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import lombok.experimental.Accessors;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
@@ -47,7 +43,7 @@ public class UpdateTrainingExerciseRequestDto {
     @Schema(description = "LevelIds", example = "[1]")
     List<Long> levelIds;
 
-    @Schema(description = "TypeIds" , example = "[1]")
+    @Schema(description = "TypeIds", example = "[1]")
     List<Long> typeIds;
 
     @Schema(description = "primaryMuscleIds", example = "[1]")

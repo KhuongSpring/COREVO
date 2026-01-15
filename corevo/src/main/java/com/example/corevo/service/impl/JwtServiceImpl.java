@@ -1,6 +1,5 @@
 package com.example.corevo.service.impl;
 
-import com.example.corevo.constant.RoleConstant;
 import com.example.corevo.domain.entity.user.User;
 import com.example.corevo.exception.InternalServerException;
 import com.example.corevo.repository.InvalidatedTokenRepository;
@@ -55,8 +54,7 @@ public class JwtServiceImpl implements JwtService {
 
             SignedJWT signedJWT = new SignedJWT(
                     new JWSHeader(JWSAlgorithm.HS512),
-                    claimsSet
-            );
+                    claimsSet);
 
             signedJWT.sign(new MACSigner(secretKey.getBytes()));
 

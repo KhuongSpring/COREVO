@@ -9,10 +9,7 @@ import com.example.corevo.domain.dto.request.auth.RegisterRequestDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 import com.example.corevo.domain.entity.user.User;
 
-@Mapper(componentModel = "spring",
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
-)
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface AuthMapper {
 
     @Mapping(target = "id", ignore = true)

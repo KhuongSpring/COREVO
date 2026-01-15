@@ -24,61 +24,42 @@ import org.springframework.web.bind.annotation.*;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TrainingProgressController {
 
-    TrainingProgressService trainingProgressService;
+        TrainingProgressService trainingProgressService;
 
-    @Tag(name = "training-controller-progress")
-    @Operation(
-            summary = "Đánh dấu hoàn thành exercise",
-            description = "Dùng để người dùng đánh dấu hoàn thành một bài tập",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
-    @PostMapping(UrlConstant.Training.COMPLETE_EXERCISE)
-    public ResponseEntity<?> completeExercise(
-            @Valid @RequestBody ExerciseCompletionRequestDto request,
-            Authentication authentication
-    ) {
-        trainingProgressService.completeExercise(request, authentication);
-        return VsResponseUtil.success(SuccessMessage.Exercise.COMPLETE_EXERCISE_SUCCESS);
-    }
+        @Tag(name = "training-controller-progress")
+        @Operation(summary = "Đánh dấu hoàn thành exercise", description = "Dùng để người dùng đánh dấu hoàn thành một bài tập", security = @SecurityRequirement(name = "Bearer Token"))
+        @PostMapping(UrlConstant.Training.COMPLETE_EXERCISE)
+        public ResponseEntity<?> completeExercise(
+                        @Valid @RequestBody ExerciseCompletionRequestDto request,
+                        Authentication authentication) {
+                trainingProgressService.completeExercise(request, authentication);
+                return VsResponseUtil.success(SuccessMessage.Exercise.COMPLETE_EXERCISE_SUCCESS);
+        }
 
-    @Tag(name = "training-controller-progress")
-    @Operation(
-            summary = "Lấy tiến độ hoàn thành luyện tập theo ngày",
-            description = "Dùng để lấy tiến độ hoàn thành luyện tập của user trong ngày hôm nay",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
-    @GetMapping(UrlConstant.Training.GET_DAILY_PROGRESS)
-    public ResponseEntity<?> getDailyProgress(
-            Authentication authentication
-    ) {
-        return VsResponseUtil.success(trainingProgressService.getDailyProgress(authentication));
-    }
+        @Tag(name = "training-controller-progress")
+        @Operation(summary = "Lấy tiến độ hoàn thành luyện tập theo ngày", description = "Dùng để lấy tiến độ hoàn thành luyện tập của user trong ngày hôm nay", security = @SecurityRequirement(name = "Bearer Token"))
+        @GetMapping(UrlConstant.Training.GET_DAILY_PROGRESS)
+        public ResponseEntity<?> getDailyProgress(
+                        Authentication authentication) {
+                return VsResponseUtil.success(trainingProgressService.getDailyProgress(authentication));
+        }
 
-    @Tag(name = "training-controller-progress")
-    @Operation(
-            summary = "Lấy tiến độ hoàn thành luyện tập theo tuần",
-            description = "Dùng để lấy tiến độ hoàn thành luyện tập của user trong tuần hiện tại",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
-    @GetMapping(UrlConstant.Training.GET_WEEKLY_PROGRESS)
-    public ResponseEntity<?> getWeeklyProgress(
-            Authentication authentication
-    ) {
-        return VsResponseUtil.success(trainingProgressService.getWeeklyProgress(authentication));
-    }
+        @Tag(name = "training-controller-progress")
+        @Operation(summary = "Lấy tiến độ hoàn thành luyện tập theo tuần", description = "Dùng để lấy tiến độ hoàn thành luyện tập của user trong tuần hiện tại", security = @SecurityRequirement(name = "Bearer Token"))
+        @GetMapping(UrlConstant.Training.GET_WEEKLY_PROGRESS)
+        public ResponseEntity<?> getWeeklyProgress(
+                        Authentication authentication) {
+                return VsResponseUtil.success(trainingProgressService.getWeeklyProgress(authentication));
+        }
 
-    @Tag(name = "training-controller-progress")
-    @Operation(
-            summary = "Lấy các thông tin thống kê luyện tập",
-            description = "Dùng để lấy các thông tin thống kê luyện tập của nguời dùng hiện tại",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
-    @GetMapping(UrlConstant.Training.GET_COMPLETED_STATISTIC)
-    public ResponseEntity<?> getCompletionCalendar(
-            @RequestParam(required = false) Integer year,
-            @RequestParam(required = false) Integer month,
-            Authentication authentication
-    ){
-        return VsResponseUtil.success(trainingProgressService.getCompletionStatistic(year, month, authentication));
-    }
+        @Tag(name = "training-controller-progress")
+        @Operation(summary = "Lấy các thông tin thống kê luyện tập", description = "Dùng để lấy các thông tin thống kê luyện tập của nguời dùng hiện tại", security = @SecurityRequirement(name = "Bearer Token"))
+        @GetMapping(UrlConstant.Training.GET_COMPLETED_STATISTIC)
+        public ResponseEntity<?> getCompletionCalendar(
+                        @RequestParam(required = false) Integer year,
+                        @RequestParam(required = false) Integer month,
+                        Authentication authentication) {
+                return VsResponseUtil
+                                .success(trainingProgressService.getCompletionStatistic(year, month, authentication));
+        }
 }

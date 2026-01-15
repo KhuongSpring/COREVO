@@ -39,14 +39,14 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
 
         String username = authentication.getName();
 
-        if(!userRepository.existsUserByUsername(username))
+        if (!userRepository.existsUserByUsername(username))
             throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         User user = userRepository.findByUsername(username);
         LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(today.getDayOfWeek().toString());
 
-        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
+        if (user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
 
         TrainingPlan trainingPlan = user.getTrainingPlans().getFirst();
@@ -54,18 +54,17 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         List<Long> todayExerciseIds = completionRepository
                 .findExerciseIdsByTrainingPlanIdAndDayOfWeek(trainingPlan.getId(), dayOfWeek);
 
-        if(!todayExerciseIds.contains(request.getExerciseId()))
+        if (!todayExerciseIds.contains(request.getExerciseId()))
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS_DAY);
 
-        if(completionRepository.existsByExerciseId(request.getExerciseId()))
+        if (completionRepository.existsByExerciseId(request.getExerciseId()))
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EXERCISE_HAS_BEEN_COMPLETED);
 
         boolean alreadyCompleted = completionRepository
                 .existsByUser_IdAndExerciseIdAndTrainingPlanIdAndCompletionDate(
-                        user.getId(), request.getExerciseId(), trainingPlan.getId(), today
-                );
+                        user.getId(), request.getExerciseId(), trainingPlan.getId(), today);
 
-        if(!alreadyCompleted){
+        if (!alreadyCompleted) {
             TrainingExerciseCompletion completion = TrainingExerciseCompletion.builder()
                     .user(user)
                     .exerciseId(request.getExerciseId())
@@ -86,12 +85,12 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
 
         String username = authentication.getName();
 
-        if(!userRepository.existsUserByUsername(username))
+        if (!userRepository.existsUserByUsername(username))
             throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         User user = userRepository.findByUsername(username);
 
-        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
+        if (user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
 
         TrainingPlan trainingPlan = user.getTrainingPlans().getFirst();
@@ -106,7 +105,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         List<Long> todayExerciseIds = completionRepository
                 .findExerciseIdsByTrainingPlanIdAndDayOfWeek(trainingPlan.getId(), dayOfWeek);
 
-        if(todayExerciseIds.isEmpty())
+        if (todayExerciseIds.isEmpty())
             return new DailyProgressResponseDto(
                     trainingPlan.getId(),
                     dayOfWeek.toString(),
@@ -114,7 +113,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
                     100.00);
 
         Map<String, Boolean> completions = new HashMap<>();
-        for (Long exerciseIds : todayExerciseIds){
+        for (Long exerciseIds : todayExerciseIds) {
             completions.put(exerciseIds.toString(), completedExerciseIds.contains(exerciseIds));
         }
 
@@ -127,8 +126,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
                 trainingPlan.getId(),
                 dayOfWeek.toString(),
                 completions,
-                percentage
-        );
+                percentage);
     }
 
     @Override
@@ -139,27 +137,27 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
 
         String username = authentication.getName();
 
-        if(!userRepository.existsUserByUsername(username))
+        if (!userRepository.existsUserByUsername(username))
             throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         User user = userRepository.findByUsername(username);
 
-        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
+        if (user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
 
         Long trainingPlanId = user.getTrainingPlans().getFirst().getId();
 
-        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
+        if (user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
 
         int completedDays = 0;
 
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             LocalDate checkDate = weekStart.plusDays(i);
             DayOfWeek checkDayOfWeek = DayOfWeek.valueOf(checkDate.getDayOfWeek().toString());
             Long totalExercisesForDay = completionRepository.countTotalExercisesByDay(trainingPlanId, checkDayOfWeek);
 
-            if(totalExercisesForDay == 0){
+            if (totalExercisesForDay == 0) {
                 if (checkDate.isBefore(today) || checkDate.isEqual(today)) {
                     completedDays++;
                 }
@@ -180,22 +178,21 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         return new WeeklyProgressResponseDto(
                 trainingPlanId,
                 weeklyPercentage,
-                completedDays
-        );
+                completedDays);
     }
 
     @Override
-    public CompletionStatisticResponseDto getCompletionStatistic(Integer year, Integer month, Authentication authentication) {
+    public CompletionStatisticResponseDto getCompletionStatistic(Integer year, Integer month,
+            Authentication authentication) {
 
         String username = authentication.getName();
 
-        if(!userRepository.existsUserByUsername(username))
+        if (!userRepository.existsUserByUsername(username))
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         User user = userRepository.findByUsername(username);
 
-
-        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
+        if (user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
 
         LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
@@ -206,7 +203,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         try {
             startOfMonth = LocalDate.of(targetYear, targetMonth, 1);
         } catch (DateTimeException e) {
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.INVALID_DATE +" "+ e.getMessage());
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.INVALID_DATE + " " + e.getMessage());
         }
         int dayInMonth = startOfMonth.lengthOfMonth();
         LocalDate endOfMonth = startOfMonth.withDayOfMonth(dayInMonth);
@@ -217,16 +214,14 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.INVALID_DATE);
         }
 
-
         List<LocalDate> completedDateInMonth = completionRepository
                 .findCompletionDatesByUserAndDateRange(user.getId(), startOfMonth, endOfMonth);
 
         List<Boolean> currentMonthCompletions = new ArrayList<>();
-        for(int i = 1; i <= dayInMonth; i++){
+        for (int i = 1; i <= dayInMonth; i++) {
             LocalDate currDate = LocalDate.of(targetYear, targetMonth, i);
             currentMonthCompletions.add(completedDateInMonth.contains(currDate));
         }
-
 
         List<LocalDate> allCompletionDates = completionRepository.findAllCompletionDatesByUserId(user.getId());
 
@@ -234,27 +229,26 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
 
         Integer longestStreak = calculateLongestStreak(allCompletionDates);
 
-
         return new CompletionStatisticResponseDto(
                 changeMonthToString(targetMonth),
                 targetYear,
                 currentMonthCompletions,
                 currentStreak,
-                longestStreak
-                );
+                longestStreak);
     }
 
-    private String changeMonthToString(Integer month){
+    private String changeMonthToString(Integer month) {
         String[] monthName = {
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
         };
 
         return monthName[month - 1];
     }
 
     private Integer calculateCurrentStreak(List<LocalDate> allCompletionDates, LocalDate today) {
-        if (allCompletionDates.isEmpty()) return 0;
+        if (allCompletionDates.isEmpty())
+            return 0;
 
         Set<LocalDate> completionSet = new HashSet<>(allCompletionDates);
 
@@ -273,20 +267,20 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         return streak;
     }
 
-
-    private Integer calculateLongestStreak(List<LocalDate> allCompletionDates){
-        if (allCompletionDates.isEmpty()) return 0;
+    private Integer calculateLongestStreak(List<LocalDate> allCompletionDates) {
+        if (allCompletionDates.isEmpty())
+            return 0;
 
         int maxStreak = 0;
         int currentStreak = 1;
 
-        for(int i = 1; i < allCompletionDates.size(); i++){
+        for (int i = 1; i < allCompletionDates.size(); i++) {
             LocalDate currDate = allCompletionDates.get(i);
             LocalDate prevDate = allCompletionDates.get(i - 1);
 
-            if(prevDate.plusDays(1).equals(currDate)){
+            if (prevDate.plusDays(1).equals(currDate)) {
                 currentStreak++;
-            } else{
+            } else {
                 maxStreak = Math.max(maxStreak, currentStreak);
                 currentStreak = 1;
             }
@@ -295,5 +289,3 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
     }
 
 }
-
-

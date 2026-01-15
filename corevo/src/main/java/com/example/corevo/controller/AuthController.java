@@ -17,9 +17,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-
 @RestApiV1
 @Validated
 @RequiredArgsConstructor
@@ -27,111 +24,75 @@ import java.security.GeneralSecurityException;
 public class AuthController {
     AuthService authService;
 
-    @Operation(
-            summary = "Đăng nhập tài khoản",
-            description = "Dùng để đăng nhập tài khoản"
-    )
+    @Operation(summary = "Đăng nhập tài khoản", description = "Dùng để đăng nhập tài khoản")
     @PostMapping(UrlConstant.Auth.LOGIN)
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDto requestDto) {
         return VsResponseUtil.success(authService.authentication(requestDto));
     }
 
-    @Operation(
-            summary = "Đăng nhập bằng Google",
-            description = "Dùng để đăng nhập bằng Google"
-    )
+    @Operation(summary = "Đăng nhập bằng Google", description = "Dùng để đăng nhập bằng Google")
     @PostMapping(UrlConstant.Auth.LOGIN_WITH_GOOGLE)
-    public ResponseEntity<?> loginWithGoogle(@RequestBody OAuth2GoogleRequestDto request) throws GeneralSecurityException, IOException {
+    public ResponseEntity<?> loginWithGoogle(@Valid @RequestBody OAuth2GoogleRequestDto request) {
         return VsResponseUtil.success(authService.loginWithGoogle(request));
     }
 
-    @Operation(
-            summary = "Đăng xuất tài khoản",
-            description = "Dùng để đăng xuất tài khoản"
-    )
+    @Operation(summary = "Đăng xuất tài khoản", description = "Dùng để đăng xuất tài khoản")
     @PostMapping(UrlConstant.Auth.LOGOUT)
     public ResponseEntity<?> logout(@Valid @RequestBody LogoutRequestDto request) {
         return VsResponseUtil.success(authService.logout(request));
     }
 
-    @Operation(
-            summary = "Làm mới token",
-            description = "Dùng để cấp lại token"
-    )
+    @Operation(summary = "Làm mới token", description = "Dùng để cấp lại token")
     @PostMapping(UrlConstant.Auth.REFRESH_TOKEN)
     public ResponseEntity<?> refresh(@Valid @RequestBody TokenRefreshRequestDto request) {
         return VsResponseUtil.success(authService.refresh(request));
     }
 
-    @Operation(
-            summary = "Đăng kí tài khoản",
-            description = "Dùng để đăng kí tài khoản"
-    )
+    @Operation(summary = "Đăng kí tài khoản", description = "Dùng để đăng kí tài khoản")
     @PostMapping(UrlConstant.Auth.REGISTER)
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDto requestDto) {
         authService.register(requestDto);
         return VsResponseUtil.success(SuccessMessage.Auth.SUCCESS_SEND_OTP);
     }
 
-    @Operation(
-            summary = "Xác thực OTP",
-            description = "Dùng để xác thực OTP sau khi yêu cầu đăng kí tài khoản"
-    )
+    @Operation(summary = "Xác thực OTP", description = "Dùng để xác thực OTP sau khi yêu cầu đăng kí tài khoản")
     @PostMapping(UrlConstant.Auth.VERIFY_OTP)
     public ResponseEntity<?> verify(@Valid @RequestBody VerifyOtpRequestDto request) {
         return VsResponseUtil.success(authService.verifyOtpToRegister(request));
     }
 
-    @Operation(
-            summary = "Quên mật khẩu",
-            description = "Dùng để lấy lại mật khẩu"
-    )
+    @Operation(summary = "Quên mật khẩu", description = "Dùng để lấy lại mật khẩu")
     @PostMapping(UrlConstant.Auth.FORGOT_PASSWORD)
     public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequestDto request) {
         authService.forgotPassword(request);
         return VsResponseUtil.success(SuccessMessage.Auth.SUCCESS_SEND_OTP);
     }
 
-    @Operation(
-            summary = "Xác thực OTP",
-            description = "Dùng để xác thực OTP sau khi yêu cầu lấy lại mật khẩu"
-    )
+    @Operation(summary = "Xác thực OTP", description = "Dùng để xác thực OTP sau khi yêu cầu lấy lại mật khẩu")
     @PostMapping(UrlConstant.Auth.VERIFY_OTP_TO_RESET_PASSWORD)
     public ResponseEntity<?> verifyToResetPassword(@Valid @RequestBody VerifyOtpRequestDto request) {
         return VsResponseUtil.success(authService.verifyOtpToResetPassword(request));
     }
 
-    @Operation(
-            summary = "Đặt lại mật khẩu",
-            description = "Dùng để đặt lại mật khẩu sau khi đã nhập được OTP"
-    )
+    @Operation(summary = "Đặt lại mật khẩu", description = "Dùng để đặt lại mật khẩu sau khi đã nhập được OTP")
     @PostMapping(UrlConstant.Auth.RESET_PASSWORD)
     public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequestDto request) {
         return VsResponseUtil.success(authService.resetPassword(request));
     }
 
-    @Operation(
-            summary = "Gửi email khôi phục tài khoản",
-            description = "Dùng để gửi email khôi phục tài khoản đã bị xóa"
-    )
+    @Operation(summary = "Gửi email khôi phục tài khoản", description = "Dùng để gửi email khôi phục tài khoản đã bị xóa")
     @PostMapping(UrlConstant.Auth.ACCOUNT_RECOVERY)
     public ResponseEntity<?> sendAccountRecoveryOtp(@Valid @RequestBody RecoveryRequestDto request) {
         return VsResponseUtil.success(authService.sendEmailRecoveryOtp(request));
     }
 
-    @Operation(
-            summary = "Xác thực OTP để khôi phục tài khoản",
-            description = "Dùng để xác thực OTP để khôi phục tài khoản đã bị xóa"
-    )
+    @Operation(summary = "Xác thực OTP để khôi phục tài khoản", description = "Dùng để xác thực OTP để khôi phục tài khoản đã bị xóa")
     @PostMapping(UrlConstant.Auth.VERIFY_OTP_TO_RECOVERY)
     public ResponseEntity<?> verifyOtpToRecovery(@Valid @RequestBody VerifyOtpRequestDto request) {
         return VsResponseUtil.success(authService.verifyOtpToRecovery(request));
     }
 
-    @Operation(
-            summary = "Khôi phục tài khoản",
-            description = "Dùng để khôi phục tài khoản đã bị xóa sau khi xác thực OTP thành công"
-    )
+    @Operation(summary = "Khôi phục tài khoản", description = "Dùng để khôi phục tài khoản đã bị xóa sau khi xác thực OTP thành công")
     @PostMapping(UrlConstant.Auth.RECOVER_ACCOUNT)
     public ResponseEntity<?> recoverAccount(@Valid @RequestBody VerifyOtpRequestDto request) {
         return VsResponseUtil.success(authService.recoverAccount(request));

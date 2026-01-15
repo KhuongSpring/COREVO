@@ -26,25 +26,18 @@ public class TrainingPlanFlowController {
 
     TrainingPlanFlowService trainingPlanFlowService;
 
-    @Operation(
-            summary = "Chọn thông tin mong muốn theo từng bước",
-            description = "Dùng để người dùng chọn các mong muốn trong tập luyện",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
+    @Operation(summary = "Chọn thông tin mong muốn theo từng bước", description = "Dùng để người dùng chọn các mong muốn trong tập luyện", security = @SecurityRequirement(name = "Bearer Token"))
     @PostMapping(UrlConstant.TrainingPlan.FLOW_STEP)
-    public ResponseEntity<?> enterStep(@Valid @RequestBody TrainingPlanFlowRequestDto request, Authentication authentication) {
+    public ResponseEntity<?> enterStep(@Valid @RequestBody TrainingPlanFlowRequestDto request,
+            Authentication authentication) {
         return VsResponseUtil.success(trainingPlanFlowService.processStep(
                 request.getCurrentStep(),
                 request.getSelectedValue(),
                 request.getSelectedValues(),
-                authentication
-        ));
+                authentication));
     }
 
-    @Operation(summary = "Xóa toàn bộ training plan của người dùng đã chọn",
-            description = "Reset tất cả training plan mà người dùng đã chọn trước đó",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
+    @Operation(summary = "Xóa toàn bộ training plan của người dùng đã chọn", description = "Reset tất cả training plan mà người dùng đã chọn trước đó", security = @SecurityRequirement(name = "Bearer Token"))
     @DeleteMapping(UrlConstant.TrainingPlan.RESET)
     public ResponseEntity<?> resetTrainingPlan(Authentication authentication) {
         return VsResponseUtil.success(trainingPlanFlowService.resetTrainingPlan(authentication));

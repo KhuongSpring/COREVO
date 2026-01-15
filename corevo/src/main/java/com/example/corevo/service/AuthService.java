@@ -7,14 +7,11 @@ import com.example.corevo.domain.dto.response.auth.LoginResponseDto;
 import com.example.corevo.domain.dto.response.auth.TokenRefreshResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-
 public interface AuthService {
 
     LoginResponseDto authentication(LoginRequestDto request);
 
-    LoginResponseDto loginWithGoogle(OAuth2GoogleRequestDto request) throws GeneralSecurityException, IOException;
+    LoginResponseDto loginWithGoogle(OAuth2GoogleRequestDto request);
 
     CommonResponseDto logout(LogoutRequestDto request);
 

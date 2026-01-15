@@ -14,6 +14,9 @@ import com.example.corevo.repository.InvalidatedTokenRepository;
 import com.example.corevo.repository.UserRepository;
 import com.example.corevo.security.UserDetailsServiceImpl;
 import com.example.corevo.service.*;
+import com.example.corevo.utils.TimeUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -22,43 +25,35 @@ import com.nimbusds.jwt.SignedJWT;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.text.ParseException;
-import java.time.*;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthServiceImpl implements AuthService {
 
     UserRepository userRepository;
-
     InvalidatedTokenRepository invalidatedTokenRepository;
-
     AuthMapper authMapper;
-
     JwtService jwtService;
-
     EmailService emailService;
-
     UserDetailsServiceImpl userDetailsService;
 
-    Map<String, PendingRegistrationRequestDto> pendingRegisterMap = new ConcurrentHashMap<>();
+    // New injected services
+    OtpService otpService;
+    AccountValidationService accountValidationService;
+    PasswordEncoder passwordEncoder;
 
-    Map<String, PendingResetPasswordRequestDto> pendingResetPasswordMap = new ConcurrentHashMap<>();
-
-    Map<String, PendingRecoveryRequestDto> pendingRecoveryMap = new ConcurrentHashMap<>();
+    ObjectMapper objectMapper;
 
     @NonFinal
     @Value("${jwt.access.expiration_time}")
@@ -72,69 +67,28 @@ public class AuthServiceImpl implements AuthService {
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     String GOOGLE_CLIENT_ID;
 
-    public AuthServiceImpl(
-            UserRepository userRepository,
-            InvalidatedTokenRepository invalidatedTokenRepository,
-            JwtService jwtService,
-            AuthMapper authMapper,
-            EmailService emailService,
-            UserDetailsServiceImpl userDetailsService
-    ) {
-        this.userRepository = userRepository;
-        this.invalidatedTokenRepository = invalidatedTokenRepository;
-        this.jwtService = jwtService;
-        this.authMapper = authMapper;
-        this.emailService = emailService;
-        this.userDetailsService = userDetailsService;
-    }
-
     @Override
     public LoginResponseDto authentication(LoginRequestDto request) {
-
-        if (!userRepository.existsUserByUsername((request.getUsername())))
+        if (!userRepository.existsUserByUsername(request.getUsername())) {
             throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_INCORRECT_USERNAME);
+        }
 
         User user = userRepository.findByUsername(request.getUsername());
 
-        if (Boolean.TRUE.equals(user.getIsDeleted())) {
-            LocalDate expiredDate = user.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
-            if (LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).isBefore(expiredDate)) {
-                long daysSinceDeleted = ChronoUnit.DAYS.between(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")), expiredDate);
-
-                return LoginResponseDto.builder()
-                        .status(HttpStatus.UNAUTHORIZED)
-                        .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
-                        .isDeleted(CommonConstant.TRUE)
-                        .canRecovery(CommonConstant.TRUE)
-                        .dayRecoveryRemaining(daysSinceDeleted)
-                        .build();
-            } else {
-                return LoginResponseDto.builder()
-                        .status(HttpStatus.UNAUTHORIZED)
-                        .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
-                        .isDeleted(CommonConstant.TRUE)
-                        .canRecovery(CommonConstant.FALSE)
-                        .dayRecoveryRemaining(0)
-                        .build();
-            }
+        // Check account status (deleted or locked)
+        if (accountValidationService.isAccountDeleted(user) || accountValidationService.isAccountLocked(user)) {
+            return accountValidationService.buildAccountStatusResponse(user);
         }
 
-        if (Boolean.TRUE.equals(user.getIsLocked())) {
-            return LoginResponseDto.builder()
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .message(ErrorMessage.Auth.ERR_ACCOUNT_LOCKED)
-                    .build();
-        }
-
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-
+        // Validate password
         boolean auth = passwordEncoder.matches(request.getPassword(), user.getPassword());
-
-        if (!auth)
+        if (!auth) {
             throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_LOGIN_FAIL);
+        }
 
-        var accessToken = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
-        var refreshToken = jwtService.generateToken(user, REFRESH_TOKEN_EXPIRATION);
+        // Generate tokens
+        String accessToken = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
+        String refreshToken = jwtService.generateToken(user, REFRESH_TOKEN_EXPIRATION);
 
         return LoginResponseDto.builder()
                 .status(HttpStatus.OK)
@@ -142,21 +96,29 @@ public class AuthServiceImpl implements AuthService {
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .id(user.getId())
-                .isDeleted(CommonConstant.FALSE)
+                .isDeleted(false)
                 .tokenType(CommonConstant.BEARER_TOKEN)
                 .build();
     }
 
     @Override
-    public LoginResponseDto loginWithGoogle(OAuth2GoogleRequestDto request) throws GeneralSecurityException, IOException {
-        GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier
-                .Builder(new NetHttpTransport(), new JacksonFactory())
-                .setAudience(Collections.singletonList(GOOGLE_CLIENT_ID))
-                .build();
+    public LoginResponseDto loginWithGoogle(OAuth2GoogleRequestDto request) {
+        try {
+            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(),
+                    new JacksonFactory())
+                    .setAudience(Collections.singletonList(GOOGLE_CLIENT_ID))
+                    .build();
 
-        GoogleIdToken token = verifier.verify(request.getIdToken());
+            GoogleIdToken token = verifier.verify(request.getIdToken());
 
-        if (token != null) {
+            if (token == null) {
+                return LoginResponseDto.builder()
+                        .status(HttpStatus.UNAUTHORIZED)
+                        .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
+                        .isDeleted(false)
+                        .build();
+            }
+
             GoogleIdToken.Payload payload = token.getPayload();
 
             String email = payload.getEmail();
@@ -166,7 +128,6 @@ public class AuthServiceImpl implements AuthService {
             String picture = (String) payload.get("picture");
 
             User user = userRepository.findByEmail(email).orElseGet(() -> {
-
                 User newUser = new User();
                 newUser.setUsername(username);
                 newUser.setFirstName(firstName);
@@ -177,39 +138,14 @@ public class AuthServiceImpl implements AuthService {
                 newUser.setProvider("GOOGLE");
                 newUser.setRole(Role.USER);
                 newUser.setIsLocked(false);
-                newUser.setCreatedAt(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
+                newUser.setCreatedAt(TimeUtil.today());
 
                 return userRepository.save(newUser);
             });
 
-            if (Boolean.TRUE.equals(user.getIsDeleted())) {
-                LocalDate expiredDate = user.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
-                if (LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).isBefore(expiredDate)) {
-                    long daysSinceDeleted = ChronoUnit.DAYS.between(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")), expiredDate);
-
-                    return LoginResponseDto.builder()
-                            .status(HttpStatus.UNAUTHORIZED)
-                            .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
-                            .isDeleted(CommonConstant.TRUE)
-                            .canRecovery(CommonConstant.TRUE)
-                            .dayRecoveryRemaining(daysSinceDeleted)
-                            .build();
-                } else {
-                    return LoginResponseDto.builder()
-                            .status(HttpStatus.UNAUTHORIZED)
-                            .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
-                            .isDeleted(CommonConstant.TRUE)
-                            .canRecovery(CommonConstant.FALSE)
-                            .dayRecoveryRemaining(0)
-                            .build();
-                }
-            }
-
-            if (Boolean.TRUE.equals(user.getIsLocked())) {
-                return LoginResponseDto.builder()
-                        .status(HttpStatus.UNAUTHORIZED)
-                        .message(ErrorMessage.Auth.ERR_ACCOUNT_LOCKED)
-                        .build();
+            // Check account status
+            if (accountValidationService.isAccountDeleted(user) || accountValidationService.isAccountLocked(user)) {
+                return accountValidationService.buildAccountStatusResponse(user);
             }
 
             String accessToken = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
@@ -221,30 +157,24 @@ public class AuthServiceImpl implements AuthService {
                     .accessToken(accessToken)
                     .refreshToken(refreshToken)
                     .id(user.getId())
-                    .isDeleted(CommonConstant.FALSE)
+                    .isDeleted(false)
                     .tokenType(CommonConstant.BEARER_TOKEN)
                     .build();
-        } else {
-            return LoginResponseDto.builder()
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .message(ErrorMessage.Auth.ERR_LOGIN_FAIL)
-                    .isDeleted(CommonConstant.FALSE)
-                    .build();
+        } catch (Exception e) {
+            log.error("Google OAuth2 login failed", e);
+            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.ERR_LOGIN_FAIL);
         }
     }
 
     @Override
     public CommonResponseDto logout(LogoutRequestDto request) {
-        String JWTID = null;
-        Date expirationTime = null;
-
         try {
             SignedJWT signedJWT = SignedJWT.parse(request.getToken());
 
-            JWTID = signedJWT.getJWTClaimsSet().getJWTID();
-            expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+            String jwtId = signedJWT.getJWTClaimsSet().getJWTID();
+            Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
 
-            invalidatedTokenRepository.save(new InvalidatedToken(JWTID, expirationTime));
+            invalidatedTokenRepository.save(new InvalidatedToken(jwtId, expirationTime));
 
             return new CommonResponseDto(HttpStatus.OK, SuccessMessage.Auth.LOGOUT_SUCCESS);
         } catch (ParseException e) {
@@ -254,9 +184,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public TokenRefreshResponseDto refresh(TokenRefreshRequestDto request) {
-
         String refreshToken = request.getRefreshToken();
-
         String username = jwtService.extractUsername(refreshToken);
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -280,143 +208,127 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void register(RegisterRequestDto request) {
-
-        if (userRepository.existsUserByUsername(request.getUsername()))
+        if (userRepository.existsUserByUsername(request.getUsername())) {
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_USERNAME_EXISTED);
+        }
 
-        if (userRepository.existsUserByEmail(request.getEmail()))
+        if (userRepository.existsUserByEmail(request.getEmail())) {
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_EMAIL_EXISTED);
+        }
 
-        String otp = generateOtp();
+        String otp = otpService.generateOtp();
 
-        PendingRegistrationRequestDto pending = new PendingRegistrationRequestDto();
-
-        pending.setRequest(request);
-        pending.setOtp(otp);
-        pending.setExpireAt(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh")).plusMinutes(5));
-
-        pendingRegisterMap.put(request.getEmail(), pending);
+        // Store request data as JSON along with OTP
+        try {
+            String requestJson = objectMapper.writeValueAsString(request);
+            otpService.storeOtp(request.getEmail(), otp, OtpType.REGISTRATION, requestJson);
+        } catch (JsonProcessingException e) {
+            log.error("Failed to serialize registration request", e);
+            throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_EXCEPTION_GENERAL);
+        }
 
         emailService.sendOtpEmail(request.getEmail(), otp);
     }
 
     @Override
     public UserResponseDto verifyOtpToRegister(VerifyOtpRequestDto request) {
-
-        PendingRegistrationRequestDto pending = pendingRegisterMap.get(request.getEmail());
-
-        if (pending == null)
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
-
-        if (pending.isExpired())
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
-
-        if (!pending.getOtp().equals(request.getOtp()))
+        if (!otpService.validateOtp(request.getEmail(), request.getOtp(), OtpType.REGISTRATION)) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
+        }
 
-        RegisterRequestDto req = pending.getRequest();
+        String requestData = otpService.getOtpData(request.getEmail(), OtpType.REGISTRATION);
+        if (requestData == null) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
+        }
 
-        User user = authMapper.registerRequestDtoToUser(req);
+        RegisterRequestDto registerRequest;
+        try {
+            registerRequest = objectMapper.readValue(requestData, RegisterRequestDto.class);
+        } catch (JsonProcessingException e) {
+            log.error("Failed to deserialize registration request", e);
+            throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_EXCEPTION_GENERAL);
+        }
 
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-
-        user.setPassword(passwordEncoder.encode(req.getPassword()));
+        User user = authMapper.registerRequestDtoToUser(registerRequest);
+        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setRole(Role.USER);
-        user.setCreatedAt(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
+        user.setCreatedAt(TimeUtil.today());
         user.setIsLocked(false);
-        user.setCreatedAt(LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")));
 
         userRepository.save(user);
 
-        pendingRegisterMap.remove(request.getEmail());
+        otpService.clearOtp(request.getEmail(), OtpType.REGISTRATION);
 
         return authMapper.userToUserResponseDto(user);
     }
 
     @Override
     public void forgotPassword(ForgotPasswordRequestDto request) {
-
-        if (!userRepository.existsUserByEmail(request.getEmail()))
+        if (!userRepository.existsUserByEmail(request.getEmail())) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+        }
 
-        String otp = generateOtp();
+        String otp = otpService.generateOtp();
 
-        PendingResetPasswordRequestDto pending = new PendingResetPasswordRequestDto();
-
-        pending.setRequest(request);
-        pending.setOtp(otp);
-        pending.setExpireAt(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh")).plusMinutes(5));
-
-        pendingResetPasswordMap.put(request.getEmail(), pending);
+        try {
+            String requestJson = objectMapper.writeValueAsString(request);
+            otpService.storeOtp(request.getEmail(), otp, OtpType.PASSWORD_RESET, requestJson);
+        } catch (JsonProcessingException e) {
+            log.error("Failed to serialize forgot password request", e);
+            throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_EXCEPTION_GENERAL);
+        }
 
         emailService.sendOtpEmail(request.getEmail(), otp);
     }
 
     @Override
     public boolean verifyOtpToResetPassword(VerifyOtpRequestDto request) {
-
-        PendingResetPasswordRequestDto pending = pendingResetPasswordMap.get(request.getEmail());
-
-        if (pending == null)
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
-
-        if (pending.isExpired())
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
-
-        if (!pending.getOtp().equals(request.getOtp()))
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
-
-        return pendingResetPasswordMap.containsKey(request.getEmail())
-                && pendingResetPasswordMap.get(request.getEmail()).getOtp().equals(request.getOtp());
+        return otpService.validateOtp(request.getEmail(), request.getOtp(), OtpType.PASSWORD_RESET);
     }
 
     @Override
     public UserResponseDto resetPassword(ResetPasswordRequestDto request) {
-
-        if (!userRepository.existsUserByEmail(request.getEmail()))
+        if (!userRepository.existsUserByEmail(request.getEmail())) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
+        }
 
-        if (!request.getNewPassword().equals(request.getReEnterPassword()))
+        if (!request.getNewPassword().equals(request.getReEnterPassword())) {
             throw new VsException(HttpStatus.UNPROCESSABLE_ENTITY, ErrorMessage.User.ERR_RE_ENTER_PASSWORD_NOT_MATCH);
+        }
 
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-
-        if (passwordEncoder.matches(request.getNewPassword(), user.getPassword()))
+        if (passwordEncoder.matches(request.getNewPassword(), user.getPassword())) {
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_DUPLICATE_OLD_PASSWORD);
+        }
 
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
-
         userRepository.save(user);
 
-        pendingResetPasswordMap.remove(request.getEmail());
+        otpService.clearOtp(request.getEmail(), OtpType.PASSWORD_RESET);
 
         return authMapper.userToUserResponseDto(user);
     }
 
     @Override
     public CommonResponseDto sendEmailRecoveryOtp(RecoveryRequestDto request) {
-
         User deletedUser = userRepository.findDeletedUserByEmail(request.getEmail())
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_NOT_DELETED));
 
-        LocalDate expiredDate = deletedUser.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
-
-        if (LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).isAfter(expiredDate)) {
+        if (!accountValidationService.canRecoverAccount(deletedUser)) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_RECOVERY_EXPIRED);
         }
 
-        String otp = generateOtp();
+        String otp = otpService.generateOtp();
 
-        PendingRecoveryRequestDto pendingRecoveryRequest = new PendingRecoveryRequestDto();
-
-        pendingRecoveryRequest.setRequest(request);
-        pendingRecoveryRequest.setOtp(otp);
-        pendingRecoveryRequest.setExpireAt(LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh")).plusMinutes(5));
-
-        pendingRecoveryMap.put(request.getEmail(), pendingRecoveryRequest);
+        try {
+            String requestJson = objectMapper.writeValueAsString(request);
+            otpService.storeOtp(request.getEmail(), otp, OtpType.ACCOUNT_RECOVERY, requestJson);
+        } catch (JsonProcessingException e) {
+            log.error("Failed to serialize recovery request", e);
+            throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_EXCEPTION_GENERAL);
+        }
 
         emailService.sendOtpEmail(request.getEmail(), otp);
 
@@ -425,24 +337,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean verifyOtpToRecovery(VerifyOtpRequestDto request) {
-
-        PendingRecoveryRequestDto pending = pendingRecoveryMap.get(request.getEmail());
-
-        if (pending == null)
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
-
-        if (pending.isExpired())
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_EXPIRED_OR_NOT_FOUND);
-
-        if (!pending.getOtp().equals(request.getOtp()))
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
-
-        return true;
+        return otpService.validateOtp(request.getEmail(), request.getOtp(), OtpType.ACCOUNT_RECOVERY);
     }
 
     @Override
     public CommonResponseDto recoverAccount(VerifyOtpRequestDto request) {
-
         if (!verifyOtpToRecovery(request)) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
         }
@@ -450,26 +349,22 @@ public class AuthServiceImpl implements AuthService {
         User deletedUser = userRepository.findDeletedUserByEmail(request.getEmail())
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_NOT_DELETED));
 
-        LocalDate expiredDate = deletedUser.getDeletedAt().plusDays(CommonConstant.ACCOUNT_RECOVERY_DAYS);
-
-        if (LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh")).isAfter(expiredDate)) {
+        if (!accountValidationService.canRecoverAccount(deletedUser)) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_ACCOUNT_RECOVERY_EXPIRED);
         }
 
-        deletedUser.setIsDeleted(CommonConstant.FALSE);
+        deletedUser.setIsDeleted(false);
         deletedUser.setDeletedAt(null);
 
         userRepository.save(deletedUser);
 
-        pendingRecoveryMap.remove(request.getEmail());
+        otpService.clearOtp(request.getEmail(), OtpType.ACCOUNT_RECOVERY);
 
         return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.RECOVERY_SUCCESS);
     }
 
     @Override
     public String generateOtp() {
-        Random random = new Random();
-        int otp = 100000 + random.nextInt(900000);
-        return String.valueOf(otp);
+        return otpService.generateOtp();
     }
 }

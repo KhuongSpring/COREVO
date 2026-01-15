@@ -12,7 +12,6 @@ import com.example.corevo.domain.dto.response.admin.DayCountResponseDto;
 import com.example.corevo.domain.dto.response.admin.MonthCountResponseDto;
 import com.example.corevo.domain.dto.response.user.AccountDeletionResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
-import com.example.corevo.domain.entity.user.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,37 +21,40 @@ import java.util.List;
 
 public interface UserService {
 
-    UserResponseDto personalInformation(Authentication authentication, PersonalInformationRequestDto request);
+        UserResponseDto personalInformation(Authentication authentication, PersonalInformationRequestDto request);
 
-    UserResponseDto uploadAvatar(Authentication authentication, MultipartFile file) throws IOException;
+        UserResponseDto uploadAvatar(Authentication authentication, MultipartFile file) throws IOException;
 
-    AccountDeletionResponseDto deleteMyAccount(Authentication authentication);
+        AccountDeletionResponseDto deleteMyAccount(Authentication authentication);
 
-    UserResponseDto getMyProfile(Authentication authentication);
+        UserResponseDto getMyProfile(Authentication authentication);
 
-    UserResponseDto updateProfile(ConfirmPasswordRequestDto request, Authentication authentication);
+        UserResponseDto updateProfile(ConfirmPasswordRequestDto request, Authentication authentication);
 
-    PaginationResponseDto<UserResponseDto> getAllUsers(PaginationRequestDto request);
+        PaginationResponseDto<UserResponseDto> getAllUsers(PaginationRequestDto request);
 
-    UserResponseDto getUserById(String userId);
+        UserResponseDto getUserById(String userId);
 
-    UserResponseDto createUser(CreateUserRequestDto request);
+        UserResponseDto createUser(CreateUserRequestDto request);
 
-    UserResponseDto updateUser(String userId, UpdateUserRequestDto request);
+        UserResponseDto updateUser(String userId, UpdateUserRequestDto request);
 
-    CommonResponseDto lockUser(String userId);
+        CommonResponseDto lockUser(String userId);
 
-    CommonResponseDto unlockUser(String userId);
+        CommonResponseDto unlockUser(String userId);
 
-    CommonResponseDto deleteUserAccount(String userId);
+        CommonResponseDto deleteUserAccount(String userId);
 
-    PaginationResponseDto<UserResponseDto> searchUserByUsername(UserSearchingRequestDto request, PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<UserResponseDto> searchUserByUsername(UserSearchingRequestDto request,
+                        PaginationRequestDto paginationRequestDto);
 
-    PaginationResponseDto<UserResponseDto> searchUserByEmail(UserSearchingRequestDto request, PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<UserResponseDto> searchUserByEmail(UserSearchingRequestDto request,
+                        PaginationRequestDto paginationRequestDto);
 
-    PaginationResponseDto<UserResponseDto> searchUserByPhone(UserSearchingRequestDto request, PaginationRequestDto paginationRequestDto);
+        PaginationResponseDto<UserResponseDto> searchUserByPhone(UserSearchingRequestDto request,
+                        PaginationRequestDto paginationRequestDto);
 
-    List<DayCountResponseDto> getUserDayCounts();
+        List<DayCountResponseDto> getUserDayCounts();
 
-    List<MonthCountResponseDto> getUserMonthCounts();
+        List<MonthCountResponseDto> getUserMonthCounts();
 }

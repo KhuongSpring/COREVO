@@ -25,16 +25,11 @@ public class UserHealthController {
 
     UserHealthService userHealthService;
 
-    @Operation(
-            summary = "Điền thông tin sức khỏe cá nhân",
-            description = "Dùng để người dùng điền thông tin sức khỏe cá nhân",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
+    @Operation(summary = "Điền thông tin sức khỏe cá nhân", description = "Dùng để người dùng điền thông tin sức khỏe cá nhân", security = @SecurityRequirement(name = "Bearer Token"))
     @PostMapping(UrlConstant.UserHealth.FILL_HEALTH_INFORMATION)
     public ResponseEntity<?> fillHealthInformation(
             Authentication authentication,
-            @Valid @RequestBody UserHealthRequestDto request
-    ) {
+            @Valid @RequestBody UserHealthRequestDto request) {
         return VsResponseUtil.success(userHealthService.healthInformation(authentication, request));
     }
 }

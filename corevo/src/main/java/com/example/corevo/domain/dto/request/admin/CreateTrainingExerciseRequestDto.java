@@ -55,7 +55,7 @@ public class CreateTrainingExerciseRequestDto {
     @NotNull(message = ErrorMessage.NOT_BLANK_FIELD)
     List<Long> levelIds;
 
-    @Schema(description = "TypeIds" , example = "[1]")
+    @Schema(description = "TypeIds", example = "[1]")
     @NotNull(message = ErrorMessage.NOT_BLANK_FIELD)
     List<Long> typeIds;
 

@@ -1,7 +1,5 @@
 package com.example.corevo.domain.entity.user;
 
-import com.example.corevo.constant.CommonConstant;
-import com.example.corevo.domain.entity.training.Equipment;
 import com.example.corevo.domain.entity.training.TrainingPlan;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -65,7 +63,8 @@ public class User {
 
     LocalDate deletedAt;
 
-    Boolean isDeleted = CommonConstant.FALSE;
+    @Builder.Default
+    Boolean isDeleted = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -79,11 +78,7 @@ public class User {
     UserHealth userHealth;
 
     @ManyToMany
-    @JoinTable(
-            name = "user_training_plans",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "training_plan_id")
-    )
+    @JoinTable(name = "user_training_plans", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "training_plan_id"))
     List<TrainingPlan> trainingPlans;
 
 }
