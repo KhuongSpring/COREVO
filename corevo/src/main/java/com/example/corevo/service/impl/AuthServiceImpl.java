@@ -174,7 +174,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public CommonResponseDto logout(LogoutRequestDto request) {
         try {
             SignedJWT signedJWT = SignedJWT.parse(request.getToken());
@@ -229,7 +229,6 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    @Transactional
     public CommonResponseDto register(RegisterRequestDto request) {
         if (userRepository.existsUserByUsername(request.getUsername())) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USERNAME_EXISTED);
@@ -255,6 +254,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserResponseDto verifyOtpToRegister(VerifyOtpRequestDto request) {
         if (!otpService.validateOtp(request.getEmail(), request.getOtp(), OtpType.REGISTRATION)) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);
@@ -318,7 +318,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UserResponseDto resetPassword(ResetPasswordRequestDto request) {
         if (!userRepository.existsUserByEmail(request.getEmail())) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_EMAIL_NOT_EXISTED);
@@ -378,7 +378,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public CommonResponseDto recoverAccount(VerifyOtpRequestDto request) {
         if (!otpService.validateOtp(request.getEmail(), request.getOtp(), OtpType.ACCOUNT_RECOVERY)) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_OTP_INVALID);

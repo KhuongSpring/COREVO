@@ -9,8 +9,7 @@ import com.example.corevo.domain.dto.request.user.enter_personal_infomation.Pers
 import com.example.corevo.domain.dto.request.user.enter_personal_infomation.UpdatePersonalInformationRequestDto;
 import com.example.corevo.domain.dto.request.user.health.UpdateHealthRequestDto;
 import com.example.corevo.domain.dto.request.user.health.UserHealthRequestDto;
-import com.example.corevo.domain.dto.request.user.profile.ConfirmPasswordRequestDto;
-import com.example.corevo.domain.dto.request.user.sreach.UserSearchingRequestDto;
+import com.example.corevo.domain.dto.request.user.profile.UpdateProfileRequestDto;
 import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.admin.DayCountResponseDto;
 import com.example.corevo.domain.dto.response.admin.MonthCountResponseDto;
@@ -26,9 +25,9 @@ import com.example.corevo.helper.PersonalInformationHelper;
 import com.example.corevo.repository.*;
 import com.example.corevo.service.UserService;
 import com.example.corevo.service.HealthCalculationService;
-import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.io.IOException;
@@ -45,10 +44,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
 
@@ -73,6 +73,7 @@ public class UserServiceImpl implements UserService {
     Cloudinary cloudinary;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserResponseDto personalInformation(
             Authentication authentication,
             PersonalInformationRequestDto request) {
@@ -82,7 +83,7 @@ public class UserServiceImpl implements UserService {
                         HttpStatus.UNAUTHORIZED,
                         ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
-        if (userRepository.existsUsersByPhone(request.getPhone()))
+        if (userRepository.existsUserByPhone(request.getPhone()))
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
 
         String oldAddressId = null;
@@ -90,14 +91,9 @@ public class UserServiceImpl implements UserService {
             oldAddressId = user.getAddress().getId();
         }
 
-        Address address = addressRepository
-                .findByProvinceAndDistrict(request.getAddress().getProvince(), request.getAddress().getDistrict())
-                .orElseGet(() -> {
-                    Address newAddress = new Address();
-                    newAddress.setProvince(request.getAddress().getProvince());
-                    newAddress.setDistrict(request.getAddress().getDistrict());
-                    return addressRepository.save(newAddress);
-                });
+        Address address = findOrCreateAddress(
+                request.getAddress().getProvince(),
+                request.getAddress().getDistrict());
 
         user.setPhone(request.getPhone());
         user.setBirth(request.getBirth());
@@ -116,17 +112,33 @@ public class UserServiceImpl implements UserService {
         return userMapper.userToUserResponseDto(user);
     }
 
+    private Address findOrCreateAddress(String province, String district) {
+        return addressRepository
+                .findByProvinceAndDistrict(province, district)
+                .orElseGet(() -> {
+                    Address newAddress = new Address();
+                    newAddress.setProvince(province);
+                    newAddress.setDistrict(district);
+                    return addressRepository.save(newAddress);
+                });
+    }
+
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserResponseDto uploadAvatar(
             Authentication authentication,
-            MultipartFile file) throws IOException {
+            MultipartFile file) {
         User user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new VsException(
                         HttpStatus.UNAUTHORIZED,
                         ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
         if (user.getAvatarPublicId() != null) {
-            cloudinary.uploader().destroy(user.getAvatarPublicId(), ObjectUtils.emptyMap());
+            try {
+                cloudinary.uploader().destroy(user.getAvatarPublicId(), ObjectUtils.emptyMap());
+            } catch (IOException e) {
+                throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
+            }
         }
 
         String imageUrl;
@@ -138,9 +150,6 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
         }
-
-        if (!userRepository.existsUserByUsername(authentication.getName()))
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
 
         user.setLinkAvatar(imageUrl);
         user.setAvatarPublicId(publicId);
@@ -183,6 +192,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserResponseDto createUser(CreateUserRequestDto request) {
 
         if (userRepository.existsUserByEmail(request.getEmail())) {
@@ -191,7 +201,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsUserByUsername(request.getUsername())) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USERNAME_EXISTED);
         }
-        if (userRepository.existsUsersByPhone(request.getPhone())) {
+        if (userRepository.existsUserByPhone(request.getPhone())) {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_PHONE_EXISTED);
         }
 
@@ -205,6 +215,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserResponseDto updateUser(String userId, UpdateUserRequestDto request) {
 
         User user = userRepository.findById(userId)
@@ -217,7 +228,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (request.getPhone() != null && !request.getPhone().equals(user.getPhone())) {
-            if (userRepository.existsUsersByPhone(request.getPhone())) {
+            if (userRepository.existsUserByPhone(request.getPhone())) {
                 throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
             }
         }
@@ -230,35 +241,43 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public CommonResponseDto lockUser(String userId) {
 
-        Optional<User> user = userRepository.findById(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
-        checkLockUser(user);
+        if (user.getIsLocked()) {
+            throw new InvalidException((ErrorMessage.User.ERR_USER_IS_LOCKED));
+        }
 
-        user.get().setIsLocked(true);
+        user.setIsLocked(true);
 
-        userRepository.save(user.get());
+        userRepository.save(user);
 
         return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.LOCKED_SUCCESS);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public CommonResponseDto unlockUser(String userId) {
 
-        Optional<User> user = userRepository.findById(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
-        checkUnlockUser(user);
+        if (!user.getIsLocked()) {
+            throw new InvalidException((ErrorMessage.User.ERR_USER_IS_NOT_LOCKED));
+        }
 
-        user.get().setIsLocked(false);
+        user.setIsLocked(false);
 
-        userRepository.save(user.get());
+        userRepository.save(user);
 
         return new CommonResponseDto(HttpStatus.OK, SuccessMessage.User.UNLOCKED_SUCCESS);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public CommonResponseDto deleteUserAccount(String userId) {
 
         User user = userRepository.findById(userId)
@@ -284,7 +303,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public AccountDeletionResponseDto deleteMyAccount(Authentication authentication) {
 
         User user = userRepository.findByUsername(authentication.getName())
@@ -308,7 +327,7 @@ public class UserServiceImpl implements UserService {
                 SuccessMessage.User.SOFT_DELETE_SUCCESS,
                 user.getEmail(),
                 gracePeriodDays,
-                "corevo@gmail.com");
+                CommonConstant.ADMIN_EMAIL);
     }
 
     @Override
@@ -335,31 +354,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public UserResponseDto updateProfile(ConfirmPasswordRequestDto request, Authentication authentication) {
+    @Transactional(rollbackFor = Exception.class)
+    public UserResponseDto updateProfile(UpdateProfileRequestDto request, Authentication authentication) {
         User user = userRepository.findByUsername(authentication.getName())
                 .orElseThrow(() -> new VsException(
                         HttpStatus.UNAUTHORIZED,
                         ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
-        // if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-        // throw new VsException(HttpStatus.BAD_REQUEST,
-        // ErrorMessage.User.ERR_INCORRECT_PASSWORD_CONFIRMATION);
-        // }
-
-        // if (user.getPhone() == null || user.getBirth() == null ||
-        // user.getNationality() == null || user.getAddress() == null) {
-        // throw new VsException(HttpStatus.BAD_REQUEST,
-        // ErrorMessage.User.ERR_PERSONAL_INFORMATION_NOT_COMPLETED);
-        // }
-
-        if (request.getProfileData().getPersonalInformation() != null) {
+        if (request.getPersonalInformation() != null) {
 
             UpdatePersonalInformationRequestDto personalInfo = stringPersonalInformationHelper.handleEmptyStrings(
-                    request.getProfileData().getPersonalInformation());
+                    request.getPersonalInformation());
 
             if (personalInfo.getPhone() != null && !personalInfo.getPhone().equals(user.getPhone())) {
-                if (userRepository.existsUsersByPhone(personalInfo.getPhone())) {
+                if (userRepository.existsUserByPhone(personalInfo.getPhone())) {
                     throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
                 }
             }
@@ -372,16 +380,9 @@ public class UserServiceImpl implements UserService {
                     oldAddressId = user.getAddress().getId();
                 }
 
-                Address address = addressRepository
-                        .findByProvinceAndDistrict(
-                                personalInfo.getAddress().getProvince(),
-                                personalInfo.getAddress().getDistrict())
-                        .orElseGet(() -> {
-                            Address newAddress = new Address();
-                            newAddress.setProvince(personalInfo.getAddress().getProvince());
-                            newAddress.setDistrict(personalInfo.getAddress().getDistrict());
-                            return addressRepository.save(newAddress);
-                        });
+                Address address = findOrCreateAddress(
+                        personalInfo.getAddress().getProvince(),
+                        personalInfo.getAddress().getDistrict());
 
                 user.setAddress(address);
 
@@ -394,10 +395,10 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        if (request.getProfileData().getHealth() != null) {
+        if (request.getHealth() != null) {
             UserHealth userHealth = user.getUserHealth();
 
-            UpdateHealthRequestDto healthDto = request.getProfileData().getHealth();
+            UpdateHealthRequestDto healthDto = request.getHealth();
 
             if (userHealth == null) {
                 throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.UserHealth.ERR_USER_HEALTH_NOT_FOUND);
@@ -446,119 +447,69 @@ public class UserServiceImpl implements UserService {
         userHealth.setTDEE(tdee);
     }
 
-    private void checkLockUser(Optional<User> user) {
-        if (user.isEmpty()) {
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-        } else {
-            if (user.get().getIsLocked()) {
-                throw new InvalidException((ErrorMessage.User.ERR_USER_IS_LOCKED));
-            }
-        }
-    }
-
-    private void checkUnlockUser(Optional<User> user) {
-        if (user.isEmpty()) {
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-        } else {
-            if (!user.get().getIsLocked()) {
-                throw new InvalidException((ErrorMessage.User.ERR_USER_IS_NOT_LOCKED));
-            }
-        }
-    }
-
     @Override
     public PaginationResponseDto<UserResponseDto> searchUserByUsername(
-            UserSearchingRequestDto request,
+            String searchSentence,
             PaginationRequestDto paginationRequestDto) {
-
-        List<UserResponseDto> result;
 
         Pageable pageable = PageRequest.of(
                 paginationRequestDto.getPageNum(),
                 paginationRequestDto.getPageSize());
 
         Page<User> userPage = userRepository.findUserByUsernameContainingIgnoreCase(
-                request.getSearchSentence(),
+                searchSentence,
                 pageable);
 
-        result = userPage.getContent()
-                .stream()
-                .map(userMapper::userToUserResponseDto)
-                .filter(Objects::nonNull)
-                .toList();
-
-        PagingMeta pagingMeta = new PagingMeta(
-                userPage.getTotalElements(),
-                userPage.getTotalPages(),
-                paginationRequestDto.getPageNum() + 1,
-                paginationRequestDto.getPageSize(),
-                null,
-                null);
-
-        return new PaginationResponseDto<>(pagingMeta, result);
+        return searchUsers(userPage, paginationRequestDto);
     }
 
     @Override
     public PaginationResponseDto<UserResponseDto> searchUserByEmail(
-            UserSearchingRequestDto request,
+            String searchSentence,
             PaginationRequestDto paginationRequestDto) {
-
-        List<UserResponseDto> result;
 
         Pageable pageable = PageRequest.of(
                 paginationRequestDto.getPageNum(),
                 paginationRequestDto.getPageSize());
 
         Page<User> userPage = userRepository.findUserByEmailContainingIgnoreCase(
-                request.getSearchSentence(),
+                searchSentence,
                 pageable);
 
-        result = userPage.getContent()
-                .stream()
-                .map(userMapper::userToUserResponseDto)
-                .filter(Objects::nonNull)
-                .toList();
-
-        PagingMeta pagingMeta = new PagingMeta(
-                userPage.getTotalElements(),
-                userPage.getTotalPages(),
-                paginationRequestDto.getPageNum() + 1,
-                paginationRequestDto.getPageSize(),
-                null,
-                null);
-
-        return new PaginationResponseDto<>(pagingMeta, result);
+        return searchUsers(userPage, paginationRequestDto);
     }
 
     @Override
     public PaginationResponseDto<UserResponseDto> searchUserByPhone(
-            UserSearchingRequestDto request,
+            String searchSentence,
             PaginationRequestDto paginationRequestDto) {
-
-        List<UserResponseDto> result;
 
         Pageable pageable = PageRequest.of(
                 paginationRequestDto.getPageNum(),
                 paginationRequestDto.getPageSize());
 
         Page<User> userPage = userRepository.findUserByPhoneContaining(
-                request.getSearchSentence(),
+                searchSentence,
                 pageable);
 
-        result = userPage.getContent()
+        return searchUsers(userPage, paginationRequestDto);
+    }
+
+    private PaginationResponseDto<UserResponseDto> searchUsers(
+            Page<User> userPage,
+            PaginationRequestDto paginationRequestDto) {
+
+        List<UserResponseDto> result = userPage.getContent()
                 .stream()
                 .map(userMapper::userToUserResponseDto)
                 .filter(Objects::nonNull)
                 .toList();
-
         PagingMeta pagingMeta = new PagingMeta(
                 userPage.getTotalElements(),
                 userPage.getTotalPages(),
                 paginationRequestDto.getPageNum() + 1,
                 paginationRequestDto.getPageSize(),
-                null,
-                null);
-
+                null, null);
         return new PaginationResponseDto<>(pagingMeta, result);
     }
 

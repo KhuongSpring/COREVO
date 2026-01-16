@@ -3,6 +3,9 @@ package com.example.corevo.constant;
 import java.time.ZoneId;
 
 public class CommonConstant {
+    // Common
+    public static final String ADMIN_EMAIL = "corevo@gmail.com";
+
     // Sorting
     public static final String SORT_TYPE_ASC = "ASC";
     public static final String SORT_TYPE_DESC = "DESC";
