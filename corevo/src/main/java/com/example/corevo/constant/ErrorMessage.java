@@ -68,6 +68,7 @@ public class ErrorMessage {
 
     public static class TrainingPlanFlow {
         public static final String ERR_SOMETHING_WRONG = "exception.training-plan.something.wrong";
+        public static final String ERR_NO_MATCHING_PLANS = "exception.training-plan.no.matching.plans";
     }
 
     public static class Training {

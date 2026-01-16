@@ -10,18 +10,17 @@ import com.example.corevo.exception.VsException;
 import com.example.corevo.repository.UserRepository;
 import com.example.corevo.service.HealthCalculationService;
 import com.example.corevo.service.UserHealthService;
-import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@Transactional
 public class UserHealthServiceImpl implements UserHealthService {
 
     UserRepository userRepository;
@@ -31,6 +30,7 @@ public class UserHealthServiceImpl implements UserHealthService {
     HealthCalculationService healthCalculationService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserResponseDto healthInformation(
             Authentication authentication,
             UserHealthRequestDto request) {

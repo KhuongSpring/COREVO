@@ -19,6 +19,7 @@ import com.example.corevo.service.TrainingPlanFlowService;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -31,7 +32,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
 
@@ -42,6 +43,7 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
     TrainingExerciseCompletionRepository trainingExerciseCompletionRepository;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public TrainingPlanFlowResponseDto processStep(
             String currentStep,
             List<String> selectedValue,
@@ -95,18 +97,18 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
                     .map(this::mapToDto)
                     .toList();
 
-            if (authentication == null || !authentication.isAuthenticated()) {
-                throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.UNAUTHORIZED);
-            }
-
             User user = userRepository.findByUsername(authentication.getName())
                     .orElseThrow(() -> new VsException(
                             HttpStatus.UNAUTHORIZED,
                             ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
-            if (!user.getTrainingPlans().contains(matchingPlans.getFirst())) {
-                user.getTrainingPlans().add(matchingPlans.getFirst());
-
+            if (matchingPlans == null || matchingPlans.isEmpty()) {
+                throw new VsException(HttpStatus.NOT_FOUND,
+                        ErrorMessage.TrainingPlanFlow.ERR_NO_MATCHING_PLANS);
+            }
+            TrainingPlan selectedPlan = matchingPlans.getFirst();
+            if (!user.getTrainingPlans().contains(selectedPlan)) {
+                user.getTrainingPlans().add(selectedPlan);
                 userRepository.save(user);
             }
 

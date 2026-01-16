@@ -26,5 +26,6 @@ public class SuccessMessage {
 
     public static class TrainingExercise {
         public static final String DELETE_TRAINING_EXERCISE_SUCCESS = "Delete training exercise successfully";
+        public static final String EXERCISE_COMPLETED_SUCCESS = "Exercise completed successfully";
     }
 }

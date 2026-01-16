@@ -3,7 +3,6 @@ package com.example.corevo.service;
 import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.pagination.PaginationResponseDto;
 import com.example.corevo.domain.dto.request.training.TrainingDynamicSearchingRequestDto;
-import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
 import com.example.corevo.domain.dto.response.training.*;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExerciseLevelPreviewResponseDto;
 import com.example.corevo.domain.dto.response.training_exercise.TrainingExercisePreviewResponseDto;
@@ -15,29 +14,10 @@ import java.util.List;
 
 public interface TrainingService {
 
-        List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByPrimaryMuscle(String primaryMuscle,
-                        PaginationRequestDto paginationRequestDto);
-
-        List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByType(String type,
-                        PaginationRequestDto paginationRequestDto);
-
-        List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByGoal(String goal,
-                        PaginationRequestDto paginationRequestDto);
-
-        PaginationResponseDto<TrainingExerciseResponseDto> getAllExercise(PaginationRequestDto paginationRequestDto);
-
-        List<Long> searchTrainingPlanDynamic(TrainingDynamicSearchingRequestDto request);
-
-        List<TrainingExercisePreviewResponseDto> searchTrainingExerciseDynamic(
-                        TrainingDynamicSearchingRequestDto request);
-
-        PaginationResponseDto<TrainingExerciseResponseDto> searchTrainingExercise(
-                        TrainingExerciseSearchingRequestDto request,
-                        PaginationRequestDto paginationRequestDto);
-
-        TrainingExerciseResponseDto getTrainingExerciseById(Long id);
-
         PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlans(PaginationRequestDto paginationRequestDto);
+
+        PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlanByType(String type,
+                        PaginationRequestDto paginationRequestDto);
 
         PaginationResponseDto<EquipmentResponseDto> getEquipments(PaginationRequestDto paginationRequestDto);
 
@@ -65,9 +45,28 @@ public interface TrainingService {
 
         EquipmentResponseDto getEquipmentById(Long id);
 
+        List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByPrimaryMuscle(String primaryMuscle,
+                        PaginationRequestDto paginationRequestDto);
+
+        List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByType(String type,
+                        PaginationRequestDto paginationRequestDto);
+
+        List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByGoal(String goal,
+                        PaginationRequestDto paginationRequestDto);
+
+        TrainingExerciseResponseDto getTrainingExerciseById(Long id);
+
+        List<Long> searchTrainingPlanDynamic(TrainingDynamicSearchingRequestDto request);
+
+        List<TrainingExercisePreviewResponseDto> searchTrainingExerciseDynamic(
+                        TrainingDynamicSearchingRequestDto request);
+
         TrainingScheduleResponseDto getTrainingSchedule(Long planId);
 
-        PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlanByType(String type,
+        PaginationResponseDto<TrainingExerciseResponseDto> getAllExercise(PaginationRequestDto paginationRequestDto);
+
+        PaginationResponseDto<TrainingExerciseResponseDto> searchTrainingExercise(
+                        String searchRequest,
                         PaginationRequestDto paginationRequestDto);
 
 }
