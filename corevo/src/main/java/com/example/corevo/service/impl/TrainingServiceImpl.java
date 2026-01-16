@@ -435,7 +435,7 @@ public class TrainingServiceImpl implements TrainingService {
                 // Because goal is not a list in request, but in query it is a list
                 List<Long> listGoal = new ArrayList<>();
 
-                Goal goal = goalRepository.findByName(request.getGoal())
+                Goal goal = goalRepository.findByGoalName(request.getGoal())
                                 .orElse(null);
 
                 if (goal != null) {
