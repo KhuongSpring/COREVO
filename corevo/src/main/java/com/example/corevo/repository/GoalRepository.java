@@ -12,6 +12,5 @@ public interface GoalRepository extends JpaRepository<Goal, Long> {
 
     boolean existsByGoalName(String goalName);
 
-    Optional<Goal> findByName(String goalName);
-
+    Optional<Goal> findByGoalName(String goalName);
 }
