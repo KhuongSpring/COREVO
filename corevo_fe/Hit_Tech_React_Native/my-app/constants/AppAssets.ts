@@ -151,15 +151,20 @@ export const AppAssets = {
     imageActivityLevelSuperActive: require('@/assets/images/health_infor/super_active.png'),
 
     // Home Root Icons
-    homeIcon: require('@/assets/icons/home_root/home_icon.png'),
-    libraryIcon: require('@/assets/icons/home_root/library_icon.png'),
-    chartIcon: require('@/assets/icons/home_root/chart_icon.png'),
-    notificationIcon: require('@/assets/icons/home_root/notification_icon.png'),
-    profileIcon: require('@/assets/icons/home_root/profile_icon.png'),
+    homeIconNonActive: require('@/assets/icons/home_root/home_icon_non_active.png'),
+    libraryIconNonActive: require('@/assets/icons/home_root/library_icon_non_active.png'),
+    trainingIconNonActive: require('@/assets/icons/home_root/training_icon_non_active.png'),
+    feedsIconNonActive: require('@/assets/icons/home_root/feeds_icon_non_active.png'),
+    profileIconNonActive: require('@/assets/icons/home_root/profile_icon_non_active.png'),
+    homeIconActive: require('@/assets/icons/home_root/home_icon_active.png'),
+    libraryIconActive: require('@/assets/icons/home_root/library_icon_active.png'),
+    trainingIconActive: require('@/assets/icons/home_root/training_icon_active.png'),
+    feedsIconActive: require('@/assets/icons/home_root/feeds_icon_active.png'),
+    profileIconActive: require('@/assets/icons/home_root/profile_icon_active.png'),
+    notificationIconNonActive: require('@/assets/icons/home_root/notification_icon.png'),
     prizeActiveIcon: require('@/assets/icons/home_root/prize_active_icon.png'),
     prizeNotActiveIcon: require('@/assets/icons/home_root/prize_not_active_icon.png'),
     prizeTodayIcon: require('@/assets/icons/home_root/prize_today_icon.png'),
-    feedsIcon: require('@/assets/icons/home_root/feeds_icon.png'),
 
     // Setting Icons
     personalInformationIcon: require('@/assets/icons/setting/personal_information_icon.png'),
