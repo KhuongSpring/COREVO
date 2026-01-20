@@ -107,7 +107,7 @@ export default function ActivityLevelSelectionScreen() {
         // });
 
         // For now, navigate to main app (tabs)
-        router.replace('/(tabs)' as any);
+        router.replace('/welcome-2' as any);
     };
 
     const currentActivity = activityLevels[currentIndex];
@@ -145,6 +145,8 @@ export default function ActivityLevelSelectionScreen() {
                         <View style={styles.iconContainer}>
                             <Image
                                 source={currentActivity.image}
+                                style={styles.activityImage}
+                                resizeMode="contain"
                             />
                         </View>
                         <Text style={styles.activityDescription}>
@@ -285,6 +287,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: Dims.spacingL,
+    },
+    activityImage: {
+        width: '100%',
+        height: '100%',
     },
     activityDescription: {
         fontSize: Dims.textSizeS,

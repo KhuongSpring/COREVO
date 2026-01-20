@@ -4,7 +4,6 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
-import SafeAreaWrapper from '@/components/common/SafeAreaWrapper';
 import CustomInput from '@/components/auth/CustomInput';
 import CustomButton from '@/components/auth/CustomButton';
 import { useAuthStore } from '@/store/authStore';

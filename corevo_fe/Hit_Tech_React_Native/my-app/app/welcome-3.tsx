@@ -16,17 +16,17 @@ import { Dims } from '@/constants/Dimensions';
 import { AppAssets } from '@/constants/AppAssets';
 
 /**
- * Welcome Screen - Part 1
- * Introduction screen with body metrics theme
+ * Welcome Screen - Part 3
+ * Start training
  */
-export default function Welcome1Screen() {
+export default function Welcome3Screen() {
     const router = useRouter();
     const translateX = useRef(new Animated.Value(0)).current;
 
     // Auto-navigation after 3 seconds
     useEffect(() => {
         const timer = setTimeout(() => {
-            router.replace('/(personal-health)/gender-selection' as any);
+            router.replace('/(tabs)' as any);
         }, 3000);
 
         return () => clearTimeout(timer);
@@ -52,7 +52,7 @@ export default function Welcome1Screen() {
                         duration: 200,
                         useNativeDriver: true,
                     }).start(() => {
-                        router.replace('/(personal-health)/gender-selection' as any);
+                        router.replace('/(tabs)' as any);
                     });
                 } else {
                     // Reset position
@@ -66,7 +66,7 @@ export default function Welcome1Screen() {
     ).current;
 
     const handleNext = () => {
-        router.replace('/(personal-health)/gender-selection' as any);
+        router.replace('/(tabs)' as any);
     };
 
     return (
@@ -86,11 +86,11 @@ export default function Welcome1Screen() {
             >
                 <View style={styles.content}>
                     {/* Part indicator */}
-                    <Text style={styles.partText}>Phần 1</Text>
+                    <Text style={styles.partText}>Mọi thứ đã hoàn tất</Text>
 
                     {/* Main heading */}
                     <View style={styles.headingContainer}>
-                        <Text style={styles.heading}>Chỉ Số Cơ Thể</Text>
+                        <Text style={styles.heading}>Sẵn Sàng Tập Luyện</Text>
 
                         {/* Forward arrow */}
                         <TouchableOpacity

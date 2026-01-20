@@ -17,49 +17,38 @@ import { AppAssets } from '@/constants/AppAssets';
 import { AppStrings } from '@/constants/AppStrings';
 
 /**
- * Training Setup - Step 1: Goal Selection
- * Converted from Flutter training_goal_selection_widget.dart
+ * Training Setup - Step 7: Equipment Selection
+ * Converted from Flutter training_equipment_selection_widget.dart
+ * NOTE: This is a multi-select screen unlike previous single-select screens
  */
-export default function GoalSelectionScreen() {
+export default function EquipmentSelectionScreen() {
     const router = useRouter();
-    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
 
-    const goals = [
-        AppStrings.goalSelectionWeightLoss,
-        AppStrings.goalSelectionWeightGain,
-        AppStrings.goalSelectionMuscleGain,
-        AppStrings.goalSelectionBodyMaintenance,
-        AppStrings.goalSelectionIncreaseEndurance,
-        AppStrings.goalSelectionImproveCardiovascular,
-        AppStrings.goalSelectionReduceStress,
-        AppStrings.goalSelectionIncreaseHeight,
+    const equipments = [
+        AppStrings.equipmentNone,
+        AppStrings.equipmentYogaMat,
+        AppStrings.equipmentTreadmill,
+        AppStrings.equipmentResistanceBand,
+        AppStrings.equipmentFullGym,
+        AppStrings.equipmentPullUpBar,
+        AppStrings.equipmentDips,
     ];
 
-    const goalImages = [
-        AppAssets.goal1,
-        AppAssets.goal2,
-        AppAssets.goal3,
-        AppAssets.goal4,
-        AppAssets.goal5,
-        AppAssets.goal6,
-        AppAssets.goal7,
-        AppAssets.goal8,
-    ];
-
-    const handleGoalPress = (index: number) => {
-        if (selectedIndex === index) {
-            setSelectedIndex(null);
+    const handleEquipmentPress = (index: number) => {
+        if (selectedIndexes.includes(index)) {
+            setSelectedIndexes(selectedIndexes.filter(i => i !== index));
         } else {
-            setSelectedIndex(index);
+            setSelectedIndexes([...selectedIndexes, index]);
         }
     };
 
     const handleContinue = () => {
-        if (selectedIndex === null) return;
+        if (selectedIndexes.length === 0) return;
 
-        // TODO: Map goal to English and send to API
-        // TODO: Navigate to next step with appropriate level options
-        router.push('/(training-setup)/step-2-level' as any);
+        // TODO: Send equipment selections to API
+        // TODO: Navigate to home/main app
+        router.replace('/welcome-3' as any);
     };
 
     return (
@@ -78,7 +67,7 @@ export default function GoalSelectionScreen() {
 
                     <View style={styles.progressBarContainer}>
                         <View style={styles.progressBarBackground}>
-                            <View style={[styles.progressBarFill, { width: `${(1 / 7) * 100}%` }]} />
+                            <View style={[styles.progressBarFill, { width: '100%' }]} />
                         </View>
                     </View>
                 </View>
@@ -87,29 +76,34 @@ export default function GoalSelectionScreen() {
                 <View style={styles.titleContainer}>
                     <View style={styles.titleAccent} />
                     <Text style={styles.titleText}>
-                        {AppStrings.goalSelectionTitle}
+                        {AppStrings.equipmentSelectionTitle}
                     </Text>
                 </View>
 
-                {/* Scrollable Goal List */}
+                {/* Scrollable Equipment List */}
                 <ScrollView
                     style={styles.scrollView}
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
                 >
-                    {goals.map((goal, index) => (
+                    {equipments.map((equipment, index) => (
                         <TouchableOpacity
                             key={index}
                             style={[
-                                styles.goalCard,
-                                selectedIndex === index && styles.goalCardSelected,
+                                styles.equipmentCard,
+                                selectedIndexes.includes(index) && styles.equipmentCardSelected,
                             ]}
-                            onPress={() => handleGoalPress(index)}
+                            onPress={() => handleEquipmentPress(index)}
                         >
-                            <Text style={styles.goalText}>{goal}</Text>
+                            <Text style={[
+                                styles.equipmentText,
+                                selectedIndexes.includes(index) && styles.equipmentTextSelected,
+                            ]}>
+                                {equipment}
+                            </Text>
                             <Image
-                                source={goalImages[index]}
-                                style={styles.goalImage}
+                                source={selectedIndexes.includes(index) ? AppAssets.tickActive : AppAssets.tickNonActive}
+                                style={styles.tickIcon}
                             />
                         </TouchableOpacity>
                     ))}
@@ -118,7 +112,7 @@ export default function GoalSelectionScreen() {
                 {/* Gradient Overlay */}
                 <LinearGradient
                     colors={['rgba(255, 255, 255, 0)', Colors.wWhite]}
-                    locations={[0.0, 1.0]}
+                    locations={[0.0, 0.2]}
                     style={styles.gradientOverlay}
                     pointerEvents="none"
                 />
@@ -126,18 +120,12 @@ export default function GoalSelectionScreen() {
                 {/* Continue Button */}
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
-                        style={[
-                            styles.continueButton,
-                            selectedIndex === null && styles.continueButtonDisabled,
-                        ]}
+                        style={styles.continueButton}
                         onPress={handleContinue}
-                        disabled={selectedIndex === null}
+                        disabled={selectedIndexes.length === 0}
                     >
-                        <Text style={[
-                            styles.continueButtonText,
-                            selectedIndex === null && styles.continueButtonTextDisabled,
-                        ]}>
-                            Tiếp tục
+                        <Text style={styles.continueButtonText}>
+                            {AppStrings.selectionContinue}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -206,14 +194,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: Dims.paddingM,
         paddingBottom: Dims.size152,
     },
-    goalCard: {
+    equipmentCard: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: Colors.wWhite,
         borderRadius: Dims.borderRadiusSmall,
-        paddingHorizontal: Dims.paddingM,
+        padding: Dims.paddingM,
         marginBottom: Dims.paddingM,
-        height: Dims.size112,
+        height: Dims.size96,
+        borderWidth: 1,
         borderColor: Colors.wWhite,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 3 },
@@ -221,20 +210,25 @@ const styles = StyleSheet.create({
         shadowRadius: 6,
         elevation: 3,
     },
-    goalCardSelected: {
+    equipmentCardSelected: {
         backgroundColor: Colors.bLightHover,
         borderWidth: 2,
         borderColor: Colors.bNormal,
     },
-    goalText: {
+    equipmentText: {
         flex: 1,
         fontSize: Dims.textSizeL,
-        color: Colors.dark,
+        color: Colors.darkActive,
+        fontWeight: '500',
+        marginLeft: Dims.spacingML,
     },
-    goalImage: {
-        width: Dims.size112,
-        height: '100%',
-        borderRadius: Dims.borderRadiusSmall,
+    equipmentTextSelected: {
+        color: Colors.bNormal,
+    },
+    tickIcon: {
+        width: Dims.iconSizeL,
+        height: Dims.iconSizeL,
+        marginRight: Dims.spacingSM,
     },
     gradientOverlay: {
         position: 'absolute',
@@ -256,14 +250,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    continueButtonDisabled: {
-        backgroundColor: Colors.bLightNotActive,
-    },
     continueButtonText: {
         fontSize: Dims.textSizeL,
         color: Colors.wWhite,
-    },
-    continueButtonTextDisabled: {
-        color: Colors.wDark,
     },
 });

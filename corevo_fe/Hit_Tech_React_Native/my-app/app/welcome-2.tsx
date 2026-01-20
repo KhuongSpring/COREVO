@@ -16,21 +16,21 @@ import { Dims } from '@/constants/Dimensions';
 import { AppAssets } from '@/constants/AppAssets';
 
 /**
- * Welcome Screen - Part 1
- * Introduction screen with body metrics theme
+ * Welcome Screen - Part 2
+ * Introduction screen with training step theme
  */
-export default function Welcome1Screen() {
+export default function Welcome2Screen() {
     const router = useRouter();
     const translateX = useRef(new Animated.Value(0)).current;
 
     // Auto-navigation after 3 seconds
-    // useEffect(() => {
-    //     const timer = setTimeout(() => {
-    //         router.push('/welcome-2' as any);
-    //     }, 3000);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            router.replace('/(training-setup)/step-1-goal' as any);
+        }, 3000);
 
-    //     return () => clearTimeout(timer);
-    // }, [router]);
+        return () => clearTimeout(timer);
+    }, [router]);
 
     // Swipe gesture handler
     const panResponder = useRef(
@@ -52,7 +52,7 @@ export default function Welcome1Screen() {
                         duration: 200,
                         useNativeDriver: true,
                     }).start(() => {
-                        router.push('/welcome-2' as any);
+                        router.replace('/(training-setup)/step-1-goal' as any);
                     });
                 } else {
                     // Reset position
@@ -66,7 +66,7 @@ export default function Welcome1Screen() {
     ).current;
 
     const handleNext = () => {
-        router.push('/welcome-2' as any);
+        router.replace('/(training-setup)/step-1-goal' as any);
     };
 
     return (
@@ -86,11 +86,11 @@ export default function Welcome1Screen() {
             >
                 <View style={styles.content}>
                     {/* Part indicator */}
-                    <Text style={styles.partText}>Phần 1</Text>
+                    <Text style={styles.partText}>Phần 2</Text>
 
                     {/* Main heading */}
                     <View style={styles.headingContainer}>
-                        <Text style={styles.heading}>Chỉ Số Cơ Thể</Text>
+                        <Text style={styles.heading}>Kế hoạch tập luyện</Text>
 
                         {/* Forward arrow */}
                         <TouchableOpacity

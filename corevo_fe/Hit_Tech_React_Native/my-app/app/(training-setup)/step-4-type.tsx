@@ -17,36 +17,31 @@ import { AppAssets } from '@/constants/AppAssets';
 import { AppStrings } from '@/constants/AppStrings';
 
 /**
- * Training Setup - Step 1: Goal Selection
- * Converted from Flutter training_goal_selection_widget.dart
+ * Training Setup - Step 4: Type Selection
+ * Converted from Flutter training_type_selection_widget.dart
  */
-export default function GoalSelectionScreen() {
+export default function TypeSelectionScreen() {
     const router = useRouter();
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-    const goals = [
-        AppStrings.goalSelectionWeightLoss,
-        AppStrings.goalSelectionWeightGain,
-        AppStrings.goalSelectionMuscleGain,
-        AppStrings.goalSelectionBodyMaintenance,
-        AppStrings.goalSelectionIncreaseEndurance,
-        AppStrings.goalSelectionImproveCardiovascular,
-        AppStrings.goalSelectionReduceStress,
-        AppStrings.goalSelectionIncreaseHeight,
+    const types = [
+        AppStrings.typeYoga,
+        AppStrings.typeCalisthenic,
+        AppStrings.typeGym,
+        AppStrings.typeCardio,
     ];
 
-    const goalImages = [
-        AppAssets.goal1,
-        AppAssets.goal2,
-        AppAssets.goal3,
-        AppAssets.goal4,
-        AppAssets.goal5,
-        AppAssets.goal6,
-        AppAssets.goal7,
-        AppAssets.goal8,
-    ];
+    const getTypeImage = (index: number, isSelected: boolean) => {
+        const images = [
+            { normal: AppAssets.yoga, selected: AppAssets.yogaSelected },
+            { normal: AppAssets.calisthenic, selected: AppAssets.calisthenicSelected },
+            { normal: AppAssets.gym, selected: AppAssets.gymSelected },
+            { normal: AppAssets.cardio, selected: AppAssets.cardioSelected },
+        ];
+        return isSelected ? images[index].selected : images[index].normal;
+    };
 
-    const handleGoalPress = (index: number) => {
+    const handleTypePress = (index: number) => {
         if (selectedIndex === index) {
             setSelectedIndex(null);
         } else {
@@ -57,9 +52,9 @@ export default function GoalSelectionScreen() {
     const handleContinue = () => {
         if (selectedIndex === null) return;
 
-        // TODO: Map goal to English and send to API
-        // TODO: Navigate to next step with appropriate level options
-        router.push('/(training-setup)/step-2-level' as any);
+        // TODO: Send type to API
+        // TODO: Navigate to next step
+        router.push('/(training-setup)/step-5-frequency' as any);
     };
 
     return (
@@ -78,7 +73,7 @@ export default function GoalSelectionScreen() {
 
                     <View style={styles.progressBarContainer}>
                         <View style={styles.progressBarBackground}>
-                            <View style={[styles.progressBarFill, { width: `${(1 / 7) * 100}%` }]} />
+                            <View style={[styles.progressBarFill, { width: `${(4 / 7) * 100}%` }]} />
                         </View>
                     </View>
                 </View>
@@ -87,29 +82,38 @@ export default function GoalSelectionScreen() {
                 <View style={styles.titleContainer}>
                     <View style={styles.titleAccent} />
                     <Text style={styles.titleText}>
-                        {AppStrings.goalSelectionTitle}
+                        {AppStrings.typeSelectionTitle}
                     </Text>
                 </View>
 
-                {/* Scrollable Goal List */}
+                {/* Scrollable Type List */}
                 <ScrollView
                     style={styles.scrollView}
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
                 >
-                    {goals.map((goal, index) => (
+                    {types.map((type, index) => (
                         <TouchableOpacity
                             key={index}
                             style={[
-                                styles.goalCard,
-                                selectedIndex === index && styles.goalCardSelected,
+                                styles.typeCard,
+                                selectedIndex === index && styles.typeCardSelected,
                             ]}
-                            onPress={() => handleGoalPress(index)}
+                            onPress={() => handleTypePress(index)}
                         >
-                            <Text style={styles.goalText}>{goal}</Text>
                             <Image
-                                source={goalImages[index]}
-                                style={styles.goalImage}
+                                source={getTypeImage(index, selectedIndex === index)}
+                                style={styles.typeImage}
+                            />
+                            <Text style={[
+                                styles.typeText,
+                                selectedIndex === index && styles.typeTextSelected,
+                            ]}>
+                                {type}
+                            </Text>
+                            <Image
+                                source={selectedIndex === index ? AppAssets.tickActive : AppAssets.tickNonActive}
+                                style={styles.tickIcon}
                             />
                         </TouchableOpacity>
                     ))}
@@ -137,7 +141,7 @@ export default function GoalSelectionScreen() {
                             styles.continueButtonText,
                             selectedIndex === null && styles.continueButtonTextDisabled,
                         ]}>
-                            Tiếp tục
+                            {AppStrings.selectionContinue}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -206,14 +210,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: Dims.paddingM,
         paddingBottom: Dims.size152,
     },
-    goalCard: {
+    typeCard: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: Colors.wWhite,
         borderRadius: Dims.borderRadiusSmall,
-        paddingHorizontal: Dims.paddingM,
+        padding: Dims.paddingM,
         marginBottom: Dims.paddingM,
-        height: Dims.size112,
+        height: Dims.size96,
+        borderWidth: 1,
         borderColor: Colors.wWhite,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 3 },
@@ -221,20 +226,31 @@ const styles = StyleSheet.create({
         shadowRadius: 6,
         elevation: 3,
     },
-    goalCardSelected: {
+    typeCardSelected: {
         backgroundColor: Colors.bLightHover,
         borderWidth: 2,
         borderColor: Colors.bNormal,
     },
-    goalText: {
+    typeImage: {
+        width: Dims.size32,
+        height: Dims.size32,
+        marginRight: Dims.spacingXL,
+        marginLeft: Dims.spacingSM,
+        resizeMode: 'contain',
+    },
+    typeText: {
         flex: 1,
         fontSize: Dims.textSizeL,
-        color: Colors.dark,
+        color: Colors.darkActive,
+        fontWeight: '500',
     },
-    goalImage: {
-        width: Dims.size112,
-        height: '100%',
-        borderRadius: Dims.borderRadiusSmall,
+    typeTextSelected: {
+        color: Colors.bNormal,
+    },
+    tickIcon: {
+        width: Dims.iconSizeL,
+        height: Dims.iconSizeL,
+        marginRight: Dims.spacingSM,
     },
     gradientOverlay: {
         position: 'absolute',

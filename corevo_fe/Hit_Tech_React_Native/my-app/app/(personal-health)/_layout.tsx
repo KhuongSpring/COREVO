@@ -23,7 +23,6 @@ export default function PersonalHealthLayout() {
             <Stack.Screen name="height-selection" />
             <Stack.Screen name="weight-selection" />
             <Stack.Screen name="activity-level-selection" />
-            <Stack.Screen name="index" />
         </Stack>
     );
 }

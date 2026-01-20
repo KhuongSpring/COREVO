@@ -17,36 +17,36 @@ import { AppAssets } from '@/constants/AppAssets';
 import { AppStrings } from '@/constants/AppStrings';
 
 /**
- * Training Setup - Step 1: Goal Selection
- * Converted from Flutter training_goal_selection_widget.dart
+ * Training Setup - Step 2: Level Selection
+ * Converted from Flutter training_level_selection_widget.dart
  */
-export default function GoalSelectionScreen() {
+export default function LevelSelectionScreen() {
     const router = useRouter();
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-    const goals = [
-        AppStrings.goalSelectionWeightLoss,
-        AppStrings.goalSelectionWeightGain,
-        AppStrings.goalSelectionMuscleGain,
-        AppStrings.goalSelectionBodyMaintenance,
-        AppStrings.goalSelectionIncreaseEndurance,
-        AppStrings.goalSelectionImproveCardiovascular,
-        AppStrings.goalSelectionReduceStress,
-        AppStrings.goalSelectionIncreaseHeight,
+    const levels = [
+        AppStrings.levelSelectionBeginner,
+        AppStrings.levelSelectionIntermediate,
+        AppStrings.levelSelectionAdvanced,
     ];
 
-    const goalImages = [
-        AppAssets.goal1,
-        AppAssets.goal2,
-        AppAssets.goal3,
-        AppAssets.goal4,
-        AppAssets.goal5,
-        AppAssets.goal6,
-        AppAssets.goal7,
-        AppAssets.goal8,
+    const levelDetails = [
+        AppStrings.levelSelectionBeginnerDescription,
+        AppStrings.levelSelectionIntermediateDescription,
+        AppStrings.levelSelectionAdvancedDescription,
     ];
 
-    const handleGoalPress = (index: number) => {
+    const getLevelImage = (index: number, isSelected: boolean) => {
+        if (index === 0) {
+            return isSelected ? AppAssets.beginnerSelected : AppAssets.beginner;
+        } else if (index === 1) {
+            return isSelected ? AppAssets.intermediateSelected : AppAssets.intermediate;
+        } else {
+            return isSelected ? AppAssets.advancedSelected : AppAssets.advanced;
+        }
+    };
+
+    const handleLevelPress = (index: number) => {
         if (selectedIndex === index) {
             setSelectedIndex(null);
         } else {
@@ -57,9 +57,9 @@ export default function GoalSelectionScreen() {
     const handleContinue = () => {
         if (selectedIndex === null) return;
 
-        // TODO: Map goal to English and send to API
-        // TODO: Navigate to next step with appropriate level options
-        router.push('/(training-setup)/step-2-level' as any);
+        // TODO: Map level to English and send to API
+        // TODO: Navigate to next step with duration options
+        router.push('/(training-setup)/step-3-duration' as any);
     };
 
     return (
@@ -78,7 +78,7 @@ export default function GoalSelectionScreen() {
 
                     <View style={styles.progressBarContainer}>
                         <View style={styles.progressBarBackground}>
-                            <View style={[styles.progressBarFill, { width: `${(1 / 7) * 100}%` }]} />
+                            <View style={[styles.progressBarFill, { width: `${(2 / 7) * 100}%` }]} />
                         </View>
                     </View>
                 </View>
@@ -87,30 +87,33 @@ export default function GoalSelectionScreen() {
                 <View style={styles.titleContainer}>
                     <View style={styles.titleAccent} />
                     <Text style={styles.titleText}>
-                        {AppStrings.goalSelectionTitle}
+                        {AppStrings.levelSelectionTitle}
                     </Text>
                 </View>
 
-                {/* Scrollable Goal List */}
+                {/* Scrollable Level List */}
                 <ScrollView
                     style={styles.scrollView}
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
                 >
-                    {goals.map((goal, index) => (
+                    {levels.map((level, index) => (
                         <TouchableOpacity
                             key={index}
                             style={[
-                                styles.goalCard,
-                                selectedIndex === index && styles.goalCardSelected,
+                                styles.levelCard,
+                                selectedIndex === index && styles.levelCardSelected,
                             ]}
-                            onPress={() => handleGoalPress(index)}
+                            onPress={() => handleLevelPress(index)}
                         >
-                            <Text style={styles.goalText}>{goal}</Text>
                             <Image
-                                source={goalImages[index]}
-                                style={styles.goalImage}
+                                source={getLevelImage(index, selectedIndex === index)}
+                                style={styles.levelImage}
                             />
+                            <View style={styles.levelContent}>
+                                <Text style={styles.levelText}>{level}</Text>
+                                <Text style={styles.levelDetail}>{levelDetails[index]}</Text>
+                            </View>
                         </TouchableOpacity>
                     ))}
                 </ScrollView>
@@ -137,7 +140,7 @@ export default function GoalSelectionScreen() {
                             styles.continueButtonText,
                             selectedIndex === null && styles.continueButtonTextDisabled,
                         ]}>
-                            Tiếp tục
+                            {AppStrings.selectionContinue}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -206,14 +209,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: Dims.paddingM,
         paddingBottom: Dims.size152,
     },
-    goalCard: {
+    levelCard: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: Colors.wWhite,
         borderRadius: Dims.borderRadiusSmall,
-        paddingHorizontal: Dims.paddingM,
+        padding: Dims.paddingM,
         marginBottom: Dims.paddingM,
         height: Dims.size112,
+        borderWidth: 1,
         borderColor: Colors.wWhite,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 3 },
@@ -221,20 +225,30 @@ const styles = StyleSheet.create({
         shadowRadius: 6,
         elevation: 3,
     },
-    goalCardSelected: {
+    levelCardSelected: {
         backgroundColor: Colors.bLightHover,
         borderWidth: 2,
         borderColor: Colors.bNormal,
     },
-    goalText: {
+    levelImage: {
+        width: Dims.iconSizeL,
+        height: Dims.size80,
+        marginLeft: Dims.spacingML,
+        marginRight: Dims.spacingL,
+        resizeMode: 'contain'
+    },
+    levelContent: {
         flex: 1,
+        justifyContent: 'center',
+    },
+    levelText: {
         fontSize: Dims.textSizeL,
         color: Colors.dark,
+        marginBottom: Dims.spacingSM,
     },
-    goalImage: {
-        width: Dims.size112,
-        height: '100%',
-        borderRadius: Dims.borderRadiusSmall,
+    levelDetail: {
+        fontSize: Dims.textSizeS,
+        color: Colors.lightHover,
     },
     gradientOverlay: {
         position: 'absolute',

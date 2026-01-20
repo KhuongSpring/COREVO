@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: Dims.size24,
         height: Dims.size24,
-        borderRadius: Dims.borderRadiusTiny,
+        borderRadius: Dims.borderRadiusLarge,
         borderWidth: 2,
         borderColor: Colors.wWhite,
         marginLeft: -12,

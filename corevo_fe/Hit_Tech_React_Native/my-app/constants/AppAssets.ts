@@ -57,8 +57,8 @@ export const AppAssets = {
     goalCategoryNoActive8: require('@/assets/images/goal/goal_category_no_active_8.png'),
 
     // Level Images
-    beginner: require('@/assets/images/level/level2.png'),
-    intermediate: require('@/assets/images/level/level1.png'),
+    beginner: require('@/assets/images/level/level1.png'),
+    intermediate: require('@/assets/images/level/level2.png'),
     advanced: require('@/assets/images/level/level3.png'),
     beginnerSelected: require('@/assets/images/level/levelSelected1.png'),
     intermediateSelected: require('@/assets/images/level/levelSelected2.png'),
