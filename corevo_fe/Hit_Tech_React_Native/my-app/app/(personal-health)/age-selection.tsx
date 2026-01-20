@@ -187,8 +187,8 @@ const styles = StyleSheet.create({
         gap: Dims.spacingM,
     },
     backButton: {
-        width: 40,
-        height: 40,
+        width: Dims.size40,
+        height: Dims.size40,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -196,15 +196,15 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     progressBar: {
-        height: 8,
-        backgroundColor: '#E0E0E0',
-        borderRadius: 4,
+        height: Dims.size8,
+        backgroundColor: Colors.buttonBGBottomGender,
+        borderRadius: Dims.borderRadiusTiny,
         overflow: 'hidden',
     },
     progressFill: {
         height: '100%',
         backgroundColor: Colors.bNormal,
-        borderRadius: 4,
+        borderRadius: Dims.borderRadiusTiny,
     },
 
     // Info Box

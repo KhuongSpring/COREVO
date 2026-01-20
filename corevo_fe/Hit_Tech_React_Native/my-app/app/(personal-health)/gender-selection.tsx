@@ -140,10 +140,10 @@ const styles = StyleSheet.create({
         paddingRight: Dims.paddingXL,
         gap: Dims.spacingM,
     },
-    backButton: { width: 40, height: 40, justifyContent: 'center', alignItems: 'center' },
+    backButton: { width: Dims.size40, height: Dims.size40, justifyContent: 'center', alignItems: 'center' },
     progressContainer: { flex: 1 },
-    progressBar: { height: 8, backgroundColor: '#E0E0E0', borderRadius: 4, overflow: 'hidden' },
-    progressFill: { height: '100%', backgroundColor: Colors.bNormal, borderRadius: 4 },
+    progressBar: { height: Dims.size8, backgroundColor: Colors.buttonBGBottomGender, borderRadius: Dims.borderRadiusTiny, overflow: 'hidden' },
+    progressFill: { height: '100%', backgroundColor: Colors.bNormal, borderRadius: Dims.borderRadiusTiny },
 
     // Content
     content: { flex: 1 },
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
-        height: 280, // Allow height for the image
+        height: Dims.size280, // Allow height for the image
         alignItems: 'center',
         zIndex: 2, // Ensure image is above card background
     },
@@ -217,10 +217,10 @@ const styles = StyleSheet.create({
     // 3. Label Container (Bottom Layer - Floating)
     labelContainer: {
         position: 'absolute',
-        bottom: 20, // Pinned to bottom
+        bottom: Dims.spacingML, // Pinned to bottom
         left: 0,
         right: 0,
-        height: 50, // size64
+        height: Dims.size56, // size64
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',

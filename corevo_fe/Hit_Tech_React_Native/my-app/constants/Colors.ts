@@ -42,6 +42,7 @@ export const Colors = {
   wNormal: '#f9fafb',
   wNormalHover: '#f2f4f7',
   wNormalActive: '#ebeef2',
+  wNormalNonActive: '#D2DDE6',
   wDark: '#dadada',
 
   // Health Information Colors
