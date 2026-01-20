@@ -31,15 +31,15 @@ export default function Intro3Screen() {
                     {/* Image Placeholder */}
                     <View style={styles.imageContainer}>
                         <View style={styles.imagePlaceholder}>
-                            <Text style={styles.imageEmoji}>🤝</Text>
+                            <Text style={styles.imageEmoji}>🚀</Text>
                         </View>
                     </View>
 
                     {/* Text */}
                     <View style={styles.textContainer}>
-                        <Text style={styles.title}>Cộng đồng{'\n'}& Hỗ trợ</Text>
+                        <Text style={styles.title}>Bắt đầu hành trình mới</Text>
                         <Text style={styles.description}>
-                            Kết nối với cộng đồng tập luyện và nhận hỗ trợ từ huấn luyện viên chuyên nghiệp
+                            Từ những bước khởi đầu hôm nay, bạn sẽ khám phá giới hạn của bản thân, chinh phục thể lực và đạt được phong cách sống năng động hơn.
                         </Text>
                     </View>
                 </View>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         width: Dims.size280,
         height: Dims.size280,
         backgroundColor: Colors.bLight,
-        borderRadius: Dims.size140,
+        borderRadius: Dims.size144,
         alignItems: 'center',
         justifyContent: 'center',
     },

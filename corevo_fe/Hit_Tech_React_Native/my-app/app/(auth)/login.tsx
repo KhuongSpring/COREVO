@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Alert, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
@@ -7,8 +7,10 @@ import { Dims } from '@/constants/Dimensions';
 import SafeAreaWrapper from '@/components/common/SafeAreaWrapper';
 import CustomInput from '@/components/auth/CustomInput';
 import CustomButton from '@/components/auth/CustomButton';
-import AuthBottomText from '@/components/auth/AuthBottomText';
 import { useAuthStore } from '@/store/authStore';
+import { AppMessages } from '@/constants/AppMessages';
+import { AppStrings } from '@/constants/AppStrings';
+import { AppAssets } from '@/constants/AppAssets';
 
 /**
  * Login Screen
@@ -27,13 +29,13 @@ export default function LoginScreen() {
         const newErrors: { username?: string; password?: string } = {};
 
         if (!username.trim()) {
-            newErrors.username = 'Vui lòng nhập email hoặc tên đăng nhập';
+            newErrors.username = AppMessages.validation.errUsernameOrEmailRequired;
         }
 
         if (!password) {
-            newErrors.password = 'Vui lòng nhập mật khẩu';
+            newErrors.password = AppMessages.validation.errPasswordRequired;
         } else if (password.length < 6) {
-            newErrors.password = 'Mật khẩu phải có ít nhất 6 ký tự';
+            newErrors.password = AppMessages.validation.errInvalidPasswordLength;
         }
 
         setErrors(newErrors);
@@ -50,22 +52,28 @@ export default function LoginScreen() {
             await login({ username: username.trim(), password });
 
             // Login successful, navigate to main app
-            Alert.alert('Thành công', 'Đăng nhập thành công!', [
+            Alert.alert(AppStrings.success, AppStrings.loginSuccess, [
                 {
-                    text: 'OK',
+                    text: AppStrings.ok,
                     onPress: () => router.replace('/welcome' as any),
                 },
             ]);
         } catch (error: any) {
             // Error is already set in store
-            Alert.alert('Lỗi đăng nhập', error.message || 'Đăng nhập thất bại. Vui lòng thử lại.');
+            Alert.alert(AppStrings.error, error.message || AppMessages.auth.errLoginFail);
         }
     };
 
     // Handle Google Sign-In
     const handleGoogleSignIn = () => {
         // TODO: Implement Google Sign-In
-        Alert.alert('Thông báo', 'Google Sign-In sẽ được tích hợp sau');
+        Alert.alert(AppStrings.notification, 'Google Sign-In sẽ được tích hợp sau');
+    };
+
+    // Handle Facebook Sign-In
+    const handleFacebookSignIn = () => {
+        // TODO: Implement Facebook Sign-In
+        Alert.alert(AppStrings.notification, 'Facebook Sign-In sẽ được tích hợp sau');
     };
 
     // Navigate to register
@@ -79,7 +87,11 @@ export default function LoginScreen() {
     };
 
     return (
-        <SafeAreaWrapper backgroundColor={Colors.wWhite}>
+        <ImageBackground
+            source={AppAssets.authBackground}
+            style={styles.backgroundImage}
+            resizeMode="cover"
+        >
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={styles.container}
@@ -91,15 +103,14 @@ export default function LoginScreen() {
                 >
                     {/* Header */}
                     <View style={styles.header}>
-                        <Text style={styles.title}>Đăng Nhập</Text>
-                        <Text style={styles.subtitle}>Chào mừng trở lại!</Text>
+                        <Text style={styles.title}>{AppStrings.login}</Text>
                     </View>
 
                     {/* Login Form */}
                     <View style={styles.form}>
+                        {/* Username Input */}
                         <CustomInput
-                            label="Email hoặc Tên đăng nhập"
-                            placeholder="Nhập email hoặc tên đăng nhập"
+                            placeholder={AppStrings.username}
                             value={username}
                             onChangeText={(text) => {
                                 setUsername(text);
@@ -110,9 +121,9 @@ export default function LoginScreen() {
                             error={errors.username}
                         />
 
+                        {/* Password Input */}
                         <CustomInput
-                            label="Mật khẩu"
-                            placeholder="Nhập mật khẩu"
+                            placeholder={AppStrings.password}
                             value={password}
                             onChangeText={(text) => {
                                 setPassword(text);
@@ -125,7 +136,7 @@ export default function LoginScreen() {
 
                         {/* Forgot Password Link */}
                         <CustomButton
-                            title="Quên mật khẩu?"
+                            title={AppStrings.forgotPassword}
                             onPress={handleForgotPassword}
                             variant="outline"
                             style={styles.forgotButton}
@@ -134,7 +145,7 @@ export default function LoginScreen() {
 
                         {/* Login Button */}
                         <CustomButton
-                            title="Đăng nhập"
+                            title={AppStrings.login}
                             onPress={handleLogin}
                             loading={isLoading}
                             disabled={isLoading}
@@ -144,81 +155,127 @@ export default function LoginScreen() {
                         {/* Divider */}
                         <View style={styles.divider}>
                             <View style={styles.dividerLine} />
-                            <Text style={styles.dividerText}>hoặc</Text>
+                            <Text style={styles.dividerText}>{AppStrings.orLoginWith}</Text>
                             <View style={styles.dividerLine} />
                         </View>
 
                         {/* Google Sign-In Button */}
                         <CustomButton
-                            title="Đăng nhập với Google"
+                            title={AppStrings.googleSignIn}
                             onPress={handleGoogleSignIn}
                             variant="outline"
-                            icon={<Ionicons name="logo-google" size={20} color={Colors.bNormal} />}
+                            icon={<Image source={AppAssets.googleIcon} style={styles.socialButtonIcon} />}
+                            style={styles.socialButton}
+                        />
+
+                        {/* Facebook Sign-In Button */}
+                        <CustomButton
+                            title={AppStrings.facebookSignIn}
+                            onPress={handleFacebookSignIn}
+                            variant="outline"
+                            icon={<Image source={AppAssets.facebookIcon} style={styles.socialButtonIcon} />}
+                            style={styles.socialButton}
                         />
                     </View>
 
                     {/* Bottom Text */}
-                    <AuthBottomText
-                        normalText="Chưa có tài khoản?"
-                        linkText="Đăng ký"
-                        onPress={handleNavigateToRegister}
-                    />
+                    <View style={styles.bottomTextContainer}>
+                        <Text style={styles.bottomText}>{AppStrings.alreadyHaveAccount}</Text>
+                        <TouchableOpacity onPress={handleNavigateToRegister}>
+                            <Text style={styles.bottomTextLink}>{AppStrings.register}</Text>
+                        </TouchableOpacity>
+                    </View>
                 </ScrollView>
             </KeyboardAvoidingView>
-        </SafeAreaWrapper>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+    },
     container: {
         flex: 1,
     },
     scrollContent: {
         flexGrow: 1,
-        padding: Dims.paddingL,
-        paddingTop: Dims.spacingGiant,
+        padding: Dims.spacingL,
+        paddingTop: Dims.spacingXL,
+        justifyContent: 'center',
     },
     header: {
-        marginBottom: Dims.spacingXL,
+        alignItems: 'center',
+        marginBottom: Dims.spacingGiant,
     },
     title: {
-        fontSize: Dims.textSizeXXXL,
+        fontSize: Dims.textSizeXXL,
         fontWeight: 'bold',
         color: Colors.dark,
-        marginBottom: Dims.spacingS,
-    },
-    subtitle: {
-        fontSize: Dims.textSizeL,
-        color: Colors.lighter,
+        textAlign: 'center',
     },
     form: {
-        marginBottom: Dims.spacingXL,
+        marginBottom: 30,
     },
     forgotButton: {
         alignSelf: 'flex-end',
         marginBottom: Dims.spacingL,
-        paddingVertical: Dims.paddingS,
+        paddingVertical: 4,
         minHeight: 0,
+        borderWidth: 0,
     },
     forgotButtonText: {
         fontSize: Dims.textSizeS,
+        color: Colors.bNormal,
+        fontWeight: '500',
     },
     loginButton: {
+        backgroundColor: Colors.bNormal,
+        borderRadius: Dims.borderRadiusLarge,
         marginBottom: Dims.spacingL,
     },
     divider: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: Dims.spacingL,
+        marginVertical: 24,
     },
     dividerLine: {
         flex: 1,
         height: 1,
-        backgroundColor: Colors.wDark,
+        backgroundColor: Colors.bNormal,
     },
     dividerText: {
         fontSize: Dims.textSizeS,
+        color: Colors.bNormal,
+        marginHorizontal: Dims.spacingSM,
+        fontWeight: '500',
+    },
+    socialButton: {
+        backgroundColor: Colors.wWhite,
+        borderRadius: Dims.borderRadiusLarge,
+        marginBottom: Dims.spacingM,
+        borderColor: '#E0E0E0',
+    },
+    socialButtonIcon: {
+        width: Dims.size28,
+        height: Dims.size28,
+    },
+    bottomTextContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: Dims.spacingM,
+    },
+    bottomText: {
+        fontSize: Dims.textSizeS,
         color: Colors.lighter,
-        marginHorizontal: Dims.spacingM,
+        marginRight: Dims.spacingXS
+    },
+    bottomTextLink: {
+        fontSize: Dims.textSizeS,
+        color: Colors.bNormal,
+        fontWeight: '600',
     },
 });

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert, ImageBackground, ScrollView } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
@@ -7,6 +7,9 @@ import { Dims } from '@/constants/Dimensions';
 import SafeAreaWrapper from '@/components/common/SafeAreaWrapper';
 import CustomInput from '@/components/auth/CustomInput';
 import CustomButton from '@/components/auth/CustomButton';
+import { AppMessages } from '@/constants/AppMessages';
+import { AppStrings } from '@/constants/AppStrings';
+import { AppAssets } from '@/constants/AppAssets';
 import * as authService from '@/services/authService';
 
 /**
@@ -30,15 +33,15 @@ export default function ResetPasswordScreen() {
         const newErrors: { newPassword?: string; confirmPassword?: string } = {};
 
         if (!newPassword) {
-            newErrors.newPassword = 'Vui lòng nhập mật khẩu mới';
+            newErrors.newPassword = AppMessages.validation.errPasswordRequired;
         } else if (newPassword.length < 6) {
-            newErrors.newPassword = 'Mật khẩu phải có ít nhất 6 ký tự';
+            newErrors.newPassword = AppMessages.validation.errInvalidPasswordLength;
         }
 
         if (!confirmPassword) {
-            newErrors.confirmPassword = 'Vui lòng xác nhận mật khẩu';
+            newErrors.confirmPassword = AppMessages.validation.errPasswordRequired;
         } else if (newPassword !== confirmPassword) {
-            newErrors.confirmPassword = 'Mật khẩu không khớp';
+            newErrors.confirmPassword = AppMessages.validation.errPasswordMismatch;
         }
 
         setErrors(newErrors);
@@ -61,11 +64,11 @@ export default function ResetPasswordScreen() {
 
             if (response.status === 'SUCCESS') {
                 Alert.alert(
-                    'Thành công!',
-                    'Mật khẩu đã được đặt lại thành công.',
+                    AppStrings.success,
+                    AppMessages.auth.sucResetPassword,
                     [
                         {
-                            text: 'OK',
+                            text: AppStrings.ok,
                             onPress: () => {
                                 // Navigate to login
                                 router.replace('/(auth)/login' as any);
@@ -74,30 +77,38 @@ export default function ResetPasswordScreen() {
                     ]
                 );
             } else {
-                Alert.alert('Lỗi', response.message || 'Đặt lại mật khẩu thất bại');
+                Alert.alert(AppStrings.error, response.message || AppMessages.auth.errResetPasswordFail);
             }
         } catch (error: any) {
-            Alert.alert('Lỗi', error.response?.data?.message || 'Đặt lại mật khẩu thất bại. Vui lòng thử lại.');
+            Alert.alert(AppStrings.error, error.response?.data?.message || AppMessages.auth.errResetPasswordFail);
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <SafeAreaWrapper backgroundColor={Colors.wWhite}>
+        <ImageBackground
+            source={AppAssets.authBackground}
+            style={styles.backgroundImage}
+            resizeMode="cover"
+        >
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={styles.container}
             >
-                <View style={styles.content}>
+                <ScrollView
+                    contentContainerStyle={styles.scrollContent}
+                    keyboardShouldPersistTaps="handled"
+                    showsVerticalScrollIndicator={false}
+                >
                     {/* Header */}
                     <View style={styles.header}>
                         <View style={styles.iconContainer}>
                             <Ionicons name="lock-closed-outline" size={60} color={Colors.bNormal} />
                         </View>
-                        <Text style={styles.title}>Đặt Lại Mật Khẩu</Text>
+                        <Text style={styles.title}>{AppStrings.resetPassword}</Text>
                         <Text style={styles.subtitle}>
-                            Nhập mật khẩu mới cho tài khoản{'\n'}
+                            {AppStrings.resetYourPassword}{'\n'}
                             <Text style={styles.email}>{email}</Text>
                         </Text>
                     </View>
@@ -105,8 +116,7 @@ export default function ResetPasswordScreen() {
                     {/* Password Form */}
                     <View style={styles.form}>
                         <CustomInput
-                            label="Mật khẩu mới"
-                            placeholder="Nhập mật khẩu mới"
+                            placeholder={AppStrings.newPassword}
                             value={newPassword}
                             onChangeText={(text) => {
                                 setNewPassword(text);
@@ -118,8 +128,7 @@ export default function ResetPasswordScreen() {
                         />
 
                         <CustomInput
-                            label="Xác nhận mật khẩu"
-                            placeholder="Nhập lại mật khẩu mới"
+                            placeholder={AppStrings.confirmPassword}
                             value={confirmPassword}
                             onChangeText={(text) => {
                                 setConfirmPassword(text);
@@ -132,31 +141,36 @@ export default function ResetPasswordScreen() {
 
                         {/* Reset Password Button */}
                         <CustomButton
-                            title="Đặt lại mật khẩu"
+                            title={AppStrings.resetPassword}
                             onPress={handleResetPassword}
                             loading={isLoading}
                             disabled={isLoading}
                             style={styles.resetButton}
                         />
                     </View>
-                </View>
+                </ScrollView>
             </KeyboardAvoidingView>
-        </SafeAreaWrapper>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+    },
     container: {
         flex: 1,
     },
-    content: {
-        flex: 1,
-        padding: Dims.paddingL,
-        paddingTop: Dims.spacingGiant,
+    scrollContent: {
+        flexGrow: 1,
+        padding: Dims.spacingL,
+        paddingTop: Dims.size104,
     },
     header: {
         alignItems: 'center',
-        marginBottom: Dims.spacingXXL,
+        marginBottom: Dims.spacingXL,
     },
     iconContainer: {
         width: Dims.size96,
@@ -165,19 +179,25 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.bLight,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: Dims.spacingL,
+        marginBottom: Dims.spacingXXXL,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
     },
     title: {
-        fontSize: Dims.textSizeXXXL,
+        fontSize: Dims.textSizeXXL,
         fontWeight: 'bold',
         color: Colors.dark,
-        marginBottom: Dims.spacingM,
+        marginBottom: Dims.spacingML,
+        textAlign: 'center',
     },
     subtitle: {
         fontSize: Dims.textSizeM,
-        color: Colors.lighter,
+        color: Colors.dark,
         textAlign: 'center',
-        lineHeight: Dims.textSizeM * 1.5,
+        lineHeight: Dims.textSizeL,
     },
     email: {
         color: Colors.bNormal,
@@ -187,6 +207,8 @@ const styles = StyleSheet.create({
         marginBottom: Dims.spacingXL,
     },
     resetButton: {
+        backgroundColor: Colors.bNormal,
+        borderRadius: Dims.borderRadiusLarge,
         marginTop: Dims.spacingM,
     },
 });

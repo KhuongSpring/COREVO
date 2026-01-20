@@ -6,7 +6,7 @@ import { Dims } from '@/constants/Dimensions';
 import { AppConfig } from '@/constants/AppConfig';
 import { useAuthStore } from '@/store/authStore';
 import { getSeenOnboarding } from '@/services/storage';
-import LoadingSpinner from '@/components/common/LoadingSpinner';
+import { AppAssets } from '@/constants/AppAssets';
 
 /**
  * Splash Screen
@@ -37,7 +37,8 @@ export default function SplashScreen() {
         } else if (!isAuthenticated) {
             // Not logged in → Login
             // router.replace('/(auth)/login' as any);
-            router.replace('/(onboarding)/intro-1' as any);
+            router.replace('/welcome' as any);
+            // router.replace('/(auth)/reset-password' as any);
         } else {
             // Logged in → Main App
             router.replace('/(tabs)' as any);
@@ -49,7 +50,7 @@ export default function SplashScreen() {
             <View style={styles.logoContainer}>
                 {/* COREVO Logo */}
                 <Image
-                    source={require('@/assets/logo/corevo_logo.png')}
+                    source={AppAssets.logoCorevo}
                     style={styles.logo}
                     resizeMode="contain"
                 />

@@ -1,72 +1,67 @@
 /**
- * User Types
- * User profile and health information interfaces
+ * User Types - Extended
+ * Complete user profile and health information types
+ * Migrated from Flutter user models
  */
 
-// ===== User Profile =====
-
-export interface User {
-    id: string;
-    username: string;
-    email: string;
-    fullName: string;
-    phoneNumber?: string;
-    avatar?: string;
-    createdAt?: string;
-    updatedAt?: string;
-}
-
-// ===== User Health Profile =====
-
+// User Health Information
 export interface UserHealth {
-    id: string;
-    userId: string;
-    gender?: 'MALE' | 'FEMALE' | 'OTHER';
-    age?: number;
-    height?: number; // cm
-    weight?: number; // kg
-    bmi?: number;
-    targetWeight?: number;
-    activityLevel?: 'SEDENTARY' | 'LIGHTLY_ACTIVE' | 'MODERATELY_ACTIVE' | 'VERY_ACTIVE' | 'EXTRA_ACTIVE';
-    medicalConditions?: string[];
-    allergies?: string[];
-    createdAt?: string;
-    updatedAt?: string;
-}
-
-// ===== User with Health Profile =====
-
-export interface UserWithHealth extends User {
-    healthProfile?: UserHealth;
-}
-
-// ===== User Profile Response =====
-
-export interface UserProfileResponse {
-    status: string;
-    message?: string;
-    user: User;
-    userHealth?: UserHealth;
-    trainingPlans?: any[]; // Will be defined in training.ts
-}
-
-// ===== Update Profile Request =====
-
-export interface UpdateProfileRequest {
-    fullName?: string;
-    phoneNumber?: string;
-    avatar?: string;
-}
-
-// ===== Update Health Profile Request =====
-
-export interface UpdateHealthProfileRequest {
-    gender?: 'MALE' | 'FEMALE' | 'OTHER';
-    age?: number;
+    gender?: string;
     height?: number;
     weight?: number;
-    targetWeight?: number;
-    activityLevel?: 'SEDENTARY' | 'LIGHTLY_ACTIVE' | 'MODERATELY_ACTIVE' | 'VERY_ACTIVE' | 'EXTRA_ACTIVE';
-    medicalConditions?: string[];
-    allergies?: string[];
+    age?: number;
+    activityLevel?: string;
+    basalMetabolicRate?: number;
+    maximumHeartRate?: number;
+    tdee?: number;
+}
+
+// Personal Health Request
+export interface PersonalHealthRequest {
+    gender: string;
+    age: number;
+    height: number;
+    weight: number;
+    activityLevel: string;
+}
+
+// User Profile (Complete)
+export interface UserProfile {
+    id?: string;
+    username?: string;
+    email?: string;
+    firstName?: string;
+    lastName?: string;
+    birth?: string;
+    phone?: string;
+    nationality?: string;
+    linkAvatar?: string;
+    userHealth?: UserHealth;
+    trainingPlans?: any[]; // Will be TrainingPlan[]
+}
+
+// User Profile Response (API)
+export interface UserProfileResponse {
+    status: string;
+    data: UserProfile;
+}
+
+// User Health Response (API)
+export interface UserHealthResponse {
+    status: string;
+    data: UserHealth;
+}
+
+// Update User Profile Request
+export interface UpdateUserProfileRequest {
+    firstName?: string;
+    lastName?: string;
+    birth?: string;
+    phone?: string;
+    nationality?: string;
+}
+
+// Upload Avatar Request 
+export interface UploadAvatarRequest {
+    image: string; // Base64 or file path
 }

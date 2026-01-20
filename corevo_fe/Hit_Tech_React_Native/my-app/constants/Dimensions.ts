@@ -98,7 +98,9 @@ export const Dims = {
     borderRadiusTiny: scale(4),
     borderRadiusSmall: scale(10),
     borderRadius: scale(12),
+    borderRadiusL: scale(16),
     borderRadiusLarge: scale(28),
+    borderRadiusXL: scale(100),
 
     // Common sizes
     size4: scaleWidth(4),

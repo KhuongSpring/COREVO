@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, KeyboardAvoidingView, Platform, Alert, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
@@ -8,6 +8,9 @@ import SafeAreaWrapper from '@/components/common/SafeAreaWrapper';
 import CustomInput from '@/components/auth/CustomInput';
 import CustomButton from '@/components/auth/CustomButton';
 import AuthBottomText from '@/components/auth/AuthBottomText';
+import { AppMessages } from '@/constants/AppMessages';
+import { AppStrings } from '@/constants/AppStrings';
+import { AppAssets } from '@/constants/AppAssets';
 import * as authService from '@/services/authService';
 
 /**
@@ -18,15 +21,14 @@ export default function RegisterScreen() {
     const router = useRouter();
 
     const [formData, setFormData] = useState({
-        fullName: '',
+        firstName: '',
+        lastName: '',
         username: '',
         email: '',
-        phoneNumber: '',
-        countryCode: '+84',
         password: '',
-        confirmPassword: '',
     });
 
+    const [agreedToTerms, setAgreedToTerms] = useState(false);
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [isLoading, setIsLoading] = useState(false);
 
@@ -48,32 +50,34 @@ export default function RegisterScreen() {
     const validateForm = (): boolean => {
         const newErrors: { [key: string]: string } = {};
 
-        if (!formData.fullName.trim()) {
-            newErrors.fullName = 'Vui lòng nhập họ và tên';
+        if (!formData.firstName.trim()) {
+            newErrors.firstName = AppMessages.validation.errFirstNameRequired;
+        }
+
+        if (!formData.lastName.trim()) {
+            newErrors.lastName = AppMessages.validation.errLastNameRequired;
         }
 
         if (!formData.username.trim()) {
-            newErrors.username = 'Vui lòng nhập tên đăng nhập';
+            newErrors.username = AppMessages.validation.errUsernameOrEmailRequired;
         } else if (formData.username.length < 3) {
-            newErrors.username = 'Tên đăng nhập phải có ít nhất 3 ký tự';
+            newErrors.username = AppMessages.validation.errUsernameTooShort;
         }
 
         if (!formData.email.trim()) {
-            newErrors.email = 'Vui lòng nhập email';
+            newErrors.email = AppMessages.validation.errInvalidEmail;
         } else if (!isValidEmail(formData.email)) {
-            newErrors.email = 'Email không hợp lệ';
+            newErrors.email = AppMessages.validation.errInvalidEmail;
         }
 
         if (!formData.password) {
-            newErrors.password = 'Vui lòng nhập mật khẩu';
+            newErrors.password = AppMessages.validation.errPasswordRequired;
         } else if (formData.password.length < 6) {
-            newErrors.password = 'Mật khẩu phải có ít nhất 6 ký tự';
+            newErrors.password = AppMessages.validation.errInvalidPasswordLength;
         }
 
-        if (!formData.confirmPassword) {
-            newErrors.confirmPassword = 'Vui lòng xác nhận mật khẩu';
-        } else if (formData.password !== formData.confirmPassword) {
-            newErrors.confirmPassword = 'Mật khẩu không khớp';
+        if (!agreedToTerms) {
+            newErrors.terms = AppMessages.validation.errPolicyRequired;
         }
 
         setErrors(newErrors);
@@ -87,23 +91,24 @@ export default function RegisterScreen() {
         setIsLoading(true);
 
         try {
+            const fullName = `${formData.firstName.trim()} ${formData.lastName.trim()}`;
             const response = await authService.register({
                 username: formData.username.trim(),
                 email: formData.email.trim(),
                 password: formData.password,
-                confirmPassword: formData.confirmPassword,
-                fullName: formData.fullName.trim(),
-                phoneNumber: formData.phoneNumber.trim(),
-                countryCode: formData.countryCode,
+                confirmPassword: formData.password, // Same as password
+                fullName: fullName,
+                phoneNumber: '', // Empty for now
+                countryCode: '+84',
             });
 
             if (response.status === 'SUCCESS') {
                 Alert.alert(
-                    'Đăng ký thành công!',
-                    'Vui lòng kiểm tra email để xác thực tài khoản.',
+                    AppStrings.success,
+                    AppMessages.auth.sucSendOtp,
                     [
                         {
-                            text: 'OK',
+                            text: AppStrings.ok,
                             onPress: () => {
                                 // Navigate to OTP verification
                                 router.push({
@@ -115,17 +120,31 @@ export default function RegisterScreen() {
                     ]
                 );
             } else {
-                Alert.alert('Lỗi', response.message || 'Đăng ký thất bại');
+                Alert.alert(AppStrings.error, response.message || AppMessages.auth.errRegisterFail);
             }
         } catch (error: any) {
-            Alert.alert('Lỗi', error.response?.data?.message || 'Đăng ký thất bại. Vui lòng thử lại.');
+            Alert.alert(AppStrings.error, error.response?.data?.message || AppMessages.auth.errRegisterFail);
         } finally {
             setIsLoading(false);
         }
     };
 
+    // Handle Google Sign-In
+    const handleGoogleSignIn = () => {
+        Alert.alert(AppStrings.notification, 'Google Sign-In sẽ được tích hợp sau');
+    };
+
+    // Handle Facebook Sign-In
+    const handleFacebookSignIn = () => {
+        Alert.alert(AppStrings.notification, 'Facebook Sign-In sẽ được tích hợp sau');
+    };
+
     return (
-        <SafeAreaWrapper backgroundColor={Colors.wWhite}>
+        <ImageBackground
+            source={AppAssets.authBackground}
+            style={styles.backgroundImage}
+            resizeMode="cover"
+        >
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={styles.container}
@@ -135,119 +154,241 @@ export default function RegisterScreen() {
                     keyboardShouldPersistTaps="handled"
                     showsVerticalScrollIndicator={false}
                 >
-                    {/* Header */}
-                    <View style={styles.header}>
-                        <Text style={styles.title}>Đăng Ký</Text>
-                        <Text style={styles.subtitle}>Tạo tài khoản mới</Text>
+                    <View style={styles.headerContainer}>
+                        <Text style={styles.title}>{AppStrings.register}</Text>
                     </View>
 
                     {/* Registration Form */}
                     <View style={styles.form}>
+                        {/* Email Input */}
                         <CustomInput
-                            label="Họ và tên"
-                            placeholder="Nhập họ và tên"
-                            value={formData.fullName}
-                            onChangeText={(text) => updateField('fullName', text)}
-                            icon={<Ionicons name="person-outline" size={20} color={Colors.lighter} />}
-                            error={errors.fullName}
-                        />
-
-                        <CustomInput
-                            label="Tên đăng nhập"
-                            placeholder="Nhập tên đăng nhập"
-                            value={formData.username}
-                            onChangeText={(text) => updateField('username', text)}
-                            icon={<Ionicons name="at-outline" size={20} color={Colors.lighter} />}
-                            error={errors.username}
-                        />
-
-                        <CustomInput
-                            label="Email"
-                            placeholder="Nhập email"
+                            placeholder={AppStrings.email}
                             value={formData.email}
                             onChangeText={(text) => updateField('email', text)}
                             keyboardType="email-address"
-                            icon={<Ionicons name="mail-outline" size={20} color={Colors.lighter} />}
                             error={errors.email}
                         />
 
+                        {/* Username Input */}
                         <CustomInput
-                            label="Số điện thoại (tùy chọn)"
-                            placeholder="Nhập số điện thoại"
-                            value={formData.phoneNumber}
-                            onChangeText={(text) => updateField('phoneNumber', text)}
-                            keyboardType="phone-pad"
-                            icon={<Ionicons name="call-outline" size={20} color={Colors.lighter} />}
+                            placeholder={AppStrings.username}
+                            value={formData.username}
+                            onChangeText={(text) => updateField('username', text)}
+                            error={errors.username}
                         />
 
+                        {/* First Name & Last Name in Row */}
+                        <View style={styles.nameRow}>
+                            <View style={styles.nameField}>
+                                <CustomInput
+                                    placeholder={AppStrings.firstName}
+                                    value={formData.firstName}
+                                    onChangeText={(text) => updateField('firstName', text)}
+                                    error={errors.firstName}
+                                />
+                            </View>
+                            <View style={styles.nameField}>
+                                <CustomInput
+                                    placeholder={AppStrings.lastName}
+                                    value={formData.lastName}
+                                    onChangeText={(text) => updateField('lastName', text)}
+                                    error={errors.lastName}
+                                />
+                            </View>
+                        </View>
+
+                        {/* Password Input */}
                         <CustomInput
-                            label="Mật khẩu"
-                            placeholder="Nhập mật khẩu"
+                            placeholder={AppStrings.password}
                             value={formData.password}
                             onChangeText={(text) => updateField('password', text)}
                             secureTextEntry
-                            icon={<Ionicons name="lock-closed-outline" size={20} color={Colors.lighter} />}
                             error={errors.password}
                         />
 
-                        <CustomInput
-                            label="Xác nhận mật khẩu"
-                            placeholder="Nhập lại mật khẩu"
-                            value={formData.confirmPassword}
-                            onChangeText={(text) => updateField('confirmPassword', text)}
-                            secureTextEntry
-                            icon={<Ionicons name="lock-closed-outline" size={20} color={Colors.lighter} />}
-                            error={errors.confirmPassword}
-                        />
+                        {/* Terms Checkbox */}
+                        <TouchableOpacity
+                            style={styles.checkboxContainer}
+                            onPress={() => setAgreedToTerms(!agreedToTerms)}
+                            activeOpacity={0.7}
+                        >
+                            <View style={[styles.checkbox, agreedToTerms && styles.checkboxChecked]}>
+                                {agreedToTerms && (
+                                    <Ionicons name="checkmark" size={16} color={Colors.bNormal} />
+                                )}
+                            </View>
+                            <Text style={styles.checkboxText}>
+                                {AppStrings.agreeTerms}
+                            </Text>
+                        </TouchableOpacity>
+                        {errors.terms && <Text style={styles.errorText}>{errors.terms}</Text>}
 
                         {/* Register Button */}
                         <CustomButton
-                            title="Đăng ký"
+                            title={AppStrings.register}
                             onPress={handleRegister}
                             loading={isLoading}
                             disabled={isLoading}
                             style={styles.registerButton}
                         />
+
+                        {/* Divider */}
+                        <View style={styles.divider}>
+                            <View style={styles.dividerLine} />
+                            <Text style={styles.dividerText}>{AppStrings.orRegisterWith}</Text>
+                            <View style={styles.dividerLine} />
+                        </View>
+
+                        {/* Social Login Buttons */}
+                        <View style={styles.socialButtonsRow}>
+                            <CustomButton
+                                title="Google"
+                                onPress={handleGoogleSignIn}
+                                variant="outline"
+                                icon={<Image source={AppAssets.googleIcon} style={styles.socialButtonIcon} />}
+                                style={styles.socialButton}
+                            />
+
+                            <CustomButton
+                                title="Facebook"
+                                onPress={handleFacebookSignIn}
+                                variant="outline"
+                                icon={<Image source={AppAssets.facebookIcon} style={styles.socialButtonIcon} />}
+                                style={styles.socialButton}
+                            />
+                        </View>
                     </View>
 
                     {/* Bottom Text */}
-                    <AuthBottomText
-                        normalText="Đã có tài khoản?"
-                        linkText="Đăng nhập"
-                        onPress={() => router.back()}
-                    />
+                    <View style={styles.bottomTextContainer}>
+                        <Text style={styles.bottomText}>{AppStrings.alreadyHaveAccount} </Text>
+                        <TouchableOpacity onPress={() => router.back()}>
+                            <Text style={styles.bottomTextLink}>{AppStrings.login}</Text>
+                        </TouchableOpacity>
+                    </View>
                 </ScrollView>
             </KeyboardAvoidingView>
-        </SafeAreaWrapper>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+    },
     container: {
         flex: 1,
     },
     scrollContent: {
         flexGrow: 1,
-        padding: Dims.paddingL,
+        padding: Dims.spacingL,
         paddingTop: Dims.spacingXL,
+        justifyContent: 'center',
     },
-    header: {
-        marginBottom: Dims.spacingXL,
+    headerContainer: {
+        alignItems: 'center',
+        marginBottom: Dims.spacingXXXL,
     },
     title: {
-        fontSize: Dims.textSizeXXXL,
+        fontSize: Dims.textSizeXXL,
         fontWeight: 'bold',
         color: Colors.dark,
-        marginBottom: Dims.spacingS,
-    },
-    subtitle: {
-        fontSize: Dims.textSizeL,
-        color: Colors.lighter,
+        textAlign: 'center',
     },
     form: {
-        marginBottom: Dims.spacingXL,
+        marginBottom: Dims.spacingL,
+    },
+    nameRow: {
+        flexDirection: 'row',
+        gap: Dims.spacingM,
+    },
+    nameField: {
+        flex: 1,
+    },
+    checkboxContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: Dims.spacingM,
+        marginTop: Dims.spacingS,
+    },
+    checkbox: {
+        width: 20,
+        height: 20,
+        borderRadius: 4,
+        borderWidth: 2,
+        borderColor: Colors.bNormal,
+        marginRight: Dims.spacingS,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: Colors.wWhite,
+    },
+    checkboxChecked: {
+        backgroundColor: Colors.wWhite,
+    },
+    checkboxText: {
+        fontSize: Dims.textSizeS,
+        color: Colors.dark,
+        flex: 1,
+    },
+    errorText: {
+        fontSize: Dims.textSizeXS,
+        color: '#EF4444',
+        marginTop: -Dims.spacingS,
+        marginBottom: Dims.spacingS,
+        marginLeft: Dims.paddingXS,
     },
     registerButton: {
+        backgroundColor: Colors.bNormal,
+        borderRadius: Dims.borderRadiusLarge,
         marginTop: Dims.spacingM,
+        marginBottom: Dims.spacingL,
+    },
+    divider: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: Dims.spacingL,
+    },
+    dividerLine: {
+        flex: 1,
+        height: 1,
+        backgroundColor: Colors.bNormal,
+    },
+    dividerText: {
+        fontSize: Dims.textSizeS,
+        color: Colors.bNormal,
+        marginHorizontal: Dims.spacingSM,
+        fontWeight: '500',
+    },
+    socialButtonsRow: {
+        flexDirection: 'row',
+        gap: Dims.spacingM,
+        marginBottom: Dims.spacingL,
+    },
+    socialButton: {
+        flex: 1,
+        backgroundColor: Colors.wWhite,
+        borderRadius: Dims.borderRadiusLarge,
+        borderColor: '#E0E0E0',
+    },
+    socialButtonIcon: {
+        width: Dims.size28,
+        height: Dims.size28,
+    },
+    bottomTextContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: Dims.spacingM,
+    },
+    bottomText: {
+        fontSize: Dims.textSizeS,
+        color: Colors.lighter,
+    },
+    bottomTextLink: {
+        fontSize: Dims.textSizeS,
+        color: Colors.bNormal,
+        fontWeight: '600',
     },
 });

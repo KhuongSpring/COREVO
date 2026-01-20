@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert, ImageBackground, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
@@ -7,6 +7,9 @@ import { Dims } from '@/constants/Dimensions';
 import SafeAreaWrapper from '@/components/common/SafeAreaWrapper';
 import CustomInput from '@/components/auth/CustomInput';
 import CustomButton from '@/components/auth/CustomButton';
+import { AppMessages } from '@/constants/AppMessages';
+import { AppStrings } from '@/constants/AppStrings';
+import { AppAssets } from '@/constants/AppAssets';
 import * as authService from '@/services/authService';
 
 /**
@@ -29,12 +32,12 @@ export default function ForgotPasswordScreen() {
     // Handle send OTP
     const handleSendOtp = async () => {
         if (!email.trim()) {
-            setError('Vui lòng nhập email');
+            setError(AppMessages.validation.errMailRequired);
             return;
         }
 
         if (!isValidEmail(email)) {
-            setError('Email không hợp lệ');
+            setError(AppMessages.validation.errInvalidEmail);
             return;
         }
 
@@ -46,11 +49,11 @@ export default function ForgotPasswordScreen() {
 
             if (response.status === 'SUCCESS') {
                 Alert.alert(
-                    'Thành công!',
-                    'Mã OTP đã được gửi đến email của bạn.',
+                    AppStrings.success,
+                    AppMessages.auth.sucSendOtp,
                     [
                         {
-                            text: 'OK',
+                            text: AppStrings.ok,
                             onPress: () => {
                                 router.push({
                                     pathname: '/(auth)/otp-verification',
@@ -61,39 +64,45 @@ export default function ForgotPasswordScreen() {
                     ]
                 );
             } else {
-                Alert.alert('Lỗi', response.message || 'Không thể gửi mã OTP');
+                Alert.alert(AppStrings.error, response.message || AppMessages.auth.errSendOtpFailed);
             }
         } catch (error: any) {
-            Alert.alert('Lỗi', error.response?.data?.message || 'Không thể gửi mã OTP. Vui lòng thử lại.');
+            Alert.alert(AppStrings.error, error.response?.data?.message || AppMessages.auth.errSendOtpFailed);
         } finally {
             setIsLoading(false);
         }
     };
 
     return (
-        <SafeAreaWrapper backgroundColor={Colors.wWhite}>
+        <ImageBackground
+            source={AppAssets.authBackground}
+            style={styles.backgroundImage}
+            resizeMode="cover"
+        >
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={styles.container}
             >
-                <View style={styles.content}>
+                <ScrollView
+                    contentContainerStyle={styles.scrollContent}
+                    keyboardShouldPersistTaps="handled"
+                    showsVerticalScrollIndicator={false}
+                >
                     {/* Header */}
                     <View style={styles.header}>
                         <View style={styles.iconContainer}>
                             <Ionicons name="key-outline" size={60} color={Colors.bNormal} />
                         </View>
-                        <Text style={styles.title}>Quên Mật Khẩu?</Text>
+                        <Text style={styles.title}>{AppStrings.forgotPassword}</Text>
                         <Text style={styles.subtitle}>
-                            Nhập email của bạn để nhận mã OTP{'\n'}
-                            khôi phục mật khẩu
+                            {AppStrings.fillEmailToResetPassword}
                         </Text>
                     </View>
 
                     {/* Email Input */}
                     <View style={styles.form}>
                         <CustomInput
-                            label="Email"
-                            placeholder="Nhập email của bạn"
+                            placeholder={AppStrings.email}
                             value={email}
                             onChangeText={(text) => {
                                 setEmail(text);
@@ -106,7 +115,7 @@ export default function ForgotPasswordScreen() {
 
                         {/* Send OTP Button */}
                         <CustomButton
-                            title="Gửi mã OTP"
+                            title={AppStrings.sendOtp}
                             onPress={handleSendOtp}
                             loading={isLoading}
                             disabled={isLoading}
@@ -115,25 +124,31 @@ export default function ForgotPasswordScreen() {
 
                         {/* Back to Login */}
                         <CustomButton
-                            title="Quay lại Đăng nhập"
+                            title={AppStrings.backToLogin}
                             onPress={() => router.back()}
                             variant="outline"
+                            style={styles.backButton}
                         />
                     </View>
-                </View>
+                </ScrollView>
             </KeyboardAvoidingView>
-        </SafeAreaWrapper>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+    },
     container: {
         flex: 1,
     },
-    content: {
-        flex: 1,
-        padding: Dims.paddingL,
-        paddingTop: Dims.spacingGiant,
+    scrollContent: {
+        flexGrow: 1,
+        padding: Dims.spacingL,
+        paddingTop: Dims.size104,
     },
     header: {
         alignItems: 'center',
@@ -146,17 +161,23 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.bLight,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: Dims.spacingL,
+        marginBottom: Dims.spacingXXXL,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
     },
     title: {
-        fontSize: Dims.textSizeXXXL,
+        fontSize: Dims.textSizeXXL,
         fontWeight: 'bold',
         color: Colors.dark,
         marginBottom: Dims.spacingM,
+        textAlign: 'center',
     },
     subtitle: {
         fontSize: Dims.textSizeM,
-        color: Colors.lighter,
+        color: Colors.dark,
         textAlign: 'center',
         lineHeight: Dims.textSizeM * 1.5,
     },
@@ -164,6 +185,13 @@ const styles = StyleSheet.create({
         marginBottom: Dims.spacingXL,
     },
     sendButton: {
+        backgroundColor: Colors.bNormal,
+        borderRadius: Dims.borderRadiusLarge,
+        marginTop: Dims.spacingM,
         marginBottom: Dims.spacingM,
+    },
+    backButton: {
+        borderColor: Colors.bNormal,
+        borderRadius: Dims.borderRadiusLarge,
     },
 });

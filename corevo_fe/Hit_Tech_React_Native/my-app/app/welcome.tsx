@@ -5,6 +5,8 @@ import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
 import SafeAreaWrapper from '@/components/common/SafeAreaWrapper';
 import CustomButton from '@/components/auth/CustomButton';
+import { AppAssets } from '@/constants/AppAssets';
+import { AppStrings } from '@/constants/AppStrings';
 
 /**
  * Welcome Screen
@@ -15,7 +17,7 @@ export default function WelcomeScreen() {
 
     const handleGetStarted = () => {
         // Navigate to Training Setup flow
-        router.push('/(training-setup)/step-1-goal' as any);
+        router.push('/welcome-1' as any);
     };
 
     return (
@@ -28,22 +30,20 @@ export default function WelcomeScreen() {
                     {/* Welcome Image */}
                     <View style={styles.imageContainer}>
                         <View style={styles.imagePlaceholder}>
-                            <Text style={styles.imageEmoji}>👋</Text>
+                            <Image source={AppAssets.welcomeHandImage} style={styles.imageEmoji} />
                         </View>
                     </View>
 
                     {/* Welcome Text */}
                     <View style={styles.textContainer}>
-                        <Text style={styles.title}>Xin Chào!</Text>
+                        <Text style={styles.title}>{AppStrings.welcomeTitle}</Text>
 
                         <Text style={styles.description}>
                             Tôi là <Text style={styles.brandName}>Corevo</Text> - Trợ lý tập luyện của bạn
                         </Text>
 
                         <Text style={styles.subtitle}>
-                            Sau đây là một số câu hỏi để{' '}
-                            <Text style={styles.highlight}>cá nhân hóa</Text>{' '}
-                            kế hoạch tập luyện dành cho bạn.
+                            Sau đây là một số câu hỏi để <Text style={styles.brandName}>cá nhân hóa</Text> kế hoạch tập luyện dành cho bạn.
                         </Text>
                     </View>
                 </ScrollView>
@@ -73,17 +73,18 @@ const styles = StyleSheet.create({
     imageContainer: {
         alignItems: 'center',
         marginBottom: Dims.spacingXL,
+        marginTop: Dims.spacingGiant,
     },
     imagePlaceholder: {
         width: Dims.size152,
         height: Dims.size152,
-        backgroundColor: Colors.bLight,
         borderRadius: Dims.size152 / 2,
         alignItems: 'center',
         justifyContent: 'center',
     },
     imageEmoji: {
-        fontSize: 80,
+        width: Dims.size152,
+        height: Dims.size152,
     },
     textContainer: {
         alignItems: 'flex-start',
@@ -114,6 +115,5 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         padding: Dims.paddingL,
-        paddingBottom: Dims.paddingXL,
     },
 });
