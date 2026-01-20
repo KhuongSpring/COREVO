@@ -14,6 +14,8 @@ export default function PersonalHealthLayout() {
                 animation: 'slide_from_right',
             }}
         >
+            <Stack.Screen name="gender-selection" />
+            <Stack.Screen name="age-selection" />
             <Stack.Screen name="index" />
         </Stack>
     );
