@@ -196,3 +196,22 @@ export const verifyOtpToRecover = async (
     );
     return response.data;
 };
+
+/**
+ * Export all auth functions as a service object
+ */
+export const authService = {
+    login,
+    loginWithGoogle,
+    register,
+    verifyOtpToRegister,
+    sendEmailToForgotPassword,
+    verifyOtpToResetPassword,
+    resetPassword,
+    logout,
+    refreshAccessToken,
+    getPrivacy,
+    getTerms,
+    sendEmailToRecoveryAccount,
+    verifyOtpToRecover,
+};

@@ -1,30 +1,61 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import React, { useState } from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
+    TouchableOpacity,
+    Alert,
+    ImageBackground,
+} from 'react-native';
 import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
-import SafeAreaWrapper from '@/components/common/SafeAreaWrapper';
+import { AppAssets } from '@/constants/AppAssets';
 import { useAuthStore } from '@/store/authStore';
 import { useUserStore } from '@/store/userStore';
+import AvatarUploader from '@/components/settings/AvatarUploader';
+import SettingItem from '@/components/settings/SettingItem';
+import SectionTitle from '@/components/settings/SectionTitle';
+import { AppStrings } from '@/constants/AppStrings';
+// import { userService } from '@/services/api/userService';
+
+// Mock data - default user profile
+const MOCK_USER = {
+    firstName: 'Nguyễn',
+    lastName: 'Văn A',
+    username: 'nguyenvana',
+    email: 'nguyenvana@example.com',
+    linkAvatar: AppAssets.defaultImage,
+    phone: '0912345678',
+    birth: '15/05/1995',
+    nationality: 'Việt Nam',
+};
 
 /**
- * Settings Tab Screen
- * User settings and preferences
+ * Settings Tab Screen - Matching Flutter design
+ * User settings and preferences with mock data
  */
 export default function SettingsScreen() {
     const router = useRouter();
     const { logout } = useAuthStore();
-    const { user, clearUser } = useUserStore();
+    const { clearUser } = useUserStore();
+
+    const [profile] = useState(MOCK_USER);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+
+    const handleAvatarUpload = async (imageUri: string) => {
+        Alert.alert('Thông báo', 'Chức năng đang sử dụng dữ liệu mẫu');
+    };
 
     const handleLogout = () => {
         Alert.alert(
-            'Đăng xuất',
-            'Bạn có chắc chắn muốn đăng xuất?',
+            AppStrings.settingsLogout,
+            AppStrings.settingsLogoutConfirm,
             [
-                { text: 'Hủy', style: 'cancel' },
+                { text: AppStrings.cancel, style: 'cancel' },
                 {
-                    text: 'Đăng xuất',
+                    text: AppStrings.settingsLogout,
                     style: 'destructive',
                     onPress: async () => {
                         await logout();
@@ -36,151 +67,158 @@ export default function SettingsScreen() {
         );
     };
 
+    const handlePersonalInfo = () => {
+        router.push('/(settings)/personal-information' as any);
+    };
+
+    const handleHealthInfo = () => {
+        router.push('/(settings)/health-information' as any);
+    };
+
+    const handlePrivacyTerms = () => {
+        router.push('/(settings)/privacy-terms' as any);
+    };
+
+    const handleComingSoon = (feature: string) => {
+        Alert.alert('Sắp ra mắt', `Tính năng ${feature} đang được phát triển`);
+    };
+
+    const fullName = `${profile.firstName} ${profile.lastName}`;
+
     return (
-        <SafeAreaWrapper backgroundColor={Colors.wWhite}>
-            <ScrollView style={styles.container}>
-                <Text style={styles.title}>Cài Đặt</Text>
+        <View style={styles.container}>
+            <ImageBackground
+                source={AppAssets.mainBackground}
+                style={styles.backgroundImage}
+                resizeMode="cover"
+            >
+                <ScrollView
+                    style={styles.scrollView}
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}
+                >
+                    {/* Avatar Section */}
+                    <View style={styles.avatarSection}>
+                        <AvatarUploader
+                            avatarUrl={profile.linkAvatar}
+                            onUpload={handleAvatarUpload}
+                            size={Dims.size80}
+                        />
 
-                {/* User Profile Section */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Thông tin tài khoản</Text>
-                    <View style={styles.profileCard}>
-                        <View style={styles.avatar}>
-                            <Ionicons name="person" size={40} color={Colors.wWhite} />
-                        </View>
-                        <View style={styles.profileInfo}>
-                            <Text style={styles.profileName}>{user?.fullName || 'User'}</Text>
-                            <Text style={styles.profileEmail}>{user?.email || 'email@example.com'}</Text>
-                        </View>
+                        <Text style={styles.fullName}>{fullName}</Text>
+                        <Text style={styles.username}>{profile.username}</Text>
                     </View>
-                </View>
 
-                {/* Settings Options */}
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Tùy chọn</Text>
+                    {/* User Profile Section */}
+                    <SectionTitle title={AppStrings.settingsUserProfile} />
+                    <View style={styles.section}>
+                        <SettingItem
+                            icon={AppAssets.personalInformationIcon}
+                            title={AppStrings.settingsUserInfor}
+                            onPress={handlePersonalInfo}
+                        />
+                        <SettingItem
+                            icon={AppAssets.healthInformationIcon}
+                            title={AppStrings.settingsUserHealthInfor}
+                            onPress={handleHealthInfo}
+                        />
+                    </View>
 
-                    <TouchableOpacity style={styles.settingItem}>
-                        <Ionicons name="person-outline" size={24} color={Colors.bNormal} />
-                        <Text style={styles.settingText}>Chỉnh sửa hồ sơ</Text>
-                        <Ionicons name="chevron-forward" size={20} color={Colors.lighter} />
+                    {/* General Settings Section */}
+                    <SectionTitle title={AppStrings.settingsOverall} />
+                    <View style={styles.section}>
+                        <SettingItem
+                            icon={AppAssets.themeIcon}
+                            title={AppStrings.settingsDarkTheme}
+                            showArrow={false}
+                            showSwitch={true}
+                            switchValue={isDarkMode}
+                            onSwitchChange={setIsDarkMode}
+                        />
+                        <SettingItem
+                            icon={AppAssets.noticeIcon}
+                            title={AppStrings.settingsTrainingNotice}
+                            onPress={() => handleComingSoon(AppStrings.settingsTrainingNotice)}
+                        />
+                        <SettingItem
+                            icon={AppAssets.trashIcon}
+                            title={AppStrings.settingsDeleteUserData}
+                            onPress={() => handleComingSoon(AppStrings.settingsDeleteUserData)}
+                        />
+                    </View>
+
+                    {/* Support Section */}
+                    <SectionTitle title={AppStrings.settingsSupportInfor} />
+                    <View style={styles.section}>
+                        <SettingItem
+                            icon={AppAssets.commentIcon}
+                            title={AppStrings.settingsFeedback}
+                            onPress={() => handleComingSoon(AppStrings.settingsFeedback)}
+                        />
+                        <SettingItem
+                            icon={AppAssets.policyIcon}
+                            title={AppStrings.settingsPolicyAndTerms}
+                            onPress={handlePrivacyTerms}
+                        />
+                    </View>
+
+                    {/* Logout Button */}
+                    <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+                        <Text style={styles.logoutText}>{AppStrings.settingsLogout}</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.settingItem}>
-                        <Ionicons name="notifications-outline" size={24} color={Colors.bNormal} />
-                        <Text style={styles.settingText}>Thông báo</Text>
-                        <Ionicons name="chevron-forward" size={20} color={Colors.lighter} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.settingItem}>
-                        <Ionicons name="shield-outline" size={24} color={Colors.bNormal} />
-                        <Text style={styles.settingText}>Chính sách bảo mật</Text>
-                        <Ionicons name="chevron-forward" size={20} color={Colors.lighter} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.settingItem}>
-                        <Ionicons name="document-text-outline" size={24} color={Colors.bNormal} />
-                        <Text style={styles.settingText}>Điều khoản dịch vụ</Text>
-                        <Ionicons name="chevron-forward" size={20} color={Colors.lighter} />
-                    </TouchableOpacity>
-                </View>
-
-                {/* Logout Button */}
-                <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-                    <Ionicons name="log-out-outline" size={24} color="#EF4444" />
-                    <Text style={styles.logoutText}>Đăng xuất</Text>
-                </TouchableOpacity>
-
-                {/* App Version */}
-                <Text style={styles.version}>Version 1.0.0</Text>
-            </ScrollView>
-        </SafeAreaWrapper>
+                </ScrollView>
+            </ImageBackground>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: Dims.paddingL,
     },
-    title: {
-        fontSize: Dims.textSizeXXL,
-        fontWeight: 'bold',
-        color: Colors.dark,
-        marginBottom: Dims.spacingXL,
-        marginTop: Dims.spacingM,
+    backgroundImage: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
     },
-    section: {
-        marginBottom: Dims.spacingXL,
-    },
-    sectionTitle: {
-        fontSize: Dims.textSizeL,
-        fontWeight: '600',
-        color: Colors.dark,
-        marginBottom: Dims.spacingM,
-    },
-    profileCard: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: Colors.wNormal,
-        padding: Dims.paddingL,
-        borderRadius: Dims.borderRadius,
-    },
-    avatar: {
-        width: Dims.size64,
-        height: Dims.size64,
-        borderRadius: Dims.size32,
-        backgroundColor: Colors.bNormal,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: Dims.spacingM,
-    },
-    profileInfo: {
+    scrollView: {
         flex: 1,
     },
-    profileName: {
-        fontSize: Dims.textSizeL,
-        fontWeight: 'bold',
-        color: Colors.dark,
+    scrollContent: {
+        paddingTop: Dims.spacingGiant,
+        paddingHorizontal: Dims.paddingL,
+    },
+    avatarSection: {
+        alignItems: 'center',
         marginBottom: Dims.spacingS,
     },
-    profileEmail: {
+    fullName: {
+        fontWeight: 'bold',
         fontSize: Dims.textSizeM,
-        color: Colors.lighter,
+        color: Colors.normal,
+        marginTop: Dims.spacingM,
     },
-    settingItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: Colors.wNormal,
-        padding: Dims.paddingM,
+    username: {
+        fontSize: Dims.textSizeS,
+        color: Colors.lightActive,
+        marginTop: Dims.size4,
+    },
+    section: {
+        backgroundColor: Colors.wWhite,
         borderRadius: Dims.borderRadius,
-        marginBottom: Dims.spacingM,
-    },
-    settingText: {
-        flex: 1,
-        fontSize: Dims.textSizeM,
-        color: Colors.dark,
-        marginLeft: Dims.spacingM,
+        marginBottom: Dims.spacingML,
+        overflow: 'hidden',
     },
     logoutButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#FEE2E2',
-        padding: Dims.paddingM,
+        backgroundColor: Colors.wWhite,
         borderRadius: Dims.borderRadius,
-        marginTop: Dims.spacingL,
+        paddingVertical: Dims.paddingM,
+        alignItems: 'center',
+        marginTop: Dims.spacingML,
         marginBottom: Dims.spacingXL,
     },
     logoutText: {
-        fontSize: Dims.textSizeM,
-        fontWeight: '600',
         color: '#EF4444',
-        marginLeft: Dims.spacingS,
-    },
-    version: {
-        fontSize: Dims.textSizeS,
-        color: Colors.lighter,
-        textAlign: 'center',
-        marginBottom: Dims.spacingXXL,
+        fontSize: Dims.textSizeM,
     },
 });
