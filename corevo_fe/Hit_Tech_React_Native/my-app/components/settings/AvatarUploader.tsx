@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, Image, StyleSheet, Alert, ActivityIndicator, ActionSheetIOS, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
 import { AppAssets } from '@/constants/AppAssets';
+import { useTheme } from '@/hooks/useTheme';
 
 interface AvatarUploaderProps {
     avatarUrl?: string | null;
@@ -24,6 +24,7 @@ export default function AvatarUploader({
     isHaveCamera = true,
 }: AvatarUploaderProps) {
     const [isUploading, setIsUploading] = useState(false);
+    const { colors } = useTheme();
 
     const requestPermissions = async () => {
         const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
@@ -103,7 +104,17 @@ export default function AvatarUploader({
 
     return (
         <View style={styles.container}>
-            <View style={[styles.avatarContainer, { width: size, height: size, borderRadius: size / 2 }]}>
+            <View
+                style={[
+                    styles.avatarContainer,
+                    {
+                        width: size,
+                        height: size,
+                        borderRadius: size / 2,
+                        borderColor: colors.brand.primary,  // ✅ Inline style cho dynamic color
+                    }
+                ]}
+            >
                 <Image
                     source={
                         avatarUrl
@@ -115,21 +126,27 @@ export default function AvatarUploader({
 
                 {isUploading && (
                     <View style={[styles.loadingOverlay, { borderRadius: size / 2 }]}>
-                        <ActivityIndicator size="large" color={Colors.bNormal} />
+                        <ActivityIndicator size="large" color={colors.brand.primary} />
                     </View>
                 )}
             </View>
 
             {isHaveCamera && (
                 <TouchableOpacity
-                    style={styles.cameraButton}
+                    style={[
+                        styles.cameraButton,
+                        {
+                            backgroundColor: colors.surface.primary,
+                            borderColor: colors.brand.primary,
+                        }
+                    ]}
                     onPress={showImagePicker}
                     disabled={isUploading}
                 >
                     <Ionicons
                         name="camera"
                         size={Dims.iconSizeM}
-                        color={Colors.dark}
+                        color={colors.surface.inverse}
                     />
                 </TouchableOpacity>
             )}
@@ -143,7 +160,6 @@ const styles = StyleSheet.create({
     },
     avatarContainer: {
         borderWidth: 2,
-        borderColor: Colors.bNormal,
         overflow: 'hidden',
     },
     avatar: {
@@ -160,10 +176,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         right: 0,
-        backgroundColor: Colors.wWhite,
         borderRadius: 100,
         padding: Dims.paddingXS,
         borderWidth: 1.5,
-        borderColor: Colors.bNormal,
     },
 });

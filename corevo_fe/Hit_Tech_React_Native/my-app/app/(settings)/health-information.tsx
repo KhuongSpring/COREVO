@@ -15,6 +15,7 @@ import { Dims } from '@/constants/Dimensions';
 import { AppAssets } from '@/constants/AppAssets';
 import AvatarUploader from '@/components/settings/AvatarUploader';
 import { AppStrings } from '@/constants/AppStrings';
+import { useTheme } from '@/hooks/useTheme';
 // import { userService } from '@/services/api/userService';
 
 // Mock data - combining user and health data
@@ -42,6 +43,7 @@ export default function HealthInformationScreen() {
     const router = useRouter();
     const [profile] = useState(MOCK_USER);
     const [health] = useState(MOCK_HEALTH);
+    const { colors, mode } = useTheme();
 
     const getActivityLevelText = (level: string) => {
         const levels: Record<string, string> = {
@@ -71,8 +73,8 @@ export default function HealthInformationScreen() {
                 disabled={true}
                 activeOpacity={0.7}
             >
-                <Text style={styles.label}>{label}</Text>
-                <Text style={styles.value}>{value}</Text>
+                <Text style={[styles.label, { color: colors.text.primary }]}>{label}</Text>
+                <Text style={[styles.value, { color: colors.brand.primary }]}>{value}</Text>
             </TouchableOpacity>
         );
     };
@@ -82,7 +84,7 @@ export default function HealthInformationScreen() {
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={AppAssets.mainBackground}
+                source={mode === 'dark' ? AppAssets.mainBackgroundDark : AppAssets.mainBackground}
                 style={styles.backgroundImage}
                 resizeMode="cover"
             >
@@ -108,8 +110,8 @@ export default function HealthInformationScreen() {
 
                     {/* User Info */}
                     <View style={styles.userInfo}>
-                        <Text style={styles.fullName}>{fullName}</Text>
-                        <Text style={styles.email}>{profile.email}</Text>
+                        <Text style={[styles.fullName, { color: colors.text.primary }]}>{fullName}</Text>
+                        <Text style={[styles.email, { color: colors.text.secondary }]}>{profile.email}</Text>
                     </View>
 
                     {/* Health Information List */}
@@ -118,15 +120,15 @@ export default function HealthInformationScreen() {
                         contentContainerStyle={styles.scrollContent}
                         showsVerticalScrollIndicator={false}
                     >
-                        <View style={styles.section}>
+                        <View style={[styles.section, { backgroundColor: colors.background.primary }]}>
                             {renderInfoItem(AppStrings.height, `${health.height} cm`)}
-                            <View style={styles.divider} />
+                            <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
                             {renderInfoItem(AppStrings.weight, `${health.weight} kg`)}
-                            <View style={styles.divider} />
+                            <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
                             {renderInfoItem(AppStrings.age, health.age.toString())}
-                            <View style={styles.divider} />
+                            <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
                             {renderInfoItem(AppStrings.gender, getGenderText(health.gender))}
-                            <View style={styles.divider} />
+                            <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
                             {renderInfoItem(AppStrings.activityLevel, getActivityLevelText(health.activityLevel))}
                         </View>
                     </ScrollView>
@@ -171,11 +173,9 @@ const styles = StyleSheet.create({
     fullName: {
         fontWeight: 'bold',
         fontSize: Dims.textSizeM,
-        color: Colors.normal,
     },
     email: {
         fontSize: Dims.textSizeS,
-        color: Colors.lightActive,
         marginTop: Dims.size4,
     },
     scrollView: {
@@ -186,7 +186,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: Dims.paddingL,
     },
     section: {
-        backgroundColor: Colors.wWhite,
         borderRadius: Dims.borderRadius,
         marginBottom: Dims.spacingXL,
     },
@@ -199,16 +198,13 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: Dims.textSizeS,
-        color: Colors.dark,
         flex: 1,
     },
     value: {
         fontSize: Dims.textSizeS,
-        color: Colors.bNormal,
         fontWeight: '500',
     },
     divider: {
         height: 1,
-        backgroundColor: Colors.bLightHover,
     },
 });

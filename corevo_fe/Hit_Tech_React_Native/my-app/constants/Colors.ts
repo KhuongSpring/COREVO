@@ -1,7 +1,13 @@
 /**
  * App Color Palette
  * Migrated from Flutter app_color.dart
+ * 
+ * @deprecated For new components, prefer using ThemeColors from '@/constants/ThemeColors'
+ * and the useTheme() hook for theme-aware colors.
+ * These static colors are kept for backward compatibility and specific use cases
+ * where colors should not change with theme (e.g., brand logos, specific UI elements).
  */
+
 
 export const Colors = {
   // Blue shades

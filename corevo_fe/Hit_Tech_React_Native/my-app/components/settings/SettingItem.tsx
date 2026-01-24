@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, ImageSourcePropType, S
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
+import { useTheme } from '@/hooks/useTheme';
 
 interface SettingItemProps {
     icon: ImageSourcePropType;
@@ -31,6 +32,7 @@ export default function SettingItem({
     showDivider = false,
     value,
 }: SettingItemProps) {
+    const { colors } = useTheme();
     return (
         <>
             <TouchableOpacity
@@ -39,11 +41,17 @@ export default function SettingItem({
                 disabled={!onPress && !showSwitch}
                 activeOpacity={0.7}
             >
-                <Image source={icon} style={styles.icon} resizeMode="contain" />
-                <Text style={styles.title}>{title}</Text>
+                <Image source={icon} style={[styles.icon, {
+                    tintColor: colors.interactive.active
+                }]} resizeMode="contain" />
+                <Text style={[styles.title,
+                { color: colors.text.primary }
+                ]}>{title}</Text>
 
                 {value && (
-                    <Text style={styles.value}>{value}</Text>
+                    <Text style={[styles.value,
+                    { color: colors.text.secondary }
+                    ]}>{value}</Text>
                 )}
 
                 {showSwitch && (
@@ -63,12 +71,14 @@ export default function SettingItem({
                     <Ionicons
                         name="chevron-forward"
                         size={Dims.iconSizeM}
-                        color={Colors.bDarkHover}
+                        color={colors.interactive.darkHover}
                     />
                 )}
             </TouchableOpacity>
 
-            {showDivider && <View style={styles.divider} />}
+            {showDivider && <View style={[styles.divider,
+            { backgroundColor: colors.interactive.disabled, }
+            ]} />}
         </>
     );
 }
@@ -83,17 +93,14 @@ const styles = StyleSheet.create({
     icon: {
         width: Dims.iconSizeL,
         height: Dims.iconSizeL,
-        tintColor: Colors.bDarkHover,
         marginRight: Dims.spacingM,
     },
     title: {
         flex: 1,
         fontSize: Dims.textSizeS,
-        color: Colors.dark,
     },
     value: {
         fontSize: Dims.textSizeS,
-        color: Colors.bNormal,
         fontWeight: '500',
         marginRight: Dims.spacingS,
     },
@@ -102,7 +109,6 @@ const styles = StyleSheet.create({
     },
     divider: {
         height: 1,
-        backgroundColor: Colors.bLightHover,
         marginLeft: Dims.size56,
     },
 });

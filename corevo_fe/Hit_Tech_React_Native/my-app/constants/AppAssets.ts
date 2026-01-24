@@ -18,6 +18,7 @@ export const AppAssets = {
     // Backgrounds
     startBackground: require('@/assets/images/start_flow_background_image.png'),
     mainBackground: require('@/assets/images/main_background_image.png'),
+    mainBackgroundDark: require('@/assets/images/main_background_image_dark.png'),
     authBackground: require('@/assets/images/auth_background_image.png'),
     libraryBackground1: require('@/assets/images/library_background_image_1.png'),
     libraryBackground2: require('@/assets/images/library_background_image_2.png'),

@@ -24,6 +24,7 @@ import { AppStrings } from '@/constants/AppStrings';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import CountryPicker, { Flag, Country, CountryCode } from 'react-native-country-picker-modal';
+import { useTheme } from '@/hooks/useTheme';
 // import { userService } from '@/services/api/userService';
 
 // Mock data
@@ -55,6 +56,7 @@ const getFlagEmoji = (countryCode?: string) => {
 export default function PersonalInformationScreen() {
     const router = useRouter();
     const [profile, setProfile] = useState(MOCK_USER);
+    const { colors, mode } = useTheme();
 
     const [modalVisible, setModalVisible] = useState(false);
     const [editConfig, setEditConfig] = useState({
@@ -179,7 +181,7 @@ export default function PersonalInformationScreen() {
                 disabled={isUsername}
                 activeOpacity={0.7}
             >
-                <Text style={styles.label}>{label}</Text>
+                <Text style={[styles.label, { color: colors.text.primary }]}>{label}</Text>
 
                 {/* [NOTE] Container cho Value (chứa cả Flag và Text) */}
                 <View style={styles.valueContainer}>
@@ -189,7 +191,7 @@ export default function PersonalInformationScreen() {
                             {getFlagEmoji(profile.countryCode)}
                         </Text>
                     )}
-                    <Text style={[styles.value, isUsername && styles.valueDisabled]}>
+                    <Text style={[styles.value, { color: colors.brand.primary }]}>
                         {value}
                     </Text>
                 </View>
@@ -202,7 +204,7 @@ export default function PersonalInformationScreen() {
     return (
         <View style={styles.container}>
             <ImageBackground
-                source={AppAssets.mainBackground}
+                source={mode === 'dark' ? AppAssets.mainBackgroundDark : AppAssets.mainBackground}
                 style={styles.backgroundImage}
                 resizeMode="cover"
             >
@@ -213,7 +215,7 @@ export default function PersonalInformationScreen() {
                             style={styles.backButton}
                             onPress={() => router.back()}
                         >
-                            <Ionicons name="chevron-back" size={Dims.iconSizeXXL} color={Colors.bNormal} />
+                            <Ionicons name="chevron-back" size={Dims.iconSizeXXL} color={colors.brand.primary} />
                         </TouchableOpacity>
 
                         <View style={styles.avatarWrapper}>
@@ -228,8 +230,8 @@ export default function PersonalInformationScreen() {
 
                     {/* User Info */}
                     <View style={styles.userInfo}>
-                        <Text style={styles.fullName}>{fullName}</Text>
-                        <Text style={styles.email}>{profile.email}</Text>
+                        <Text style={[styles.fullName, { color: colors.text.primary }]}>{fullName}</Text>
+                        <Text style={[styles.email, { color: colors.text.secondary }]}>{profile.email}</Text>
                     </View>
 
                     {/* Information List */}
@@ -238,17 +240,17 @@ export default function PersonalInformationScreen() {
                         contentContainerStyle={styles.scrollContent}
                         showsVerticalScrollIndicator={false}
                     >
-                        <View style={styles.section}>
+                        <View style={[styles.section, { backgroundColor: colors.background.primary }]}>
                             {renderInfoItem(AppStrings.username, 'username', profile.username)}
-                            <View style={styles.divider} />
+                            <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
                             {renderInfoItem(AppStrings.firstName, 'firstName', profile.firstName)}
-                            <View style={styles.divider} />
+                            <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
                             {renderInfoItem(AppStrings.lastName, 'lastName', profile.lastName)}
-                            <View style={styles.divider} />
+                            <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
                             {renderInfoItem(AppStrings.birth, 'birth', profile.birth)}
-                            <View style={styles.divider} />
+                            <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
                             {renderInfoItem(AppStrings.phone, 'phone', profile.phone)}
-                            <View style={styles.divider} />
+                            <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
                             {renderInfoItem(AppStrings.nationality, 'nationality', profile.nationality)}
                         </View>
                     </ScrollView>
@@ -264,18 +266,19 @@ export default function PersonalInformationScreen() {
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <KeyboardAvoidingView
                             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                            style={styles.modalOverlay}
+                            style={[styles.modalOverlay, { backgroundColor: colors.overlay }]}
                         >
-                            <View style={styles.modalContent}>
-                                <Text style={styles.modalTitle}>{editConfig.label}</Text>
+                            <View style={[styles.modalContent, { backgroundColor: colors.background.primary, shadowColor: colors.surface.inverse }]}>
+                                <Text style={[styles.modalTitle, { color: colors.text.primary }]}>{editConfig.label}</Text>
 
                                 {/* [NOTE] Input Wrapper: Chứa TextInput + Nút Xóa */}
                                 <View style={[
                                     styles.inputContainer,
-                                    errorMsg ? styles.inputError : null // [NOTE] Border đỏ khi lỗi
+                                    { borderColor: colors.border.focus, backgroundColor: colors.background.primary },
+                                    errorMsg ? [styles.inputError, { borderColor: colors.semantic.error, backgroundColor: colors.semantic.errorLight }] : null, // [NOTE] Border đỏ khi lỗi
                                 ]}>
                                     <TextInput
-                                        style={styles.textInput}
+                                        style={[styles.textInput, { color: colors.text.primary }]}
                                         value={inputValue}
                                         onChangeText={(text) => {
                                             setInputValue(text);
@@ -288,13 +291,13 @@ export default function PersonalInformationScreen() {
                                     {/* [NOTE] Nút Xóa Tất Cả (x) */}
                                     {inputValue.length > 0 && (
                                         <TouchableOpacity onPress={() => setInputValue('')} style={styles.clearBtn}>
-                                            <Ionicons name="close-circle" size={Dims.iconSizeL} color={Colors.lighter} />
+                                            <Ionicons name="close-circle" size={Dims.iconSizeL} color={colors.text.secondary} />
                                         </TouchableOpacity>
                                     )}
                                 </View>
 
                                 {/* [NOTE] Error Message Text */}
-                                {errorMsg && <Text style={styles.errorText}>{errorMsg}</Text>}
+                                {errorMsg && <Text style={[styles.errorText, { color: colors.semantic.error }]}>{errorMsg}</Text>}
 
                                 {/* Buttons */}
                                 <View style={styles.buttonRow}>
@@ -303,7 +306,7 @@ export default function PersonalInformationScreen() {
                                         onPress={() => setModalVisible(false)}
                                     >
                                         {/* [NOTE] Nút Hủy màu đỏ */}
-                                        <Text style={styles.cancelText}>{AppStrings.cancel}</Text>
+                                        <Text style={[styles.cancelText, { color: colors.semantic.error }]}>{AppStrings.cancel}</Text>
                                     </TouchableOpacity>
 
                                     <TouchableOpacity
@@ -342,16 +345,16 @@ export default function PersonalInformationScreen() {
                         animationType="slide"
                         onRequestClose={() => setShowDatePicker(false)}
                     >
-                        <View style={styles.iosDatePickerOverlay}>
+                        <View style={[styles.iosDatePickerOverlay, { backgroundColor: colors.overlay }]}>
                             <View style={styles.iosDatePickerContainer}>
                                 {/* Toolbar nút bấm */}
                                 <View style={styles.iosDatePickerHeader}>
                                     <TouchableOpacity onPress={() => setShowDatePicker(false)}>
-                                        <Text style={[styles.cancelText, { fontSize: Dims.textSizeM }]}>{AppStrings.cancel}</Text>
+                                        <Text style={[styles.cancelText, { color: colors.semantic.error, fontSize: Dims.textSizeM }]}>{AppStrings.cancel}</Text>
                                     </TouchableOpacity>
                                     <Text style={styles.iosDatePickerTitle}>{AppStrings.birth}</Text>
                                     <TouchableOpacity onPress={confirmIOSDate}>
-                                        <Text style={[styles.saveText, { color: Colors.bNormal, fontSize: Dims.textSizeM }]}>{AppStrings.save}</Text>
+                                        <Text style={[styles.saveText, { color: colors.brand.primary, fontSize: Dims.textSizeM }]}>{AppStrings.save}</Text>
                                     </TouchableOpacity>
                                 </View>
 
@@ -429,11 +432,9 @@ const styles = StyleSheet.create({
     fullName: {
         fontWeight: 'bold',
         fontSize: Dims.textSizeM,
-        color: Colors.normal,
     },
     email: {
         fontSize: Dims.textSizeS,
-        color: Colors.lightActive,
         marginTop: Dims.size4,
     },
     scrollView: {
@@ -444,7 +445,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: Dims.paddingL,
     },
     section: {
-        backgroundColor: Colors.wWhite,
         borderRadius: Dims.borderRadius,
         marginBottom: Dims.spacingXL,
     },
@@ -457,38 +457,29 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: Dims.textSizeS,
-        color: Colors.dark,
         flex: 1,
     },
     value: {
         fontSize: Dims.textSizeS,
-        color: Colors.bNormal,
         fontWeight: '500',
-    },
-    valueDisabled: {
-        color: Colors.bNormal,
     },
     divider: {
         height: 1,
-        backgroundColor: Colors.bLightHover,
     },
 
     // --- [NOTE] CUSTOM MODAL STYLES ---
     modalOverlay: {
         flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'center',
         paddingHorizontal: Dims.paddingXL,
     },
     modalContent: {
-        backgroundColor: Colors.wWhite,
         borderRadius: Dims.borderRadiusL,
         paddingHorizontal: Dims.paddingL,
         paddingVertical: Dims.paddingM,
         width: '100%',
         // Shadow cho nổi bật
         elevation: 5,
-        shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 4,
@@ -498,7 +489,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: Dims.spacingM,
         textAlign: 'center',
-        color: Colors.dark,
     },
 
     // Style cho Input Group (Border bao quanh)
@@ -506,22 +496,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 1.2,
-        borderColor: Colors.bNormal,
         borderRadius: Dims.borderRadiusSmall,
         paddingHorizontal: Dims.paddingM,
         height: Dims.size48,
-        backgroundColor: '#F9FAFB',
     },
     // [NOTE] Style khi có lỗi: Border đỏ
     inputError: {
-        borderColor: '#EF4444',
         borderWidth: 1.5,
-        backgroundColor: '#FEF2F2', // Nền hơi đỏ nhạt
     },
     textInput: {
         flex: 1,
         fontSize: Dims.textSizeS,
-        color: Colors.dark,
         height: '100%',
     },
     clearBtn: {
@@ -531,7 +516,6 @@ const styles = StyleSheet.create({
 
     // [NOTE] Error Message Style
     errorText: {
-        color: '#EF4444',
         fontSize: Dims.textSizeXS, // 12px
         marginTop: Dims.spacingXS,
         marginLeft: Dims.spacingXS,
@@ -555,7 +539,6 @@ const styles = StyleSheet.create({
     },
     // [NOTE] Text Nút Hủy màu đỏ
     cancelText: {
-        color: '#EF4444',
         fontWeight: 'bold',
         fontSize: Dims.textSizeS,
     },
@@ -569,7 +552,6 @@ const styles = StyleSheet.create({
     iosDatePickerOverlay: {
         flex: 1,
         justifyContent: 'flex-end',
-        backgroundColor: 'rgba(0,0,0,0.4)',
     },
     iosDatePickerContainer: {
         backgroundColor: Colors.wWhite,

@@ -234,6 +234,15 @@ export const AppStrings = {
     settingsUserHealthInfor: 'Thông tin sức khỏe',
     settingsUserInfor: 'Thông tin người dùng',
     settingsUserProfile: 'Hồ sơ người dùng',
+
+    // Theme Settings
+    themeAppearance: 'Giao diện',
+    themeSettings: 'Cài đặt giao diện',
+    themeLight: 'Sáng',
+    themeDark: 'Tối',
+    themeChangeSuccess: 'Đã thay đổi giao diện thành công',
+
+
 } as const;
 
 export type AppStringKey = keyof typeof AppStrings;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
+import { useTheme } from '@/hooks/useTheme';
 
 interface SectionTitleProps {
     title: string;
@@ -12,13 +12,15 @@ interface SectionTitleProps {
  * Displays a section header in settings screens
  */
 export default function SectionTitle({ title }: SectionTitleProps) {
-    return <Text style={styles.title}>{title}</Text>;
+    const { colors } = useTheme();
+    return <Text style={[styles.title,
+    { color: colors.interactive.active, }
+    ]}>{title}</Text>;
 }
 
 const styles = StyleSheet.create({
     title: {
         fontWeight: 'bold',
-        color: Colors.bDarkHover,
         fontSize: Dims.textSizeS,
         paddingVertical: Dims.paddingS,
     },

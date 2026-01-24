@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -9,7 +9,6 @@ import {
     ImageBackground,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
 import { AppAssets } from '@/constants/AppAssets';
 import { useAuthStore } from '@/store/authStore';
@@ -18,6 +17,7 @@ import AvatarUploader from '@/components/settings/AvatarUploader';
 import SettingItem from '@/components/settings/SettingItem';
 import SectionTitle from '@/components/settings/SectionTitle';
 import { AppStrings } from '@/constants/AppStrings';
+import { useTheme } from '@/hooks/useTheme';
 // import { userService } from '@/services/api/userService';
 
 // Mock data - default user profile
@@ -33,19 +33,30 @@ const MOCK_USER = {
 };
 
 /**
- * Settings Tab Screen - Matching Flutter design
- * User settings and preferences with mock data
+ * Settings Tab Screen - With Dark Mode Support
+ * User settings and preferences with theme-aware elements
  */
 export default function SettingsScreen() {
     const router = useRouter();
     const { logout } = useAuthStore();
     const { clearUser } = useUserStore();
+    const { colors, mode, setTheme } = useTheme();
 
     const [profile] = useState(MOCK_USER);
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(mode === 'dark');
+
+    // Sync isDarkMode with theme store
+    useEffect(() => {
+        setIsDarkMode(mode === 'dark');
+    }, [mode]);
 
     const handleAvatarUpload = async (imageUri: string) => {
         Alert.alert('Thông báo', 'Chức năng đang sử dụng dữ liệu mẫu');
+    };
+
+    const handleDarkModeToggle = (value: boolean) => {
+        setIsDarkMode(value);
+        setTheme(value ? 'dark' : 'light');
     };
 
     const handleLogout = () => {
@@ -86,9 +97,9 @@ export default function SettingsScreen() {
     const fullName = `${profile.firstName} ${profile.lastName}`;
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: colors.background.primary }]}>
             <ImageBackground
-                source={AppAssets.mainBackground}
+                source={mode === 'dark' ? AppAssets.mainBackgroundDark : AppAssets.mainBackground}
                 style={styles.backgroundImage}
                 resizeMode="cover"
             >
@@ -105,13 +116,17 @@ export default function SettingsScreen() {
                             size={Dims.size80}
                         />
 
-                        <Text style={styles.fullName}>{fullName}</Text>
-                        <Text style={styles.username}>{profile.username}</Text>
+                        <Text style={[styles.fullName, { color: colors.text.primary }]}>
+                            {fullName}
+                        </Text>
+                        <Text style={[styles.username, { color: colors.text.secondary }]}>
+                            {profile.username}
+                        </Text>
                     </View>
 
                     {/* User Profile Section */}
                     <SectionTitle title={AppStrings.settingsUserProfile} />
-                    <View style={styles.section}>
+                    <View style={[styles.section, { backgroundColor: colors.surface.primary }]}>
                         <SettingItem
                             icon={AppAssets.personalInformationIcon}
                             title={AppStrings.settingsUserInfor}
@@ -126,14 +141,14 @@ export default function SettingsScreen() {
 
                     {/* General Settings Section */}
                     <SectionTitle title={AppStrings.settingsOverall} />
-                    <View style={styles.section}>
+                    <View style={[styles.section, { backgroundColor: colors.surface.primary }]}>
                         <SettingItem
                             icon={AppAssets.themeIcon}
                             title={AppStrings.settingsDarkTheme}
                             showArrow={false}
                             showSwitch={true}
                             switchValue={isDarkMode}
-                            onSwitchChange={setIsDarkMode}
+                            onSwitchChange={handleDarkModeToggle}
                         />
                         <SettingItem
                             icon={AppAssets.noticeIcon}
@@ -149,7 +164,7 @@ export default function SettingsScreen() {
 
                     {/* Support Section */}
                     <SectionTitle title={AppStrings.settingsSupportInfor} />
-                    <View style={styles.section}>
+                    <View style={[styles.section, { backgroundColor: colors.surface.primary }]}>
                         <SettingItem
                             icon={AppAssets.commentIcon}
                             title={AppStrings.settingsFeedback}
@@ -163,8 +178,13 @@ export default function SettingsScreen() {
                     </View>
 
                     {/* Logout Button */}
-                    <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-                        <Text style={styles.logoutText}>{AppStrings.settingsLogout}</Text>
+                    <TouchableOpacity
+                        style={[styles.logoutButton, { backgroundColor: colors.surface.primary }]}
+                        onPress={handleLogout}
+                    >
+                        <Text style={[styles.logoutText,
+                        { color: colors.semantic.error }
+                        ]}>{AppStrings.settingsLogout}</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </ImageBackground>
@@ -195,22 +215,18 @@ const styles = StyleSheet.create({
     fullName: {
         fontWeight: 'bold',
         fontSize: Dims.textSizeM,
-        color: Colors.normal,
         marginTop: Dims.spacingM,
     },
     username: {
         fontSize: Dims.textSizeS,
-        color: Colors.lightActive,
         marginTop: Dims.size4,
     },
     section: {
-        backgroundColor: Colors.wWhite,
         borderRadius: Dims.borderRadius,
         marginBottom: Dims.spacingML,
         overflow: 'hidden',
     },
     logoutButton: {
-        backgroundColor: Colors.wWhite,
         borderRadius: Dims.borderRadius,
         paddingVertical: Dims.paddingM,
         alignItems: 'center',
@@ -218,7 +234,6 @@ const styles = StyleSheet.create({
         marginBottom: Dims.spacingXL,
     },
     logoutText: {
-        color: '#EF4444',
         fontSize: Dims.textSizeM,
     },
 });
