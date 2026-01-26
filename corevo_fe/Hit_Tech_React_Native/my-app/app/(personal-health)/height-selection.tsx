@@ -5,10 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
 import { AppStrings } from '@/constants/AppStrings';
-
-const BACKGROUND_IMAGE = require('@/assets/images/main_background_image.png');
-const BOY_IMAGE = require('@/assets/images/health_infor/boy.png');
-const GIRL_IMAGE = require('@/assets/images/health_infor/girl.png');
+import { AppAssets } from '@/constants/AppAssets';
 
 const ITEM_HEIGHT = 32;
 const MIN_HEIGHT = 100;
@@ -89,11 +86,11 @@ export default function HeightSelectionScreen() {
     };
 
     // Determine which gender image to show
-    const genderImage = params.gender === 'FEMALE' ? GIRL_IMAGE : BOY_IMAGE;
+    const genderImage = params.gender === 'FEMALE' ? AppAssets.imageGenderGirl : AppAssets.imageGenderBoy;
 
     return (
         <ImageBackground
-            source={BACKGROUND_IMAGE}
+            source={AppAssets.mainBackground}
             style={styles.backgroundImage}
             resizeMode="cover"
         >

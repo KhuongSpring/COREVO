@@ -37,12 +37,13 @@ export default function SplashScreen() {
         } else if (!isAuthenticated) {
             // Not logged in → Login
             // router.replace('/(auth)/login' as any);
-            // router.replace('/theme-demo' as any);
+            // router.replace('/welcome' as any);
             router.replace('/(tabs)' as any);
         } else {
             // Logged in → Main App
             router.replace('/(tabs)' as any);
-            // router.replace('/theme-demo' as any);
+            // router.replace('/(auth)/login' as any);
+            // router.replace('/welcome' as any);
         }
     };
 

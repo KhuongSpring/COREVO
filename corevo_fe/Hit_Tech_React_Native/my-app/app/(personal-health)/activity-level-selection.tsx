@@ -7,8 +7,6 @@ import { Dims } from '@/constants/Dimensions';
 import { AppStrings } from '@/constants/AppStrings';
 import { AppAssets } from '@/constants/AppAssets';
 
-const BACKGROUND_IMAGE = require('@/assets/images/main_background_image.png');
-
 type ActivityLevel = {
     level: string;
     title: string;
@@ -114,7 +112,7 @@ export default function ActivityLevelSelectionScreen() {
 
     return (
         <ImageBackground
-            source={BACKGROUND_IMAGE}
+            source={AppAssets.mainBackground}
             style={styles.backgroundImage}
             resizeMode="cover"
         >

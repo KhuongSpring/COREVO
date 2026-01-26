@@ -262,6 +262,40 @@ export const AppStrings = {
     weekdaySaturday: 'Thứ Bảy',
     weekdaySunday: 'Chủ Nhật',
 
+    // ============================================
+    // LIBRARY - Training plans and exercises
+    // ============================================
+    libraryTabPlans: 'Kế hoạch luyện tập',
+    libraryTabExercises: 'Các bài tập',
+    librarySearchPlaceholder: 'Tìm kiếm bài tập, kế hoạch...',
+    libraryStartButton: 'Bắt đầu',
+
+    // Training Plan Goals (for section headers)
+    libraryGoalLoseFat: 'Giảm cân / Giảm mỡ',
+    libraryGoalGainWeight: 'Tăng cân',
+    libraryGoalGainMuscle: 'Tăng cơ',
+    libraryGoalMaintainBody: 'Duy trì vóc dáng',
+    libraryGoalIncreaseEndurance: 'Tăng sức bền',
+    libraryGoalImproveCardiovascular: 'Cải thiện tim mạch',
+    libraryGoalStressRelief: 'Giảm stress, thư giãn',
+    libraryGoalIncreaseHeight: 'Tăng chiều cao',
+
+    // Exercise Categories - Muscle Groups
+    libraryCategoryChest: 'Ngực',
+    libraryCategoryBack: 'Lưng',
+    libraryCategoryShoulders: 'Vai',
+    libraryCategoryBiceps: 'Tay trước',
+    libraryCategoryTriceps: 'Tay sau',
+    libraryCategoryAbs: 'Bụng',
+    libraryCategoryGlutes: 'Mông',
+    libraryCategoryQuads: 'Đùi trước',
+    libraryCategoryHamstrings: 'Đùi sau',
+
+    // Exercise Categories - Types
+    libraryCategoryCardio: 'Cardio',
+    libraryCategoryYoga: 'Yoga',
+    libraryCategoryCalisthenic: 'Calisthenic',
+
 
 } as const;
 

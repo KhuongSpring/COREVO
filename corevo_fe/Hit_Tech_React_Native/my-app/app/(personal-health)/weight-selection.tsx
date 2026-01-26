@@ -5,8 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
 import { AppStrings } from '@/constants/AppStrings';
-
-const BACKGROUND_IMAGE = require('@/assets/images/main_background_image.png');
+import { AppAssets } from '@/constants/AppAssets';
 
 const ITEM_WIDTH = 16;
 const MIN_WEIGHT = 40;
@@ -119,7 +118,7 @@ export default function WeightSelectionScreen() {
 
     return (
         <ImageBackground
-            source={BACKGROUND_IMAGE}
+            source={AppAssets.mainBackground}
             style={styles.backgroundImage}
             resizeMode="cover"
         >

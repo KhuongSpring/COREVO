@@ -6,10 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
 import { AppStrings } from '@/constants/AppStrings';
-
-const BACKGROUND_IMAGE = require('@/assets/images/main_background_image.png');
-const BOY_IMAGE = require('@/assets/images/health_infor/boy.png');
-const GIRL_IMAGE = require('@/assets/images/health_infor/girl.png');
+import { AppAssets } from '@/constants/AppAssets';
 
 type GenderType = 'MALE' | 'FEMALE' | null;
 
@@ -79,7 +76,7 @@ export default function GenderSelectionScreen() {
 
     return (
         <ImageBackground
-            source={BACKGROUND_IMAGE}
+            source={AppAssets.mainBackground}
             style={styles.backgroundImage}
             resizeMode="cover"
         >
@@ -105,8 +102,8 @@ export default function GenderSelectionScreen() {
 
                     {/* Gender Selection Row */}
                     <View style={styles.genderRow}>
-                        {renderGenderOption('MALE', AppStrings.genderSelectionBoy, BOY_IMAGE)}
-                        {renderGenderOption('FEMALE', AppStrings.genderSelectionGirl, GIRL_IMAGE)}
+                        {renderGenderOption('MALE', AppStrings.genderSelectionBoy, AppAssets.imageGenderBoy)}
+                        {renderGenderOption('FEMALE', AppStrings.genderSelectionGirl, AppAssets.imageGenderGirl)}
                     </View>
                 </View>
 

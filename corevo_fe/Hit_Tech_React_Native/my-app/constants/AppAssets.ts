@@ -12,17 +12,17 @@ export const AppAssets = {
     customArrowIcon: require('@/assets/icons/custom_arrow_icon.png'),
 
     // Tick Icons
-    tickNonActive: require('@/assets/images/tick_non_selected.png'),
-    tickActive: require('@/assets/images/tick_selected.png'),
+    tickNonActive: require('@/assets/images/tick_non_selected.webp'),
+    tickActive: require('@/assets/images/tick_selected.webp'),
 
     // Backgrounds
-    startBackground: require('@/assets/images/start_flow_background_image.png'),
-    mainBackground: require('@/assets/images/main_background_image.png'),
-    mainBackgroundDark: require('@/assets/images/main_background_image_dark.png'),
-    authBackground: require('@/assets/images/auth_background_image.png'),
-    libraryBackground1: require('@/assets/images/library_background_image_1.png'),
+    startBackground: require('@/assets/images/start_flow_background_image.webp'),
+    mainBackground: require('@/assets/images/main_background_image.webp'),
+    mainBackgroundDark: require('@/assets/images/main_background_image_dark.webp'),
+    authBackground: require('@/assets/images/auth_background_image.webp'),
+    libraryBackground1: require('@/assets/images/library_background_image_1.webp'),
     libraryBackground2: require('@/assets/images/library_background_image_2.png'),
-    welcomeHandImage: require('@/assets/images/welcome_hand_image.png'),
+    welcomeHandImage: require('@/assets/images/welcome_hand_image.webp'),
 
     // Default Image (URL)
     defaultImage: 'https://th.bing.com/th/id/R.b1b463303db368fd76ad68356d1d4f0c?rik=lY2e9ubl6ESqZg&pid=ImgRaw&r=0',
@@ -92,11 +92,11 @@ export const AppAssets = {
     cardioSelected: require('@/assets/images/type/cardio_selected.png'),
 
     // Frequency Images
-    frequency1: require('@/assets/images/frequency/frequency_1.png'),
-    frequency2: require('@/assets/images/frequency/frequency_2.png'),
-    frequency3: require('@/assets/images/frequency/frequency_3.png'),
-    frequency4: require('@/assets/images/frequency/frequency_4.png'),
-    frequency5: require('@/assets/images/frequency/frequency_5.png'),
+    frequency1: require('@/assets/images/frequency/frequency_1.webp'),
+    frequency2: require('@/assets/images/frequency/frequency_2.webp'),
+    frequency3: require('@/assets/images/frequency/frequency_3.webp'),
+    frequency4: require('@/assets/images/frequency/frequency_4.webp'),
+    frequency5: require('@/assets/images/frequency/frequency_5.webp'),
 
     // Location Images
     locationHome: require('@/assets/images/location/location_home.png'),

@@ -5,8 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
 import { AppStrings } from '@/constants/AppStrings';
+import { AppAssets } from '@/constants/AppAssets';
 
-const BACKGROUND_IMAGE = require('@/assets/images/main_background_image.png');
 const ITEM_HEIGHT = 60;
 const VISIBLE_ITEMS = 5;
 
@@ -99,7 +99,7 @@ export default function AgeSelectionScreen() {
 
     return (
         <ImageBackground
-            source={BACKGROUND_IMAGE}
+            source={AppAssets.mainBackground}
             style={styles.backgroundImage}
             resizeMode="cover"
         >
