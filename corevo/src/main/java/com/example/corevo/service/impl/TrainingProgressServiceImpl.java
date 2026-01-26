@@ -1,8 +1,10 @@
 package com.example.corevo.service.impl;
 
+import com.example.corevo.constant.CommonConstant;
 import com.example.corevo.constant.ErrorMessage;
-import com.example.corevo.domain.dto.request.training.ExerciseCompletionRequestDto;
+import com.example.corevo.constant.SuccessMessage;
 import com.example.corevo.domain.dto.response.training_progress.DailyProgressResponseDto;
+import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.training_progress.CompletionStatisticResponseDto;
 import com.example.corevo.domain.dto.response.training_progress.WeeklyProgressResponseDto;
 import com.example.corevo.domain.entity.training.TrainingPlan;
@@ -19,10 +21,10 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 import java.time.temporal.TemporalAdjusters;
 
@@ -35,64 +37,52 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
     UserRepository userRepository;
 
     @Override
-    public void completeExercise(ExerciseCompletionRequestDto request, Authentication authentication) {
+    @Transactional(rollbackFor = Exception.class)
+    public CommonResponseDto completeExercise(Long exerciseId, Authentication authentication) {
+        User user = getAuthenticatedUser(authentication);
 
-        String username = authentication.getName();
-
-        if(!userRepository.existsUserByUsername(username))
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-
-        User user = userRepository.findByUsername(username);
-        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        LocalDate today = LocalDate.now(CommonConstant.APPLICATION_TIMEZONE);
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(today.getDayOfWeek().toString());
 
-        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
+        validateUserHasTrainingPlan(user);
 
         TrainingPlan trainingPlan = user.getTrainingPlans().getFirst();
 
         List<Long> todayExerciseIds = completionRepository
                 .findExerciseIdsByTrainingPlanIdAndDayOfWeek(trainingPlan.getId(), dayOfWeek);
 
-        if(!todayExerciseIds.contains(request.getExerciseId()))
+        if (!todayExerciseIds.contains(exerciseId))
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS_DAY);
-
-        if(completionRepository.existsByExerciseId(request.getExerciseId()))
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EXERCISE_HAS_BEEN_COMPLETED);
 
         boolean alreadyCompleted = completionRepository
                 .existsByUser_IdAndExerciseIdAndTrainingPlanIdAndCompletionDate(
-                        user.getId(), request.getExerciseId(), trainingPlan.getId(), today
-                );
+                        user.getId(), exerciseId, trainingPlan.getId(), today);
 
-        if(!alreadyCompleted){
-            TrainingExerciseCompletion completion = TrainingExerciseCompletion.builder()
-                    .user(user)
-                    .exerciseId(request.getExerciseId())
-                    .trainingPlanId(trainingPlan.getId())
-                    .completionDate(today)
-                    .isCompleted(true)
-                    .build();
-
-            completionRepository.save(completion);
+        if (alreadyCompleted) {
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EXERCISE_HAS_BEEN_COMPLETED);
         }
+
+        TrainingExerciseCompletion completion = TrainingExerciseCompletion.builder()
+                .user(user)
+                .exerciseId(exerciseId)
+                .trainingPlanId(trainingPlan.getId())
+                .completionDate(today)
+                .isCompleted(true)
+                .build();
+
+        completionRepository.save(completion);
+
+        return new CommonResponseDto(HttpStatus.OK, SuccessMessage.TrainingExercise.EXERCISE_COMPLETED_SUCCESS);
     }
 
     @Override
     public DailyProgressResponseDto getDailyProgress(Authentication authentication) {
 
-        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        LocalDate today = LocalDate.now(CommonConstant.APPLICATION_TIMEZONE);
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(today.getDayOfWeek().toString());
 
-        String username = authentication.getName();
-
-        if(!userRepository.existsUserByUsername(username))
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-
-        User user = userRepository.findByUsername(username);
-
-        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
+        User user = getAuthenticatedUser(authentication);
+        validateUserHasTrainingPlan(user);
 
         TrainingPlan trainingPlan = user.getTrainingPlans().getFirst();
 
@@ -106,7 +96,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         List<Long> todayExerciseIds = completionRepository
                 .findExerciseIdsByTrainingPlanIdAndDayOfWeek(trainingPlan.getId(), dayOfWeek);
 
-        if(todayExerciseIds.isEmpty())
+        if (todayExerciseIds.isEmpty())
             return new DailyProgressResponseDto(
                     trainingPlan.getId(),
                     dayOfWeek.toString(),
@@ -114,7 +104,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
                     100.00);
 
         Map<String, Boolean> completions = new HashMap<>();
-        for (Long exerciseIds : todayExerciseIds){
+        for (Long exerciseIds : todayExerciseIds) {
             completions.put(exerciseIds.toString(), completedExerciseIds.contains(exerciseIds));
         }
 
@@ -127,39 +117,28 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
                 trainingPlan.getId(),
                 dayOfWeek.toString(),
                 completions,
-                percentage
-        );
+                percentage);
     }
 
     @Override
     public WeeklyProgressResponseDto getWeeklyProgress(Authentication authentication) {
 
-        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        LocalDate today = LocalDate.now(CommonConstant.APPLICATION_TIMEZONE);
         LocalDate weekStart = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
 
-        String username = authentication.getName();
-
-        if(!userRepository.existsUserByUsername(username))
-            throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-
-        User user = userRepository.findByUsername(username);
-
-        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
+        User user = getAuthenticatedUser(authentication);
+        validateUserHasTrainingPlan(user);
 
         Long trainingPlanId = user.getTrainingPlans().getFirst().getId();
 
-        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
-
         int completedDays = 0;
 
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
             LocalDate checkDate = weekStart.plusDays(i);
             DayOfWeek checkDayOfWeek = DayOfWeek.valueOf(checkDate.getDayOfWeek().toString());
             Long totalExercisesForDay = completionRepository.countTotalExercisesByDay(trainingPlanId, checkDayOfWeek);
 
-            if(totalExercisesForDay == 0){
+            if (totalExercisesForDay == 0) {
                 if (checkDate.isBefore(today) || checkDate.isEqual(today)) {
                     completedDays++;
                 }
@@ -180,25 +159,17 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         return new WeeklyProgressResponseDto(
                 trainingPlanId,
                 weeklyPercentage,
-                completedDays
-        );
+                completedDays);
     }
 
     @Override
-    public CompletionStatisticResponseDto getCompletionStatistic(Integer year, Integer month, Authentication authentication) {
+    public CompletionStatisticResponseDto getCompletionStatistic(Integer year, Integer month,
+            Authentication authentication) {
 
-        String username = authentication.getName();
+        User user = getAuthenticatedUser(authentication);
+        validateUserHasTrainingPlan(user);
 
-        if(!userRepository.existsUserByUsername(username))
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-
-        User user = userRepository.findByUsername(username);
-
-
-        if(user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty())
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
-
-        LocalDate today = LocalDate.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        LocalDate today = LocalDate.now(CommonConstant.APPLICATION_TIMEZONE);
         int targetYear = (year == null) ? today.getYear() : year;
         int targetMonth = (month == null) ? today.getMonthValue() : month;
 
@@ -206,7 +177,7 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         try {
             startOfMonth = LocalDate.of(targetYear, targetMonth, 1);
         } catch (DateTimeException e) {
-            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.INVALID_DATE +" "+ e.getMessage());
+            throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.INVALID_DATE + " " + e.getMessage());
         }
         int dayInMonth = startOfMonth.lengthOfMonth();
         LocalDate endOfMonth = startOfMonth.withDayOfMonth(dayInMonth);
@@ -217,16 +188,14 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
             throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.INVALID_DATE);
         }
 
-
         List<LocalDate> completedDateInMonth = completionRepository
                 .findCompletionDatesByUserAndDateRange(user.getId(), startOfMonth, endOfMonth);
 
         List<Boolean> currentMonthCompletions = new ArrayList<>();
-        for(int i = 1; i <= dayInMonth; i++){
+        for (int i = 1; i <= dayInMonth; i++) {
             LocalDate currDate = LocalDate.of(targetYear, targetMonth, i);
             currentMonthCompletions.add(completedDateInMonth.contains(currDate));
         }
-
 
         List<LocalDate> allCompletionDates = completionRepository.findAllCompletionDatesByUserId(user.getId());
 
@@ -234,27 +203,26 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
 
         Integer longestStreak = calculateLongestStreak(allCompletionDates);
 
-
         return new CompletionStatisticResponseDto(
                 changeMonthToString(targetMonth),
                 targetYear,
                 currentMonthCompletions,
                 currentStreak,
-                longestStreak
-                );
+                longestStreak);
     }
 
-    private String changeMonthToString(Integer month){
+    private String changeMonthToString(Integer month) {
         String[] monthName = {
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
         };
 
         return monthName[month - 1];
     }
 
     private Integer calculateCurrentStreak(List<LocalDate> allCompletionDates, LocalDate today) {
-        if (allCompletionDates.isEmpty()) return 0;
+        if (allCompletionDates.isEmpty())
+            return 0;
 
         Set<LocalDate> completionSet = new HashSet<>(allCompletionDates);
 
@@ -273,20 +241,20 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         return streak;
     }
 
-
-    private Integer calculateLongestStreak(List<LocalDate> allCompletionDates){
-        if (allCompletionDates.isEmpty()) return 0;
+    private Integer calculateLongestStreak(List<LocalDate> allCompletionDates) {
+        if (allCompletionDates.isEmpty())
+            return 0;
 
         int maxStreak = 0;
         int currentStreak = 1;
 
-        for(int i = 1; i < allCompletionDates.size(); i++){
+        for (int i = 1; i < allCompletionDates.size(); i++) {
             LocalDate currDate = allCompletionDates.get(i);
             LocalDate prevDate = allCompletionDates.get(i - 1);
 
-            if(prevDate.plusDays(1).equals(currDate)){
+            if (prevDate.plusDays(1).equals(currDate)) {
                 currentStreak++;
-            } else{
+            } else {
                 maxStreak = Math.max(maxStreak, currentStreak);
                 currentStreak = 1;
             }
@@ -294,6 +262,17 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         return Math.max(maxStreak, currentStreak);
     }
 
+    private User getAuthenticatedUser(Authentication authentication) {
+        return userRepository.findByUsername(authentication.getName())
+                .orElseThrow(() -> new VsException(HttpStatus.UNAUTHORIZED,
+                        ErrorMessage.User.ERR_USER_NOT_EXISTED));
+    }
+
+    private void validateUserHasTrainingPlan(User user) {
+        if (user.getTrainingPlans() == null || user.getTrainingPlans().isEmpty()) {
+            throw new VsException(HttpStatus.BAD_REQUEST,
+                    ErrorMessage.Training.ERR_USER_NOT_IN_TRAINING_PLAN);
+        }
+    }
+
 }
-
-

@@ -29,10 +29,11 @@ public class GlobalExceptionHandler {
 
     private final MessageSource messageSource;
 
-    //Error validate for param
+    // Error validate for param
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<RestData<?>> handleConstraintViolationException(ConstraintViolationException ex) {
+    public ResponseEntity<RestData<Map<String, String>>> handleConstraintViolationException(
+            ConstraintViolationException ex) {
         Map<String, String> result = new LinkedHashMap<>();
         ex.getConstraintViolations().forEach((error) -> {
             String fieldName = ((PathImpl) error.getPropertyPath()).getLeafNode().getName();
@@ -43,10 +44,10 @@ public class GlobalExceptionHandler {
         return VsResponseUtil.error(HttpStatus.BAD_REQUEST, result);
     }
 
-    //Error validate for body
+    // Error validate for body
     @ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<RestData<?>> handleValidException(BindException ex) {
+    public ResponseEntity<RestData<Map<String, String>>> handleValidException(BindException ex) {
         Map<String, String> result = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
@@ -59,57 +60,57 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<RestData<?>> handlerInternalServerError(Exception ex) {
+    public ResponseEntity<RestData<String>> handlerInternalServerError(Exception ex) {
         log.error(ex.getMessage(), ex);
         String message = messageSource.getMessage(ErrorMessage.ERR_EXCEPTION_GENERAL, null,
                 LocaleContextHolder.getLocale());
         return VsResponseUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, message);
     }
 
-    //Exception custom
+    // Exception custom
     @ExceptionHandler(VsException.class)
-    public ResponseEntity<RestData<?>> handleVsException(VsException ex) {
+    public ResponseEntity<RestData<Object>> handleVsException(VsException ex) {
         log.error(ex.getMessage(), ex);
         return VsResponseUtil.error(ex.getStatus(), ex.getErrMessage());
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<RestData<?>> handlerNotFoundException(NotFoundException ex) {
+    public ResponseEntity<RestData<String>> handlerNotFoundException(NotFoundException ex) {
         String message = messageSource.getMessage(ex.getMessage(), ex.getParams(), LocaleContextHolder.getLocale());
         log.error(message, ex);
         return VsResponseUtil.error(ex.getStatus(), message);
     }
 
     @ExceptionHandler(InvalidException.class)
-    public ResponseEntity<RestData<?>> handlerInvalidException(InvalidException ex) {
+    public ResponseEntity<RestData<String>> handlerInvalidException(InvalidException ex) {
         log.error(ex.getMessage(), ex);
         String message = messageSource.getMessage(ex.getMessage(), ex.getParams(), LocaleContextHolder.getLocale());
         return VsResponseUtil.error(ex.getStatus(), message);
     }
 
     @ExceptionHandler(InternalServerException.class)
-    public ResponseEntity<RestData<?>> handlerInternalServerException(InternalServerException ex) {
+    public ResponseEntity<RestData<String>> handlerInternalServerException(InternalServerException ex) {
         String message = messageSource.getMessage(ex.getMessage(), ex.getParams(), LocaleContextHolder.getLocale());
         log.error(message, ex);
         return VsResponseUtil.error(ex.getStatus(), message);
     }
 
     @ExceptionHandler(UploadFileException.class)
-    public ResponseEntity<RestData<?>> handleUploadImageException(UploadFileException ex) {
+    public ResponseEntity<RestData<String>> handleUploadImageException(UploadFileException ex) {
         String message = messageSource.getMessage(ex.getMessage(), ex.getParams(), LocaleContextHolder.getLocale());
         log.error(message, ex);
         return VsResponseUtil.error(ex.getStatus(), message);
     }
 
     @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<RestData<?>> handleUnauthorizedException(UnauthorizedException ex) {
+    public ResponseEntity<RestData<String>> handleUnauthorizedException(UnauthorizedException ex) {
         String message = messageSource.getMessage(ex.getMessage(), ex.getParams(), LocaleContextHolder.getLocale());
         log.error(message, ex);
         return VsResponseUtil.error(ex.getStatus(), message);
     }
 
     @ExceptionHandler(ForbiddenException.class)
-    public ResponseEntity<RestData<?>> handleAccessDeniedException(ForbiddenException ex) {
+    public ResponseEntity<RestData<String>> handleAccessDeniedException(ForbiddenException ex) {
         String message = messageSource.getMessage(ex.getMessage(), ex.getParams(), LocaleContextHolder.getLocale());
         log.error(message, ex);
         return VsResponseUtil.error(ex.getStatus(), message);

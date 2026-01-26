@@ -10,11 +10,8 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        uses = {TrainingScheduleMapperHelper.class, TrainingDayMapper.class},
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
-)
+@Mapper(componentModel = "spring", uses = { TrainingScheduleMapperHelper.class,
+        TrainingDayMapper.class }, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface TrainingScheduleMapper {
 
     @Mapping(target = "user", source = "userId")
@@ -22,12 +19,14 @@ public interface TrainingScheduleMapper {
     @Mapping(target = "days", source = "days")
     TrainingSchedule trainingScheduleResponseDtoToTrainingSchedule(TrainingScheduleResponseDto dto);
 
-    List<TrainingSchedule> listTrainingScheduleResponseDtoToListTrainingSchedule(List<TrainingScheduleResponseDto> listDto);
+    List<TrainingSchedule> listTrainingScheduleResponseDtoToListTrainingSchedule(
+            List<TrainingScheduleResponseDto> listDto);
 
     @Mapping(target = "userId", source = "user")
     @Mapping(target = "trainingPlanId", source = "trainingPlan")
     @Mapping(target = "days", source = "days")
     TrainingScheduleResponseDto trainingScheduleToTrainingScheduleResponseDto(TrainingSchedule entity);
 
-    List<TrainingScheduleResponseDto> listTrainingScheduleToListTrainingScheduleResponseDto(List<TrainingSchedule> listEntity);
+    List<TrainingScheduleResponseDto> listTrainingScheduleToListTrainingScheduleResponseDto(
+            List<TrainingSchedule> listEntity);
 }

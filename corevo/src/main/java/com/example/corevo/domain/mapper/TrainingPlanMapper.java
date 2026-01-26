@@ -3,16 +3,11 @@ package com.example.corevo.domain.mapper;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
 import com.example.corevo.domain.entity.training.TrainingPlan;
 import com.example.corevo.helper.training_helper.TrainingMapperHelper;
-import org.hibernate.Internal;
 import org.mapstruct.*;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        uses = TrainingMapperHelper.class,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
-)
+@Mapper(componentModel = "spring", uses = TrainingMapperHelper.class, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface TrainingPlanMapper {
 
     @Mapping(target = "levels", source = "levelIds", qualifiedByName = "mapLevelToEntity")
@@ -49,4 +44,3 @@ public interface TrainingPlanMapper {
 
     List<TrainingPlanResponseDto> listTrainingPlanToListTrainingPlanResponseDto(List<TrainingPlan> entityList);
 }
-

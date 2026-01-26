@@ -15,7 +15,8 @@ public class HealthCalculationServiceImpl implements HealthCalculationService {
 
     /**
      * Tính BMR (Basal Metabolic Rate) theo công thức Mifflin-St Jeor
-     * Nguồn công thức: https://www.sciencedirect.com/science/article/abs/pii/S0002916523166986?via%3Dihub
+     * Nguồn công thức:
+     * https://www.sciencedirect.com/science/article/abs/pii/S0002916523166986?via%3Dihub
      * Nam: BMR = (10 × weight) + (6.25 × height) - (5 × age) + 5
      * Nữ: BMR = (10 × weight) + (6.25 × height) - (5 × age) - 161
      */

@@ -41,13 +41,14 @@ public class TrainingExerciseConverter {
     }
 
     private static Optional<Integer[]> parseRange(String input) {
-        if (input == null || input.isBlank()) return Optional.empty();
+        if (input == null || input.isBlank())
+            return Optional.empty();
         String[] parts = input.split(",");
         if (parts.length == 2) {
             try {
                 int min = Integer.parseInt(parts[0].trim());
                 int max = Integer.parseInt(parts[1].trim());
-                return Optional.of(new Integer[]{min, max});
+                return Optional.of(new Integer[] { min, max });
             } catch (NumberFormatException e) {
                 return Optional.empty();
             }

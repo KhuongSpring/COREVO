@@ -13,10 +13,10 @@ import lombok.experimental.FieldDefaults;
 public class PaginationRequestDto {
 
     @Parameter(description = "Page you want to retrieve (0..N)")
-    Integer pageNum = CommonConstant.ZERO_INT_VALUE;
+    Integer pageNum = CommonConstant.ONE_INT_VALUE;
 
     @Parameter(description = "Number of records per page.")
-    Integer pageSize = CommonConstant.ZERO_INT_VALUE;
+    Integer pageSize = CommonConstant.PAGE_SIZE_DEFAULT;
 
     public int getPageNum() {
         if (pageNum < 1) {

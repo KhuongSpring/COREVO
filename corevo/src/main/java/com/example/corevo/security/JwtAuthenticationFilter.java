@@ -77,7 +77,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (jwtService.isTokenValid(token, userDetails)) {
 
                 if (userDetails instanceof CustomUserDetails) {
-                    CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
                     if (jwtAuthenticationHelper.handleSoftDeletedUser(userDetails, response)) {
                         return;
                     }

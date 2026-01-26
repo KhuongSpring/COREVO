@@ -17,5 +17,4 @@ public interface TrainingPlanFlowService {
 
     CommonResponseDto resetTrainingPlan(Authentication authentication);
 
-
 }

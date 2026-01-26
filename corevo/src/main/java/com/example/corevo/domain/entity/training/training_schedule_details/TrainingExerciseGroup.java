@@ -1,6 +1,5 @@
 package com.example.corevo.domain.entity.training.training_schedule_details;
 
-import com.example.corevo.domain.entity.training.TrainingExercise;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
