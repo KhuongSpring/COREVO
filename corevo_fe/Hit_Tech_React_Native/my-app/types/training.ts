@@ -160,7 +160,7 @@ export interface TrainingProgressStatistic {
     averageWorkoutDuration: number; // in minutes
     mostActiveDay: string;
     completionRate: number; // percentage
-    currentMonthCompletions?: number[]; // days of month with completed workouts
+    currentMonthCompletions: number[]; // days of month with completed workouts
 }
 
 export interface TrainingProgressResponse {

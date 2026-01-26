@@ -18,6 +18,7 @@ import { AppStrings } from '@/constants/AppStrings';
 import { TrainingSchedule, TrainingProgressStatistic } from '@/types/training';
 import CircularProgress from '@/components/common/CircularProgress';
 import { UserProfile } from '@/types/user';
+import HomeCalendar from '@/components/home/HomeCalendar';
 
 // Mock data - matching Flutter types
 const MOCK_USER: UserProfile = {
@@ -190,6 +191,30 @@ export default function HomeScreen() {
     return goalMap[goal] || goal;
   };
 
+  // Get weekdays that have scheduled training (for calendar red dots)
+  const getScheduledWeekdays = (): number[] => {
+    const weekdayMap: Record<string, number> = {
+      MONDAY: 1,
+      TUESDAY: 2,
+      WEDNESDAY: 3,
+      THURSDAY: 4,
+      FRIDAY: 5,
+      SATURDAY: 6,
+      SUNDAY: 0,
+    };
+
+    return schedules
+      .filter(schedule => {
+        const hasExercises =
+          (schedule.exerciseGroups?.warmup?.length || 0) +
+          (schedule.exerciseGroups?.mainExercises?.length || 0) +
+          (schedule.exerciseGroups?.cooldown?.length || 0) > 0;
+        return hasExercises;
+      })
+      .map(schedule => weekdayMap[schedule.dayOfWeek])
+      .filter(day => day !== undefined);
+  };
+
   const currentSchedule = schedules[weekDay];
   const exerciseCount =
     (currentSchedule.exerciseGroups?.warmup?.length || 0) +
@@ -313,13 +338,11 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </TouchableOpacity>
 
-          {/* Calendar Placeholder */}
-          <View style={styles.calendarPlaceholder}>
-            <Text style={styles.calendarText}>Lịch tập luyện</Text>
-            <Text style={styles.calendarSubtext}>
-              (Calendar widget sẽ được thêm sau)
-            </Text>
-          </View>
+          {/* Calendar */}
+          <HomeCalendar
+            completedDays={progressStatistic.currentMonthCompletions}
+            scheduledWeekdays={getScheduledWeekdays()}
+          />
 
           {/* Bottom Row: Streak + Next Training */}
           <View style={styles.bottomRow}>
