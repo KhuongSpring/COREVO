@@ -235,12 +235,32 @@ export const AppStrings = {
     settingsUserInfor: 'Thông tin người dùng',
     settingsUserProfile: 'Hồ sơ người dùng',
 
-    // Theme Settings
     themeAppearance: 'Giao diện',
     themeSettings: 'Cài đặt giao diện',
     themeLight: 'Sáng',
     themeDark: 'Tối',
     themeChangeSuccess: 'Đã thay đổi giao diện thành công',
+
+    // ============================================
+    // HOME SCREEN - Dashboard and training overview
+    // ============================================
+    homeGreeting: 'Xin chào!',
+    homeTrainingButton: 'Luyện Tập',
+    homeStreakDays: 'Chuỗi',
+    homeStreakDaysUnit: 'ngày',
+    homeLongestStreak: 'Kỉ lục dài nhất của bạn:',
+    homeNextTraining: 'Tiếp theo',
+    homeCreateReminder: 'Tạo lời nhắc',
+    homeExercises: 'bài tập',
+
+    // Weekday names
+    weekdayMonday: 'Thứ Hai',
+    weekdayTuesday: 'Thứ Ba',
+    weekdayWednesday: 'Thứ Tư',
+    weekdayThursday: 'Thứ Năm',
+    weekdayFriday: 'Thứ Sáu',
+    weekdaySaturday: 'Thứ Bảy',
+    weekdaySunday: 'Chủ Nhật',
 
 
 } as const;

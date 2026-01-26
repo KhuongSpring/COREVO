@@ -155,10 +155,12 @@ export interface TrainingProgressStatistic {
     totalWorkouts: number;
     totalDuration: number; // in minutes
     totalCaloriesBurned: number;
-    currentStreak: number; // days  longestStreak: number; // days
+    currentStreak: number; // days
+    longestStreak: number; // days
     averageWorkoutDuration: number; // in minutes
     mostActiveDay: string;
     completionRate: number; // percentage
+    currentMonthCompletions?: number[]; // days of month with completed workouts
 }
 
 export interface TrainingProgressResponse {
