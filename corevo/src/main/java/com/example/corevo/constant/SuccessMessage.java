@@ -3,6 +3,7 @@ package com.example.corevo.constant;
 public class SuccessMessage {
     public static class Auth {
         public static final String SUCCESS_SEND_OTP = "OTP has sent to your email";
+        public static final String SUCCESS_VERIFY_OTP = "OTP has verified successfully";
         public static final String LOGIN_SUCCESS = "Login successfully";
         public static final String LOGOUT_SUCCESS = "Logout successfully";
     }
@@ -25,5 +26,6 @@ public class SuccessMessage {
 
     public static class TrainingExercise {
         public static final String DELETE_TRAINING_EXERCISE_SUCCESS = "Delete training exercise successfully";
+        public static final String EXERCISE_COMPLETED_SUCCESS = "Exercise completed successfully";
     }
 }

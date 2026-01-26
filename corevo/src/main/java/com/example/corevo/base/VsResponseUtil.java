@@ -6,28 +6,29 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 
 public class VsResponseUtil {
-    public static ResponseEntity<RestData<?>> success(Object data) {
+    public static <T> ResponseEntity<RestData<T>> success(T data) {
         return success(HttpStatus.OK, data);
     }
 
-    public static ResponseEntity<RestData<?>> success(HttpStatus status, Object data) {
-        RestData<?> response = new RestData<>(data);
+    public static <T> ResponseEntity<RestData<T>> success(HttpStatus status, T data) {
+        RestData<T> response = new RestData<>(data);
         return new ResponseEntity<>(response, status);
     }
 
-    public static ResponseEntity<RestData<?>> success(MultiValueMap<String, String> header, Object data) {
+    public static <T> ResponseEntity<RestData<T>> success(MultiValueMap<String, String> header, T data) {
         return success(HttpStatus.OK, header, data);
     }
 
-    public static ResponseEntity<RestData<?>> success(HttpStatus status, MultiValueMap<String, String> header, Object data) {
-        RestData<?> response = new RestData<>(data);
+    public static <T> ResponseEntity<RestData<T>> success(HttpStatus status, MultiValueMap<String, String> header,
+            T data) {
+        RestData<T> response = new RestData<>(data);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.addAll(header);
         return ResponseEntity.ok().headers(responseHeaders).body(response);
     }
 
-    public static ResponseEntity<RestData<?>> error(HttpStatus status, Object message) {
-        RestData<?> response = RestData.error(message);
+    public static <T> ResponseEntity<RestData<T>> error(HttpStatus status, T message) {
+        RestData<T> response = RestData.error(message);
         return new ResponseEntity<>(response, status);
     }
 }

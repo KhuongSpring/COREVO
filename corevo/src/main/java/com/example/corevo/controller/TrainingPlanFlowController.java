@@ -1,9 +1,12 @@
 package com.example.corevo.controller;
 
 import com.example.corevo.base.RestApiV1;
+import com.example.corevo.base.RestData;
 import com.example.corevo.base.VsResponseUtil;
 import com.example.corevo.constant.UrlConstant;
 import com.example.corevo.domain.dto.request.training.TrainingPlanFlowRequestDto;
+import com.example.corevo.domain.dto.response.CommonResponseDto;
+import com.example.corevo.domain.dto.response.training_plan.TrainingPlanFlowResponseDto;
 import com.example.corevo.service.TrainingPlanFlowService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -26,27 +29,23 @@ public class TrainingPlanFlowController {
 
     TrainingPlanFlowService trainingPlanFlowService;
 
-    @Operation(
-            summary = "Chọn thông tin mong muốn theo từng bước",
-            description = "Dùng để người dùng chọn các mong muốn trong tập luyện",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
+    @Operation(summary = "Chọn thông tin mong muốn theo từng bước", description = "Dùng để người dùng chọn các mong muốn trong tập luyện", security = @SecurityRequirement(name = "Bearer Token"))
     @PostMapping(UrlConstant.TrainingPlan.FLOW_STEP)
-    public ResponseEntity<?> enterStep(@Valid @RequestBody TrainingPlanFlowRequestDto request, Authentication authentication) {
-        return VsResponseUtil.success(trainingPlanFlowService.processStep(
+    public ResponseEntity<RestData<TrainingPlanFlowResponseDto>> enterStep(
+            @Valid @RequestBody TrainingPlanFlowRequestDto request,
+            Authentication authentication) {
+        TrainingPlanFlowResponseDto response = trainingPlanFlowService.processStep(
                 request.getCurrentStep(),
                 request.getSelectedValue(),
                 request.getSelectedValues(),
-                authentication
-        ));
+                authentication);
+        return VsResponseUtil.success(response);
     }
 
-    @Operation(summary = "Xóa toàn bộ training plan của người dùng đã chọn",
-            description = "Reset tất cả training plan mà người dùng đã chọn trước đó",
-            security = @SecurityRequirement(name = "Bearer Token")
-    )
+    @Operation(summary = "Xóa toàn bộ training plan của người dùng đã chọn", description = "Reset tất cả training plan mà người dùng đã chọn trước đó", security = @SecurityRequirement(name = "Bearer Token"))
     @DeleteMapping(UrlConstant.TrainingPlan.RESET)
-    public ResponseEntity<?> resetTrainingPlan(Authentication authentication) {
-        return VsResponseUtil.success(trainingPlanFlowService.resetTrainingPlan(authentication));
+    public ResponseEntity<RestData<CommonResponseDto>> resetTrainingPlan(Authentication authentication) {
+        CommonResponseDto response = trainingPlanFlowService.resetTrainingPlan(authentication);
+        return VsResponseUtil.success(response);
     }
 }

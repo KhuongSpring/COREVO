@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 public class TrainingExerciseGroupDetailParserHelper {
     @AllArgsConstructor
     @NoArgsConstructor
@@ -20,7 +19,8 @@ public class TrainingExerciseGroupDetailParserHelper {
 
     public static Result parse(String input) {
         String[] parts = input.split("X", 2);
-        if (parts.length < 2) return new Result(null, null, null);
+        if (parts.length < 2)
+            return new Result(null, null, null);
 
         String sets = parts[0].trim();
         sets = sets.replace("sets", "").trim();

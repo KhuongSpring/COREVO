@@ -24,7 +24,7 @@ public class RestData<T> {
         this.data = data;
     }
 
-    public static RestData<?> error(Object message) {
+    public static <T> RestData<T> error(T message) {
         return new RestData<>(RestStatus.ERROR, message, null);
     }
 }

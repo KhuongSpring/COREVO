@@ -5,7 +5,6 @@ import com.example.corevo.domain.dto.pagination.PaginationRequestDto;
 import com.example.corevo.domain.dto.pagination.PaginationResponseDto;
 import com.example.corevo.domain.dto.pagination.PagingMeta;
 import com.example.corevo.domain.dto.request.training.TrainingDynamicSearchingRequestDto;
-import com.example.corevo.domain.dto.request.training.TrainingExerciseSearchingRequestDto;
 import com.example.corevo.domain.dto.response.training.*;
 import com.example.corevo.domain.dto.response.training_exercise.*;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponseDto;
@@ -33,634 +32,530 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TrainingServiceImpl implements TrainingService {
 
-    TrainingExerciseRepository trainingExerciseRepository;
+        TrainingExerciseRepository trainingExerciseRepository;
 
-    TrainingPlanRepository trainingPlanRepository;
+        TrainingPlanRepository trainingPlanRepository;
 
-    TrainingScheduleRepository trainingScheduleRepository;
+        TrainingScheduleRepository trainingScheduleRepository;
 
-    EquipmentRepository equipmentRepository;
+        EquipmentRepository equipmentRepository;
 
-    GoalRepository goalRepository;
+        GoalRepository goalRepository;
 
-    LevelRepository levelRepository;
+        LevelRepository levelRepository;
 
-    LocationRepository locationRepository;
+        LocationRepository locationRepository;
 
-    TargetMuscleRepository targetMuscleRepository;
+        TargetMuscleRepository targetMuscleRepository;
 
-    TypeRepository typeRepository;
+        TypeRepository typeRepository;
 
-    TrainingExerciseMapper trainingExerciseMapper;
+        TrainingExerciseMapper trainingExerciseMapper;
 
-    TrainingPlanMapper trainingPlanMapper;
+        TrainingPlanMapper trainingPlanMapper;
 
-    TrainingScheduleMapper trainingScheduleMapper;
+        TrainingScheduleMapper trainingScheduleMapper;
 
-    EquipmentMapper equipmentMapper;
+        EquipmentMapper equipmentMapper;
 
-    GoalMapper goalMapper;
+        GoalMapper goalMapper;
 
-    LevelMapper levelMapper;
+        LevelMapper levelMapper;
 
-    LocationMapper locationMapper;
+        LocationMapper locationMapper;
 
-    TargetMuscleMapper targetMuscleMapper;
+        TargetMuscleMapper targetMuscleMapper;
 
-    TypeMapper typeMapper;
+        TypeMapper typeMapper;
 
-    @Override
-    public List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByPrimaryMuscle(
-            String primaryMuscle,
-            PaginationRequestDto paginationRequestDto) {
-        Long beginner = 1L;
-        Long intermediate = 2L;
-        Long advanced = 3L;
+        private static final Long BEGINNER_LEVEL_ID = 1L;
+        private static final Long INTERMEDIATE_LEVEL_ID = 2L;
+        private static final Long ADVANCED_LEVEL_ID = 3L;
+        private static final String BEGINNER_LEVEL_NAME = "Beginner";
+        private static final String INTERMEDIATE_LEVEL_NAME = "Intermediate";
+        private static final String ADVANCED_LEVEL_NAME = "Advanced";
 
-        List<TrainingExercise> beginnerExercises = trainingExerciseRepository
-                .findByLevels_IdAndPrimaryMuscles_Id(
-                        beginner,
-                        StringToTrainingIDHelper.TargetMuscle.toId(primaryMuscle));
-
-        List<TrainingExercise> intermediateExercises = trainingExerciseRepository
-                .findByLevels_IdAndPrimaryMuscles_Id(
-                        intermediate,
-                        StringToTrainingIDHelper.TargetMuscle.toId(primaryMuscle));
-
-        List<TrainingExercise> advancedExercises = trainingExerciseRepository
-                .findByLevels_IdAndPrimaryMuscles_Id(
-                        advanced,
-                        StringToTrainingIDHelper.TargetMuscle.toId(primaryMuscle));
-
-        List<TrainingExercisePreviewResponseDto> allExercises = new ArrayList<>();
-
-        allExercises.addAll(trainingExerciseMapper
-                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(beginnerExercises)
-                .stream()
-                .peek(dto -> dto.setLevelName("Beginner"))
-                .toList());
-
-        allExercises.addAll(trainingExerciseMapper
-                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(intermediateExercises)
-                .stream()
-                .peek(dto -> dto.setLevelName("Intermediate"))
-                .toList());
-
-        allExercises.addAll(trainingExerciseMapper
-                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(advancedExercises)
-                .stream()
-                .peek(dto -> dto.setLevelName("Advanced"))
-                .toList());
-
-        int pageNum = paginationRequestDto.getPageNum() + 1;
-        int pageSize = paginationRequestDto.getPageSize();
-
-        int start = (pageNum - 1) * pageSize;
-        int end = Math.min(start + pageSize, allExercises.size());
-
-        if (start >= allExercises.size()) {
-            return List.of();
+        @Override
+        public PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlans(
+                        PaginationRequestDto request) {
+                Pageable pageable = PageRequest.of(request.getPageNum(), request.getPageSize());
+                Page<TrainingPlan> page = trainingPlanRepository.findAll(pageable);
+                return getPaginatedEntities(page, trainingPlanMapper::trainingPlanToTrainingPlanResponseDto, request);
         }
 
-        List<TrainingExercisePreviewResponseDto> pagedExercises = allExercises.subList(start, end);
+        @Override
+        public PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlanByType(String type,
+                        PaginationRequestDto paginationRequestDto) {
+                Pageable pageable = PageRequest.of(
+                                paginationRequestDto.getPageNum(),
+                                paginationRequestDto.getPageSize());
 
-        Map<String, List<TrainingExercisePreviewResponseDto>> groupedByLevel = pagedExercises
-                .stream()
-                .collect(Collectors.groupingBy(TrainingExercisePreviewResponseDto::getLevelName));
+                Page<TrainingPlan> trainingPage = trainingPlanRepository.findByType(type, pageable);
 
-        List<TrainingExerciseLevelPreviewResponseDto> response = new ArrayList<>();
+                List<TrainingPlanResponseDto> trainingPlanResponseDtos = trainingPage.getContent()
+                                .stream()
+                                .map(trainingPlanMapper::trainingPlanToTrainingPlanResponseDto)
+                                .toList();
 
-        for (String level : List.of("Beginner", "Intermediate", "Advanced")) {
-            if (groupedByLevel.containsKey(level)) {
-                response.add(new TrainingExerciseLevelPreviewResponseDto(level,
-                        groupedByLevel.get(level)));
-            }
+                PagingMeta pagingMeta = new PagingMeta(
+                                trainingPage.getTotalElements(),
+                                trainingPage.getTotalPages(),
+                                paginationRequestDto.getPageNum() + 1,
+                                paginationRequestDto.getPageSize(),
+                                null,
+                                null);
+
+                return new PaginationResponseDto<>(pagingMeta, trainingPlanResponseDtos);
         }
 
-        return response;
-    }
-
-    @Override
-    public List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByType(
-            String type,
-            PaginationRequestDto paginationRequestDto) {
-        Long beginner = 1L;
-        Long intermediate = 2L;
-        Long advanced = 3L;
-
-        List<TrainingExercise> beginnerExercises = trainingExerciseRepository
-                .findByLevels_IdAndTypes_Id(
-                        beginner,
-                        StringToTrainingIDHelper.Type.toId(type));
-
-        List<TrainingExercise> intermediateExercises = trainingExerciseRepository
-                .findByLevels_IdAndTypes_Id(
-                        intermediate,
-                        StringToTrainingIDHelper.Type.toId(type));
-
-        List<TrainingExercise> advancedExercises = trainingExerciseRepository
-                .findByLevels_IdAndTypes_Id(
-                        advanced,
-                        StringToTrainingIDHelper.Type.toId(type));
-
-        List<TrainingExercisePreviewResponseDto> allExercises = new ArrayList<>();
-
-        allExercises.addAll(trainingExerciseMapper
-                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(beginnerExercises)
-                .stream()
-                .peek(dto -> dto.setLevelName("Beginner"))
-                .toList());
-
-        allExercises.addAll(trainingExerciseMapper
-                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(intermediateExercises)
-                .stream()
-                .peek(dto -> dto.setLevelName("Intermediate"))
-                .toList());
-
-        allExercises.addAll(trainingExerciseMapper
-                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(advancedExercises)
-                .stream()
-                .peek(dto -> dto.setLevelName("Advanced"))
-                .toList());
-
-        int pageNum = paginationRequestDto.getPageNum() + 1;
-        int pageSize = paginationRequestDto.getPageSize();
-
-        int start = (pageNum - 1) * pageSize;
-        int end = Math.min(start + pageSize, allExercises.size());
-
-        if (start >= allExercises.size()) {
-            return List.of();
+        @Override
+        public PaginationResponseDto<EquipmentResponseDto> getEquipments(PaginationRequestDto request) {
+                Pageable pageable = PageRequest.of(request.getPageNum(), request.getPageSize());
+                Page<Equipment> page = equipmentRepository.findAll(pageable);
+                return getPaginatedEntities(page, equipmentMapper::equipmentToEquipmentResponseDto, request);
         }
 
-        List<TrainingExercisePreviewResponseDto> pagedExercises = allExercises.subList(start, end);
-
-        Map<String, List<TrainingExercisePreviewResponseDto>> groupedByLevel = pagedExercises
-                .stream()
-                .collect(Collectors.groupingBy(TrainingExercisePreviewResponseDto::getLevelName));
-
-        List<TrainingExerciseLevelPreviewResponseDto> response = new ArrayList<>();
-
-        for (String level : List.of("Beginner", "Intermediate", "Advanced")) {
-            if (groupedByLevel.containsKey(level)) {
-                response.add(new TrainingExerciseLevelPreviewResponseDto(level,
-                        groupedByLevel.get(level)));
-            }
+        @Override
+        public PaginationResponseDto<GoalResponseDto> getGoals(PaginationRequestDto request) {
+                Pageable pageable = PageRequest.of(request.getPageNum(), request.getPageSize());
+                Page<Goal> page = goalRepository.findAll(pageable);
+                return getPaginatedEntities(page, goalMapper::goalToGoalResponseDto, request);
         }
 
-        return response;
-    }
-
-    @Override
-    public List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByGoal(
-            String goal,
-            PaginationRequestDto paginationRequestDto) {
-        Long beginner = 1L;
-        Long intermediate = 2L;
-        Long advanced = 3L;
-
-        List<TrainingExercise> beginnerExercises = trainingExerciseRepository
-                .findByLevels_IdAndGoals_Id(
-                        beginner,
-                        StringToTrainingIDHelper.Goal.toId(goal));
-
-        List<TrainingExercise> intermediateExercises = trainingExerciseRepository
-                .findByLevels_IdAndGoals_Id(
-                        intermediate,
-                        StringToTrainingIDHelper.Goal.toId(goal));
-
-        List<TrainingExercise> advancedExercises = trainingExerciseRepository
-                .findByLevels_IdAndGoals_Id(
-                        advanced,
-                        StringToTrainingIDHelper.Goal.toId(goal));
-
-        List<TrainingExercisePreviewResponseDto> allExercises = new ArrayList<>();
-
-        allExercises.addAll(trainingExerciseMapper
-                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(beginnerExercises)
-                .stream()
-                .peek(dto -> dto.setLevelName("Beginner"))
-                .toList());
-
-        allExercises.addAll(trainingExerciseMapper
-                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(intermediateExercises)
-                .stream()
-                .peek(dto -> dto.setLevelName("Intermediate"))
-                .toList());
-
-        allExercises.addAll(trainingExerciseMapper
-                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(advancedExercises)
-                .stream()
-                .peek(dto -> dto.setLevelName("Advanced"))
-                .toList());
-
-        int pageNum = paginationRequestDto.getPageNum() + 1;
-        int pageSize = paginationRequestDto.getPageSize();
-
-        int start = (pageNum - 1) * pageSize;
-        int end = Math.min(start + pageSize, allExercises.size());
-
-        if (start >= allExercises.size()) {
-            return List.of();
+        @Override
+        public PaginationResponseDto<LevelResponseDto> getLevels(PaginationRequestDto request) {
+                Pageable pageable = PageRequest.of(request.getPageNum(), request.getPageSize());
+                Page<Level> page = levelRepository.findAll(pageable);
+                return getPaginatedEntities(page, levelMapper::levelToLevelResponseDto, request);
         }
 
-        List<TrainingExercisePreviewResponseDto> pagedExercises = allExercises.subList(start, end);
-
-        Map<String, List<TrainingExercisePreviewResponseDto>> groupedByLevel = pagedExercises
-                .stream()
-                .collect(Collectors.groupingBy(TrainingExercisePreviewResponseDto::getLevelName));
-
-        List<TrainingExerciseLevelPreviewResponseDto> response = new ArrayList<>();
-
-        for (String level : List.of("Beginner", "Intermediate", "Advanced")) {
-            if (groupedByLevel.containsKey(level)) {
-                response.add(new TrainingExerciseLevelPreviewResponseDto(level,
-                        groupedByLevel.get(level)));
-            }
+        @Override
+        public PaginationResponseDto<LocationResponseDto> getLocations(PaginationRequestDto request) {
+                Pageable pageable = PageRequest.of(request.getPageNum(), request.getPageSize());
+                Page<Location> page = locationRepository.findAll(pageable);
+                return getPaginatedEntities(page, locationMapper::locationToLocationResponseDto, request);
         }
 
-        return response;
-    }
-
-    @Override
-    public PaginationResponseDto<TrainingExerciseResponseDto> getAllExercise(PaginationRequestDto paginationRequestDto) {
-
-        Pageable pageable = PageRequest.of(paginationRequestDto.getPageNum(), paginationRequestDto.getPageSize());
-
-        Page<TrainingExercise> exercisesPage = trainingExerciseRepository.findAll(pageable);
-
-        List<TrainingExerciseResponseDto> exercises = exercisesPage.getContent()
-                .stream()
-                .map(trainingExerciseMapper::trainingExerciseToTrainingExerciseResponseDto)
-                .collect(Collectors.toList());
-
-        PagingMeta pagingMeta = new PagingMeta(
-                exercisesPage.getTotalElements(),
-                exercisesPage.getTotalPages(),
-                paginationRequestDto.getPageNum() + 1,
-                paginationRequestDto.getPageSize(),
-                null,
-                null);
-
-        return new PaginationResponseDto<>(pagingMeta, exercises);
-    }
-
-    @Override
-    public List<Long> searchTrainingPlanDynamic(TrainingDynamicSearchingRequestDto request) {
-        boolean hasLevelFilter = !request.getLevels().isEmpty();
-        boolean hasLocationFilter = !request.getLocations().isEmpty();
-        boolean hasEquipmentFilter = !request.getEquipments().isEmpty();
-        boolean hasGoalFilter = request.getGoal() != null && !request.getGoal().isEmpty();
-
-        return trainingExerciseRepository.searchDynamicTrainingPlan(
-                request.getSearchSentence(),
-                request.getLevels(),
-                request.getLocations(),
-                request.getEquipments(),
-                request.getGoal(),
-                hasLevelFilter,
-                hasLocationFilter,
-                hasEquipmentFilter,
-                hasGoalFilter
-        );
-    }
-
-    @Override
-    public List<TrainingExercisePreviewResponseDto> searchTrainingExerciseDynamic(TrainingDynamicSearchingRequestDto request) {
-        boolean hasLevelFilter = !request.getLevels().isEmpty();
-        boolean hasLocationFilter = !request.getLocations().isEmpty();
-        boolean hasEquipmentFilter = !request.getEquipments().isEmpty();
-        boolean hasGoalFilter = request.getGoal() != null && !request.getGoal().isEmpty();
-
-        List<Long> l = new ArrayList<>();
-        l.add(switch (request.getGoal()) {
-            case "Lose weight, Lose fat" -> 1L;
-            case "Gain weight" -> 2L;
-            case "Gain muscle" -> 3L;
-            case "Maintain body" -> 4L;
-            case "Increase endurance" -> 5L;
-            case "Improve cardiovascular" -> 6L;
-            case "Stress relief/relaxation" -> 7L;
-            case "Increase height" -> 8L;
-            default -> 0L;
-        });
-
-        List<Long> exerciseResponseSearch = trainingExerciseRepository.searchDynamicTrainingExercise(
-                request.getSearchSentence(),
-                request.getLevels(),
-                request.getLocations(),
-                request.getEquipments(),
-                l,
-                hasLevelFilter,
-                hasLocationFilter,
-                hasEquipmentFilter,
-                hasGoalFilter
-        );
-
-        List<TrainingExercisePreviewResponseDto> exercisePreviewResponse = new ArrayList<>();
-        for (Long responseSearch : exerciseResponseSearch) {
-            exercisePreviewResponse.add(trainingExerciseMapper.trainingExerciseToTrainingExercisePreviewResponseDto(
-                    trainingExerciseRepository.findById(responseSearch)
-                            .orElseThrow(() -> new VsException(
-                                    HttpStatus.BAD_REQUEST,
-                                    ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS))
-            ));
+        @Override
+        public PaginationResponseDto<TargetMuscleResponseDto> getTargetMuscles(PaginationRequestDto request) {
+                Pageable pageable = PageRequest.of(request.getPageNum(), request.getPageSize());
+                Page<TargetMuscle> page = targetMuscleRepository.findAll(pageable);
+                return getPaginatedEntities(page, targetMuscleMapper::targetMuscleToTargetMuscleResponseDto, request);
         }
 
-        return exercisePreviewResponse;
-    }
+        @Override
+        public PaginationResponseDto<TypeResponseDto> getTypes(PaginationRequestDto request) {
+                Pageable pageable = PageRequest.of(request.getPageNum(), request.getPageSize());
+                Page<Type> page = typeRepository.findAll(pageable);
+                return getPaginatedEntities(page, typeMapper::typeToTypeResponseDto, request);
+        }
 
-    @Override
-    public PaginationResponseDto<TrainingExerciseResponseDto> searchTrainingExercise(
-            TrainingExerciseSearchingRequestDto request,
-            PaginationRequestDto paginationRequestDto) {
+        @Override
+        public TypeResponseDto getTypeById(Long id) {
+                return getEntityByIdOrThrow(typeRepository, typeMapper::typeToTypeResponseDto, id,
+                                ErrorMessage.Training.ERR_TYPE_NOT_EXISTS);
+        }
 
-        List<TrainingExerciseResponseDto> result;
+        @Override
+        public TargetMuscleResponseDto getTargetMuscleById(Long id) {
+                return getEntityByIdOrThrow(targetMuscleRepository,
+                                targetMuscleMapper::targetMuscleToTargetMuscleResponseDto, id,
+                                ErrorMessage.Training.ERR_TARGET_MUSCLE_NOT_EXISTS);
+        }
 
-        Pageable pageable = PageRequest.of(
-                paginationRequestDto.getPageNum(),
-                paginationRequestDto.getPageSize());
+        @Override
+        public TrainingPlanResponseDto getTrainingPlanById(Long id) {
+                return getEntityByIdOrThrow(trainingPlanRepository,
+                                trainingPlanMapper::trainingPlanToTrainingPlanResponseDto, id,
+                                ErrorMessage.Training.ERR_TRAINING_PLAN_NOT_EXISTS);
+        }
 
-        Page<TrainingExercise> trainingExercisesPage = trainingExerciseRepository
-                .findByNameContainingIgnoreCase(
-                        request.getSearchSentence(),
-                        pageable);
+        @Override
+        public LocationResponseDto getLocationById(Long id) {
+                return getEntityByIdOrThrow(locationRepository, locationMapper::locationToLocationResponseDto, id,
+                                ErrorMessage.Training.ERR_LOCATION_NOT_EXISTS);
+        }
 
-        result = trainingExercisesPage.getContent()
-                .stream()
-                .map(trainingExerciseMapper::trainingExerciseToTrainingExerciseResponseDto)
-                .filter(Objects::nonNull)
-                .toList();
+        @Override
+        public LevelResponseDto getLevelById(Long id) {
+                return getEntityByIdOrThrow(levelRepository, levelMapper::levelToLevelResponseDto, id,
+                                ErrorMessage.Training.ERR_LEVEL_NOT_EXISTS);
+        }
 
-        PagingMeta pagingMeta = new PagingMeta(
-                trainingExercisesPage.getTotalElements(),
-                trainingExercisesPage.getTotalPages(),
-                paginationRequestDto.getPageNum() + 1,
-                paginationRequestDto.getPageSize(),
-                null,
-                null);
+        @Override
+        public GoalResponseDto getGoalById(Long id) {
+                return getEntityByIdOrThrow(goalRepository, goalMapper::goalToGoalResponseDto, id,
+                                ErrorMessage.Training.ERR_GOAL_NOT_EXISTS);
+        }
 
-        return new PaginationResponseDto<>(pagingMeta, result);
+        @Override
+        public EquipmentResponseDto getEquipmentById(Long id) {
+                return getEntityByIdOrThrow(equipmentRepository, equipmentMapper::equipmentToEquipmentResponseDto, id,
+                                ErrorMessage.Training.ERR_EQUIPMENT_NOT_EXISTS);
+        }
 
-    }
+        @Override
+        public List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByPrimaryMuscle(
+                        String primaryMuscle,
+                        PaginationRequestDto paginationRequestDto) {
+                List<TrainingExercise> beginnerExercises = trainingExerciseRepository
+                                .findByLevels_IdAndPrimaryMuscles_Id(
+                                                BEGINNER_LEVEL_ID,
+                                                StringToTrainingIDHelper.TargetMuscle.toId(primaryMuscle));
 
-    @Override
-    public TrainingExerciseResponseDto getTrainingExerciseById(Long id) {
-        TrainingExercise trainingExercise = trainingExerciseRepository.findById(id)
-                .orElseThrow(() -> new VsException(
-                        HttpStatus.BAD_REQUEST,
-                        ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS));
+                List<TrainingExercise> intermediateExercises = trainingExerciseRepository
+                                .findByLevels_IdAndPrimaryMuscles_Id(
+                                                INTERMEDIATE_LEVEL_ID,
+                                                StringToTrainingIDHelper.TargetMuscle.toId(primaryMuscle));
 
-        return trainingExerciseMapper.trainingExerciseToTrainingExerciseResponseDto(trainingExercise);
-    }
+                List<TrainingExercise> advancedExercises = trainingExerciseRepository
+                                .findByLevels_IdAndPrimaryMuscles_Id(
+                                                ADVANCED_LEVEL_ID,
+                                                StringToTrainingIDHelper.TargetMuscle.toId(primaryMuscle));
 
-    @Override
-    public PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlans(
-            PaginationRequestDto paginationRequestDto) {
-        Pageable pageable = PageRequest.of(
-                paginationRequestDto.getPageNum(),
-                paginationRequestDto.getPageSize());
+                List<TrainingExercisePreviewResponseDto> allExercises = new ArrayList<>();
 
-        Page<TrainingPlan> trainingPage = trainingPlanRepository.findAll(pageable);
+                allExercises.addAll(trainingExerciseMapper
+                                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(beginnerExercises)
+                                .stream()
+                                .peek(dto -> dto.setLevelName(BEGINNER_LEVEL_NAME))
+                                .toList());
 
-        List<TrainingPlanResponseDto> trainingPlanResponseDtos = trainingPage.getContent()
-                .stream()
-                .map(trainingPlanMapper::trainingPlanToTrainingPlanResponseDto)
-                .toList();
+                allExercises.addAll(trainingExerciseMapper
+                                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(intermediateExercises)
+                                .stream()
+                                .peek(dto -> dto.setLevelName(INTERMEDIATE_LEVEL_NAME))
+                                .toList());
 
-        PagingMeta pagingMeta = new PagingMeta(
-                trainingPage.getTotalElements(),
-                trainingPage.getTotalPages(),
-                paginationRequestDto.getPageNum() + 1,
-                paginationRequestDto.getPageSize(),
-                null,
-                null);
+                allExercises.addAll(trainingExerciseMapper
+                                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(advancedExercises)
+                                .stream()
+                                .peek(dto -> dto.setLevelName(ADVANCED_LEVEL_NAME))
+                                .toList());
 
-        return new PaginationResponseDto<>(pagingMeta, trainingPlanResponseDtos);
-    }
+                int pageNum = paginationRequestDto.getPageNum() + 1;
+                int pageSize = paginationRequestDto.getPageSize();
 
-    @Override
-    public PaginationResponseDto<EquipmentResponseDto> getEquipments(PaginationRequestDto request) {
-        Pageable pageable = PageRequest.of(
-                request.getPageNum(),
-                request.getPageSize());
+                int start = (pageNum - 1) * pageSize;
+                int end = Math.min(start + pageSize, allExercises.size());
 
-        Page<Equipment> equipmentPage = equipmentRepository.findAll(pageable);
+                if (start >= allExercises.size()) {
+                        return List.of();
+                }
 
-        List<EquipmentResponseDto> equipmentResponseDtos = equipmentPage.getContent()
-                .stream()
-                .map(equipmentMapper::equipmentToEquipmentResponseDto)
-                .toList();
+                List<TrainingExercisePreviewResponseDto> pagedExercises = allExercises.subList(start, end);
 
-        PagingMeta pagingMeta = new PagingMeta(
-                equipmentPage.getTotalElements(),
-                equipmentPage.getTotalPages(),
-                request.getPageNum() + 1,
-                request.getPageSize(),
-                null,
-                null);
+                Map<String, List<TrainingExercisePreviewResponseDto>> groupedByLevel = pagedExercises
+                                .stream()
+                                .collect(Collectors.groupingBy(TrainingExercisePreviewResponseDto::getLevelName));
 
-        return new PaginationResponseDto<>(pagingMeta, equipmentResponseDtos);
-    }
+                List<TrainingExerciseLevelPreviewResponseDto> response = new ArrayList<>();
 
-    @Override
-    public PaginationResponseDto<GoalResponseDto> getGoals(PaginationRequestDto request) {
-        Pageable pageable = PageRequest.of(
-                request.getPageNum(),
-                request.getPageSize());
+                for (String level : List.of(BEGINNER_LEVEL_NAME, INTERMEDIATE_LEVEL_NAME, ADVANCED_LEVEL_NAME)) {
+                        if (groupedByLevel.containsKey(level)) {
+                                response.add(new TrainingExerciseLevelPreviewResponseDto(level,
+                                                groupedByLevel.get(level)));
+                        }
+                }
 
-        Page<Goal> goalPage = goalRepository.findAll(pageable);
+                return response;
+        }
 
-        List<GoalResponseDto> goalResponseDtos = goalPage.getContent()
-                .stream()
-                .map(goalMapper::goalToGoalResponseDto)
-                .toList();
+        @Override
+        public List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByType(
+                        String type,
+                        PaginationRequestDto paginationRequestDto) {
+                List<TrainingExercise> beginnerExercises = trainingExerciseRepository
+                                .findByLevels_IdAndTypes_Id(
+                                                BEGINNER_LEVEL_ID,
+                                                StringToTrainingIDHelper.Type.toId(type));
 
-        PagingMeta pagingMeta = new PagingMeta(
-                goalPage.getTotalElements(),
-                goalPage.getTotalPages(),
-                request.getPageNum() + 1,
-                request.getPageSize(),
-                null,
-                null);
+                List<TrainingExercise> intermediateExercises = trainingExerciseRepository
+                                .findByLevels_IdAndTypes_Id(
+                                                INTERMEDIATE_LEVEL_ID,
+                                                StringToTrainingIDHelper.Type.toId(type));
 
-        return new PaginationResponseDto<>(pagingMeta, goalResponseDtos);
-    }
+                List<TrainingExercise> advancedExercises = trainingExerciseRepository
+                                .findByLevels_IdAndTypes_Id(
+                                                ADVANCED_LEVEL_ID,
+                                                StringToTrainingIDHelper.Type.toId(type));
 
-    @Override
-    public PaginationResponseDto<LevelResponseDto> getLevels(PaginationRequestDto request) {
-        Pageable pageable = PageRequest.of(
-                request.getPageNum(),
-                request.getPageSize());
+                List<TrainingExercisePreviewResponseDto> allExercises = new ArrayList<>();
 
-        Page<Level> levelPage = levelRepository.findAll(pageable);
+                allExercises.addAll(trainingExerciseMapper
+                                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(beginnerExercises)
+                                .stream()
+                                .peek(dto -> dto.setLevelName(BEGINNER_LEVEL_NAME))
+                                .toList());
 
-        List<LevelResponseDto> levelResponseDtos = levelPage.getContent()
-                .stream()
-                .map(levelMapper::levelToLevelResponseDto)
-                .toList();
+                allExercises.addAll(trainingExerciseMapper
+                                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(intermediateExercises)
+                                .stream()
+                                .peek(dto -> dto.setLevelName(INTERMEDIATE_LEVEL_NAME))
+                                .toList());
 
-        PagingMeta pagingMeta = new PagingMeta(
-                levelPage.getTotalElements(),
-                levelPage.getTotalPages(),
-                request.getPageNum() + 1,
-                request.getPageSize(),
-                null, null);
+                allExercises.addAll(trainingExerciseMapper
+                                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(advancedExercises)
+                                .stream()
+                                .peek(dto -> dto.setLevelName(ADVANCED_LEVEL_NAME))
+                                .toList());
 
-        return new PaginationResponseDto<>(pagingMeta, levelResponseDtos);
-    }
+                int pageNum = paginationRequestDto.getPageNum() + 1;
+                int pageSize = paginationRequestDto.getPageSize();
 
-    @Override
-    public PaginationResponseDto<LocationResponseDto> getLocations(PaginationRequestDto request) {
+                int start = (pageNum - 1) * pageSize;
+                int end = Math.min(start + pageSize, allExercises.size());
 
-        Pageable pageable = PageRequest.of(
-                request.getPageNum(),
-                request.getPageSize());
+                if (start >= allExercises.size()) {
+                        return List.of();
+                }
 
-        Page<Location> locationPage = locationRepository.findAll(pageable);
+                List<TrainingExercisePreviewResponseDto> pagedExercises = allExercises.subList(start, end);
 
-        List<LocationResponseDto> locationResponseDtos = locationPage.getContent()
-                .stream().map(locationMapper::locationToLocationResponseDto)
-                .toList();
+                Map<String, List<TrainingExercisePreviewResponseDto>> groupedByLevel = pagedExercises
+                                .stream()
+                                .collect(Collectors.groupingBy(TrainingExercisePreviewResponseDto::getLevelName));
 
-        PagingMeta pagingMeta = new PagingMeta(
-                locationPage.getTotalElements(),
-                locationPage.getTotalPages(),
-                request.getPageNum() + 1,
-                request.getPageSize(),
-                null, null);
+                List<TrainingExerciseLevelPreviewResponseDto> response = new ArrayList<>();
 
-        return new PaginationResponseDto<>(pagingMeta, locationResponseDtos);
+                for (String level : List.of(BEGINNER_LEVEL_NAME, INTERMEDIATE_LEVEL_NAME, ADVANCED_LEVEL_NAME)) {
+                        if (groupedByLevel.containsKey(level)) {
+                                response.add(new TrainingExerciseLevelPreviewResponseDto(level,
+                                                groupedByLevel.get(level)));
+                        }
+                }
 
-    }
+                return response;
+        }
 
-    @Override
-    public PaginationResponseDto<TargetMuscleResponseDto> getTargetMuscles(PaginationRequestDto request) {
-        Pageable pageable = PageRequest.of(
-                request.getPageNum(),
-                request.getPageSize());
+        @Override
+        public List<TrainingExerciseLevelPreviewResponseDto> getPreviewExerciseByGoal(
+                        String goal,
+                        PaginationRequestDto paginationRequestDto) {
+                List<TrainingExercise> beginnerExercises = trainingExerciseRepository
+                                .findByLevels_IdAndGoals_Id(
+                                                BEGINNER_LEVEL_ID,
+                                                StringToTrainingIDHelper.Goal.toId(goal));
 
-        Page<TargetMuscle> targetMusclePage = targetMuscleRepository.findAll(pageable);
+                List<TrainingExercise> intermediateExercises = trainingExerciseRepository
+                                .findByLevels_IdAndGoals_Id(
+                                                INTERMEDIATE_LEVEL_ID,
+                                                StringToTrainingIDHelper.Goal.toId(goal));
 
-        List<TargetMuscleResponseDto> targetMuscleResponseDtos = targetMusclePage.getContent()
-                .stream()
-                .map(targetMuscleMapper::targetMuscleToTargetMuscleResponseDto)
-                .toList();
+                List<TrainingExercise> advancedExercises = trainingExerciseRepository
+                                .findByLevels_IdAndGoals_Id(
+                                                ADVANCED_LEVEL_ID,
+                                                StringToTrainingIDHelper.Goal.toId(goal));
 
-        PagingMeta pagingMeta = new PagingMeta(
-                targetMusclePage.getTotalElements(),
-                targetMusclePage.getTotalPages(),
-                request.getPageNum() + 1,
-                request.getPageSize(),
-                null,
-                null);
+                List<TrainingExercisePreviewResponseDto> allExercises = new ArrayList<>();
 
-        return new PaginationResponseDto<>(pagingMeta, targetMuscleResponseDtos);
-    }
+                allExercises.addAll(trainingExerciseMapper
+                                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(beginnerExercises)
+                                .stream()
+                                .peek(dto -> dto.setLevelName(BEGINNER_LEVEL_NAME))
+                                .toList());
 
-    @Override
-    public PaginationResponseDto<TypeResponseDto> getTypes(PaginationRequestDto request) {
-        Pageable pageable = PageRequest.of(
-                request.getPageNum(),
-                request.getPageSize());
+                allExercises.addAll(trainingExerciseMapper
+                                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(intermediateExercises)
+                                .stream()
+                                .peek(dto -> dto.setLevelName(INTERMEDIATE_LEVEL_NAME))
+                                .toList());
 
-        Page<Type> typePage = typeRepository.findAll(pageable);
+                allExercises.addAll(trainingExerciseMapper
+                                .listTrainingExerciseToListTrainingExercisePreviewResponseDto(advancedExercises)
+                                .stream()
+                                .peek(dto -> dto.setLevelName(ADVANCED_LEVEL_NAME))
+                                .toList());
 
-        List<TypeResponseDto> typeResponseDtos = typePage.getContent()
-                .stream()
-                .map(typeMapper::typeToTypeResponseDto)
-                .toList();
+                int pageNum = paginationRequestDto.getPageNum() + 1;
+                int pageSize = paginationRequestDto.getPageSize();
 
-        PagingMeta pagingMeta = new PagingMeta(
-                typePage.getTotalElements(),
-                typePage.getTotalPages(),
-                request.getPageNum() + 1,
-                request.getPageSize(),
-                null,
-                null);
+                int start = (pageNum - 1) * pageSize;
+                int end = Math.min(start + pageSize, allExercises.size());
 
-        return new PaginationResponseDto<>(pagingMeta, typeResponseDtos);
-    }
+                if (start >= allExercises.size()) {
+                        return List.of();
+                }
 
-    @Override
-    public TypeResponseDto getTypeById(Long id) {
-        Type type = typeRepository.findById(id)
-                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_TYPE_NOT_EXISTS));
-        return typeMapper.typeToTypeResponseDto(type);
-    }
+                List<TrainingExercisePreviewResponseDto> pagedExercises = allExercises.subList(start, end);
 
-    @Override
-    public TargetMuscleResponseDto getTargetMuscleById(Long id) {
-        TargetMuscle targetMuscle = targetMuscleRepository.findById(id)
-                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_TARGET_MUSCLE_NOT_EXISTS));
-        return targetMuscleMapper.targetMuscleToTargetMuscleResponseDto(targetMuscle);
-    }
+                Map<String, List<TrainingExercisePreviewResponseDto>> groupedByLevel = pagedExercises
+                                .stream()
+                                .collect(Collectors.groupingBy(TrainingExercisePreviewResponseDto::getLevelName));
 
-    @Override
-    public TrainingPlanResponseDto getTrainingPlanById(Long id) {
-        TrainingPlan trainingPlan = trainingPlanRepository.findById(id)
-                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_TRAINING_PLAN_NOT_EXISTS));
-        return trainingPlanMapper.trainingPlanToTrainingPlanResponseDto(trainingPlan);
-    }
+                List<TrainingExerciseLevelPreviewResponseDto> response = new ArrayList<>();
 
-    @Override
-    public LocationResponseDto getLocationById(Long id) {
-        Location location = locationRepository.findById(id)
-                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_LOCATION_NOT_EXISTS));
-        return locationMapper.locationToLocationResponseDto(location);
-    }
+                for (String level : List.of(BEGINNER_LEVEL_NAME, INTERMEDIATE_LEVEL_NAME, ADVANCED_LEVEL_NAME)) {
+                        if (groupedByLevel.containsKey(level)) {
+                                response.add(new TrainingExerciseLevelPreviewResponseDto(level,
+                                                groupedByLevel.get(level)));
+                        }
+                }
 
-    @Override
-    public LevelResponseDto getLevelById(Long id) {
-        Level level = levelRepository.findById(id)
-                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_LEVEL_NOT_EXISTS));
-        return levelMapper.levelToLevelResponseDto(level);
-    }
+                return response;
+        }
 
-    @Override
-    public GoalResponseDto getGoalById(Long id) {
-        Goal goal = goalRepository.findById(id)
-                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_GOAL_NOT_EXISTS));
-        return goalMapper.goalToGoalResponseDto(goal);
-    }
+        @Override
+        public TrainingExerciseResponseDto getTrainingExerciseById(Long id) {
+                TrainingExercise trainingExercise = trainingExerciseRepository.findById(id)
+                                .orElseThrow(() -> new VsException(
+                                                HttpStatus.BAD_REQUEST,
+                                                ErrorMessage.Training.ERR_EXERCISE_NOT_EXISTS));
 
-    @Override
-    public EquipmentResponseDto getEquipmentById(Long id) {
-        Equipment equipment = equipmentRepository.findById(id)
-                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Training.ERR_EQUIPMENT_NOT_EXISTS));
-        return equipmentMapper.equipmentToEquipmentResponseDto(equipment);
-    }
+                return trainingExerciseMapper.trainingExerciseToTrainingExerciseResponseDto(trainingExercise);
+        }
 
-    @Override
-    public TrainingScheduleResponseDto getTrainingSchedule(Long planId) {
-        return trainingScheduleMapper
-                .trainingScheduleToTrainingScheduleResponseDto(
-                        trainingScheduleRepository.findByTrainingPlan_Id(planId));
-    }
+        @Override
+        public List<Long> searchTrainingPlanDynamic(TrainingDynamicSearchingRequestDto request) {
+                boolean hasLevelFilter = !request.getLevels().isEmpty();
+                boolean hasLocationFilter = !request.getLocations().isEmpty();
+                boolean hasEquipmentFilter = !request.getEquipments().isEmpty();
+                boolean hasGoalFilter = request.getGoal() != null && !request.getGoal().isEmpty();
 
-    @Override
-    public PaginationResponseDto<TrainingPlanResponseDto> getTrainingPlanByType(String type,
-                                                                                PaginationRequestDto paginationRequestDto) {
-        Pageable pageable = PageRequest.of(
-                paginationRequestDto.getPageNum(),
-                paginationRequestDto.getPageSize());
+                return trainingExerciseRepository.searchDynamicTrainingPlan(
+                                request.getSearchSentence(),
+                                request.getLevels(),
+                                request.getLocations(),
+                                request.getEquipments(),
+                                request.getGoal(),
+                                hasLevelFilter,
+                                hasLocationFilter,
+                                hasEquipmentFilter,
+                                hasGoalFilter);
+        }
 
-        Page<TrainingPlan> trainingPage = trainingPlanRepository.findByType(type, pageable);
+        @Override
+        public List<TrainingExercisePreviewResponseDto> searchTrainingExerciseDynamic(
+                        TrainingDynamicSearchingRequestDto request) {
+                boolean hasLevelFilter = !request.getLevels().isEmpty();
+                boolean hasLocationFilter = !request.getLocations().isEmpty();
+                boolean hasEquipmentFilter = !request.getEquipments().isEmpty();
+                boolean hasGoalFilter = request.getGoal() != null && !request.getGoal().isEmpty();
 
-        List<TrainingPlanResponseDto> trainingPlanResponseDtos = trainingPage.getContent()
-                .stream()
-                .map(trainingPlanMapper::trainingPlanToTrainingPlanResponseDto)
-                .toList();
+                // Because goal is not a list in request, but in query it is a list
+                List<Long> listGoal = new ArrayList<>();
 
-        PagingMeta pagingMeta = new PagingMeta(
-                trainingPage.getTotalElements(),
-                trainingPage.getTotalPages(),
-                paginationRequestDto.getPageNum() + 1,
-                paginationRequestDto.getPageSize(),
-                null,
-                null);
+                Goal goal = goalRepository.findByGoalName(request.getGoal())
+                                .orElse(null);
 
-        return new PaginationResponseDto<>(pagingMeta, trainingPlanResponseDtos);
-    }
+                if (goal != null) {
+                        listGoal.add(goal.getId());
+                }
+
+                List<Long> exerciseResponseSearch = trainingExerciseRepository.searchDynamicTrainingExercise(
+                                request.getSearchSentence(),
+                                request.getLevels(),
+                                request.getLocations(),
+                                request.getEquipments(),
+                                listGoal,
+                                hasLevelFilter,
+                                hasLocationFilter,
+                                hasEquipmentFilter,
+                                hasGoalFilter);
+
+                List<TrainingExercise> exercises = trainingExerciseRepository.findAllById(exerciseResponseSearch);
+
+                return exercises.stream()
+                                .map(trainingExerciseMapper::trainingExerciseToTrainingExercisePreviewResponseDto)
+                                .collect(Collectors.toList());
+        }
+
+        @Override
+        public TrainingScheduleResponseDto getTrainingSchedule(Long planId) {
+                return trainingScheduleMapper
+                                .trainingScheduleToTrainingScheduleResponseDto(
+                                                trainingScheduleRepository.findByTrainingPlan_Id(planId));
+        }
+
+        @Override
+        public PaginationResponseDto<TrainingExerciseResponseDto> getAllExercise(
+                        PaginationRequestDto paginationRequestDto) {
+
+                Pageable pageable = PageRequest.of(paginationRequestDto.getPageNum(),
+                                paginationRequestDto.getPageSize());
+
+                Page<TrainingExercise> exercisesPage = trainingExerciseRepository.findAll(pageable);
+
+                List<TrainingExerciseResponseDto> exercises = exercisesPage.getContent()
+                                .stream()
+                                .map(trainingExerciseMapper::trainingExerciseToTrainingExerciseResponseDto)
+                                .collect(Collectors.toList());
+
+                PagingMeta pagingMeta = new PagingMeta(
+                                exercisesPage.getTotalElements(),
+                                exercisesPage.getTotalPages(),
+                                paginationRequestDto.getPageNum() + 1,
+                                paginationRequestDto.getPageSize(),
+                                null,
+                                null);
+
+                return new PaginationResponseDto<>(pagingMeta, exercises);
+        }
+
+        @Override
+        public PaginationResponseDto<TrainingExerciseResponseDto> searchTrainingExercise(
+                        String searchRequest,
+                        PaginationRequestDto paginationRequestDto) {
+
+                List<TrainingExerciseResponseDto> result;
+
+                Pageable pageable = PageRequest.of(
+                                paginationRequestDto.getPageNum(),
+                                paginationRequestDto.getPageSize());
+
+                Page<TrainingExercise> trainingExercisesPage = trainingExerciseRepository
+                                .findByNameContainingIgnoreCase(
+                                                searchRequest,
+                                                pageable);
+
+                result = trainingExercisesPage.getContent()
+                                .stream()
+                                .map(trainingExerciseMapper::trainingExerciseToTrainingExerciseResponseDto)
+                                .filter(Objects::nonNull)
+                                .toList();
+
+                PagingMeta pagingMeta = new PagingMeta(
+                                trainingExercisesPage.getTotalElements(),
+                                trainingExercisesPage.getTotalPages(),
+                                paginationRequestDto.getPageNum() + 1,
+                                paginationRequestDto.getPageSize(),
+                                null,
+                                null);
+
+                return new PaginationResponseDto<>(pagingMeta, result);
+        }
+
+        private <T, D> PaginationResponseDto<D> getPaginatedEntities(
+                        Page<T> entityPage,
+                        java.util.function.Function<T, D> mapper,
+                        PaginationRequestDto request) {
+
+                List<D> dtos = entityPage.getContent()
+                                .stream()
+                                .map(mapper)
+                                .toList();
+
+                PagingMeta pagingMeta = new PagingMeta(
+                                entityPage.getTotalElements(),
+                                entityPage.getTotalPages(),
+                                request.getPageNum() + 1,
+                                request.getPageSize(),
+                                null,
+                                null);
+
+                return new PaginationResponseDto<>(pagingMeta, dtos);
+        }
+
+        private <T, D> D getEntityByIdOrThrow(
+                        org.springframework.data.jpa.repository.JpaRepository<T, Long> repository,
+                        java.util.function.Function<T, D> mapper,
+                        Long id,
+                        String errorMessage) {
+
+                T entity = repository.findById(id)
+                                .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, errorMessage));
+
+                return mapper.apply(entity);
+        }
 
 }

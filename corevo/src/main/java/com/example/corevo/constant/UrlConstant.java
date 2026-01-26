@@ -81,6 +81,7 @@ public class UrlConstant {
         public static final String FLOW_STEP = PRE_FIX + "/step";
         public static final String RESET = PRE_FIX + "/reset";
         public static final String GET_BY_TYPE = PRE_FIX;
+
         private TrainingPlan() {
 
         }
@@ -124,8 +125,7 @@ public class UrlConstant {
         public static final String COMPLETE_EXERCISE = PRE_FIX_PROGRESS + "/complete";
         public static final String GET_DAILY_PROGRESS = PRE_FIX_PROGRESS + "/daily";
         public static final String GET_WEEKLY_PROGRESS = PRE_FIX_PROGRESS + "/weekly";
-        public static final String GET_COMPLETED_STATISTIC = PRE_FIX_PROGRESS +"/statistic";
-
+        public static final String GET_COMPLETED_STATISTIC = PRE_FIX_PROGRESS + "/statistic";
 
         private Training() {
 
@@ -134,10 +134,10 @@ public class UrlConstant {
 
     public static class Policy {
         private static final String PRE_FIX = "/policy";
-        
+
         public static final String GET_PRIVACY_POLICY = PRE_FIX + "/privacy";
         public static final String GET_TERMS_OF_SERVICE = PRE_FIX + "/terms";
-        
+
         private Policy() {
         }
     }

@@ -25,7 +25,8 @@ public class TrainingDayMapperHelper {
 
     public TrainingSchedule mapTrainingSchedule(Long id) {
         return trainingScheduleRepository.findById(id)
-                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.Training.ERR_TRAINING_SCHEDULE_NOT_EXISTS));
+                .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND,
+                        ErrorMessage.Training.ERR_TRAINING_SCHEDULE_NOT_EXISTS));
     }
 
     public List<TrainingExerciseGroup> mapTrainingExerciseGroup(List<Long> ids) {

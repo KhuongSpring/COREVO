@@ -7,7 +7,7 @@ public interface HealthCalculationService {
     double calculateBMR(UserHealthRequestDto request);
 
     int calculateMaximumHeartRate(UserHealthRequestDto request);
-    
+
     double calculateTDEE(UserHealthRequestDto request);
 
 }

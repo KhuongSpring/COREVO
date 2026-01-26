@@ -9,7 +9,6 @@ import com.example.corevo.domain.dto.response.training_plan.TrainingPlanResponse
 import com.example.corevo.domain.dto.response.training_schedule.TrainingExerciseGroupDetailsResponseDto;
 import com.example.corevo.domain.dto.response.training_schedule.TrainingExerciseGroupResponseDto;
 import com.example.corevo.domain.dto.response.training_schedule.TrainingScheduleResponseDto;
-import com.example.corevo.domain.entity.training.TrainingExercise;
 import com.example.corevo.domain.entity.training.*;
 import com.example.corevo.domain.entity.training.training_schedule_details.TrainingDay;
 import com.example.corevo.domain.entity.training.training_schedule_details.TrainingExerciseGroup;
@@ -59,7 +58,6 @@ public class AppDataSeeder implements ApplicationRunner {
     TrainingDayMapper trainingDayMapper;
 
     TrainingExerciseGroupMapper trainingExerciseGroupMapper;
-
 
     LevelRepository levelRepository;
 
@@ -279,13 +277,15 @@ public class AppDataSeeder implements ApplicationRunner {
             });
 
             if (trainingPlansFromDB.isEmpty()) {
-                List<TrainingPlan> trainingPlans = trainingPlanMapper.listTrainingPlanResponseDtoToListTrainingPlanWithoutId(trainingPlansFromJson);
+                List<TrainingPlan> trainingPlans = trainingPlanMapper
+                        .listTrainingPlanResponseDtoToListTrainingPlanWithoutId(trainingPlansFromJson);
                 trainingPlanRepository.saveAll(trainingPlans);
             } else {
                 if (trainingPlansFromJson.size() > trainingPlansFromDB.size()) {
                     for (TrainingPlanResponseDto x : trainingPlansFromJson) {
                         if (!trainingPlanRepository.existsByNameAndType(x.getName(), x.getType())) {
-                            trainingPlanRepository.save(trainingPlanMapper.trainingPlanResponseDtoToTrainingPlanWithoutId(x));
+                            trainingPlanRepository
+                                    .save(trainingPlanMapper.trainingPlanResponseDtoToTrainingPlanWithoutId(x));
                         }
                     }
                 }
@@ -299,7 +299,17 @@ public class AppDataSeeder implements ApplicationRunner {
     }
 
     void seedTrainingExercise() {
-        List<String> jsonFiles = List.of("/data/training_exercise_data/abs_training_exercise.json", "/data/training_exercise_data/back_training_exercise.json", "/data/training_exercise_data/biceps_training_exercise.json", "/data/training_exercise_data/chest_training_exercise.json", "/data/training_exercise_data/glute_training_exercise.json", "/data/training_exercise_data/hamstring_training_exercise.json", "/data/training_exercise_data/quads_training_exercise.json", "/data/training_exercise_data/shoulders_training_exercise.json", "/data/training_exercise_data/triceps_training_exercise.json", "/data/training_exercise_data/cardio_training_exercise.json", "/data/training_exercise_data/yoga_training_exercise.json");
+        List<String> jsonFiles = List.of("/data/training_exercise_data/abs_training_exercise.json",
+                "/data/training_exercise_data/back_training_exercise.json",
+                "/data/training_exercise_data/biceps_training_exercise.json",
+                "/data/training_exercise_data/chest_training_exercise.json",
+                "/data/training_exercise_data/glute_training_exercise.json",
+                "/data/training_exercise_data/hamstring_training_exercise.json",
+                "/data/training_exercise_data/quads_training_exercise.json",
+                "/data/training_exercise_data/shoulders_training_exercise.json",
+                "/data/training_exercise_data/triceps_training_exercise.json",
+                "/data/training_exercise_data/cardio_training_exercise.json",
+                "/data/training_exercise_data/yoga_training_exercise.json");
 
         log.info("Start seeding training exercise from JSON...");
 
@@ -311,7 +321,8 @@ public class AppDataSeeder implements ApplicationRunner {
                 for (TrainingExerciseResponseDto x : trainingExercisesFromJSON) {
                     x.setImageURL(uploadImageIfNotExists(x.getImageURL(), cloudinary));
                 }
-                trainingExerciseRepository.saveAll(trainingExerciseMapper.listTrainingExerciseResponseDtoToListTrainingExercise(trainingExercisesFromJSON));
+                trainingExerciseRepository.saveAll(trainingExerciseMapper
+                        .listTrainingExerciseResponseDtoToListTrainingExercise(trainingExercisesFromJSON));
                 log.info("Seeding training exercise from {} completed!", file);
             }
         } else {
@@ -322,9 +333,11 @@ public class AppDataSeeder implements ApplicationRunner {
 
             if (trainingExercisesFromJSON.size() > trainingExercisesFromDB.size()) {
                 for (TrainingExerciseResponseDto x : trainingExercisesFromJSON) {
-                    if (!trainingExerciseRepository.existsByNameAndTypes_IdInAndPrimaryMuscles_IdIn(x.getName(), x.getTypeIds(), x.getPrimaryMuscleIds())) {
+                    if (!trainingExerciseRepository.existsByNameAndTypes_IdInAndPrimaryMuscles_IdIn(x.getName(),
+                            x.getTypeIds(), x.getPrimaryMuscleIds())) {
                         x.setImageURL(uploadImageIfNotExists(x.getImageURL(), cloudinary));
-                        trainingExerciseRepository.save(trainingExerciseMapper.trainingExerciseResponseDtoToTrainingExercise(x));
+                        trainingExerciseRepository
+                                .save(trainingExerciseMapper.trainingExerciseResponseDtoToTrainingExercise(x));
                     }
                 }
             }
@@ -369,7 +382,7 @@ public class AppDataSeeder implements ApplicationRunner {
 
             return uploadImageFromResources(cloudinary, filePath, publicId);
         } catch (Exception e) {
-            System.out.println(filename);
+            log.error("Failed to upload image: {}", filename, e);
             throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
         }
     }
@@ -380,12 +393,13 @@ public class AppDataSeeder implements ApplicationRunner {
             try (InputStream inputStream = resource.getInputStream()) {
                 byte[] imageBytes = inputStream.readAllBytes();
 
-                Map result = cloudinary.uploader().upload(imageBytes, ObjectUtils.asMap("resource_type", "image", "public_id", publicId));
+                Map result = cloudinary.uploader().upload(imageBytes,
+                        ObjectUtils.asMap("resource_type", "image", "public_id", publicId));
 
                 return (String) result.get("secure_url");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Failed to upload image from resources: {}", pathInResources, e);
             throw new VsException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessage.ERR_UPLOAD_IMAGE_FAIL);
         }
     }
@@ -396,15 +410,18 @@ public class AppDataSeeder implements ApplicationRunner {
 
             List<TrainingSchedule> trainingSchedulesFromDB = trainingScheduleRepository.findAll();
 
-            List<TrainingScheduleResponseDto> trainingSchedulesFromJson = objectMapper.readValue(is, new TypeReference<>() {
-            });
+            List<TrainingScheduleResponseDto> trainingSchedulesFromJson = objectMapper.readValue(is,
+                    new TypeReference<>() {
+                    });
 
             if (trainingSchedulesFromDB.isEmpty()) {
                 List<TrainingSchedule> schedules = trainingSchedulesFromJson.stream().map(dto -> {
 
-                    TrainingSchedule schedule = trainingScheduleMapper.trainingScheduleResponseDtoToTrainingSchedule(dto);
+                    TrainingSchedule schedule = trainingScheduleMapper
+                            .trainingScheduleResponseDtoToTrainingSchedule(dto);
 
-                    List<TrainingDay> mappedDays = trainingDayMapper.listTrainingDayResponseDtoToListTrainingDay(dto.getDays());
+                    List<TrainingDay> mappedDays = trainingDayMapper
+                            .listTrainingDayResponseDtoToListTrainingDay(dto.getDays());
 
                     for (int i = 0; i < mappedDays.size(); i++) {
                         TrainingDay day = mappedDays.get(i);
@@ -413,22 +430,28 @@ public class AppDataSeeder implements ApplicationRunner {
                         TrainingExerciseGroupResponseDto groupResponseDto = dto.getDays().get(i).getExerciseGroups();
 
                         if (groupResponseDto != null) {
-                            TrainingExerciseGroup group = trainingExerciseGroupMapper.trainingExerciseGroupResponseDtoToTrainingExerciseGroup(groupResponseDto);
+                            TrainingExerciseGroup group = trainingExerciseGroupMapper
+                                    .trainingExerciseGroupResponseDtoToTrainingExerciseGroup(groupResponseDto);
 
                             List<TrainingExerciseGroupDetail> exerciseDetails = new ArrayList<>();
 
                             if (groupResponseDto.getExercises() != null) {
-                                for (TrainingExerciseGroupDetailsResponseDto detailDto : groupResponseDto.getExercises()) {
+                                for (TrainingExerciseGroupDetailsResponseDto detailDto : groupResponseDto
+                                        .getExercises()) {
 
                                     TrainingExerciseGroupDetail detail = new TrainingExerciseGroupDetail();
 
-                                    TrainingExerciseGroupDetailParserHelper.Result result = TrainingExerciseGroupDetailParserHelper.parse(detailDto.getDuration());
+                                    TrainingExerciseGroupDetailParserHelper.Result result = TrainingExerciseGroupDetailParserHelper
+                                            .parse(detailDto.getDuration());
 
                                     detail.setSets(result.getSets());
                                     detail.setRepsPerSet(result.getRepsPerSet());
                                     detail.setDurationPerSet(result.getDurationPerSet());
 
-                                    TrainingExercise exercise = trainingExerciseRepository.findById(detailDto.getExerciseId()).orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, "Exercise not found: " + detailDto.getExerciseId()));
+                                    TrainingExercise exercise = trainingExerciseRepository
+                                            .findById(detailDto.getExerciseId())
+                                            .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND,
+                                                    "Exercise not found: " + detailDto.getExerciseId()));
 
                                     detail.setExercise(exercise);
                                     detail.setExerciseGroup(group);

@@ -29,6 +29,7 @@ public class LoginResponseDto {
 
     long dayRecoveryRemaining;
 
+    @Builder.Default
     String tokenType = CommonConstant.BEARER_TOKEN;
 
 }

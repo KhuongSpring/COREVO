@@ -19,6 +19,7 @@ import com.example.corevo.service.TrainingPlanFlowService;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -31,7 +32,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
 
@@ -42,12 +43,12 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
     TrainingExerciseCompletionRepository trainingExerciseCompletionRepository;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public TrainingPlanFlowResponseDto processStep(
             String currentStep,
             List<String> selectedValue,
             Map<String, List<String>> selectedValues,
-            Authentication authentication
-    ) {
+            Authentication authentication) {
         if (selectedValue != null && currentStep != null) {
             selectedValues.put(currentStep, selectedValue);
         }
@@ -96,21 +97,18 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
                     .map(this::mapToDto)
                     .toList();
 
-            if (authentication == null || !authentication.isAuthenticated()) {
-                throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.UNAUTHORIZED);
+            User user = userRepository.findByUsername(authentication.getName())
+                    .orElseThrow(() -> new VsException(
+                            HttpStatus.UNAUTHORIZED,
+                            ErrorMessage.User.ERR_USER_NOT_EXISTED));
+
+            if (matchingPlans == null || matchingPlans.isEmpty()) {
+                throw new VsException(HttpStatus.NOT_FOUND,
+                        ErrorMessage.TrainingPlanFlow.ERR_NO_MATCHING_PLANS);
             }
-
-            String username = authentication.getName();
-
-            User user = userRepository.findByUsername(username);
-
-            if (user == null) {
-                throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-            }
-
-            if (!user.getTrainingPlans().contains(matchingPlans.getFirst())) {
-                user.getTrainingPlans().add(matchingPlans.getFirst());
-
+            TrainingPlan selectedPlan = matchingPlans.getFirst();
+            if (!user.getTrainingPlans().contains(selectedPlan)) {
+                user.getTrainingPlans().add(selectedPlan);
                 userRepository.save(user);
             }
 
@@ -164,22 +162,22 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
         dto.setLevelIds(
                 plan.getLevels() != null
                         ? plan.getLevels().stream()
-                        .map(Level::getId)
-                        .collect(Collectors.toList())
+                                .map(Level::getId)
+                                .collect(Collectors.toList())
                         : List.of());
 
         dto.setLocationIds(
                 plan.getLocations() != null
                         ? plan.getLocations().stream()
-                        .map(Location::getId)
-                        .collect(Collectors.toList())
+                                .map(Location::getId)
+                                .collect(Collectors.toList())
                         : List.of());
 
         dto.setEquipmentIds(
                 plan.getEquipments() != null
                         ? plan.getEquipments().stream()
-                        .map(Equipment::getId)
-                        .collect(Collectors.toList())
+                                .map(Equipment::getId)
+                                .collect(Collectors.toList())
                         : List.of());
 
         return dto;
@@ -203,13 +201,10 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
                 throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.UNAUTHORIZED);
             }
 
-            String username = authentication.getName();
-
-            User user = userRepository.findByUsername(username);
-
-            if (user == null) {
-                throw new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED);
-            }
+            User user = userRepository.findByUsername(authentication.getName())
+                    .orElseThrow(() -> new VsException(
+                            HttpStatus.UNAUTHORIZED,
+                            ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
             List<TrainingPlan> currentTrainingPlans = user.getTrainingPlans();
             if (currentTrainingPlans != null && !currentTrainingPlans.isEmpty()) {
