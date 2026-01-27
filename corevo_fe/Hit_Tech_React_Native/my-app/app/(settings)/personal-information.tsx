@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -12,7 +12,8 @@ import {
     KeyboardAvoidingView,
     Platform,
     TouchableWithoutFeedback,
-    Keyboard
+    Keyboard,
+    ActivityIndicator
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -25,20 +26,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import CountryPicker, { Flag, Country, CountryCode } from 'react-native-country-picker-modal';
 import { useTheme } from '@/hooks/useTheme';
-// import { userService } from '@/services/api/userService';
-
-// Mock data
-const MOCK_USER = {
-    username: 'nguyenvana',
-    email: 'nguyenvana@example.com',
-    firstName: 'Nguyễn',
-    lastName: 'Văn A',
-    birth: '15/05/1995',
-    phone: '0912345678',
-    nationality: 'Việt Nam',
-    countryCode: 'VN' as CountryCode,
-    linkAvatar: AppAssets.defaultImage,
-};
+import { useUserStore } from '@/store/userStore';
+import { userService } from '@/services/api/userService';
 
 const getFlagEmoji = (countryCode?: string) => {
     if (!countryCode) return '';
@@ -50,13 +39,43 @@ const getFlagEmoji = (countryCode?: string) => {
 };
 
 /**
- * Personal Information Screen - Matching Flutter design
- * Displays and allows editing of user's personal information with mock data
+ * Personal Information Screen - With Real Profile Data
+ * Displays and allows editing of user's personal information
  */
 export default function PersonalInformationScreen() {
     const router = useRouter();
-    const [profile, setProfile] = useState(MOCK_USER);
+    const { user, fetchProfile } = useUserStore();
     const { colors, mode } = useTheme();
+
+    // Initialize profile from userStore
+    const [profile, setProfile] = useState({
+        username: user?.username || '',
+        email: user?.email || '',
+        firstName: user?.firstName || '',
+        lastName: user?.lastName || '',
+        birth: user?.birth || '',
+        phone: user?.phone || '',
+        nationality: user?.nationality || 'Việt Nam',
+        countryCode: 'VN' as CountryCode,
+        linkAvatar: user?.linkAvatar || AppAssets.defaultImage,
+    });
+
+    // Update profile when user changes in store
+    useEffect(() => {
+        if (user) {
+            setProfile({
+                username: user.username || '',
+                email: user.email || '',
+                firstName: user.firstName || '',
+                lastName: user.lastName || '',
+                birth: user.birth || '',
+                phone: user.phone || '',
+                nationality: user.nationality || 'Việt Nam',
+                countryCode: (user.nationality === 'Vietnam' || user.nationality === 'Việt Nam') ? 'VN' : 'VN' as CountryCode,
+                linkAvatar: user.linkAvatar || AppAssets.defaultImage,
+            });
+        }
+    }, [user]);
 
     const [modalVisible, setModalVisible] = useState(false);
     const [editConfig, setEditConfig] = useState({

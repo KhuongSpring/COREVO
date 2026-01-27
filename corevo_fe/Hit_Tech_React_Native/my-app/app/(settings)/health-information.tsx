@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -16,49 +16,38 @@ import { AppAssets } from '@/constants/AppAssets';
 import AvatarUploader from '@/components/settings/AvatarUploader';
 import { AppStrings } from '@/constants/AppStrings';
 import { useTheme } from '@/hooks/useTheme';
-// import { userService } from '@/services/api/userService';
-
-// Mock data - combining user and health data
-const MOCK_USER = {
-    username: 'nguyenvana',
-    email: 'nguyenvana@example.com',
-    firstName: 'Nguyễn',
-    lastName: 'Văn A',
-    linkAvatar: AppAssets.defaultImage,
-};
-
-const MOCK_HEALTH = {
-    gender: 'MALE',
-    age: 28,
-    height: 175,
-    weight: 70,
-    activityLevel: 'MODERATELY_ACTIVE',
-};
+import { useUserStore } from '@/store/userStore';
 
 /**
- * Health Information Screen - Matching Flutter design
- * Displays user's health profile information with mock data
+ * Health Information Screen - With Real Profile Data
+ * Displays user's health profile information from API
  */
 export default function HealthInformationScreen() {
     const router = useRouter();
-    const [profile] = useState(MOCK_USER);
-    const [health] = useState(MOCK_HEALTH);
+    const { user, healthProfile } = useUserStore();
     const { colors, mode } = useTheme();
 
-    const getActivityLevelText = (level: string) => {
+    const getActivityLevelText = (level?: string) => {
+        if (!level) return 'Chưa cập nhật';
         const levels: Record<string, string> = {
-            SEDENTARY: 'Ít vận động',
-            LIGHTLY_ACTIVE: 'Hoạt động nhẹ',
-            MODERATELY_ACTIVE: 'Hoạt động vừa phải',
-            VERY_ACTIVE: 'Hoạt động nhiều',
-            SUPER_ACTIVE: 'Rất năng động',
+            SEDENTARY: AppStrings.activityLevelSedentary,
+            LIGHTLY_ACTIVE: AppStrings.activityLevelLight,
+            MODERATELY_ACTIVE: AppStrings.activityLevelModerate,
+            VERY_ACTIVE: AppStrings.activityLevelActive,
+            SUPER_ACTIVE: AppStrings.activityLevelSuperActive,
+            LEVEL_1: AppStrings.activityLevelSedentary,
+            LEVEL_2: AppStrings.activityLevelLight,
+            LEVEL_3: AppStrings.activityLevelModerate,
+            LEVEL_4: AppStrings.activityLevelActive,
+            LEVEL_5: AppStrings.activityLevelSuperActive,
         };
         return levels[level] || level;
     };
 
-    const getGenderText = (gender: string) => {
-        if (gender === 'MALE') return 'Nam';
-        if (gender === 'FEMALE') return 'Nữ';
+    const getGenderText = (gender?: string) => {
+        if (!gender) return 'Chưa cập nhật';
+        if (gender === 'MALE' || gender.toLowerCase() === 'male') return 'Nam';
+        if (gender === 'FEMALE' || gender.toLowerCase() === 'female') return 'Nữ';
         return gender;
     };
 
@@ -79,7 +68,9 @@ export default function HealthInformationScreen() {
         );
     };
 
-    const fullName = `${profile.firstName} ${profile.lastName}`;
+    const fullName = user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : 'User';
+    const email = user?.email || '';
+    const avatarUrl = user?.linkAvatar || AppAssets.defaultImage;
 
     return (
         <View style={styles.container}>
@@ -100,7 +91,7 @@ export default function HealthInformationScreen() {
 
                         <View style={styles.avatarWrapper}>
                             <AvatarUploader
-                                avatarUrl={profile.linkAvatar}
+                                avatarUrl={avatarUrl}
                                 onUpload={handleAvatarUpload}
                                 size={Dims.size80}
                                 isHaveCamera={false}
@@ -111,7 +102,7 @@ export default function HealthInformationScreen() {
                     {/* User Info */}
                     <View style={styles.userInfo}>
                         <Text style={[styles.fullName, { color: colors.text.primary }]}>{fullName}</Text>
-                        <Text style={[styles.email, { color: colors.text.secondary }]}>{profile.email}</Text>
+                        <Text style={[styles.email, { color: colors.text.secondary }]}>{email}</Text>
                     </View>
 
                     {/* Health Information List */}
@@ -121,15 +112,15 @@ export default function HealthInformationScreen() {
                         showsVerticalScrollIndicator={false}
                     >
                         <View style={[styles.section, { backgroundColor: colors.background.primary }]}>
-                            {renderInfoItem(AppStrings.height, `${health.height} cm`)}
+                            {renderInfoItem(AppStrings.height, healthProfile?.height ? `${healthProfile.height} cm` : 'Chưa cập nhật')}
                             <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
-                            {renderInfoItem(AppStrings.weight, `${health.weight} kg`)}
+                            {renderInfoItem(AppStrings.weight, healthProfile?.weight ? `${healthProfile.weight} kg` : 'Chưa cập nhật')}
                             <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
-                            {renderInfoItem(AppStrings.age, health.age.toString())}
+                            {renderInfoItem(AppStrings.age, healthProfile?.age?.toString() || 'Chưa cập nhật')}
                             <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
-                            {renderInfoItem(AppStrings.gender, getGenderText(health.gender))}
+                            {renderInfoItem(AppStrings.gender, getGenderText(healthProfile?.gender))}
                             <View style={[styles.divider, { backgroundColor: colors.interactive.disabled }]} />
-                            {renderInfoItem(AppStrings.activityLevel, getActivityLevelText(health.activityLevel))}
+                            {renderInfoItem(AppStrings.activityLevel, getActivityLevelText(healthProfile?.activityLevel))}
                         </View>
                     </ScrollView>
                 </View>

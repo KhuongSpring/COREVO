@@ -146,7 +146,6 @@ export default function OtpVerificationScreen() {
             } else if (type === 'recovery') {
                 await authService.sendEmailToRecoveryAccount(email);
             }
-            // Logic gửi lại cho register nếu cần...
 
             Alert.alert(AppStrings.success, AppMessages.auth.sucSendOtp);
             setOtp(['', '', '', '', '', '']);

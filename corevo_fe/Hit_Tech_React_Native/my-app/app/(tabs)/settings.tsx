@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Alert,
     ImageBackground,
+    ActivityIndicator,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Dims } from '@/constants/Dimensions';
@@ -18,32 +19,25 @@ import SettingItem from '@/components/settings/SettingItem';
 import SectionTitle from '@/components/settings/SectionTitle';
 import { AppStrings } from '@/constants/AppStrings';
 import { useTheme } from '@/hooks/useTheme';
-// import { userService } from '@/services/api/userService';
-
-// Mock data - default user profile
-const MOCK_USER = {
-    firstName: 'Nguyễn',
-    lastName: 'Văn A',
-    username: 'nguyenvana',
-    email: 'nguyenvana@example.com',
-    linkAvatar: AppAssets.defaultImage,
-    phone: '0912345678',
-    birth: '15/05/1995',
-    nationality: 'Việt Nam',
-};
+import { userService } from '@/services/api/userService';
 
 /**
- * Settings Tab Screen - With Dark Mode Support
- * User settings and preferences with theme-aware elements
+ * Settings Tab Screen - With Real Profile Data
+ * User settings and preferences with data from API
  */
 export default function SettingsScreen() {
     const router = useRouter();
     const { logout } = useAuthStore();
-    const { clearUser } = useUserStore();
+    const { user, isLoading, fetchProfile, clearUser } = useUserStore();
     const { colors, mode, setTheme } = useTheme();
 
-    const [profile] = useState(MOCK_USER);
     const [isDarkMode, setIsDarkMode] = useState(mode === 'dark');
+    const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+
+    // Fetch profile on mount
+    useEffect(() => {
+        fetchProfile();
+    }, []);
 
     // Sync isDarkMode with theme store
     useEffect(() => {
@@ -51,7 +45,19 @@ export default function SettingsScreen() {
     }, [mode]);
 
     const handleAvatarUpload = async (imageUri: string) => {
-        Alert.alert('Thông báo', 'Chức năng đang sử dụng dữ liệu mẫu');
+        try {
+            setIsUploadingAvatar(true);
+            const response = await userService.uploadAvatar(imageUri);
+            if (response.linkAvatar) {
+                // Refresh profile to get updated avatar
+                await fetchProfile();
+                Alert.alert(AppStrings.success, 'Cập nhật ảnh đại diện thành công');
+            }
+        } catch (error) {
+            Alert.alert(AppStrings.error, 'Không thể tải ảnh lên. Vui lòng thử lại.');
+        } finally {
+            setIsUploadingAvatar(false);
+        }
     };
 
     const handleDarkModeToggle = (value: boolean) => {
@@ -94,7 +100,18 @@ export default function SettingsScreen() {
         Alert.alert('Sắp ra mắt', `Tính năng ${feature} đang được phát triển`);
     };
 
-    const fullName = `${profile.firstName} ${profile.lastName}`;
+    // Show loading indicator while fetching profile
+    if (isLoading && !user) {
+        return (
+            <View style={[styles.container, styles.centered, { backgroundColor: colors.background.primary }]}>
+                <ActivityIndicator size="large" color={colors.brand.primary} />
+            </View>
+        );
+    }
+
+    const fullName = user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : 'User';
+    const username = user?.username || '';
+    const avatarUrl = user?.linkAvatar || AppAssets.defaultImage;
 
     return (
         <View style={[styles.container, { backgroundColor: colors.background.primary }]}>
@@ -111,7 +128,7 @@ export default function SettingsScreen() {
                     {/* Avatar Section */}
                     <View style={styles.avatarSection}>
                         <AvatarUploader
-                            avatarUrl={profile.linkAvatar}
+                            avatarUrl={avatarUrl}
                             onUpload={handleAvatarUpload}
                             size={Dims.size80}
                         />
@@ -120,7 +137,7 @@ export default function SettingsScreen() {
                             {fullName}
                         </Text>
                         <Text style={[styles.username, { color: colors.text.secondary }]}>
-                            {profile.username}
+                            {username}
                         </Text>
                     </View>
 
@@ -235,5 +252,9 @@ const styles = StyleSheet.create({
     },
     logoutText: {
         fontSize: Dims.textSizeM,
+    },
+    centered: {
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 });

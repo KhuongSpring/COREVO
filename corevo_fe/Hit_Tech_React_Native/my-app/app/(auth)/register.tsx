@@ -91,15 +91,12 @@ export default function RegisterScreen() {
         setIsLoading(true);
 
         try {
-            const fullName = `${formData.firstName.trim()} ${formData.lastName.trim()}`;
             const response = await authService.register({
                 username: formData.username.trim(),
                 email: formData.email.trim(),
                 password: formData.password,
-                confirmPassword: formData.password, // Same as password
-                fullName: fullName,
-                phoneNumber: '', // Empty for now
-                countryCode: '+84',
+                firstName: formData.firstName.trim(),
+                lastName: formData.lastName.trim(),
             });
 
             if (response.status === 'SUCCESS') {

@@ -15,7 +15,7 @@ export interface LoginResponse {
     message?: string;
     accessToken?: string;
     refreshToken?: string;
-    userId?: string;
+    id?: string;
     isDeleted?: boolean;
     canRecovery?: boolean;
     dayRecoveryRemaining?: number;
@@ -27,10 +27,8 @@ export interface RegisterRequest {
     username: string;
     email: string;
     password: string;
-    confirmPassword: string;
-    fullName: string;
-    phoneNumber?: string;
-    countryCode?: string;
+    firstName: string;
+    lastName: string;
 }
 
 export interface RegisterResponse {
@@ -51,7 +49,7 @@ export interface VerifyOtpResponse {
     message?: string;
     accessToken?: string;
     refreshToken?: string;
-    userId?: string;
+    id?: string;
 }
 
 // ===== Forgot Password =====
@@ -69,9 +67,8 @@ export interface ForgotPasswordResponse {
 
 export interface ResetPasswordRequest {
     email: string;
-    otp: string;
     newPassword: string;
-    confirmPassword: string;
+    reEnterPassword: string;
 }
 
 export interface ResetPasswordResponse {
@@ -82,7 +79,7 @@ export interface ResetPasswordResponse {
 // ===== Google OAuth =====
 
 export interface OAuth2GoogleRequest {
-    token: string;
+    idToken: string;
 }
 
 // ===== Logout =====

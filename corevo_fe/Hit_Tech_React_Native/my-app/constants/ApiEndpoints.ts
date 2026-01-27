@@ -4,8 +4,9 @@
  */
 
 // Base URL - Update this based on your environment
-// const BASE_URL = 'http://192.168.31.231:8080'; // Android emulator localhost
-const BASE_URL = 'http://192.168.50.240:8080'; // Android emulator localhost
+// const BASE_URL = 'http://192.168.1.8:8080'; // Cty
+// const BASE_URL = 'http://192.168.50.240:8080'; // Nha
+const BASE_URL = 'http://172.20.10.3:8080'; // Iphone share wf
 // const BASE_URL = 'http://localhost:8080'; // iOS simulator
 // const BASE_URL = 'http://146.190.101.127:8080'; // Production
 

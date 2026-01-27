@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Animated, Image, ImageSourcePropType } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, Animated, Image, ImageSourcePropType, Alert, ActivityIndicator } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
 import { AppStrings } from '@/constants/AppStrings';
 import { AppAssets } from '@/constants/AppAssets';
+import { userService } from '@/services/api/userService';
 
 type ActivityLevel = {
     level: string;
@@ -70,9 +71,10 @@ export default function ActivityLevelSelectionScreen() {
 
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [fadeAnim] = useState(new Animated.Value(1));
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSliderChange = (index: number) => {
-        if (index !== currentIndex) {
+        if (index !== currentIndex && !isSubmitting) {
             // Fade out
             Animated.timing(fadeAnim, {
                 toValue: 0,
@@ -91,22 +93,44 @@ export default function ActivityLevelSelectionScreen() {
     };
 
     const handleContinue = async () => {
-        // Navigate to next screen or complete personal health flow
-        // In Flutter this calls API and then navigates to training flow or home
-        const selectedLevel = activityLevels[currentIndex].apiValue;
+        try {
+            setIsSubmitting(true);
+            const selectedLevel = activityLevels[currentIndex].apiValue;
 
-        // TODO: Call API to save personal health data with all collected info
-        // const response = await savePersonalHealth({
-        //     gender: params.gender,
-        //     age: params.age,
-        //     height: params.height,
-        //     weight: params.weight,
-        //     activityLevel: selectedLevel
-        // });
+            // Call API to save personal health data
+            const response = await userService.fillPersonalHealth({
+                gender: params.gender as string,
+                age: parseInt(params.age as string),
+                height: parseInt(params.height as string),
+                weight: parseFloat(params.weight as string),
+                activityLevel: selectedLevel,
+            });
 
-        // For now, navigate to main app (tabs)
-        router.replace('/welcome-2' as any);
+            if (response.status === 'SUCCESS') {
+                // After successful save, check user profile to determine next step
+                const profile = await userService.getProfile();
+
+                if (profile.status === 'SUCCESS') {
+                    // Check if user has training plans
+                    if (!profile.data?.trainingPlans || profile.data.trainingPlans.length === 0) {
+                        // No training plan -> Navigate to training flow
+                        router.replace('/welcome-2' as any);
+                    } else {
+                        // Has training plan -> Navigate to home
+                        router.replace('/(tabs)/home' as any);
+                    }
+                }
+            } else {
+                Alert.alert(AppStrings.error, AppStrings.cannotCommit);
+            }
+        } catch (error) {
+            console.error('Error saving personal health:', error);
+            Alert.alert(AppStrings.error, AppStrings.cannotCommit);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
+
 
     const currentActivity = activityLevels[currentIndex];
 
@@ -193,12 +217,17 @@ export default function ActivityLevelSelectionScreen() {
                 {/* Continue Button */}
                 <View style={styles.bottomContainer}>
                     <TouchableOpacity
-                        style={styles.continueButton}
+                        style={[styles.continueButton, isSubmitting && styles.continueButtonDisabled]}
                         onPress={handleContinue}
+                        disabled={isSubmitting}
                     >
-                        <Text style={styles.continueButtonText}>
-                            {AppStrings.selectionContinue}
-                        </Text>
+                        {isSubmitting ? (
+                            <ActivityIndicator color={Colors.wWhite} />
+                        ) : (
+                            <Text style={styles.continueButtonText}>
+                                {AppStrings.selectionContinue}
+                            </Text>
+                        )}
                     </TouchableOpacity>
                 </View>
             </View>
@@ -377,6 +406,9 @@ const styles = StyleSheet.create({
         paddingVertical: Dims.paddingM,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    continueButtonDisabled: {
+        opacity: 0.6,
     },
     continueButtonText: {
         fontSize: Dims.textSizeL,

@@ -57,9 +57,8 @@ export default function ResetPasswordScreen() {
         try {
             const response = await authService.resetPassword({
                 email,
-                otp,
                 newPassword,
-                confirmPassword,
+                reEnterPassword: confirmPassword,
             });
 
             if (response.status === 'SUCCESS') {

@@ -10,6 +10,8 @@ import { useAuthStore } from '@/store/authStore';
 import { AppMessages } from '@/constants/AppMessages';
 import { AppStrings } from '@/constants/AppStrings';
 import { AppAssets } from '@/constants/AppAssets';
+import { userService } from '@/services/api/userService';
+import { authService } from '@/services/authService';
 
 /**
  * Login Screen
@@ -48,18 +50,54 @@ export default function LoginScreen() {
         clearError();
 
         try {
-            await login({ username: username.trim(), password });
+            const loginCredentials = { username: username.trim(), password };
+            const data = await login(loginCredentials);
 
-            // Login successful, navigate to main app
-            Alert.alert(AppStrings.success, AppStrings.loginSuccess, [
-                {
-                    text: AppStrings.ok,
-                    onPress: () => router.replace('/welcome' as any),
-                },
-            ]);
-        } catch (error: any) {
-            // Error is already set in store
-            Alert.alert(AppStrings.error, error.message || AppMessages.auth.errLoginFail);
+            if (data) {
+                // Check if account is deleted
+                if (data.isDeleted) {
+                    if (data.canRecovery) {
+                        Alert.alert(
+                            AppStrings.notification,
+                            `Tài khoản của bạn đang trong trạng thái chờ xóa. Bạn còn ${data.dayRecoveryRemaining} ngày để khôi phục.`,
+                            [
+                                { text: AppStrings.cancel, style: 'cancel' },
+                                {
+                                    text: AppStrings.recovery,
+                                    onPress: () => router.push({
+                                        pathname: '/(auth)/otp-verification',
+                                        params: { email: username.trim(), type: 'recovery' }
+                                    } as any)
+                                }
+                            ]
+                        );
+                    } else {
+                        Alert.alert(AppStrings.error, AppStrings.accountDeletedForever);
+                    }
+                    return;
+                }
+
+                // Fetch profile to decide where to go
+                try {
+                    const profileRes = await userService.getProfile();
+                    const profile = profileRes.data;
+
+                    if (!profile.userHealth) {
+                        router.replace('/welcome' as any);
+                    } else if (!profile.trainingPlans || profile.trainingPlans.length === 0) {
+                        router.replace('/welcome-2' as any);
+                    } else {
+                        router.replace('/(tabs)' as any);
+                    }
+                } catch (err: any) {
+                    // If profile fetch fails, fallback to welcome
+                    console.error('Profile fetch error:', err);
+                    router.replace('/welcome' as any);
+                }
+            }
+        } catch (err: any) {
+            const errorMessage = err.response?.data?.message || err.message || AppMessages.auth.errLoginFail;
+            Alert.alert(AppStrings.error, errorMessage);
         }
     };
 

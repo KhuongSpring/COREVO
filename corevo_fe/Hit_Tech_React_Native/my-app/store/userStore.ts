@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import type { User, UserHealth, UserProfileResponse } from '@/types/user';
+import type { UserProfile, UserHealth, UserProfileResponse } from '@/types/user';
+import { userService } from '@/services/api/userService';
 
 /**
  * User Store
@@ -8,15 +9,16 @@ import type { User, UserHealth, UserProfileResponse } from '@/types/user';
 
 interface UserState {
     // State
-    user: User | null;
+    user: UserProfile | null;
     healthProfile: UserHealth | null;
     isLoading: boolean;
     error: string | null;
 
     // Actions
-    setUser: (user: User) => void;
+    setUser: (user: UserProfile) => void;
     setHealthProfile: (health: UserHealth) => void;
     setUserProfile: (profile: UserProfileResponse) => void;
+    fetchProfile: () => Promise<void>;
     clearUser: () => void;
     clearError: () => void;
 }
@@ -33,7 +35,7 @@ export const useUserStore = create<UserState>((set) => ({
     /**
      * Set user data
      */
-    setUser: (user: User) => {
+    setUser: (user: UserProfile) => {
         set({ user });
     },
 
@@ -49,9 +51,37 @@ export const useUserStore = create<UserState>((set) => ({
      */
     setUserProfile: (profile: UserProfileResponse) => {
         set({
-            user: profile.user,
-            healthProfile: profile.userHealth || null,
+            user: profile.data,
+            healthProfile: profile.data?.userHealth || null,
         });
+    },
+
+    /**
+     * Fetch user profile from API
+     */
+    fetchProfile: async () => {
+        set({ isLoading: true, error: null });
+        try {
+            const response = await userService.getProfile();
+            if (response.status === 'SUCCESS') {
+                set({
+                    user: response.data,
+                    healthProfile: response.data?.userHealth || null,
+                    isLoading: false,
+                    error: null,
+                });
+            } else {
+                set({
+                    error: 'Failed to fetch profile',
+                    isLoading: false,
+                });
+            }
+        } catch (error: any) {
+            set({
+                error: error.message || 'Failed to fetch profile',
+                isLoading: false,
+            });
+        }
     },
 
     /**

@@ -1,4 +1,5 @@
 import apiClient from './client';
+import { ApiEndpoints } from '@/constants/ApiEndpoints';
 import type { UserProfileResponse, UpdateUserProfileRequest } from '@/types/user';
 
 /**
@@ -11,7 +12,7 @@ export const userService = {
      * Get user profile
      */
     async getProfile(): Promise<UserProfileResponse> {
-        const response = await apiClient.get<UserProfileResponse>('/users/profile');
+        const response = await apiClient.get<UserProfileResponse>(ApiEndpoints.user.getProfile);
         return response.data;
     },
 
@@ -74,4 +75,20 @@ export const userService = {
 
         return response.data;
     },
+
+    /**
+     * Fill personal health information (first-time setup)
+     */
+    async fillPersonalHealth(data: {
+        gender: string;
+        age: number;
+        height: number;
+        weight: number;
+        activityLevel: string;
+    }): Promise<{ status: string; message?: string }> {
+        const response = await apiClient.post(ApiEndpoints.userHealth.fillHealthInformation, data);
+        return response.data;
+    },
 };
+
+

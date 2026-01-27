@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as authService from '@/services/authService';
 import * as storage from '@/services/storage';
-import type { LoginRequest, OAuth2GoogleRequest } from '@/types/auth';
+import type { LoginRequest, LoginResponse, OAuth2GoogleRequest } from '@/types/auth';
 
 /**
  * Authentication Store
@@ -19,7 +19,7 @@ interface AuthState {
     error: string | null;
 
     // Actions
-    login: (credentials: LoginRequest) => Promise<void>;
+    login: (credentials: LoginRequest) => Promise<LoginResponse>;
     loginWithGoogle: (googleToken: string) => Promise<void>;
     logout: () => Promise<void>;
     refreshAccessToken: () => Promise<void>;
@@ -43,18 +43,18 @@ export const useAuthStore = create<AuthState>()(
             /**
              * Login with username and password
              */
-            login: async (credentials: LoginRequest) => {
+            login: async (credentials: LoginRequest): Promise<LoginResponse> => {
                 set({ isLoading: true, error: null });
                 try {
                     const response = await authService.login(credentials);
 
-                    if (response.status === 'SUCCESS' && response.data.accessToken && response.data.refreshToken) {
+                    if (response.status === 'SUCCESS' && response.data?.accessToken && response.data?.refreshToken) {
                         // Save tokens to storage
                         await storage.saveAccessToken(response.data.accessToken);
                         await storage.saveRefreshToken(response.data.refreshToken);
 
-                        if (response.data.userId) {
-                            await storage.saveUserId(response.data.userId);
+                        if (response.data.id) {
+                            await storage.saveUserId(response.data.id);
                         }
 
                         set({
@@ -64,7 +64,12 @@ export const useAuthStore = create<AuthState>()(
                             isLoading: false,
                             error: null,
                         });
+
+                        return response.data;
                     } else {
+                        // Handle failure case but return data for flags (like isDeleted)
+                        set({ isLoading: false });
+                        if (response.data) return response.data;
                         throw new Error(response.message || 'Login failed');
                     }
                 } catch (error: any) {
@@ -84,15 +89,15 @@ export const useAuthStore = create<AuthState>()(
             loginWithGoogle: async (googleToken: string) => {
                 set({ isLoading: true, error: null });
                 try {
-                    const request: OAuth2GoogleRequest = { token: googleToken };
+                    const request: OAuth2GoogleRequest = { idToken: googleToken };
                     const response = await authService.loginWithGoogle(request);
 
-                    if (response.status === 'SUCCESS' && response.data.accessToken && response.data.refreshToken) {
+                    if (response.status === 'SUCCESS' && response.data?.accessToken && response.data?.refreshToken) {
                         await storage.saveAccessToken(response.data.accessToken);
                         await storage.saveRefreshToken(response.data.refreshToken);
 
-                        if (response.data.userId) {
-                            await storage.saveUserId(response.data.userId);
+                        if (response.data.id) {
+                            await storage.saveUserId(response.data.id);
                         }
 
                         set({

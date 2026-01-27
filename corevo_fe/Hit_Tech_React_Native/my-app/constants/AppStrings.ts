@@ -46,6 +46,8 @@ export const AppStrings = {
     resetYourPassword: 'Đặt lại mật khẩu mới của bạn',
     sendOtp: 'Gửi mã OTP',
     verify: 'Xác nhận',
+    recovery: 'Khôi phục',
+    accountDeletedForever: 'Tài khoản đã bị xóa vĩnh viễn',
 
     // ============================================
     // HTTP ERRORS - Network and API errors
@@ -58,6 +60,7 @@ export const AppStrings = {
     serverError: 'Lỗi máy chủ',
     unauthorized: 'Chưa được xác thực',
     validationError: 'Dữ liệu không hợp lệ',
+    cannotCommit: 'Không thể lưu thông tin. Vui lòng thử lại.',
 
     // ============================================
     // VALIDATION - Form validation messages
