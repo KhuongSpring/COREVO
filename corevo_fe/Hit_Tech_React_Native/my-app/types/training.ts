@@ -1,7 +1,7 @@
 /**
- * Training Models - Complete
- * Comprehensive training system types migrated from Flutter
- * Includes: Plans, Exercises, Schedules, Progress, Flow
+ * Training Types
+ * Training plan, schedule, and progress-related types
+ * Migrated from Flutter training models - Exact match
  */
 
 // ==================== Training Plan ====================
@@ -25,9 +25,9 @@ export interface TrainingPlanResponse {
     data: TrainingPlan;
 }
 
-export interface TrainingPlanListResponse {
+export interface TrainingPlanResultResponse {
     status: string;
-    data: TrainingPlan[];
+    items: TrainingPlan[];
 }
 
 // ==================== Training Exercise ====================
@@ -56,33 +56,35 @@ export interface TrainingExerciseResponse {
     data: TrainingExercise;
 }
 
-// Exercise Preview (for level-based search)
-export interface TrainingExercisePreviewLevel {
-    level: string;
-    exercises: string[];
+// Exercise Preview (simplified view)
+export interface TrainingExercisePreview {
+    id: number;
+    name: string;
+    imageURL: string;
+    description: string;
+    levelName: string;
 }
 
-export interface TrainingExercisePreview {
-    day: string;
-    exercises: TrainingExercisePreviewLevel[];
+export interface TrainingExercisePreviewLevel {
+    levelName: string;
+    exercises: TrainingExercisePreview[];
 }
 
 // ==================== Training Schedule ====================
 
+// Individual exercise in a schedule
 export interface TrainingScheduleExercise {
-    name: string;
-    sets?: number;
-    reps?: number;
-    duration?: number;
-    restTime?: number;
+    exerciseId: number;
+    duration: string;
 }
 
+// Exercise group (contains list of exercises + note)
 export interface TrainingScheduleExerciseGroup {
-    warmup: TrainingScheduleExercise[];
-    mainExercises: TrainingScheduleExercise[];
-    cooldown: TrainingScheduleExercise[];
+    note?: string;
+    exercises: TrainingScheduleExercise[];
 }
 
+// Daily training schedule
 export interface TrainingSchedule {
     dayOfWeek: string;
     name: string;
@@ -97,9 +99,14 @@ export interface TrainingScheduleResponse {
     data: TrainingSchedule;
 }
 
-export interface TrainingScheduleListResponse {
+// Schedule result (7 days)
+export interface TrainingScheduleResultResponse {
     status: string;
-    data: TrainingSchedule[];
+    data: {
+        userId: number | null;
+        trainingPlanId: number;
+        days: TrainingSchedule[];
+    };
 }
 
 // ==================== Training Flow ====================
@@ -123,15 +130,35 @@ export interface TrainingFlowApiResponse {
     data: TrainingFlowResponse;
 }
 
-// ==================== Training Progress & Results ====================
+// ==================== Training Progress & Statistics ====================
 
-export interface ExerciseSetProgress {
-    setNumber: number;
-    reps?: number;
-    weight?: number;
-    duration?: number;
-    completed: boolean;
+// Progress statistic (monthly view)
+export interface TrainingProgressStatistic {
+    month: string;
+    year: number;
+    currentMonthCompletions: boolean[]; // Array of booleans for each day
+    currentStreak: number;
+    longestStreak: number;
 }
+
+export interface TrainingProgressResponse {
+    status: string;
+    data: TrainingProgressStatistic;
+}
+
+// Daily progress
+export interface DailyProgressData {
+    percentage: number;
+    completedExercises?: number;
+    totalExercises?: number;
+}
+
+export interface DailyProgressResponse {
+    status: string;
+    data: DailyProgressData;
+}
+
+// ==================== Training Plan & Schedule Results ====================
 
 export interface TrainingPlanResult {
     planId: number;
@@ -149,23 +176,6 @@ export interface TrainingScheduleResult {
     totalExercises: number;
     completionPercentage: number;
     completedAt?: string;
-}
-
-export interface TrainingProgressStatistic {
-    totalWorkouts: number;
-    totalDuration: number; // in minutes
-    totalCaloriesBurned: number;
-    currentStreak: number; // days
-    longestStreak: number; // days
-    averageWorkoutDuration: number; // in minutes
-    mostActiveDay: string;
-    completionRate: number; // percentage
-    currentMonthCompletions: number[]; // days of month with completed workouts
-}
-
-export interface TrainingProgressResponse {
-    status: string;
-    data: TrainingProgressStatistic;
 }
 
 // ==================== Training Dynamic Search ====================

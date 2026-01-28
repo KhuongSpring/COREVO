@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import type { UserProfile, UserHealth, UserProfileResponse } from '@/types/user';
+import type { TrainingPlan } from '@/types/training';
 import { userService } from '@/services/api/userService';
 
 /**
@@ -11,6 +12,8 @@ interface UserState {
     // State
     user: UserProfile | null;
     healthProfile: UserHealth | null;
+    trainingPlans: TrainingPlan[];
+    currentTrainingPlan: TrainingPlan | null;
     isLoading: boolean;
     error: string | null;
 
@@ -18,6 +21,7 @@ interface UserState {
     setUser: (user: UserProfile) => void;
     setHealthProfile: (health: UserHealth) => void;
     setUserProfile: (profile: UserProfileResponse) => void;
+    setTrainingPlans: (plans: TrainingPlan[]) => void;
     fetchProfile: () => Promise<void>;
     clearUser: () => void;
     clearError: () => void;
@@ -27,6 +31,8 @@ export const useUserStore = create<UserState>((set) => ({
     // Initial state
     user: null,
     healthProfile: null,
+    trainingPlans: [],
+    currentTrainingPlan: null,
     isLoading: false,
     error: null,
 
@@ -53,6 +59,18 @@ export const useUserStore = create<UserState>((set) => ({
         set({
             user: profile.data,
             healthProfile: profile.data?.userHealth || null,
+            trainingPlans: profile.data?.trainingPlans || [],
+            currentTrainingPlan: profile.data?.trainingPlans?.[0] || null,
+        });
+    },
+
+    /**
+     * Set training plans
+     */
+    setTrainingPlans: (plans: TrainingPlan[]) => {
+        set({
+            trainingPlans: plans,
+            currentTrainingPlan: plans[0] || null,
         });
     },
 
@@ -67,6 +85,8 @@ export const useUserStore = create<UserState>((set) => ({
                 set({
                     user: response.data,
                     healthProfile: response.data?.userHealth || null,
+                    trainingPlans: response.data?.trainingPlans || [],
+                    currentTrainingPlan: response.data?.trainingPlans?.[0] || null,
                     isLoading: false,
                     error: null,
                 });
@@ -91,6 +111,8 @@ export const useUserStore = create<UserState>((set) => ({
         set({
             user: null,
             healthProfile: null,
+            trainingPlans: [],
+            currentTrainingPlan: null,
             error: null,
         });
     },

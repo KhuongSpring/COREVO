@@ -4,6 +4,8 @@
  * Migrated from Flutter user models
  */
 
+import { TrainingPlan } from './training';
+
 // User Health Information
 export interface UserHealth {
     gender?: string;
@@ -37,7 +39,7 @@ export interface UserProfile {
     nationality?: string;
     linkAvatar?: string;
     userHealth?: UserHealth;
-    trainingPlans?: any[]; // Will be TrainingPlan[]
+    trainingPlans?: TrainingPlan[];
 }
 
 // User Profile Response (API)

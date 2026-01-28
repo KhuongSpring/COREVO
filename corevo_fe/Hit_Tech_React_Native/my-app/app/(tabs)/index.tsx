@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Image,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,149 +18,70 @@ import { AppAssets } from '@/constants/AppAssets';
 import { AppStrings } from '@/constants/AppStrings';
 import { TrainingSchedule, TrainingProgressStatistic } from '@/types/training';
 import CircularProgress from '@/components/common/CircularProgress';
-import { UserProfile } from '@/types/user';
 import HomeCalendar from '@/components/home/HomeCalendar';
-
-// Mock data - matching Flutter types
-const MOCK_USER: UserProfile = {
-  firstName: 'Nguyễn',
-  lastName: 'Văn A',
-  linkAvatar: AppAssets.defaultImage,
-  trainingPlans: [
-    {
-      id: 1,
-      name: 'Giảm cân / Giảm mỡ',
-      goals: 'LOSE_WEIGHT',
-      description: 'Kế hoạch giảm cân hiệu quả',
-      aim: 'Giảm 5kg trong 8 tuần',
-      type: 'CARDIO',
-      duration: '45',
-      frequency: '5',
-      levelIds: [1],
-      locationIds: [1],
-      equipmentIds: [1],
-    },
-  ],
-};
-
-const MOCK_SCHEDULES: TrainingSchedule[] = [
-  {
-    dayOfWeek: 'MONDAY',
-    name: 'Thứ Hai - Cardio',
-    description: 'Tập cardio cường độ cao để đốt cháy mỡ thừa',
-    exerciseGroups: {
-      warmup: [{ name: 'Khởi động', duration: 5 }],
-      mainExercises: [
-        { name: 'Chạy bộ', duration: 20 },
-        { name: 'Burpees', sets: 3, reps: 15 },
-      ],
-      cooldown: [{ name: 'Thư giãn', duration: 5 }],
-    },
-  },
-  {
-    dayOfWeek: 'TUESDAY',
-    name: 'Thứ Ba - Toàn thân',
-    description: 'Tập luyện toàn thân với động tác phức hợp',
-    exerciseGroups: {
-      warmup: [{ name: 'Khởi động', duration: 5 }],
-      mainExercises: [
-        { name: 'Push-ups', sets: 3, reps: 12 },
-        { name: 'Squats', sets: 3, reps: 15 },
-      ],
-      cooldown: [{ name: 'Giãn cơ', duration: 5 }],
-    },
-  },
-  {
-    dayOfWeek: 'WEDNESDAY',
-    name: 'Thứ Tư - Core',
-    description: 'Tập trung vào cơ bụng và lưng',
-    exerciseGroups: {
-      warmup: [{ name: 'Khởi động', duration: 5 }],
-      mainExercises: [
-        { name: 'Plank', duration: 60 },
-        { name: 'Crunches', sets: 3, reps: 20 },
-      ],
-      cooldown: [{ name: 'Thư giãn', duration: 5 }],
-    },
-  },
-  {
-    dayOfWeek: 'THURSDAY',
-    name: 'Thứ Năm - HIIT',
-    description: 'Tập HIIT để tăng cường đốt cháy calo',
-    exerciseGroups: {
-      warmup: [{ name: 'Khởi động', duration: 5 }],
-      mainExercises: [
-        { name: 'Jump squats', sets: 4, reps: 12 },
-        { name: 'Mountain climbers', sets: 4, reps: 20 },
-      ],
-      cooldown: [{ name: 'Giãn cơ', duration: 5 }],
-    },
-  },
-  {
-    dayOfWeek: 'FRIDAY',
-    name: 'Thứ Sáu - Cardio',
-    description: 'Kết thúc tuần với cardio nhẹ nhàng',
-    exerciseGroups: {
-      warmup: [{ name: 'Khởi động', duration: 5 }],
-      mainExercises: [
-        { name: 'Đi bộ nhanh', duration: 30 },
-        { name: 'Jumping jacks', sets: 3, reps: 30 },
-      ],
-      cooldown: [{ name: 'Thư giãn', duration: 5 }],
-    },
-  },
-  {
-    dayOfWeek: 'SATURDAY',
-    name: 'Thứ Bảy - Nghỉ ngơi',
-    description: 'Ngày nghỉ để cơ thể phục hồi',
-    exerciseGroups: {
-      warmup: [],
-      mainExercises: [],
-      cooldown: [],
-    },
-  },
-  {
-    dayOfWeek: 'SUNDAY',
-    name: 'Chủ Nhật - Yoga',
-    description: 'Yoga nhẹ nhàng để thư giãn',
-    exerciseGroups: {
-      warmup: [{ name: 'Khởi động', duration: 5 }],
-      mainExercises: [
-        { name: 'Yoga flow', duration: 20 },
-        { name: 'Meditation', duration: 10 },
-      ],
-      cooldown: [{ name: 'Thư giãn', duration: 5 }],
-    },
-  },
-];
-
-const MOCK_PROGRESS: TrainingProgressStatistic = {
-  totalWorkouts: 24,
-  totalDuration: 960,
-  totalCaloriesBurned: 4800,
-  currentStreak: 5,
-  longestStreak: 12,
-  averageWorkoutDuration: 40,
-  mostActiveDay: 'MONDAY',
-  completionRate: 85,
-  currentMonthCompletions: [1, 2, 5, 8, 10, 12, 15, 18, 20, 22],
-};
+import { useUserStore } from '@/store/userStore';
+import { trainingService } from '@/services/api/trainingService';
 
 /**
  * Home Screen - Main Dashboard
- * Converted from Flutter home_screen.dart
+ * Displays user's training progress and schedule with real API data
  */
 export default function HomeScreen() {
   const router = useRouter();
-  const [percentage, setPercentage] = useState(65); // Mock daily progress
-  const [isLoading, setIsLoading] = useState(false);
+  const { user, currentTrainingPlan, fetchProfile } = useUserStore();
 
-  const profile = MOCK_USER;
-  const schedules = MOCK_SCHEDULES;
-  const progressStatistic = MOCK_PROGRESS;
+  // State
+  const [schedules, setSchedules] = useState<TrainingSchedule[]>([]);
+  const [progressStatistic, setProgressStatistic] = useState<TrainingProgressStatistic | null>(null);
+  const [dailyProgress, setDailyProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const fullName = `${profile.firstName} ${profile.lastName}`;
-  const trainingPlan = profile.trainingPlans?.[0];
+  // Fetch profile on mount
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  // Fetch training data when profile is loaded
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!currentTrainingPlan) {
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // Fetch schedules
+        const schedulesRes = await trainingService.getTrainingScheduleById(currentTrainingPlan.id);
+        setSchedules(schedulesRes.data.days);
+
+        // Fetch daily progress
+        const progressRes = await trainingService.getDailyProgress();
+        setDailyProgress(progressRes.data.percentage);
+
+        // Fetch statistics
+        const statsRes = await trainingService.getStatistic(
+          new Date().getFullYear(),
+          new Date().getMonth() + 1
+        );
+        setProgressStatistic(statsRes.data);
+
+      } catch (error: any) {
+        console.error('Error fetching home data:', error);
+        setError(error.message || 'Không thể tải dữ liệu');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [currentTrainingPlan]);
+
+  const fullName = user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : 'User';
+  const avatarUrl = user?.linkAvatar || AppAssets.defaultImage;
 
   // Get current weekday (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
   const currentDayIndex = new Date().getDay();
@@ -191,7 +113,7 @@ export default function HomeScreen() {
     return goalMap[goal] || goal;
   };
 
-  // Get weekdays that have scheduled training (for calendar red dots)
+  // Get scheduled weekdays check
   const getScheduledWeekdays = (): number[] => {
     const weekdayMap: Record<string, number> = {
       MONDAY: 1,
@@ -205,21 +127,16 @@ export default function HomeScreen() {
 
     return schedules
       .filter(schedule => {
-        const hasExercises =
-          (schedule.exerciseGroups?.warmup?.length || 0) +
-          (schedule.exerciseGroups?.mainExercises?.length || 0) +
-          (schedule.exerciseGroups?.cooldown?.length || 0) > 0;
+        const hasExercises = (schedule.exerciseGroups?.exercises?.length || 0) > 0;
         return hasExercises;
       })
       .map(schedule => weekdayMap[schedule.dayOfWeek])
       .filter(day => day !== undefined);
   };
 
+  // Get current schedule and exercise count
   const currentSchedule = schedules[weekDay];
-  const exerciseCount =
-    (currentSchedule.exerciseGroups?.warmup?.length || 0) +
-    (currentSchedule.exerciseGroups?.mainExercises?.length || 0) +
-    (currentSchedule.exerciseGroups?.cooldown?.length || 0);
+  const exerciseCount = currentSchedule?.exerciseGroups?.exercises?.length || 0;
 
   const handleNavigateToSettings = () => {
     router.push('/(tabs)/settings' as any);
@@ -237,10 +154,21 @@ export default function HomeScreen() {
     Alert.alert('Nhắc nhở luyện tập', 'Tính năng đang phát triển');
   };
 
+  // Loading state
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
-        <Text>Đang tải...</Text>
+        <ActivityIndicator size="large" color={Colors.bNormal} />
+        <Text style={styles.loadingText}>Đang tải dữ liệu...</Text>
+      </View>
+    );
+  }
+
+  // No training plan
+  if (!currentTrainingPlan || schedules.length === 0) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.noDataText}>Bạn chưa có kế hoạch luyện tập</Text>
       </View>
     );
   }
@@ -267,8 +195,8 @@ export default function HomeScreen() {
               <View style={styles.avatarContainer}>
                 <Image
                   source={
-                    profile.linkAvatar
-                      ? { uri: profile.linkAvatar }
+                    avatarUrl
+                      ? { uri: avatarUrl }
                       : AppAssets.googleIcon
                   }
                   style={styles.avatar}
@@ -301,7 +229,7 @@ export default function HomeScreen() {
             <View style={styles.trainingCardContent}>
               <View style={styles.trainingInfo}>
                 <Text style={styles.trainingGoal}>
-                  {getGoalText(trainingPlan?.goals || '')}
+                  {currentSchedule?.name || 'Không có lịch tập'}
                 </Text>
                 <Text style={styles.trainingDetails}>
                   {getVietnameseWeekday(weekDay)} • {exerciseCount}{' '}
@@ -314,11 +242,11 @@ export default function HomeScreen() {
                 <CircularProgress
                   size={Dims.size48}
                   strokeWidth={5}
-                  progress={percentage}
+                  progress={dailyProgress}
                   progressColor={Colors.wWhite}
                   backgroundColor="rgba(255, 255, 255, 0.25)"
                 >
-                  <Text style={styles.progressText}>{percentage}%</Text>
+                  <Text style={styles.progressText}>{Math.round(dailyProgress)}%</Text>
                 </CircularProgress>
               </View>
             </View>
@@ -340,7 +268,11 @@ export default function HomeScreen() {
 
           {/* Calendar */}
           <HomeCalendar
-            completedDays={progressStatistic.currentMonthCompletions}
+            completedDays={
+              progressStatistic?.currentMonthCompletions
+                .map((completed, index) => completed ? index + 1 : null)
+                .filter((day): day is number => day !== null) || []
+            }
             scheduledWeekdays={getScheduledWeekdays()}
           />
 
@@ -350,16 +282,16 @@ export default function HomeScreen() {
             <View style={styles.streakCard}>
               <View style={styles.streakInfo}>
                 <Text style={styles.streakTitle}>
-                  {AppStrings.homeStreakDays} {progressStatistic.currentStreak}{' '}
+                  {AppStrings.homeStreakDays} {progressStatistic?.currentStreak || 0}{' '}
                   {AppStrings.homeStreakDaysUnit}
                 </Text>
                 <Text style={styles.streakSubtitle}>
-                  {AppStrings.homeLongestStreak} {progressStatistic.longestStreak}
+                  {AppStrings.homeLongestStreak} {progressStatistic?.longestStreak || 0}
                 </Text>
               </View>
               <Image
                 source={
-                  progressStatistic.currentStreak === 0
+                  (progressStatistic?.currentStreak || 0) === 0
                     ? AppAssets.fireNonIcon
                     : AppAssets.fireIcon
                 }
@@ -405,6 +337,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.wWhite,
+  },
+  loadingText: {
+    marginTop: Dims.spacingM,
+    fontSize: Dims.textSizeM,
+    color: Colors.dark,
+  },
+  noDataText: {
+    fontSize: Dims.textSizeL,
+    color: Colors.dark,
+    textAlign: 'center',
   },
   scrollView: {
     flex: 1,
@@ -465,7 +407,7 @@ const styles = StyleSheet.create({
   // Training Card
   trainingCard: {
     backgroundColor: Colors.bNormal,
-    borderRadius: Dims.borderRadiusLarge,
+    borderRadius: Dims.borderRadiusL,
     padding: Dims.paddingM,
     marginBottom: Dims.spacingSM,
   },
