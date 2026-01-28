@@ -310,6 +310,22 @@ export const AppStrings = {
     libraryCategoryYoga: 'Yoga',
     libraryCategoryCalisthenic: 'Calisthenic',
 
+    // ============================================
+    // TRAINING SCREEN - Tab and status messages
+    // ============================================
+    trainingSuggestedPlan: 'Kế hoạch đề xuất',
+    trainingYourChoice: 'Lựa chọn của bạn',
+    trainingNoTrainingPlan: 'Bạn chưa có kế hoạch tập luyện nào...',
+    trainingAddNew: 'Thêm mới',
+    trainingStartTraining: 'Bắt đầu',
+    trainingCompleted: 'Đã hoàn thành',
+    trainingNotStarted: 'Chưa bắt đầu',
+    trainingRestDay: 'Nghỉ ngơi, hồi phục',
+    trainingToday: 'Hôm nay',
+    trainingNext: 'Tiếp theo',
+    trainingDaysAgo: 'ngày trước',
+    trainingDaysAhead: 'ngày tới',
+    trainingDay: 'Ngày',
 
 } as const;
 
