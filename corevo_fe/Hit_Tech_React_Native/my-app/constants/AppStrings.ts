@@ -12,10 +12,13 @@ export const AppStrings = {
     error: 'Lỗi',
     failed: 'Thất bại',
     loading: 'Đang tải...',
+    loadingText: 'Đang tải dữ liệu...',
     notification: 'Thông báo',
     ok: 'Xác nhận',
+    retry: 'Thử lại',
     save: 'Lưu',
     success: 'Thành công',
+    startNow: 'Bắt đầu ngay',
 
     // ============================================
     // AUTHENTICATION - Login, Register, Password Reset
@@ -61,6 +64,7 @@ export const AppStrings = {
     unauthorized: 'Chưa được xác thực',
     validationError: 'Dữ liệu không hợp lệ',
     cannotCommit: 'Không thể lưu thông tin. Vui lòng thử lại.',
+    noExerciseForThisGroup: 'Không có bài tập nào cho nhóm này',
 
     // ============================================
     // VALIDATION - Form validation messages

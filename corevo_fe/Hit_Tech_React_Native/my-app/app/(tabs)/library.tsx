@@ -8,409 +8,43 @@ import {
     TouchableOpacity,
     ImageBackground,
     Image,
+    ActivityIndicator,
     Alert,
 } from 'react-native';
+import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
 import { AppAssets } from '@/constants/AppAssets';
 import { AppStrings } from '@/constants/AppStrings';
-import { TrainingPlan, TrainingPlanResponse } from '@/types/training';
+import { trainingService } from '@/services/api/trainingService';
+import type { TrainingPlan } from '@/types/training';
 
-// Mock data for training plans
-const MOCK_TRAINING_PLANS: Record<string, TrainingPlan[]> = {
-    loseFat: [
-        {
-            id: 1,
-            name: 'Giảm mỡ toàn thân',
-            goals: 'Lose fat',
-            description: 'Đốt cháy mỡ thừa hiệu quả với cardio và HIIT',
-            aim: 'Giảm 5kg trong 8 tuần',
-            type: 'CARDIO',
-            duration: '45',
-            frequency: '5',
-            levelIds: [1],
-            locationIds: [1],
-            equipmentIds: [1],
-        },
-        {
-            id: 2,
-            name: 'Cardio cơ bản',
-            goals: 'Lose fat',
-            description: 'Tập cardio nhẹ nhàng cho người mới bắt đầu',
-            aim: 'Giảm mỡ bụng',
-            type: 'CARDIO',
-            duration: '30',
-            frequency: '4',
-            levelIds: [1],
-            locationIds: [1],
-            equipmentIds: [1],
-        },
-        {
-            id: 3,
-            name: 'HIIT nâng cao',
-            goals: 'Lose fat',
-            description: 'HIIT cường độ cao để đốt cháy calories tối đa',
-            aim: 'Giảm 8kg trong 12 tuần',
-            type: 'CARDIO',
-            duration: '40',
-            frequency: '6',
-            levelIds: [3],
-            locationIds: [1],
-            equipmentIds: [1],
-        },
-    ],
-    gainWeight: [
-        {
-            id: 4,
-            name: 'Tăng cân khỏe mạnh',
-            goals: 'Gain weight',
-            description: 'Kế hoạch tăng cân và cơ bắp cho người gầy',
-            aim: 'Tăng 5kg trong 12 tuần',
-            type: 'GYM',
-            duration: '60',
-            frequency: '5',
-            levelIds: [2],
-            locationIds: [2],
-            equipmentIds: [4],
-        },
-        {
-            id: 5,
-            name: 'Tăng cơ và cân nặng',
-            goals: 'Gain weight',
-            description: 'Tập tạ kết hợp dinh dưỡng để tăng cân',
-            aim: 'Tăng 3kg trong 8 tuần',
-            type: 'GYM',
-            duration: '50',
-            frequency: '4',
-            levelIds: [1],
-            locationIds: [2],
-            equipmentIds: [4],
-        },
-    ],
-    gainMuscle: [
-        {
-            id: 6,
-            name: 'Tăng cơ toàn diện',
-            goals: 'Gain muscle',
-            description: 'Xây dựng khối cơ với các bài tập phức hợp',
-            aim: 'Tăng 4kg cơ trong 12 tuần',
-            type: 'GYM',
-            duration: '60',
-            frequency: '6',
-            levelIds: [2],
-            locationIds: [2],
-            equipmentIds: [4],
-        },
-        {
-            id: 7,
-            name: 'Cơ bắp thẩm mỹ',
-            goals: 'Gain muscle',
-            description: 'Tăng cơ và định hình body đẹp mắt',
-            aim: 'Tăng 3kg cơ trong 10 tuần',
-            type: 'GYM',
-            duration: '55',
-            frequency: '5',
-            levelIds: [2],
-            locationIds: [2],
-            equipmentIds: [4],
-        },
-        {
-            id: 8,
-            name: 'Bodybuilding',
-            goals: 'Gain muscle',
-            description: 'Chương trình tăng cơ chuyên nghiệp',
-            aim: 'Tăng 6kg cơ trong 16 tuần',
-            type: 'GYM',
-            duration: '75',
-            frequency: '6',
-            levelIds: [3],
-            locationIds: [2],
-            equipmentIds: [4],
-        },
-    ],
-    maintainBody: [
-        {
-            id: 9,
-            name: 'Duy trì vóc dáng',
-            goals: 'Maintain Body',
-            description: 'Giữ gìn thể hình hiện tại với tập luyện đều đặn',
-            aim: 'Duy trì cân nặng ổn định',
-            type: 'GYM',
-            duration: '45',
-            frequency: '4',
-            levelIds: [2],
-            locationIds: [1, 2],
-            equipmentIds: [1],
-        },
-        {
-            id: 10,
-            name: 'Fitness tổng hợp',
-            goals: 'Maintain Body',
-            description: 'Kết hợp cardio và tạ để duy trì sức khỏe',
-            aim: 'Giữ body fit',
-            type: 'GYM',
-            duration: '50',
-            frequency: '5',
-            levelIds: [2],
-            locationIds: [2],
-            equipmentIds: [4],
-        },
-        {
-            id: 11,
-            name: 'Tập nhẹ duy trì',
-            goals: 'Maintain Body',
-            description: 'Tập luyện nhẹ nhàng để giữ vóc dáng',
-            aim: 'Duy trì thể hình',
-            type: 'CALISTHENIC',
-            duration: '35',
-            frequency: '3',
-            levelIds: [1],
-            locationIds: [1],
-            equipmentIds: [1],
-        },
-    ],
-    increaseEndurance: [
-        {
-            id: 12,
-            name: 'Tăng sức bền',
-            goals: 'Increase endurance',
-            description: 'Cải thiện sức bền tim phổi và cơ bắp',
-            aim: 'Chạy 5km không nghỉ',
-            type: 'CARDIO',
-            duration: '40',
-            frequency: '5',
-            levelIds: [2],
-            locationIds: [3],
-            equipmentIds: [1],
-        },
-        {
-            id: 13,
-            name: 'Marathon cơ bản',
-            goals: 'Increase endurance',
-            description: 'Chuẩn bị cho cuộc đua marathon',
-            aim: 'Chạy 10km',
-            type: 'CARDIO',
-            duration: '60',
-            frequency: '6',
-            levelIds: [2],
-            locationIds: [3],
-            equipmentIds: [1],
-        },
-        {
-            id: 14,
-            name: 'Endurance Pro',
-            goals: 'Increase endurance',
-            description: 'Tăng sức bền chuyên nghiệp',
-            aim: 'Chạy 21km',
-            type: 'CARDIO',
-            duration: '75',
-            frequency: '6',
-            levelIds: [3],
-            locationIds: [3],
-            equipmentIds: [1],
-        },
-    ],
-    improveCardiovascular: [
-        {
-            id: 15,
-            name: 'Tim mạch khỏe',
-            goals: 'Improve cardiovascular',
-            description: 'Cải thiện sức khỏe tim mạch',
-            aim: 'Nhịp tim khỏe hơn',
-            type: 'CARDIO',
-            duration: '30',
-            frequency: '4',
-            levelIds: [1],
-            locationIds: [1, 3],
-            equipmentIds: [1],
-        },
-        {
-            id: 16,
-            name: 'Cardio nâng cao',
-            goals: 'Improve cardiovascular',
-            description: 'Tăng cường tim mạch với các bài tập cardio',
-            aim: 'Cải thiện hệ tim mạch',
-            type: 'CARDIO',
-            duration: '45',
-            frequency: '5',
-            levelIds: [2],
-            locationIds: [2, 3],
-            equipmentIds: [1, 6],
-        },
-        {
-            id: 17,
-            name: 'Sức khỏe tim mạch',
-            goals: 'Improve cardiovascular',
-            description: 'Chương trình cho người bệnh tim mạch',
-            aim: 'Phục hồi sức khỏe',
-            type: 'CARDIO',
-            duration: '25',
-            frequency: '3',
-            levelIds: [1],
-            locationIds: [1],
-            equipmentIds: [1],
-        },
-    ],
-    stressRelief: [
-        {
-            id: 18,
-            name: 'Yoga thư giãn',
-            goals: 'Stress relief/relaxation',
-            description: 'Giảm stress với yoga nhẹ nhàng',
-            aim: 'Thư giãn tinh thần',
-            type: 'YOGA',
-            duration: '30',
-            frequency: '4',
-            levelIds: [1],
-            locationIds: [1],
-            equipmentIds: [7],
-        },
-        {
-            id: 19,
-            name: 'Meditation',
-            goals: 'Stress relief/relaxation',
-            description: 'Thiền và yoga để giảm căng thẳng',
-            aim: 'Bình an nội tâm',
-            type: 'YOGA',
-            duration: '35',
-            frequency: '5',
-            levelIds: [1],
-            locationIds: [1],
-            equipmentIds: [7],
-        },
-        {
-            id: 20,
-            name: 'Yoga nâng cao',
-            goals: 'Stress relief/relaxation',
-            description: 'Yoga chuyên sâu để cân bằng cơ thể và tâm trí',
-            aim: 'Thư giãn sâu',
-            type: 'YOGA',
-            duration: '45',
-            frequency: '6',
-            levelIds: [2],
-            locationIds: [1],
-            equipmentIds: [7],
-        },
-    ],
-    increaseHeight: [
-        {
-            id: 21,
-            name: 'Tăng chiều cao',
-            goals: 'Increase height',
-            description: 'Các bài tập hỗ trợ tăng chiều cao',
-            aim: 'Tăng 2-3cm',
-            type: 'CALISTHENIC',
-            duration: '30',
-            frequency: '6',
-            levelIds: [1],
-            locationIds: [1],
-            equipmentIds: [1, 3],
-        },
-        {
-            id: 22,
-            name: 'Kéo giãn cột sống',
-            goals: 'Increase height',
-            description: 'Kéo giãn để tăng chiều cao tối ưu',
-            aim: 'Tăng 1-2cm',
-            type: 'YOGA',
-            duration: '25',
-            frequency: '7',
-            levelIds: [1],
-            locationIds: [1],
-            equipmentIds: [7, 3],
-        },
-        {
-            id: 23,
-            name: 'Tăng chiều cao toàn diện',
-            goals: 'Increase height',
-            description: 'Kết hợp nhiều phương pháp tăng chiều cao',
-            aim: 'Tăng 3-5cm',
-            type: 'CALISTHENIC',
-            duration: '40',
-            frequency: '6',
-            levelIds: [2],
-            locationIds: [1, 2],
-            equipmentIds: [1, 3],
-        },
-    ],
-};
+// Interface for exercise category
+interface ExerciseCategory {
+    id: number;
+    name: string;
+    image: any;
+    type: 'muscle' | 'type';
+    queryName: string;
+}
 
-// Categories for exercises tab
-const EXERCISE_CATEGORIES = [
-    {
-        id: 1,
-        name: AppStrings.libraryCategoryChest,
-        image: AppAssets.chestCategory,
-        type: 'muscle',
-    },
-    {
-        id: 2,
-        name: AppStrings.libraryCategoryBack,
-        image: AppAssets.backCategory,
-        type: 'muscle',
-    },
-    {
-        id: 3,
-        name: AppStrings.libraryCategoryShoulders,
-        image: AppAssets.shouldersCategory,
-        type: 'muscle',
-    },
-    {
-        id: 4,
-        name: AppStrings.libraryCategoryBiceps,
-        image: AppAssets.bicepCategory,
-        type: 'muscle',
-    },
-    {
-        id: 5,
-        name: AppStrings.libraryCategoryTriceps,
-        image: AppAssets.tricepCategory,
-        type: 'muscle',
-    },
-    {
-        id: 6,
-        name: AppStrings.libraryCategoryAbs,
-        image: AppAssets.absCategory,
-        type: 'muscle',
-    },
-    {
-        id: 7,
-        name: AppStrings.libraryCategoryGlutes,
-        image: AppAssets.gluteCategory,
-        type: 'muscle',
-    },
-    {
-        id: 8,
-        name: AppStrings.libraryCategoryQuads,
-        image: AppAssets.quadsCategory,
-        type: 'muscle',
-    },
-    {
-        id: 9,
-        name: AppStrings.libraryCategoryHamstrings,
-        image: AppAssets.hamstringCategory,
-        type: 'muscle',
-    },
-    {
-        id: 10,
-        name: AppStrings.libraryCategoryCardio,
-        image: AppAssets.cardioCategory,
-        type: 'type',
-    },
-    {
-        id: 11,
-        name: AppStrings.libraryCategoryYoga,
-        image: AppAssets.yogaCategory,
-        type: 'type',
-    },
-    {
-        id: 12,
-        name: AppStrings.libraryCategoryCalisthenic,
-        image: AppAssets.calisthenicCategory,
-        type: 'type',
-    },
+// Exercise categories matching Flutter's targetMuscleCategory
+const EXERCISE_CATEGORIES: ExerciseCategory[] = [
+    { id: 0, name: 'Ngực', image: AppAssets.chestCategory, type: 'muscle', queryName: 'Chest' },
+    { id: 1, name: 'Lưng', image: AppAssets.backCategory, type: 'muscle', queryName: 'Back' },
+    { id: 2, name: 'Vai', image: AppAssets.shouldersCategory, type: 'muscle', queryName: 'Shoulders' },
+    { id: 3, name: 'Tay trước', image: AppAssets.bicepCategory, type: 'muscle', queryName: 'Biceps' },
+    { id: 4, name: 'Tay sau', image: AppAssets.tricepCategory, type: 'muscle', queryName: 'Triceps' },
+    { id: 5, name: 'Bụng', image: AppAssets.absCategory, type: 'muscle', queryName: 'Abs' },
+    { id: 6, name: 'Mông', image: AppAssets.gluteCategory, type: 'muscle', queryName: 'Glutes' },
+    { id: 7, name: 'Đùi trước', image: AppAssets.quadsCategory, type: 'muscle', queryName: 'Quads' },
+    { id: 8, name: 'Đùi sau', image: AppAssets.hamstringCategory, type: 'muscle', queryName: 'Hamstrings' },
+    { id: 9, name: 'Cardio', image: AppAssets.cardioCategory, type: 'type', queryName: 'Cardio' },
+    { id: 10, name: 'Yoga', image: AppAssets.yogaCategory, type: 'type', queryName: 'Yoga' },
+    { id: 11, name: 'Calisthenic', image: AppAssets.calisthenicCategory, type: 'type', queryName: 'Calisthenic' },
 ];
+
 
 /**
  * Training Library Screen
@@ -418,8 +52,24 @@ const EXERCISE_CATEGORIES = [
  * Converted from Flutter training_library_screen.dart
  */
 export default function LibraryScreen() {
+    const router = useRouter();
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
+    const [trainingPlansByType, setTrainingPlansByType] = useState<TrainingPlan[]>([]);
+
+    // State for training plans grouped by goals
+    const [trainingPlans, setTrainingPlans] = useState<Record<string, TrainingPlan[]>>({
+        loseFat: [],
+        gainWeight: [],
+        gainMuscle: [],
+        maintainBody: [],
+        increaseEndurance: [],
+        improveCardiovascular: [],
+        stressRelief: [],
+        increaseHeight: [],
+    });
 
     // Animation values for tabs
     const tab0FontSize = useRef(new Animated.Value(selectedIndex === 0 ? 1 : 0)).current;
@@ -427,6 +77,12 @@ export default function LibraryScreen() {
     const tab0Indicator = useRef(new Animated.Value(selectedIndex === 0 ? 1 : 0)).current;
     const tab1Indicator = useRef(new Animated.Value(selectedIndex === 1 ? 1 : 0)).current;
 
+    // Fetch training plans on mount
+    useEffect(() => {
+        fetchTrainingPlans();
+    }, []);
+
+    // Animate tabs
     useEffect(() => {
         Animated.parallel([
             Animated.timing(tab0FontSize, {
@@ -452,16 +108,113 @@ export default function LibraryScreen() {
         ]).start();
     }, [selectedIndex]);
 
+    const fetchTrainingPlans = async () => {
+        try {
+            setIsLoading(true);
+            setError(null);
+
+            const responseAll = await trainingService.getAllTrainingPlan(1, 23);
+
+            if (responseAll.status === 'SUCCESS' && responseAll.data.items) {
+                const items = responseAll.data.items;
+                console.log('Total items fetched:', items.length);
+
+                // Initialize empty groupings
+                const grouped: Record<string, TrainingPlan[]> = {
+                    loseFat: [],
+                    gainWeight: [],
+                    gainMuscle: [],
+                    maintainBody: [],
+                    increaseEndurance: [],
+                    improveCardiovascular: [],
+                    stressRelief: [],
+                    increaseHeight: [],
+                };
+
+                // Group plans dynamically by their "goals" property
+                items.forEach((item: TrainingPlan) => {
+                    const goal = item.goals?.toLowerCase() || '';
+
+                    if (goal.includes('lose fat') || goal.includes('weight loss')) {
+                        grouped.loseFat.push(item);
+                    } else if (goal.includes('gain weight')) {
+                        grouped.gainWeight.push(item);
+                    } else if (goal.includes('gain muscle') || goal.includes('build muscle')) {
+                        grouped.gainMuscle.push(item);
+                    } else if (goal.includes('maintain') || goal.includes('stay fit')) {
+                        grouped.maintainBody.push(item);
+                    } else if (goal.includes('endurance')) {
+                        grouped.increaseEndurance.push(item);
+                    } else if (goal.includes('cardio')) {
+                        grouped.improveCardiovascular.push(item);
+                    } else if (goal.includes('stress') || goal.includes('relief')) {
+                        grouped.stressRelief.push(item);
+                    } else if (goal.includes('height')) {
+                        grouped.increaseHeight.push(item);
+                    } else {
+                        // Default to lose fat if no match or add to a general list if needed
+                        // For now, let's just log it if it doesn't match
+                        console.warn(`Unmatched goal for plan ${item.id}: ${item.goals}`);
+                    }
+                });
+
+                setTrainingPlans(grouped);
+            } else {
+                setError('Không thể tải danh sách kế hoạch');
+            }
+        } catch (err) {
+            console.error('Error fetching training plans:', err);
+            setError('Đã xảy ra lỗi khi tải dữ liệu');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const fetchPlansByType = async (type: string) => {
+        try {
+            setIsLoading(true);
+            setError(null);
+            const response = await trainingService.getTrainingPlanByType(type, 1, 23);
+
+            if (response.status === 'SUCCESS' && response.data?.items) {
+                setTrainingPlansByType(response.data.items || []);
+            } else {
+                setError('Không thể tải kế hoạch theo loại');
+            }
+        } catch (err) {
+            console.error('Error fetching plans by type:', err);
+            setError('Đã xảy ra lỗi khi tải dữ liệu');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // Call fetchPlansByType when selectedFilter changes
+    useEffect(() => {
+        if (selectedFilter) {
+            fetchPlansByType(selectedFilter);
+        }
+    }, [selectedFilter]);
+
     const handleSearchPress = () => {
-        Alert.alert('Tìm kiếm', 'Tính năng đang phát triển');
+        // TODO: Navigate to search screen
+        Alert.alert('Tìm kiếm', 'Tính năng tìm kiếm đang phát triển');
     };
 
     const handlePlanPress = (plan: TrainingPlan) => {
-        Alert.alert('Chi tiết kế hoạch', `Kế hoạch: ${plan.name}`);
+        router.push(`/library/training-plan-detail?id=${plan.id}`);
     };
 
-    const handleCategoryPress = (categoryName: string) => {
-        Alert.alert('Danh sách bài tập', `Nhóm cơ: ${categoryName}`);
+    const handleCategoryPress = (category: ExerciseCategory) => {
+        if (category.type === 'muscle') {
+            router.push(`/library/exercise-list?muscle=${category.queryName}&name=${category.name}`);
+        } else {
+            router.push(`/library/exercise-list?type=${category.queryName}&name=${category.name}`);
+        }
+    };
+
+    const handleRetry = () => {
+        fetchTrainingPlans();
     };
 
     if (isLoading) {
@@ -562,11 +315,58 @@ export default function LibraryScreen() {
                     </TouchableOpacity>
 
                     {/* Content */}
-                    {selectedIndex === 0 ? (
+                    {isLoading ? (
+                        <View style={styles.centerContainer}>
+                            <ActivityIndicator size="large" color={Colors.bNormal} />
+                            <Text style={styles.loadingText}>{AppStrings.loadingText}</Text>
+                        </View>
+                    ) : error ? (
+                        <View style={styles.centerContainer}>
+                            <Text style={styles.errorText}>{error}</Text>
+                            <TouchableOpacity
+                                style={styles.retryButton}
+                                onPress={handleRetry}
+                                activeOpacity={0.7}
+                            >
+                                <Text style={styles.retryButtonText}>{AppStrings.retry}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    ) : selectedIndex === 0 ? (
                         <TrainingPlansTab
-                            plans={MOCK_TRAINING_PLANS}
+                            plans={trainingPlans}
                             onPlanPress={handlePlanPress}
                         />
+                    ) : selectedFilter ? (
+                        // If a filter is selected, show plans for that type
+                        // This matches the user's request to call getTrainingPlanByType
+                        <ScrollView
+                            style={styles.scrollView}
+                            contentContainerStyle={styles.plansContent}
+                            showsVerticalScrollIndicator={false}
+                        >
+                            <TouchableOpacity
+                                style={styles.backToCategories}
+                                onPress={() => setSelectedFilter(null)}
+                            >
+                                <Ionicons name="arrow-back" size={24} color={Colors.dark} />
+                                <Text style={styles.backText}>Quay lại danh mục</Text>
+                            </TouchableOpacity>
+
+                            <View style={styles.plansListVertical}>
+                                {trainingPlansByType.map((plan) => (
+                                    <TrainingPlanCard
+                                        key={plan.id}
+                                        plan={plan}
+                                        onPress={() => handlePlanPress(plan)}
+                                        isVertical
+                                    />
+                                ))}
+                                {trainingPlansByType.length === 0 && (
+                                    <Text style={styles.emptyText}>Không có kế hoạch nào cho mục này</Text>
+                                )}
+                            </View>
+                            <View style={styles.bottomSpacer} />
+                        </ScrollView>
                     ) : (
                         <ExercisesTab
                             categories={EXERCISE_CATEGORIES}
@@ -637,11 +437,12 @@ function TrainingPlansTab({ plans, onPlanPress }: TrainingPlansTabProps) {
 interface TrainingPlanCardProps {
     plan: TrainingPlan;
     onPress: () => void;
+    isVertical?: boolean;
 }
 
-function TrainingPlanCard({ plan, onPress }: TrainingPlanCardProps) {
+function TrainingPlanCard({ plan, onPress, isVertical }: TrainingPlanCardProps) {
     return (
-        <View style={styles.planCard}>
+        <View style={[styles.planCard, isVertical && styles.planCardVertical]}>
             <ImageBackground
                 source={AppAssets.trainingPlan1}
                 style={styles.planCardBackground}
@@ -681,13 +482,8 @@ function TrainingPlanCard({ plan, onPress }: TrainingPlanCardProps) {
  * Exercises Tab Component
  */
 interface ExercisesTabProps {
-    categories: Array<{
-        id: number;
-        name: string;
-        image: any;
-        type: string;
-    }>;
-    onCategoryPress: (categoryName: string) => void;
+    categories: ExerciseCategory[];
+    onCategoryPress: (category: ExerciseCategory) => void;
 }
 
 function ExercisesTab({ categories, onCategoryPress }: ExercisesTabProps) {
@@ -701,7 +497,7 @@ function ExercisesTab({ categories, onCategoryPress }: ExercisesTabProps) {
                 <CategoryCard
                     key={category.id}
                     category={category}
-                    onPress={() => onCategoryPress(category.name)}
+                    onPress={() => onCategoryPress(category)}
                 />
             ))}
             <View style={styles.bottomSpacer} />
@@ -713,12 +509,7 @@ function ExercisesTab({ categories, onCategoryPress }: ExercisesTabProps) {
  * Category Card Component
  */
 interface CategoryCardProps {
-    category: {
-        id: number;
-        name: string;
-        image: any;
-        type: string;
-    };
+    category: ExerciseCategory;
     onPress: () => void;
 }
 
@@ -801,6 +592,36 @@ const styles = StyleSheet.create({
         marginLeft: Dims.spacingS,
     },
 
+    // Center Container (for loading/error states)
+    centerContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: Dims.paddingL,
+    },
+    loadingText: {
+        marginTop: Dims.spacingM,
+        fontSize: Dims.textSizeM,
+        color: Colors.dark,
+    },
+    errorText: {
+        fontSize: Dims.textSizeM,
+        color: Colors.dark,
+        textAlign: 'center',
+        marginBottom: Dims.spacingL,
+    },
+    retryButton: {
+        backgroundColor: Colors.bNormal,
+        paddingHorizontal: Dims.paddingL,
+        paddingVertical: Dims.paddingM,
+        borderRadius: Dims.borderRadiusSmall,
+    },
+    retryButtonText: {
+        color: Colors.wWhite,
+        fontSize: Dims.textSizeM,
+        fontWeight: '600',
+    },
+
     // Scroll View
     scrollView: {
         flex: 1,
@@ -831,6 +652,11 @@ const styles = StyleSheet.create({
         height: Dims.size200,
         marginRight: Dims.paddingM,
     },
+    planCardVertical: {
+        width: 'auto',
+        marginHorizontal: Dims.paddingM,
+        marginBottom: Dims.spacingML,
+    },
     planCardBackground: {
         flex: 1,
         width: '100%',
@@ -845,18 +671,14 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'transparent',
         borderRadius: Dims.borderRadiusLarge,
-        background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%)',
-    } as any,
+    },
     planCardContent: {
         flex: 1,
         padding: Dims.paddingM,
-        justifyContent: 'space-between',
-        flexDirection: 'row',
+        justifyContent: 'flex-end',
     },
     planCardInfo: {
-        flex: 1,
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
@@ -922,5 +744,29 @@ const styles = StyleSheet.create({
     // Bottom Spacer
     bottomSpacer: {
         height: Dims.size104,
+    },
+
+    // Filtered View Styles
+    backToCategories: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: Dims.paddingM,
+        marginBottom: Dims.spacingM,
+        marginTop: Dims.spacingS,
+    },
+    backText: {
+        marginLeft: Dims.spacingS,
+        fontSize: Dims.textSizeM,
+        color: Colors.dark,
+        fontWeight: '500',
+    },
+    plansListVertical: {
+        flex: 1,
+    },
+    emptyText: {
+        textAlign: 'center',
+        marginTop: Dims.spacingHuge,
+        fontSize: Dims.textSizeM,
+        color: Colors.lightHover,
     },
 });

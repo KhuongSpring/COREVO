@@ -27,7 +27,9 @@ export interface TrainingPlanResponse {
 
 export interface TrainingPlanResultResponse {
     status: string;
-    items: TrainingPlan[];
+    data: {
+        items: TrainingPlan[];
+    };
 }
 
 // ==================== Training Exercise ====================
