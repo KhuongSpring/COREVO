@@ -64,11 +64,13 @@ apiClient.interceptors.response.use(
     async (error: AxiosError) => {
         const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-        // If error is 401 and we haven't retried yet
+        // If error is 401 or 403 and we haven't retried yet
         // Also skip refresh for auth endpoints (login, register, etc.)
+        // Note: Backend returns 403 for invalid/expired tokens instead of 401
         const isAuthRequest = originalRequest.url?.includes('/auth/');
+        const isTokenError = error.response?.status === 401 || error.response?.status === 403;
 
-        if (error.response?.status === 401 && !originalRequest._retry && !isAuthRequest) {
+        if (isTokenError && !originalRequest._retry && !isAuthRequest) {
             if (isRefreshing) {
                 // If already refreshing, queue this request
                 return new Promise((resolve, reject) => {

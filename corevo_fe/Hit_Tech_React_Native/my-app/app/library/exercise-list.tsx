@@ -19,6 +19,7 @@ import { Dims } from '@/constants/Dimensions';
 import { AppAssets } from '@/constants/AppAssets';
 import { trainingService } from '@/services/api/trainingService';
 import ExerciseListItem from '@/components/library/ExerciseListItem';
+import ExerciseDetailModal from '@/components/library/ExerciseDetailModal';
 import { generateMuscleDescription } from '@/utils/trainingHelpers';
 import type { TrainingExercisePreview } from '@/types/training';
 import { AppStrings } from '@/constants/AppStrings';
@@ -50,6 +51,8 @@ export default function ExerciseListScreen() {
     const [exercises, setExercises] = useState<TrainingExercisePreview[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedExerciseId, setSelectedExerciseId] = useState<number | null>(null);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const displayName = params.name || params.muscle || params.type || '';
 
@@ -118,7 +121,13 @@ export default function ExerciseListScreen() {
     };
 
     const handleExercisePress = (exercise: TrainingExercisePreview) => {
-        console.log('Exercise pressed:', exercise.name);
+        setSelectedExerciseId(exercise.id);
+        setModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalVisible(false);
+        setSelectedExerciseId(null);
     };
 
     // [ANIMATION CONFIG]
@@ -246,6 +255,13 @@ export default function ExerciseListScreen() {
                     <View style={styles.bottomSpacer} />
                 </View>
             </Animated.ScrollView>
+
+            {/* Exercise Detail Modal */}
+            <ExerciseDetailModal
+                visible={modalVisible}
+                exerciseId={selectedExerciseId}
+                onClose={handleCloseModal}
+            />
         </View>
     );
 }

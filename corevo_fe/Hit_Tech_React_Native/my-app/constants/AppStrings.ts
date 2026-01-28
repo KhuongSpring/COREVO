@@ -19,6 +19,13 @@ export const AppStrings = {
     save: 'Lưu',
     success: 'Thành công',
     startNow: 'Bắt đầu ngay',
+    close: 'Đóng',
+    sets: 'sets',
+    reps: 'reps',
+    secs: 'secs',
+    introduction: 'GIỚI THIỆU',
+    targetMuscles: 'NHÓM CƠ TÁC ĐỘNG',
+    equipment: 'DỤNG CỤ LUYỆN TẬP',
 
     // ============================================
     // AUTHENTICATION - Login, Register, Password Reset

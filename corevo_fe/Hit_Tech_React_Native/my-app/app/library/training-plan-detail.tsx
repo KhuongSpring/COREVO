@@ -24,6 +24,7 @@ import CategoryPill from '@/components/library/CategoryPill';
 import { mapGoalToVietnamese, generatePlanDescription } from '@/utils/trainingHelpers';
 import type { TrainingPlan, TrainingExercisePreview } from '@/types/training';
 import { AppStrings } from '@/constants/AppStrings';
+import ExerciseDetailModal from '@/components/library/ExerciseDetailModal';
 
 // Chiều cao ảnh Header
 const HEADER_HEIGHT = Dims.size304;
@@ -49,6 +50,9 @@ export default function TrainingPlanDetailScreen() {
     const [exercises, setExercises] = useState<TrainingExercisePreview[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [selectedExerciseId, setSelectedExerciseId] = useState<number | null>(null);
+    const [modalVisible, setModalVisible] = useState(false);
+
 
     // [EFFECT] Load dữ liệu khi vào màn hình
     useEffect(() => {
@@ -138,7 +142,13 @@ export default function TrainingPlanDetailScreen() {
 
     // [HANDLERS] Các sự kiện bấm nút
     const handleExercisePress = (exercise: TrainingExercisePreview) => {
-        Alert.alert('Chi tiết bài tập', exercise.name);
+        setSelectedExerciseId(exercise.id);
+        setModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalVisible(false);
+        setSelectedExerciseId(null);
     };
 
     const handleStartPress = () => {
@@ -282,6 +292,13 @@ export default function TrainingPlanDetailScreen() {
                     <Text style={styles.startButtonText}>{AppStrings.startNow}</Text>
                 </TouchableOpacity>
             </View>
+
+            {/* --- 5. EXERCISE DETAIL MODAL --- */}
+            <ExerciseDetailModal
+                visible={modalVisible}
+                exerciseId={selectedExerciseId}
+                onClose={handleCloseModal}
+            />
         </View>
     );
 }
@@ -451,7 +468,7 @@ const styles = StyleSheet.create({
     startButton: {
         backgroundColor: Colors.bNormal,
         height: 56,
-        borderRadius: Dims.borderRadiusSmall,
+        borderRadius: Dims.borderRadiusLarge,
         justifyContent: 'center',
         alignItems: 'center',
         // Shadow cho nút
