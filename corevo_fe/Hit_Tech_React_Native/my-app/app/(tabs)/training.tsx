@@ -9,7 +9,9 @@ import {
     Image,
     StatusBar,
     Animated,
+    Alert,
 } from 'react-native';
+import { router } from 'expo-router';
 import { Colors } from '@/constants/Colors';
 import { Dims } from '@/constants/Dimensions';
 import { AppStrings } from '@/constants/AppStrings';
@@ -418,6 +420,10 @@ function SuggestedPlanTab({
                                                 resizeMode='contain'
                                             />
                                         </View>
+                                        {/* Gray overlay for past days */}
+                                        {index < selectedDay && (
+                                            <View style={styles.pastDayOverlay} />
+                                        )}
                                     </TouchableOpacity>
                                 )}
                             </Animated.View>
@@ -481,9 +487,16 @@ function SelectedDayCard({
         } else {
             buttonText = AppStrings.trainingStartTraining;
             buttonColor = Colors.bNormal;
+            console.log(trainingDayImage);
             buttonAction = () => {
-                // TODO: Navigate to training detail
-                console.log('Navigate to training detail');
+                router.push({
+                    pathname: '/(training)/training-day-detail',
+                    params: {
+                        schedule: JSON.stringify(schedule),
+                        numberDay: `${AppStrings.trainingDay} ${index + 1}`,
+                        imageBG: trainingDayImage,
+                    },
+                });
             };
         }
     }
@@ -522,6 +535,11 @@ function SelectedDayCard({
                 >
                     <Text style={styles.buttonText}>{buttonText}</Text>
                 </TouchableOpacity>
+
+                {/* Gray overlay for past days */}
+                {isPastDay && (
+                    <View style={styles.pastDayOverlay} />
+                )}
             </View>
 
             {/* Show next day preview if not last day */}
@@ -685,6 +703,17 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.05,
         shadowRadius: 8,
         elevation: 2,
+        overflow: 'hidden', // Ensure overlay doesn't bleed outside
+    },
+    // Gray overlay for past days
+    pastDayOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0.6)', // White with 60% opacity
+        borderRadius: Dims.borderRadius,
     },
     cardContent: {
         flexDirection: 'row',
@@ -737,6 +766,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.05,
         shadowRadius: 8,
         elevation: 2,
+        overflow: 'hidden', // Ensure overlay doesn't bleed outside
     },
     selectedCardContent: {
         flexDirection: 'row',

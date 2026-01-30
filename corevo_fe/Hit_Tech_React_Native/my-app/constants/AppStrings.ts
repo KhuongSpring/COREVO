@@ -327,6 +327,27 @@ export const AppStrings = {
     trainingDaysAhead: 'ngày tới',
     trainingDay: 'Ngày',
 
+    // ============================================
+    // TRAINING DAY START SCREEN - Exercise execution
+    // ============================================
+    trainingDayStartBack: 'Trở về',
+    trainingSetLabel: 'Set',
+    trainingRepTimeLabel: 'Rep / Thời gian',
+    trainingCompletedLabel: 'hoàn thành',
+    trainingPauseDialogTitle: 'Tạm dừng',
+    trainingPauseDialogMessage: 'Bạn có chắc muốn dừng buổi tập này?',
+    trainingPauseDialogConfirm: 'Dừng lại',
+    trainingPauseDialogCancel: 'Tiếp tục',
+
+    // Training Detail Screen
+    trainingDetailTime: 'Thời gian',
+    trainingDetailLocation: 'Địa điểm',
+    trainingDetailRestTime: 'Thời gian nghỉ',
+    trainingDetailRestSeconds: '30 giây',
+    trainingDetailStart: 'Bắt đầu',
+    trainingDetailSet: 'set',
+    trainingDetailSets: 'sets',
+
 } as const;
 
 export type AppStringKey = keyof typeof AppStrings;

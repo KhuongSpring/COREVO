@@ -28,6 +28,7 @@ export const Colors = {
 
   // Black/Gray shades
   moreLighter: '#b6b6b6',
+  lightGray: '#e0e0e0',
   lighter: '#8c8c8c',
   lightHover: '#757575',
   lightActive: '#595959',
