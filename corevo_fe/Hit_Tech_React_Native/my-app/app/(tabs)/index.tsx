@@ -28,12 +28,17 @@ import { trainingService } from '@/services/api/trainingService';
  */
 export default function HomeScreen() {
   const router = useRouter();
-  const { user, currentTrainingPlan, fetchProfile } = useUserStore();
+  const {
+    user,
+    currentTrainingPlan,
+    trainingSchedules,
+    dailyProgress,
+    progressStatistic,
+    fetchProfile,
+    fetchTrainingData
+  } = useUserStore();
 
   // State
-  const [schedules, setSchedules] = useState<TrainingSchedule[]>([]);
-  const [progressStatistic, setProgressStatistic] = useState<TrainingProgressStatistic | null>(null);
-  const [dailyProgress, setDailyProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -44,7 +49,7 @@ export default function HomeScreen() {
 
   // Fetch training data when profile is loaded
   useEffect(() => {
-    const fetchData = async () => {
+    const loadData = async () => {
       if (!currentTrainingPlan) {
         setIsLoading(false);
         return;
@@ -53,22 +58,7 @@ export default function HomeScreen() {
       try {
         setIsLoading(true);
         setError(null);
-
-        // Fetch schedules
-        const schedulesRes = await trainingService.getTrainingScheduleById(currentTrainingPlan.id);
-        setSchedules(schedulesRes.data.days);
-
-        // Fetch daily progress
-        const progressRes = await trainingService.getDailyProgress();
-        setDailyProgress(progressRes.data.percentage);
-
-        // Fetch statistics
-        const statsRes = await trainingService.getStatistic(
-          new Date().getFullYear(),
-          new Date().getMonth() + 1
-        );
-        setProgressStatistic(statsRes.data);
-
+        await fetchTrainingData();
       } catch (error: any) {
         console.error('Error fetching home data:', error);
         setError(error.message || 'Không thể tải dữ liệu');
@@ -77,7 +67,7 @@ export default function HomeScreen() {
       }
     };
 
-    fetchData();
+    loadData();
   }, [currentTrainingPlan]);
 
   const fullName = user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : 'User';
@@ -125,7 +115,7 @@ export default function HomeScreen() {
       SUNDAY: 0,
     };
 
-    return schedules
+    return trainingSchedules
       .filter(schedule => {
         const hasExercises = (schedule.exerciseGroups?.exercises?.length || 0) > 0;
         return hasExercises;
@@ -135,7 +125,7 @@ export default function HomeScreen() {
   };
 
   // Get current schedule and exercise count
-  const currentSchedule = schedules[weekDay];
+  const currentSchedule = trainingSchedules[weekDay];
   const exerciseCount = currentSchedule?.exerciseGroups?.exercises?.length || 0;
 
   const handleNavigateToSettings = () => {
@@ -165,7 +155,7 @@ export default function HomeScreen() {
   }
 
   // No training plan
-  if (!currentTrainingPlan || schedules.length === 0) {
+  if (!currentTrainingPlan || trainingSchedules.length === 0) {
     return (
       <View style={styles.loadingContainer}>
         <Text style={styles.noDataText}>Bạn chưa có kế hoạch luyện tập</Text>

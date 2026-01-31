@@ -236,7 +236,6 @@ function getGainMusclePlan2ShapeImages() {
         require('@/assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_1_4.png'),
         require('@/assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_1_5.png'),
         require('@/assets/images/training/training_day_shape/gain_muscle/gain_muscle_plan_1_5.png'),
-        REST_DAY_ICON,
     ];
 }
 

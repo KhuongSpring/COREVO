@@ -9,6 +9,9 @@ import {
     Image,
     ActivityIndicator,
     Alert,
+    StatusBar,
+    Platform,
+    Dimensions,
 } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -82,10 +85,7 @@ export default function TrainingDayStartScreen() {
         // Fetch daily progress
         await handleTrainingDailyProgress();
 
-        // Simulate loading delay like Flutter version
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
+        setIsLoading(false);
     };
 
     const handleTrainingDailyProgress = async () => {
@@ -202,11 +202,12 @@ export default function TrainingDayStartScreen() {
 
     return (
         <ImageBackground source={AppAssets.mainBackground} style={styles.background}>
+            <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
             <View style={styles.container}>
                 {/* Header */}
                 <View style={styles.header}>
                     <TouchableOpacity onPress={showPauseDialog} style={styles.backButton}>
-                        <Ionicons name="chevron-back-outline" size={Dims.iconSizeM} color={Colors.dark} />
+                        <Ionicons name="chevron-back-outline" size={Dims.iconSizeXL} color={Colors.dark} />
                     </TouchableOpacity>
 
                     <Text style={styles.headerTitle}>{scheduleData?.name || 'Training'}</Text>
@@ -324,9 +325,9 @@ function ExerciseCard({
                 <View style={styles.expandedContent}>
                     {/* Table Header */}
                     <View style={styles.tableHeader}>
-                        <Text style={styles.tableHeaderText}>{AppStrings.trainingSetLabel}</Text>
-                        <Text style={styles.tableHeaderText}>{AppStrings.trainingRepTimeLabel}</Text>
-                        <Text style={styles.tableHeaderText}></Text>
+                        <Text style={styles.tableHeaderColumn1}>{AppStrings.trainingSetLabel}</Text>
+                        <Text style={styles.tableHeaderColumn2}>{AppStrings.trainingRepTimeLabel}</Text>
+                        <Text style={styles.tableHeaderColumn3}></Text>
                     </View>
 
                     {/* Sets List */}
@@ -356,26 +357,35 @@ function SetRow({ setNumber, duration, isCompleted }: SetRowProps) {
             styles.setRow,
             isCompleted && styles.setRowCompleted
         ]}>
-            <Text style={[
-                styles.setNumberText,
-                isCompleted && styles.setTextCompleted
-            ]}>
-                {setNumber}
-            </Text>
-
-            <View style={[
-                styles.durationBadge,
-                isCompleted && styles.durationBadgeCompleted
-            ]}>
-                <Text style={styles.durationText}>
-                    {getRepOrSecOfExercise(duration)}
+            {/* Column 1: Set Number */}
+            <View style={styles.setNumberColumn}>
+                <Text style={[
+                    styles.setNumberText,
+                    isCompleted && styles.setTextCompleted
+                ]}>
+                    {setNumber}
                 </Text>
             </View>
 
-            <Image
-                source={isCompleted ? AppAssets.tickActive : AppAssets.tickNonActive}
-                style={styles.tickIcon}
-            />
+            {/* Column 2: Duration Badge */}
+            <View style={styles.durationColumn}>
+                <View style={[
+                    styles.durationBadge,
+                    isCompleted && styles.durationBadgeCompleted
+                ]}>
+                    <Text style={styles.durationText}>
+                        {getRepOrSecOfExercise(duration)}
+                    </Text>
+                </View>
+            </View>
+
+            {/* Column 3: Tick Icon */}
+            <View style={styles.tickColumn}>
+                <Image
+                    source={isCompleted ? AppAssets.tickActive : AppAssets.tickNonActive}
+                    style={styles.tickIcon}
+                />
+            </View>
         </View>
     );
 }
@@ -396,20 +406,24 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingTop: Dims.spacingXL,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: Dims.paddingS,
+        paddingHorizontal: Dims.paddingM,
+        paddingTop: Platform.OS === 'ios' ? Dims.size48 : (StatusBar.currentHeight || 0) + Dims.paddingM,
         marginBottom: Dims.spacingM,
     },
     backButton: {
-        padding: Dims.paddingS,
+        width: Dims.size40,
+        height: Dims.size40,
+        borderRadius: Dims.borderRadiusLarge,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     headerTitle: {
-        fontSize: Dims.textSizeM,
+        fontSize: Dims.textSizeL,
         color: Colors.dark,
         fontWeight: '500',
         flex: 1,
@@ -419,7 +433,6 @@ const styles = StyleSheet.create({
         fontSize: Dims.textSizeM,
         color: Colors.dark,
         fontWeight: '500',
-        minWidth: 60,
         textAlign: 'right',
     },
     scrollView: {
@@ -431,9 +444,11 @@ const styles = StyleSheet.create({
     },
     exerciseCard: {
         backgroundColor: Colors.wWhite,
-        borderRadius: Dims.borderRadius,
-        padding: Dims.paddingS,
-        marginBottom: Dims.paddingS,
+        borderRadius: Dims.borderRadiusL,
+        padding: Dims.paddingM,
+        marginBottom: Dims.spacingM,
+
+        // Shadow for card depth
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
@@ -473,20 +488,37 @@ const styles = StyleSheet.create({
     },
     expandedContent: {
         marginTop: Dims.spacingML,
-        paddingLeft: Dims.size40,
+        paddingLeft: Dims.size28,
         paddingRight: Dims.spacingML,
     },
     tableHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
         marginBottom: Dims.spacingS,
-        paddingLeft: Dims.paddingS,
+        paddingHorizontal: Dims.paddingS,
     },
-    tableHeaderText: {
+    tableHeaderColumn1: {
+        fontSize: Dims.textSizeS,
+        color: Colors.dark,
+        width: Dims.size40,
+        textAlign: 'center',
+    },
+    tableHeaderColumn2: {
         fontSize: Dims.textSizeS,
         color: Colors.dark,
         flex: 1,
+        textAlign: 'center',
+        marginHorizontal: Dims.spacingM,
     },
+    tableHeaderColumn3: {
+        fontSize: Dims.textSizeS,
+        color: Colors.dark,
+        width: Dims.size40,
+        textAlign: 'center',
+    },
+
+    // Set Row Styles
     setRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -494,27 +526,43 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.wWhite,
         borderRadius: Dims.borderRadiusSmall,
         padding: Dims.paddingS,
-        marginBottom: Dims.paddingS,
     },
     setRowCompleted: {
         backgroundColor: Colors.bNormalActive,
     },
+
+    // Column Containers
+    setNumberColumn: {
+        width: Dims.size40,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    durationColumn: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: Dims.spacingM,
+    },
+    tickColumn: {
+        width: Dims.size40,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     setNumberText: {
         fontSize: Dims.textSizeS,
         color: Colors.dark,
-        marginLeft: Dims.paddingM,
-        marginRight: Dims.paddingXXL,
     },
     setTextCompleted: {
         color: Colors.wWhite,
     },
     durationBadge: {
-        height: Dims.size24,
-        width: Dims.size104,
         backgroundColor: '#DADADA',
         borderRadius: Dims.borderRadiusSmall,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal: Dims.paddingM,
+        paddingVertical: Dims.paddingS,
+        minWidth: Dims.size64,
     },
     durationBadgeCompleted: {
         backgroundColor: Colors.wWhite,
@@ -526,13 +574,13 @@ const styles = StyleSheet.create({
     tickIcon: {
         width: Dims.size24,
         height: Dims.size24,
-        marginRight: Dims.paddingM,
     },
     bottomButtonContainer: {
         position: 'absolute',
         bottom: Dims.paddingL,
         left: Dims.paddingM,
         right: Dims.paddingM,
+        zIndex: 200,
     },
     nextButton: {
         backgroundColor: Colors.bNormal,
@@ -541,6 +589,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: Dims.paddingXL,
+
+        // Shadow for floating effect
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+        elevation: 8,
     },
     nextButtonText: {
         color: Colors.wWhite,

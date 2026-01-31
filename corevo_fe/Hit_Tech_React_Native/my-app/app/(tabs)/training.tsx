@@ -18,7 +18,7 @@ import { AppStrings } from '@/constants/AppStrings';
 import { AppAssets } from '@/constants/AppAssets';
 import SafeAreaWrapper from '@/components/common/SafeAreaWrapper';
 import WeeklyTimeline from '@/components/training/WeeklyTimeline';
-import { mockUserProfile, mockTrainingSchedules, mockProgressStatistic } from '@/data/mockTrainingData';
+import { useUserStore } from '@/store/userStore';
 import { getTrainingDayImages, getTrainingDayShapeImages } from '@/utils/trainingImageHelper';
 import { mapGoalToVietnamese } from '@/utils/trainingHelpers';
 
@@ -76,10 +76,15 @@ export default function TrainingScreen() {
     const weekDates = getWeekDates(today);
     const selectedDay = today.getDay() - 1; // 0 = Monday, 6 = Sunday
 
-    const user = mockUserProfile;
-    const schedules = mockTrainingSchedules;
-    const progressStatistic = mockProgressStatistic;
-    const plan = user.trainingPlans?.[0];
+    const { user, trainingSchedules, progressStatistic, fetchTrainingData } = useUserStore();
+    const plan = user?.trainingPlans?.[0];
+
+    // Fetch training data if not already loaded
+    useEffect(() => {
+        if (trainingSchedules.length === 0 && plan) {
+            fetchTrainingData();
+        }
+    }, [plan]);
 
     // Get training images
     const trainingDayImages = plan
@@ -88,12 +93,6 @@ export default function TrainingScreen() {
     const trainingDayShapeImages = plan
         ? getTrainingDayShapeImages(plan.name, plan.goals)
         : [];
-
-    // [EFFECT] Simulate loading data
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 500);
-        return () => clearTimeout(timer);
-    }, []);
 
     // [EFFECT] Animate tab transitions
     useEffect(() => {
@@ -132,17 +131,6 @@ export default function TrainingScreen() {
         ]).start();
     }, [selectedTab]);
 
-    // [RENDER] Loading State
-    if (isLoading) {
-        return (
-            <SafeAreaWrapper backgroundColor={Colors.wWhite}>
-                <View style={styles.loadingContainer}>
-                    <Text style={styles.loadingText}>{AppStrings.loading}</Text>
-                </View>
-            </SafeAreaWrapper>
-        );
-    }
-
     return (
         <View style={styles.container}>
             <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
@@ -164,10 +152,10 @@ export default function TrainingScreen() {
                                 const dayIndex = date.getDate() - 1;
                                 const isCompleted =
                                     index < selectedDay &&
-                                    progressStatistic.currentMonthCompletions[dayIndex];
+                                    progressStatistic?.currentMonthCompletions?.[dayIndex];
                                 const isToday = index === selectedDay;
                                 const isTodayCompleted =
-                                    isToday && progressStatistic.currentMonthCompletions[dayIndex];
+                                    isToday && progressStatistic?.currentMonthCompletions?.[dayIndex];
 
                                 // Determine medal appearance
                                 let iconSource = PRIZE_NOT_ACTIVE;
@@ -263,7 +251,7 @@ export default function TrainingScreen() {
                         {selectedTab === 0 ? (
                             <SuggestedPlanTab
                                 plan={plan}
-                                schedules={schedules}
+                                schedules={trainingSchedules}
                                 weekDates={weekDates}
                                 selectedDayIndex={selectedDayIndex}
                                 selectedDay={selectedDay}
@@ -307,14 +295,27 @@ function SuggestedPlanTab({
     trainingDayShapeImages,
     onDayChange,
 }: SuggestedPlanTabProps) {
-    // [ANIMATION] Card animations
-    const cardAnimations = React.useRef(
+    // [ANIMATION] Card animations - initialize based on schedules length
+    const [cardAnimations, setCardAnimations] = React.useState(() =>
         schedules.map(() => ({
             scale: new Animated.Value(1),
             opacity: new Animated.Value(1),
             translateY: new Animated.Value(0),
         }))
-    ).current;
+    );
+
+    // Update animations when schedules change
+    React.useEffect(() => {
+        if (schedules.length !== cardAnimations.length) {
+            setCardAnimations(
+                schedules.map(() => ({
+                    scale: new Animated.Value(1),
+                    opacity: new Animated.Value(1),
+                    translateY: new Animated.Value(0),
+                }))
+            );
+        }
+    }, [schedules.length]);
 
     // [EFFECT] Animate cards on selection change
     React.useEffect(() => {
@@ -346,7 +347,7 @@ function SuggestedPlanTab({
         });
     }, [selectedDayIndex]);
 
-    if (!plan) return null;
+    if (!plan || schedules.length === 0) return null;
 
     return (
         <View style={styles.tabContent}>
@@ -391,6 +392,8 @@ function SuggestedPlanTab({
                                         selectedDay={selectedDay}
                                         trainingDayImage={trainingDayImages[index]}
                                         trainingDayShapeImage={trainingDayShapeImages[index]}
+                                        planName={plan.name}
+                                        planGoal={plan.goals}
                                     />
                                 )}
                                 {!isSelected && (
@@ -443,6 +446,8 @@ interface SelectedDayCardProps {
     selectedDay: number;
     trainingDayImage: any;
     trainingDayShapeImage: any;
+    planName: string;
+    planGoal: string;
 }
 
 function SelectedDayCard({
@@ -452,6 +457,8 @@ function SelectedDayCard({
     selectedDay,
     trainingDayImage,
     trainingDayShapeImage,
+    planName,
+    planGoal,
 }: SelectedDayCardProps) {
     // Calculate relative time text
     const dayDiff = Math.abs(selectedDay - index);
@@ -487,14 +494,15 @@ function SelectedDayCard({
         } else {
             buttonText = AppStrings.trainingStartTraining;
             buttonColor = Colors.bNormal;
-            console.log(trainingDayImage);
             buttonAction = () => {
                 router.push({
                     pathname: '/(training)/training-day-detail',
                     params: {
                         schedule: JSON.stringify(schedule),
                         numberDay: `${AppStrings.trainingDay} ${index + 1}`,
-                        imageBG: trainingDayImage,
+                        dayIndex: index.toString(),
+                        planName: planName,
+                        planGoal: planGoal,
                     },
                 });
             };

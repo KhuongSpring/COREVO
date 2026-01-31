@@ -348,6 +348,15 @@ export const AppStrings = {
     trainingDetailSet: 'set',
     trainingDetailSets: 'sets',
 
+    // ============================================
+    // TRAINING COUNTDOWN SCREEN - Timer and exercise execution
+    // ============================================
+    trainingWorkPhase: 'Tập luyện',
+    trainingRestPhase: 'Nghỉ ngơi',
+    trainingAdd20Sec: '+20s',
+    trainingSkip: 'Bỏ qua',
+    trainingNextSet: 'Set tiếp theo',
+
 } as const;
 
 export type AppStringKey = keyof typeof AppStrings;
