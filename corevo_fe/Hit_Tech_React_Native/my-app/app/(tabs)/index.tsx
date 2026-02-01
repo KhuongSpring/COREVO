@@ -21,6 +21,7 @@ import CircularProgress from '@/components/common/CircularProgress';
 import HomeCalendar from '@/components/home/HomeCalendar';
 import { useUserStore } from '@/store/userStore';
 import { trainingService } from '@/services/api/trainingService';
+import { useTheme } from '@/hooks/useTheme';
 
 /**
  * Home Screen - Main Dashboard
@@ -37,37 +38,56 @@ export default function HomeScreen() {
     fetchProfile,
     fetchTrainingData
   } = useUserStore();
+  const { colors } = useTheme();
 
   // State
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch profile on mount
+  // Main data fetching effect
   useEffect(() => {
-    fetchProfile();
+    const initData = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // 1. Fetch profile first (wait for it)
+        await fetchProfile();
+
+        // After fetchProfile, the store's currentTrainingPlan might be updated
+      } catch (err: any) {
+        console.error('Error initializing home data:', err);
+        setError(err.message || 'Không thể tải dữ liệu');
+        setIsLoading(false);
+      }
+    };
+
+    initData();
   }, []);
 
-  // Fetch training data when profile is loaded
+  // Fetch training data when profile/plan changes
   useEffect(() => {
-    const loadData = async () => {
+    const loadTrainingData = async () => {
       if (!currentTrainingPlan) {
-        setIsLoading(false);
+        // Only stop loading if we've already tried to fetch the profile
+        if (!useUserStore.getState().isLoading) {
+          setIsLoading(false);
+        }
         return;
       }
 
       try {
         setIsLoading(true);
-        setError(null);
         await fetchTrainingData();
-      } catch (error: any) {
-        console.error('Error fetching home data:', error);
-        setError(error.message || 'Không thể tải dữ liệu');
+      } catch (err: any) {
+        console.error('Error fetching training data:', err);
+        setError(err.message || 'Không thể tải dữ liệu');
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadData();
+    loadTrainingData();
   }, [currentTrainingPlan]);
 
   const fullName = user ? `${user.firstName || ''} ${user.lastName || ''}`.trim() : 'User';
@@ -144,21 +164,35 @@ export default function HomeScreen() {
     Alert.alert('Nhắc nhở luyện tập', 'Tính năng đang phát triển');
   };
 
-  // Loading state
-  if (isLoading) {
+  // Error state
+  if (error && !currentTrainingPlan) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={Colors.bNormal} />
-        <Text style={styles.loadingText}>Đang tải dữ liệu...</Text>
+        <Ionicons name="cloud-offline-outline" size={Dims.size64} color={colors.text.secondary} />
+        <Text style={[styles.errorText, { color: colors.semantic.error }]}>{error}</Text>
+        <TouchableOpacity
+          style={styles.retryButton}
+          onPress={() => fetchProfile()}
+        >
+          <Text style={styles.retryButtonText}>Thử lại</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 
   // No training plan
-  if (!currentTrainingPlan || trainingSchedules.length === 0) {
+  if (!isLoading && (!currentTrainingPlan || trainingSchedules.length === 0)) {
     return (
       <View style={styles.loadingContainer}>
+        <Ionicons name="fitness-outline" size={Dims.size64} color={colors.text.secondary} />
         <Text style={styles.noDataText}>Bạn chưa có kế hoạch luyện tập</Text>
+        <Text style={[styles.noDataSubText, { color: colors.text.secondary }]}>Hãy bắt đầu bằng cách chọn một kế hoạch phù hợp!</Text>
+        <TouchableOpacity
+          style={styles.exploreButton}
+          onPress={() => router.push('/(tabs)/training' as any)}
+        >
+          <Text style={styles.exploreButtonText}>Khám phá ngay</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -242,7 +276,7 @@ export default function HomeScreen() {
             </View>
 
             <Text style={styles.trainingDescription}>
-              {currentSchedule.description}
+              {currentSchedule?.description || AppStrings.trainingRestDay}
             </Text>
 
             <TouchableOpacity
@@ -335,8 +369,42 @@ const styles = StyleSheet.create({
   },
   noDataText: {
     fontSize: Dims.textSizeL,
+    fontWeight: 'bold',
     color: Colors.dark,
     textAlign: 'center',
+    marginTop: Dims.spacingM,
+  },
+  noDataSubText: {
+    fontSize: Dims.textSizeS,
+    textAlign: 'center',
+    marginTop: Dims.spacingS,
+    marginBottom: Dims.spacingXL,
+  },
+  errorText: {
+    fontSize: Dims.textSizeM,
+    textAlign: 'center',
+    marginTop: Dims.spacingM,
+    marginBottom: Dims.spacingL,
+  },
+  retryButton: {
+    backgroundColor: Colors.bNormal,
+    paddingHorizontal: Dims.paddingXL,
+    paddingVertical: Dims.paddingM,
+    borderRadius: Dims.borderRadius,
+  },
+  retryButtonText: {
+    color: Colors.wWhite,
+    fontWeight: '600',
+  },
+  exploreButton: {
+    backgroundColor: Colors.bNormal,
+    paddingHorizontal: Dims.paddingXL,
+    paddingVertical: Dims.paddingM,
+    borderRadius: Dims.borderRadius,
+  },
+  exploreButtonText: {
+    color: Colors.wWhite,
+    fontWeight: '600',
   },
   scrollView: {
     flex: 1,

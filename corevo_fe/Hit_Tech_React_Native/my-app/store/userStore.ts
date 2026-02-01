@@ -140,6 +140,7 @@ export const useUserStore = create<UserState>((set, get) => ({
             return;
         }
 
+        set({ isLoading: true, error: null });
         try {
             // Fetch all training data in parallel
             const [schedulesRes, progressRes, statsRes] = await Promise.all([
@@ -152,10 +153,14 @@ export const useUserStore = create<UserState>((set, get) => ({
                 trainingSchedules: schedulesRes.data.days,
                 dailyProgress: progressRes.data.percentage,
                 progressStatistic: statsRes.data,
+                isLoading: false,
             });
         } catch (error: any) {
             console.error('Error fetching training data:', error);
-            set({ error: error.message || 'Failed to fetch training data' });
+            set({
+                error: error.message || 'Failed to fetch training data',
+                isLoading: false,
+            });
         }
     },
 

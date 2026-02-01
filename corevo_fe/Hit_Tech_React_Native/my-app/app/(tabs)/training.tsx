@@ -61,7 +61,10 @@ function getWeekDates(selectedDate: Date): Date[] {
 export default function TrainingScreen() {
     // [STATE] Component state
     const [selectedTab, setSelectedTab] = useState(0);
-    const [selectedDayIndex, setSelectedDayIndex] = useState(new Date().getDay() - 1);
+    const today = new Date();
+    const currentDay = today.getDay();
+    const initialDayIndex = currentDay === 0 ? 6 : currentDay - 1;
+    const [selectedDayIndex, setSelectedDayIndex] = useState(initialDayIndex);
     const [isLoading, setIsLoading] = useState(true);
 
     // [ANIMATION] Tab animation values
@@ -72,9 +75,8 @@ export default function TrainingScreen() {
     const contentSlide = useRef(new Animated.Value(0)).current;
 
     // [DATA] Các biến dữ liệu
-    const today = new Date();
     const weekDates = getWeekDates(today);
-    const selectedDay = today.getDay() - 1; // 0 = Monday, 6 = Sunday
+    const selectedDay = today.getDay() === 0 ? 6 : today.getDay() - 1; // 0 = Monday, 6 = Sunday
 
     const { user, trainingSchedules, progressStatistic, fetchTrainingData } = useUserStore();
     const plan = user?.trainingPlans?.[0];
