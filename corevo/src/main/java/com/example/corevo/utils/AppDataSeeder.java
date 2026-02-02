@@ -393,7 +393,8 @@ public class AppDataSeeder implements ApplicationRunner {
             try (InputStream inputStream = resource.getInputStream()) {
                 byte[] imageBytes = inputStream.readAllBytes();
 
-                Map result = cloudinary.uploader().upload(imageBytes,
+                @SuppressWarnings("unchecked")
+                Map<String, Object> result = cloudinary.uploader().upload(imageBytes,
                         ObjectUtils.asMap("resource_type", "image", "public_id", publicId));
 
                 return (String) result.get("secure_url");

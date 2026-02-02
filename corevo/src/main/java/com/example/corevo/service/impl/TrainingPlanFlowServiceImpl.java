@@ -18,7 +18,6 @@ import com.example.corevo.repository.UserRepository;
 import com.example.corevo.service.TrainingPlanFlowService;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;

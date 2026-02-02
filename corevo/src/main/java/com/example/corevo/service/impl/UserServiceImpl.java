@@ -26,7 +26,6 @@ import com.example.corevo.repository.*;
 import com.example.corevo.service.UserService;
 import com.example.corevo.service.HealthCalculationService;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
