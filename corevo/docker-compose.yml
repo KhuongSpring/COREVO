@@ -1,20 +1,48 @@
-version: '3.8'
+version: '3.9'
 
 services:
+  # ==========================================
+  # DATABASE SERVICES
+  # ==========================================
   mysql:
     image: mysql:8
     container_name: mysql-db
     ports:
-      - "3307:3306"
+      - "3307:3306" # External:Internal
     environment:
-      MYSQL_ROOT_PASSWORD: khuong123
-      MYSQL_DATABASE: corevo
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    networks:
+      - app-net
+    volumes:
+      - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}"]
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u root -p${MYSQL_ROOT_PASSWORD} || exit 1" ]
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 30s
 
+  redis:
+    image: redis:alpine
+    container_name: redis-cache
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    ports:
+      - "6380:6379" # External:Internal
+    networks:
+      - app-net
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli -a ${REDIS_PASSWORD} ping | grep PONG || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ==========================================
+  # APPLICATION SERVICES
+  # ==========================================
   app:
     build: .
     container_name: corevo-app
@@ -23,7 +51,29 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - .env
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/corevo
+      # Database Config (Dùng biến để mapping)
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE}
       - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=khuong123
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      
+      # Redis Config
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
+      - SPRING_DATA_REDIS_PASSWORD=${REDIS_PASSWORD}
+    networks:
+      - app-net
+
+# Định nghĩa network riêng biệt
+networks:
+  app-net:
+    driver: bridge
+
+# Định nghĩa nơi lưu trữ dữ liệu
+volumes:
+  mysql_data:
+  redis_data:
