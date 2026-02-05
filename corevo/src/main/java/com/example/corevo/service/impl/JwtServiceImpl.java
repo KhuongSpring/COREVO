@@ -101,6 +101,11 @@ public class JwtServiceImpl implements JwtService {
         return extractExpiration(token).before(new Date());
     }
 
+    @Override
+    public String extractTokenId(String token) {
+        return extractClaim(token, Claims::getId);
+    }
+
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parserBuilder()

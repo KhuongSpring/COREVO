@@ -70,8 +70,15 @@ public class GlobalExceptionHandler {
     // Exception custom
     @ExceptionHandler(VsException.class)
     public ResponseEntity<RestData<Object>> handleVsException(VsException ex) {
-        log.error(ex.getMessage(), ex);
-        return VsResponseUtil.error(ex.getStatus(), ex.getErrMessage());
+        String message = ex.getMessage();
+        try {
+            message = messageSource.getMessage(Objects.requireNonNull(message), ex.getParams(),
+                    LocaleContextHolder.getLocale());
+        } catch (Exception e) {
+            // Keep original message if it's not a translation key
+        }
+        log.error("VsException: {}", message);
+        return VsResponseUtil.error(ex.getStatus(), message);
     }
 
     @ExceptionHandler(NotFoundException.class)

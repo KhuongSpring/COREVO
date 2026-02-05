@@ -53,6 +53,7 @@ public class AuthServiceImpl implements AuthService {
     OtpService otpService;
     AccountValidationService accountValidationService;
     PasswordEncoder passwordEncoder;
+    RefreshTokenService refreshTokenService;
 
     ObjectMapper objectMapper;
 
@@ -89,6 +90,10 @@ public class AuthServiceImpl implements AuthService {
         // Generate tokens
         String accessToken = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
         String refreshToken = jwtService.generateToken(user, REFRESH_TOKEN_EXPIRATION);
+
+        // Store refresh token in Redis
+        String refreshTokenId = jwtService.extractTokenId(refreshToken);
+        refreshTokenService.storeRefreshToken(refreshTokenId, user.getUsername(), REFRESH_TOKEN_EXPIRATION / 1000);
 
         return LoginResponseDto.builder()
                 .status(HttpStatus.OK)
@@ -158,6 +163,10 @@ public class AuthServiceImpl implements AuthService {
             String accessToken = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
             String refreshToken = jwtService.generateToken(user, REFRESH_TOKEN_EXPIRATION);
 
+            // Store refresh token in Redis
+            String refreshTokenId = jwtService.extractTokenId(refreshToken);
+            refreshTokenService.storeRefreshToken(refreshTokenId, user.getUsername(), REFRESH_TOKEN_EXPIRATION / 1000);
+
             return LoginResponseDto.builder()
                     .status(HttpStatus.OK)
                     .message(SuccessMessage.Auth.LOGIN_SUCCESS)
@@ -193,7 +202,11 @@ public class AuthServiceImpl implements AuthService {
                 throw new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.Auth.ERR_TOKEN_ALREADY_INVALIDATED);
             }
 
+            // Invalidate access token
             invalidatedTokenRepository.save(new InvalidatedToken(jwtId, expirationTime));
+
+            // Invalidate all refresh tokens for this user
+            refreshTokenService.invalidateAllUserTokens(username);
 
             return new CommonResponseDto(HttpStatus.OK, SuccessMessage.Auth.LOGOUT_SUCCESS);
         } catch (ParseException e) {
@@ -204,6 +217,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public TokenRefreshResponseDto refresh(TokenRefreshRequestDto request) {
         String refreshToken = request.getRefreshToken();
+        String refreshTokenId = jwtService.extractTokenId(refreshToken);
         String username = jwtService.extractUsername(refreshToken);
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
@@ -216,15 +230,34 @@ public class AuthServiceImpl implements AuthService {
             throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.INVALID_REFRESH_TOKEN);
         }
 
+        // Check if refresh token exists in Redis (not yet used)
+        if (!refreshTokenService.isRefreshTokenValid(refreshTokenId)) {
+            // Token reuse detected! Invalidate all tokens for this user
+            log.warn("Refresh token reuse detected for user: {}. Invalidating all tokens.", username);
+            refreshTokenService.invalidateAllUserTokens(username);
+            throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.Auth.INVALID_REFRESH_TOKEN);
+        }
+
+        // Invalidate the old refresh token immediately (rotation)
+        refreshTokenService.invalidateRefreshToken(refreshTokenId);
+
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new VsException(
                         HttpStatus.UNAUTHORIZED,
                         ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
+        // Generate NEW access token and NEW refresh token
+        String newAccessToken = jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION);
+        String newRefreshToken = jwtService.generateToken(user, REFRESH_TOKEN_EXPIRATION);
+
+        // Store the new refresh token in Redis
+        String newRefreshTokenId = jwtService.extractTokenId(newRefreshToken);
+        refreshTokenService.storeRefreshToken(newRefreshTokenId, user.getUsername(), REFRESH_TOKEN_EXPIRATION / 1000);
+
         return TokenRefreshResponseDto.builder()
                 .tokenType(CommonConstant.BEARER_TOKEN)
-                .accessToken(jwtService.generateToken(user, ACCESS_TOKEN_EXPIRATION))
-                .refreshToken(refreshToken)
+                .accessToken(newAccessToken)
+                .refreshToken(newRefreshToken)
                 .build();
     }
 
