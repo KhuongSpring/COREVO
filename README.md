@@ -34,8 +34,8 @@ Dự án tập trung vào các chức năng chính sau:
 
 Dưới đây là tóm tắt các công nghệ, thư viện, và framework frontend chính đã được sử dụng để xây dựng dự án dashboard.
 
-- [Flutter](https://flutter.dev/): UI đa nền tảng.
-- [Dart](https://dart.dev/): Ngôn ngữ chính của ứng dụng.
+- [React Native](https://reactnative.dev/): UI đa nền tảng.
+- [TypeScript](https://www.typescriptlang.org/): Ngôn ngữ chính của ứng dụng.
 
 ### 🗄️ Back-end
 
