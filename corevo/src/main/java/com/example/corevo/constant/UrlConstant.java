@@ -142,4 +142,30 @@ public class UrlConstant {
         }
     }
 
+    public static class Feed {
+        private static final String PRE_FIX_POST = "/posts";
+
+        public static final String CREATE_POST = PRE_FIX_POST;
+        public static final String GET_POST_BY_ID = PRE_FIX_POST + "/{id}";
+        public static final String GET_ALL_POST = PRE_FIX_POST;
+        public static final String GET_USER_POST = PRE_FIX_POST + "/user/{userId}";
+        public static final String UPDATE_POST = PRE_FIX_POST + "/{id}";
+        public static final String DELETE_POST = PRE_FIX_POST + "/{id}";
+
+        public static final String POST_LIKE = PRE_FIX_POST + "/{id}/like";
+        public static final String POST_UNLIKE = PRE_FIX_POST + "/{id}/unlike";
+        public static final String SEARCH_POST = PRE_FIX_POST + "/search";
+
+        private static final String PRE_FIX_COMMENT = "/comments";
+        public static final String CREATE_COMMENT = PRE_FIX_POST + "/{postId}" + PRE_FIX_COMMENT;
+        public static final String GET_COMMENT_BY_POST_ID = PRE_FIX_POST + "/{postId}" + PRE_FIX_COMMENT;
+        public static final String GET_COMMENT_BY_ID = PRE_FIX_COMMENT + "/{id}";
+        public static final String GET_COMMENT_REPLIES = PRE_FIX_COMMENT + "/{id}/replies";
+        public static final String UPDATE_COMMENT = PRE_FIX_COMMENT + "/{id}";
+        public static final String DELETE_COMMENT = PRE_FIX_COMMENT + "/{id}";
+
+        public static final String COMMENT_LIKE = PRE_FIX_COMMENT + "/{id}/like";
+        public static final String COMMENT_UNLIKE = PRE_FIX_COMMENT + "/{id}/unlike";
+    }
+
 }

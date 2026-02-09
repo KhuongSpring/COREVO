@@ -54,4 +54,12 @@ public class CommonConstant {
 
     public static final int MIN_AGE = 10;
     public static final int MAX_AGE = 100;
+
+    public static final int MAX_POST_LENGTH = 5000;
+    public static final int MAX_COMMENT_LENGTH = 1000;
+    public static final int MAX_MEDIA_PER_POST = 10;
+    public static final int MAX_HASHTAGS_PER_POST = 10;
+    public static final int MAX_MENTIONS_PER_POST = 20;
+    public static final int DEFAULT_PAGE_SIZE = 20;
+    public static final int MAX_COMMENT_DEPTH = 2; // Limit nested comments
 }
