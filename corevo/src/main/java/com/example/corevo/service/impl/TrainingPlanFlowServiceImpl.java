@@ -21,13 +21,13 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,7 +47,7 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
             String currentStep,
             List<String> selectedValue,
             Map<String, List<String>> selectedValues,
-            Authentication authentication) {
+            UUID userId) {
         if (selectedValue != null && currentStep != null) {
             selectedValues.put(currentStep, selectedValue);
         }
@@ -96,7 +96,7 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
                     .map(this::mapToDto)
                     .toList();
 
-            User user = userRepository.findByUsername(authentication.getName())
+            User user = userRepository.findById(userId)
                     .orElseThrow(() -> new VsException(
                             HttpStatus.UNAUTHORIZED,
                             ErrorMessage.User.ERR_USER_NOT_EXISTED));
@@ -194,13 +194,10 @@ public class TrainingPlanFlowServiceImpl implements TrainingPlanFlowService {
 
     @Override
     @Transactional
-    public CommonResponseDto resetTrainingPlan(Authentication authentication) {
+    public CommonResponseDto resetTrainingPlan(UUID userId) {
         try {
-            if (authentication == null || !authentication.isAuthenticated()) {
-                throw new VsException(HttpStatus.UNAUTHORIZED, ErrorMessage.UNAUTHORIZED);
-            }
 
-            User user = userRepository.findByUsername(authentication.getName())
+            User user = userRepository.findById(userId)
                     .orElseThrow(() -> new VsException(
                             HttpStatus.UNAUTHORIZED,
                             ErrorMessage.User.ERR_USER_NOT_EXISTED));

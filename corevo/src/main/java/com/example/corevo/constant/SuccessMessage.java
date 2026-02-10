@@ -28,4 +28,14 @@ public class SuccessMessage {
         public static final String DELETE_TRAINING_EXERCISE_SUCCESS = "Delete training exercise successfully";
         public static final String EXERCISE_COMPLETED_SUCCESS = "Exercise completed successfully";
     }
+
+    public static class Comment {
+        public static final String DELETE_COMMENT_SUCCESS = "Comment deleted successfully";
+        public static final String UNLIKE_COMMENT_SUCCESS = "Comment unliked successfully";
+    }
+
+    public static class Post {
+        public static final String DELETE_POST_SUCCESS = "Post deleted successfully";
+        public static final String UNLIKE_POST_SUCCESS = "Post unliked successfully";
+    }
 }

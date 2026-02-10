@@ -15,6 +15,7 @@ import com.example.corevo.domain.dto.response.admin.DayCountResponseDto;
 import com.example.corevo.domain.dto.response.admin.MonthCountResponseDto;
 import com.example.corevo.domain.dto.response.user.AccountDeletionResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
+import com.example.corevo.security.SecurityUtils;
 import com.example.corevo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -24,12 +25,12 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestApiV1
 @RequiredArgsConstructor
@@ -42,41 +43,43 @@ public class UserController {
         @Operation(summary = "Điền thông tin cá nhân", description = "Dùng để người dùng điền thông tin cá nhân", security = @SecurityRequirement(name = "Bearer Token"))
         @PostMapping(UrlConstant.User.FILL_PERSONAL_INFORMATION)
         public ResponseEntity<RestData<UserResponseDto>> fillPersonalInformation(
-                        Authentication authentication,
                         @Valid @RequestBody PersonalInformationRequestDto request) {
-                UserResponseDto response = userService.personalInformation(authentication, request);
+                UUID userId = SecurityUtils.getCurrentUserId();
+                UserResponseDto response = userService.personalInformation(userId, request);
                 return VsResponseUtil.success(response);
         }
 
         @Operation(summary = "Tải lên ảnh đại diện", description = "Dùng để người dùng tải lên ảnh đại diện", security = @SecurityRequirement(name = "Bearer Token"))
         @PostMapping(UrlConstant.User.UPLOAD_AVATAR)
         public ResponseEntity<RestData<UserResponseDto>> uploadAvatar(
-                        @RequestParam("file") MultipartFile file,
-                        Authentication authentication) {
-                UserResponseDto response = userService.uploadAvatar(authentication, file);
+                        @RequestParam("file") MultipartFile file) {
+                UUID userId = SecurityUtils.getCurrentUserId();
+                UserResponseDto response = userService.uploadAvatar(userId, file);
                 return VsResponseUtil.success(response);
         }
 
         @Operation(summary = "Xóa tài khoản", description = "Dùng để người dùng xóa tài khoản của mình (soft delete, có thể khôi phục trong 30 ngày)", security = @SecurityRequirement(name = "Bearer Token"))
         @DeleteMapping(UrlConstant.User.DELETE_MY_ACCOUNT)
-        public ResponseEntity<RestData<AccountDeletionResponseDto>> deleteMyAccount(Authentication authentication) {
-                AccountDeletionResponseDto response = userService.deleteMyAccount(authentication);
+        public ResponseEntity<RestData<AccountDeletionResponseDto>> deleteMyAccount() {
+                UUID userId = SecurityUtils.getCurrentUserId();
+                AccountDeletionResponseDto response = userService.deleteMyAccount(userId);
                 return VsResponseUtil.success(response);
         }
 
         @Operation(summary = "Lấy thông tin profile (thông tin user và user health)", description = "Dùng để người dùng lấy thông tin profile đầy đủ (thông tin cá nhân + sức khỏe)", security = @SecurityRequirement(name = "Bearer Token"))
         @GetMapping(UrlConstant.User.GET_PROFILE)
-        public ResponseEntity<RestData<UserResponseDto>> getMyProfile(Authentication authentication) {
-                UserResponseDto response = userService.getMyProfile(authentication);
+        public ResponseEntity<RestData<UserResponseDto>> getMyProfile() {
+                UUID userId = SecurityUtils.getCurrentUserId();
+                UserResponseDto response = userService.getMyProfile(userId);
                 return VsResponseUtil.success(response);
         }
 
         @Operation(summary = "Cập nhật thông tin profile", description = "Dùng để người dùng cập nhật thông tin cá nhân và sức khỏe với xác nhận mật khẩu", security = @SecurityRequirement(name = "Bearer Token"))
         @PutMapping(UrlConstant.User.UPDATE_PROFILE)
         public ResponseEntity<RestData<UserResponseDto>> updateProfile(
-                        @Valid @RequestBody UpdateProfileRequestDto request,
-                        Authentication authentication) {
-                UserResponseDto response = userService.updateProfile(request, authentication);
+                        @Valid @RequestBody UpdateProfileRequestDto request) {
+                UUID userId = SecurityUtils.getCurrentUserId();
+                UserResponseDto response = userService.updateProfile(request, userId);
                 return VsResponseUtil.success(response);
         }
 
@@ -97,7 +100,7 @@ public class UserController {
         @Operation(summary = "Lấy thông tin user theo ID", description = "Dùng để admin lấy thông tin chi tiết của một user", security = @SecurityRequirement(name = "Bearer Token"))
         @GetMapping(UrlConstant.Admin.GET_USER)
         public ResponseEntity<RestData<UserResponseDto>> getUserById(@PathVariable String userId) {
-                UserResponseDto response = userService.getUserById(userId);
+                UserResponseDto response = userService.getUserById(UUID.fromString(userId));
                 return VsResponseUtil.success(response);
         }
 
@@ -115,7 +118,7 @@ public class UserController {
         public ResponseEntity<RestData<UserResponseDto>> updateUser(
                         @PathVariable String userId,
                         @Valid @RequestBody UpdateUserRequestDto request) {
-                UserResponseDto response = userService.updateUser(userId, request);
+                UserResponseDto response = userService.updateUser(UUID.fromString(userId), request);
                 return VsResponseUtil.success(response);
         }
 
@@ -123,7 +126,7 @@ public class UserController {
         @Operation(summary = "Khóa tài khoản user", description = "Dùng để admin khóa tài khoản user (user không thể đăng nhập)", security = @SecurityRequirement(name = "Bearer Token"))
         @PutMapping(UrlConstant.Admin.LOCK_USER)
         public ResponseEntity<RestData<CommonResponseDto>> lockUser(@PathVariable String userId) {
-                CommonResponseDto response = userService.lockUser(userId);
+                CommonResponseDto response = userService.lockUser(UUID.fromString(userId));
                 return VsResponseUtil.success(response);
         }
 
@@ -131,7 +134,7 @@ public class UserController {
         @Operation(summary = "Mở khóa tài khoản user", description = "Dùng để admin mở khóa tài khoản user", security = @SecurityRequirement(name = "Bearer Token"))
         @PutMapping(UrlConstant.Admin.UNLOCK_USER)
         public ResponseEntity<RestData<CommonResponseDto>> unlockUser(@PathVariable String userId) {
-                CommonResponseDto response = userService.unlockUser(userId);
+                CommonResponseDto response = userService.unlockUser(UUID.fromString(userId));
                 return VsResponseUtil.success(response);
         }
 
@@ -139,7 +142,7 @@ public class UserController {
         @Operation(summary = "Xóa user vĩnh viễn", description = "Dùng để admin xóa user khỏi hệ thống (không thể khôi phục)", security = @SecurityRequirement(name = "Bearer Token"))
         @DeleteMapping(UrlConstant.Admin.DELETE_USER)
         public ResponseEntity<RestData<CommonResponseDto>> deleteUserPermanently(@PathVariable String userId) {
-                CommonResponseDto response = userService.deleteUserAccount(userId);
+                CommonResponseDto response = userService.deleteUserAccount(UUID.fromString(userId));
                 return VsResponseUtil.success(response);
         }
 

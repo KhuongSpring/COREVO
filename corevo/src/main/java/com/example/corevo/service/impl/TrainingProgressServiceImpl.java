@@ -19,7 +19,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,8 +37,8 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public CommonResponseDto completeExercise(Long exerciseId, Authentication authentication) {
-        User user = getAuthenticatedUser(authentication);
+    public CommonResponseDto completeExercise(Long exerciseId, UUID userId) {
+        User user = getAuthenticatedUser(userId);
 
         LocalDate today = LocalDate.now(CommonConstant.APPLICATION_TIMEZONE);
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(today.getDayOfWeek().toString());
@@ -76,12 +75,12 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
     }
 
     @Override
-    public DailyProgressResponseDto getDailyProgress(Authentication authentication) {
+    public DailyProgressResponseDto getDailyProgress(UUID userId) {
 
         LocalDate today = LocalDate.now(CommonConstant.APPLICATION_TIMEZONE);
         DayOfWeek dayOfWeek = DayOfWeek.valueOf(today.getDayOfWeek().toString());
 
-        User user = getAuthenticatedUser(authentication);
+        User user = getAuthenticatedUser(userId);
         validateUserHasTrainingPlan(user);
 
         TrainingPlan trainingPlan = user.getTrainingPlans().getFirst();
@@ -121,12 +120,12 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
     }
 
     @Override
-    public WeeklyProgressResponseDto getWeeklyProgress(Authentication authentication) {
+    public WeeklyProgressResponseDto getWeeklyProgress(UUID userId) {
 
         LocalDate today = LocalDate.now(CommonConstant.APPLICATION_TIMEZONE);
         LocalDate weekStart = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
 
-        User user = getAuthenticatedUser(authentication);
+        User user = getAuthenticatedUser(userId);
         validateUserHasTrainingPlan(user);
 
         Long trainingPlanId = user.getTrainingPlans().getFirst().getId();
@@ -164,9 +163,9 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
 
     @Override
     public CompletionStatisticResponseDto getCompletionStatistic(Integer year, Integer month,
-            Authentication authentication) {
+            UUID userId) {
 
-        User user = getAuthenticatedUser(authentication);
+        User user = getAuthenticatedUser(userId);
         validateUserHasTrainingPlan(user);
 
         LocalDate today = LocalDate.now(CommonConstant.APPLICATION_TIMEZONE);
@@ -262,8 +261,8 @@ public class TrainingProgressServiceImpl implements TrainingProgressService {
         return Math.max(maxStreak, currentStreak);
     }
 
-    private User getAuthenticatedUser(Authentication authentication) {
-        return userRepository.findByUsername(authentication.getName())
+    private User getAuthenticatedUser(UUID userId) {
+        return userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(HttpStatus.UNAUTHORIZED,
                         ErrorMessage.User.ERR_USER_NOT_EXISTED));
     }

@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PostDetailResponseDto {
+public class PostDetailResponseDto extends PostResponseDto {
     List<CommentResponseDto> topComments;
 
 }
