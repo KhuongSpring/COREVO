@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setIsDeleted(false);
 
         if (request.getParentCommentId() != null) {
-            PostComment parent = postCommentRepository.findById(UUID.fromString(request.getParentCommentId()))
+            PostComment parent = postCommentRepository.findById(request.getParentCommentId())
                     .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND,
                             ErrorMessage.Comment.ERR_PARENT_COMMENT_NOT_FOUND));
             comment.setParentComment(parent);

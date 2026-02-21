@@ -2,6 +2,7 @@ package com.example.corevo.domain.dto.response.feed;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CommentResponseDto {
-    String id;
+    UUID id;
 
     UserBasicInfoResponseDto author;
 

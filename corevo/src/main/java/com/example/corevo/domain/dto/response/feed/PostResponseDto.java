@@ -2,6 +2,7 @@ package com.example.corevo.domain.dto.response.feed;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import com.example.corevo.domain.entity.feed.PostPrivacy;
 
@@ -18,7 +19,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PostResponseDto {
-    String id;
+    UUID id;
 
     UserBasicInfoResponseDto author;
 

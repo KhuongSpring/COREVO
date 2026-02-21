@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.text.ParseException;
 
+@Slf4j
 @Component
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -42,6 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            log.debug("No Bearer token found in request: {}", request.getRequestURI());
             filterChain.doFilter(request, response);
             return;
         }
@@ -75,9 +78,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             if (jwtService.isTokenValid(token, userDetails)) {
-
+                log.debug("Token valid for user: {}", username);
                 if (userDetails instanceof CustomUserDetails) {
                     if (jwtAuthenticationHelper.handleSoftDeletedUser(userDetails, response)) {
+                        log.warn("User {} is soft-deleted, blocking request", username);
                         return;
                     }
                 }
@@ -86,6 +90,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+                log.info("Authenticated user: {}, Authorities: {}", username, userDetails.getAuthorities());
+            } else {
+                log.warn("Invalid token for user: {}", username);
             }
         }
 

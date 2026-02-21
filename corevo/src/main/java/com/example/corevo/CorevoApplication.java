@@ -1,6 +1,7 @@
 package com.example.corevo;
 
 import org.springframework.core.env.Environment;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;

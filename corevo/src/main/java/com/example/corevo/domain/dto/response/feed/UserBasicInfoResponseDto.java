@@ -1,5 +1,7 @@
 package com.example.corevo.domain.dto.response.feed;
 
+import java.util.UUID;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserBasicInfoResponseDto {
-    String id;
+    UUID id;
 
     String username;
 

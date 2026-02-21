@@ -23,7 +23,6 @@ public interface PostMapper {
     @Mapping(target = "mentions", ignore = true)
     PostResponseDto toPostResponseDto(Post post);
 
-    @Mapping(target = "id", expression = "java(user.getId().toString())")
     UserBasicInfoResponseDto toUserBasicInfoResponseDto(User user);
 
     PostMediaDto toPostMediaDto(PostMedia postMedia);

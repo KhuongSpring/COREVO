@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "user_health")
 @AllArgsConstructor
@@ -15,7 +17,7 @@ import lombok.experimental.FieldDefaults;
 public class UserHealth {
 
     @Id
-    String id;
+    UUID id;
 
     @OneToOne
     @MapsId

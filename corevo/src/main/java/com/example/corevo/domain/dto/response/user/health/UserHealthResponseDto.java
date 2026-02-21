@@ -4,6 +4,8 @@ import com.example.corevo.domain.entity.user.ActivityLevel;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -11,9 +13,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserHealthResponseDto {
 
-    String id;
+    UUID id;
 
-    String userId;
+    UUID userId;
 
     String gender;
 

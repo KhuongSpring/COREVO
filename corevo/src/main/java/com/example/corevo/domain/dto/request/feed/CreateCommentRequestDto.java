@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -19,6 +21,6 @@ public class CreateCommentRequestDto {
     @Size(max = 1000, message = "Comment must not exceed 1000 characters")
     String content;
 
-    String parentCommentId; // Nullable for top-level comments
+    UUID parentCommentId;
 
 }

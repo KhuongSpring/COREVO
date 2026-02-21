@@ -1,5 +1,7 @@
 package com.example.corevo.domain.dto.response.feed;
 
+import java.util.UUID;
+
 import com.example.corevo.domain.entity.feed.MediaType;
 
 import lombok.AccessLevel;
@@ -17,7 +19,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PostMediaDto {
-    String id;
+    UUID id;
 
     String mediaUrl;
 

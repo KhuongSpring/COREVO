@@ -19,7 +19,6 @@ public interface CommentMapper {
     @Mapping(target = "replies", ignore = true)
     CommentResponseDto toCommentResponseDto(PostComment comment);
 
-    @Mapping(target = "id", expression = "java(user.getId().toString())")
     UserBasicInfoResponseDto toUserBasicInfoResponseDto(User user);
 
     List<CommentResponseDto> toCommentResponseDtoList(List<PostComment> comments);

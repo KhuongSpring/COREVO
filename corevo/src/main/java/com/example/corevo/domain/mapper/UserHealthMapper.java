@@ -10,5 +10,6 @@ public interface UserHealthMapper {
 
     void updateUserHealthFromDto(UpdateHealthRequestDto request, @MappingTarget UserHealth userHealth);
 
+    @Mapping(target = "userId", source = "user.id")
     UserHealthResponseDto userHealthToUserHealthResponseDto(UserHealth userHealth);
 }
