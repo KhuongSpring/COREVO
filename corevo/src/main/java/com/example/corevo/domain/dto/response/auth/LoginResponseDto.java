@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 
+import java.util.UUID;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
@@ -21,7 +23,7 @@ public class LoginResponseDto {
 
     String refreshToken;
 
-    String id;
+    UUID id;
 
     Boolean isDeleted;
 

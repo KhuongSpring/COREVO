@@ -12,6 +12,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class TrainingScheduleMapperHelper {
     TrainingPlanRepository trainingPlanRepository;
 
     public User mapUser(String id) {
-        return userRepository.findById(id)
+        return userRepository.findById(UUID.fromString(id))
                 .orElseThrow(() -> new VsException(HttpStatus.NOT_FOUND, ErrorMessage.User.ERR_USER_NOT_EXISTED));
     }
 
@@ -33,7 +35,7 @@ public class TrainingScheduleMapperHelper {
     }
 
     public String mapUserToId(User user) {
-        return user != null ? user.getId() : null;
+        return user != null ? user.getId().toString() : null;
     }
 
     public Long mapTrainingPlanToId(TrainingPlan plan) {

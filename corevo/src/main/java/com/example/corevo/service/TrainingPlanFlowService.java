@@ -2,10 +2,10 @@ package com.example.corevo.service;
 
 import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.training_plan.TrainingPlanFlowResponseDto;
-import org.springframework.security.core.Authentication;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public interface TrainingPlanFlowService {
 
@@ -13,8 +13,8 @@ public interface TrainingPlanFlowService {
             String currentStep,
             List<String> selectedValue,
             Map<String, List<String>> selectedValues,
-            Authentication authentication);
+            UUID userId);
 
-    CommonResponseDto resetTrainingPlan(Authentication authentication);
+    CommonResponseDto resetTrainingPlan(UUID userId);
 
 }

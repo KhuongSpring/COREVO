@@ -11,36 +11,36 @@ import com.example.corevo.domain.dto.response.admin.DayCountResponseDto;
 import com.example.corevo.domain.dto.response.admin.MonthCountResponseDto;
 import com.example.corevo.domain.dto.response.user.AccountDeletionResponseDto;
 import com.example.corevo.domain.dto.response.user.UserResponseDto;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserService {
 
-        UserResponseDto personalInformation(Authentication authentication, PersonalInformationRequestDto request);
+        UserResponseDto personalInformation(UUID userId, PersonalInformationRequestDto request);
 
-        UserResponseDto uploadAvatar(Authentication authentication, MultipartFile file);
+        UserResponseDto uploadAvatar(UUID userId, MultipartFile file);
 
-        AccountDeletionResponseDto deleteMyAccount(Authentication authentication);
+        AccountDeletionResponseDto deleteMyAccount(UUID userId);
 
-        UserResponseDto getMyProfile(Authentication authentication);
+        UserResponseDto getMyProfile(UUID userId);
 
-        UserResponseDto updateProfile(UpdateProfileRequestDto request, Authentication authentication);
+        UserResponseDto updateProfile(UpdateProfileRequestDto request, UUID userId);
 
         PaginationResponseDto<UserResponseDto> getAllUsers(PaginationRequestDto request);
 
-        UserResponseDto getUserById(String userId);
+        UserResponseDto getUserById(UUID userId);
 
         UserResponseDto createUser(CreateUserRequestDto request);
 
-        UserResponseDto updateUser(String userId, UpdateUserRequestDto request);
+        UserResponseDto updateUser(UUID userId, UpdateUserRequestDto request);
 
-        CommonResponseDto lockUser(String userId);
+        CommonResponseDto lockUser(UUID userId);
 
-        CommonResponseDto unlockUser(String userId);
+        CommonResponseDto unlockUser(UUID userId);
 
-        CommonResponseDto deleteUserAccount(String userId);
+        CommonResponseDto deleteUserAccount(UUID userId);
 
         PaginationResponseDto<UserResponseDto> searchUserByUsername(String searchSentence,
                         PaginationRequestDto paginationRequestDto);

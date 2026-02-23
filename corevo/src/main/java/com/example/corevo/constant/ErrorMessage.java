@@ -88,6 +88,17 @@ public class ErrorMessage {
         public static final String ERR_EQUIPMENT_NOT_EXISTS = "exception.equipment.not.exists";
     }
 
+    public static class Post {
+        public static final String ERR_POST_NOT_FOUND = "exception.post.not.found";
+        public static final String ERR_POST_NOT_BELONG_TO_USER = "exception.post.not.belong.to.user";
+    }
+
+    public static class Comment {
+        public static final String ERR_COMMENT_NOT_FOUND = "exception.comment.not.found";
+        public static final String ERR_COMMENT_NOT_BELONG_TO_USER = "exception.comment.not.belong.to.user";
+        public static final String ERR_PARENT_COMMENT_NOT_FOUND = "exception.comment.parent.not.found";
+    }
+
     public static class Admin {
         public static final String ERR_NOT_ADMIN = "exception.admin.not.admin";
     }

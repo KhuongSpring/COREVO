@@ -4,16 +4,17 @@ import com.example.corevo.domain.dto.response.training_progress.DailyProgressRes
 import com.example.corevo.domain.dto.response.CommonResponseDto;
 import com.example.corevo.domain.dto.response.training_progress.CompletionStatisticResponseDto;
 import com.example.corevo.domain.dto.response.training_progress.WeeklyProgressResponseDto;
-import org.springframework.security.core.Authentication;
+
+import java.util.UUID;
 
 public interface TrainingProgressService {
 
-    CommonResponseDto completeExercise(Long exerciseId, Authentication authentication);
+    CommonResponseDto completeExercise(Long exerciseId, UUID userId);
 
-    DailyProgressResponseDto getDailyProgress(Authentication authentication);
+    DailyProgressResponseDto getDailyProgress(UUID userId);
 
-    WeeklyProgressResponseDto getWeeklyProgress(Authentication authentication);
+    WeeklyProgressResponseDto getWeeklyProgress(UUID userId);
 
-    CompletionStatisticResponseDto getCompletionStatistic(Integer year, Integer month, Authentication authentication);
+    CompletionStatisticResponseDto getCompletionStatistic(Integer year, Integer month, UUID userId);
 
 }

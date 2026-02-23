@@ -40,7 +40,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,11 +72,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserResponseDto personalInformation(
-            Authentication authentication,
-            PersonalInformationRequestDto request) {
+    public UserResponseDto personalInformation(UUID userId, PersonalInformationRequestDto request) {
 
-        User user = userRepository.findByUsername(authentication.getName())
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(
                         HttpStatus.UNAUTHORIZED,
                         ErrorMessage.User.ERR_USER_NOT_EXISTED));
@@ -85,7 +82,7 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsUserByPhone(request.getPhone()))
             throw new VsException(HttpStatus.CONFLICT, ErrorMessage.User.ERR_PHONE_EXISTED);
 
-        String oldAddressId = null;
+        UUID oldAddressId = null;
         if (user.getAddress() != null) {
             oldAddressId = user.getAddress().getId();
         }
@@ -124,10 +121,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserResponseDto uploadAvatar(
-            Authentication authentication,
-            MultipartFile file) {
-        User user = userRepository.findByUsername(authentication.getName())
+    public UserResponseDto uploadAvatar(UUID userId, MultipartFile file) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(
                         HttpStatus.UNAUTHORIZED,
                         ErrorMessage.User.ERR_USER_NOT_EXISTED));
@@ -182,7 +177,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto getUserById(String userId) {
+    public UserResponseDto getUserById(UUID userId) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
@@ -215,7 +210,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserResponseDto updateUser(String userId, UpdateUserRequestDto request) {
+    public UserResponseDto updateUser(UUID userId, UpdateUserRequestDto request) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
@@ -241,7 +236,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public CommonResponseDto lockUser(String userId) {
+    public CommonResponseDto lockUser(UUID userId) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
@@ -259,7 +254,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public CommonResponseDto unlockUser(String userId) {
+    public CommonResponseDto unlockUser(UUID userId) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
@@ -277,12 +272,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public CommonResponseDto deleteUserAccount(String userId) {
+    public CommonResponseDto deleteUserAccount(UUID userId) {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(HttpStatus.BAD_REQUEST, ErrorMessage.User.ERR_USER_NOT_EXISTED));
 
-        String addressId = null;
+        UUID addressId = null;
 
         if (user.getAddress() != null) {
             addressId = user.getAddress().getId();
@@ -303,9 +298,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public AccountDeletionResponseDto deleteMyAccount(Authentication authentication) {
+    public AccountDeletionResponseDto deleteMyAccount(UUID userId) {
 
-        User user = userRepository.findByUsername(authentication.getName())
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(
                         HttpStatus.UNAUTHORIZED,
                         ErrorMessage.User.ERR_USER_NOT_EXISTED));
@@ -330,8 +325,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto getMyProfile(Authentication authentication) {
-        User user = userRepository.findByUsername(authentication.getName())
+    public UserResponseDto getMyProfile(UUID userId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(
                         HttpStatus.UNAUTHORIZED,
                         ErrorMessage.User.ERR_USER_NOT_EXISTED));
@@ -354,8 +349,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public UserResponseDto updateProfile(UpdateProfileRequestDto request, Authentication authentication) {
-        User user = userRepository.findByUsername(authentication.getName())
+    public UserResponseDto updateProfile(UpdateProfileRequestDto request, UUID userId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new VsException(
                         HttpStatus.UNAUTHORIZED,
                         ErrorMessage.User.ERR_USER_NOT_EXISTED));
@@ -374,7 +369,7 @@ public class UserServiceImpl implements UserService {
             userMapper.updateUserFromPersonalInformationDto(personalInfo, user);
 
             if (personalInfo.getAddress() != null) {
-                String oldAddressId = null;
+                UUID oldAddressId = null;
                 if (user.getAddress() != null) {
                     oldAddressId = user.getAddress().getId();
                 }
